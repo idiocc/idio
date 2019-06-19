@@ -1,0 +1,28 @@
+<types namespace="_idio">
+  <type name="KoaStaticConfig" noToc>
+    <prop number name="maxage" default="0">
+      Browser cache max-age in milliseconds.
+    </prop>
+    <prop boolean name="hidden" default="false">
+      Allow transfer of hidden files.
+    </prop>
+    <prop string name="index" default="index.html">
+      Default file name.
+    </prop>
+    <prop boolean name="defer" default="false">
+      If `true`, serves after return next(), allowing any downstream middleware to respond first.
+    </prop>
+    <prop boolean name="gzip" default="true">
+      Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with `.gz` extension exists.
+    </prop>
+    <prop boolean name="br" default="true">
+      Try to serve the brotli version of a file automatically when brotli is supported by a client and if the requested file with `.br` extension exists (note, that brotli is only accepted over https).
+    </prop>
+    <prop opt type="_idio.SetHeaders" name="setHeaders">
+      Function to set custom headers on response.
+    </prop>
+    <prop boolean name="extensions" default="false">
+      Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served.
+    </prop>
+  </type>
+</types>

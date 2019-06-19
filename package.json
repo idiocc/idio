@@ -14,6 +14,7 @@
     "doc": "NODE_DEBUG=doc doc -o README.md",
     "b": "alamode src -o build -s",
     "d": "yarn-s d1 externs",
+    "dm": "typal types/modules/externs.js types/modules/index.js",
     "d1": "typal types/index.js src -c -t types/index.xml",
     "externs": "typal externs.js",
     "build": "yarn-s d b doc",
@@ -45,5 +46,9 @@
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
     "zoroaster": "^4.1.1-alpha"
+  },
+  "dependencies": {
+    "@goa/goa": "^1.1.1",
+    "makepromise": "^3.1.0"
   }
 }

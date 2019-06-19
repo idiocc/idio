@@ -34,6 +34,57 @@
   resolved "https://registry.yarnpkg.com/@depack/split/-/split-1.0.0.tgz#37fea28d9bc6f01e5a2da87d393f402781bb7e99"
   integrity sha512-PNJPl01VFMKtyN7qBZ2cds4N/lO2KvzLrR7JamODFiuuL2X8mGoTKp1SI8fxlT2MwLV8mScCUKn55QPwsUX7iA==
 
+"@goa/accepts@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@goa/accepts/-/accepts-1.1.0.tgz#f597a2906b0118f6f4c0b853bb75204c0ba53e1b"
+  integrity sha512-IgtFdBcJDKoF6rgHgee0PlcUXD81ZCpTn2pBsK1F+pmWuc3Y29rRysjL/5BGwolkhdO2Z/A7jUMXUElHSMwMBg==
+
+"@goa/cookies@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@goa/cookies/-/cookies-1.0.0.tgz#89b5a9198d985609cf0fd29801a7f9df4eff49f4"
+  integrity sha512-mbyH1exYp/9PVstmlO9jCnhVFv0PUffiXAFW0/xgUZCDBrNiqTfx/5eYUfCvpjM3+zQV9gj1zJrBsTMcbUE+Gg==
+
+"@goa/goa@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@goa/goa/-/goa-1.1.1.tgz#8903a21a6a575b068bad6ffd49cc8702cc365622"
+  integrity sha512-A55cVt1tCD0tIX1BlFAJOrpfcYTPudTfF8BfZXNf1188ekXWOfHNCv7obuyj8MRiaDptzoD/lBcxFd28frBYzg==
+  dependencies:
+    "@goa/accepts" "^1.1.0"
+    "@goa/cookies" "^1.0.0"
+    "@goa/is-generator-function" "^1.0.1"
+    "@goa/mime-types" "^1.1.0"
+    "@goa/negotiator" "^1.0.1"
+    "@goa/vary" "^1.0.0"
+    "@idio/debug" "^1.1.1"
+    mime-db "^1.40.0"
+
+"@goa/is-generator-function@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@goa/is-generator-function/-/is-generator-function-1.0.1.tgz#2ad692706bbc6da7be2797f531bb472d87f74ff4"
+  integrity sha512-Zt9q5/E+HrmS91NJLT9AVNKvLpBmFHzRTXZcb+PfFRDt9XzGXDqr/pumfA1+girr3Qw9haVf9MmcEa1dMak2cg==
+
+"@goa/mime-types@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@goa/mime-types/-/mime-types-1.1.0.tgz#35b5c0e43e4e748dce71dd0aded4437e95e32a68"
+  integrity sha512-BC3LWDvpAJOp7NnN1JLA5ZaDoX/6BdiFDmW9r+/nZiwF5V2/VCfeWvNCWB9pT16proMAh5WPk5kSvEWNR4G0Kw==
+  dependencies:
+    mime-db "^1.40.0"
+
+"@goa/negotiator@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@goa/negotiator/-/negotiator-1.0.1.tgz#d0b0dccfafc4dc4a990ae92a65c4faedfbe884f7"
+  integrity sha512-Hzu2cXJBI5/WKb+9nuLRfefLcRWUlgWTlWHaZbtrM/7BHQHQIX4FJWNzywQARmWDl9g8hoHdeWw58SPcx5ET4Q==
+
+"@goa/vary@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@goa/vary/-/vary-1.0.0.tgz#0170115ee3b61d836bc4013f9a03794690e2fbe5"
+  integrity sha512-fAw4rn1efsYkUQzW6twcris/sLfLxZG1jSWrsyVjbso+VDE1/0+lwSo34o0uOPnxwgv6Jg5YDcc1+9NppUl5nA==
+
+"@idio/debug@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@idio/debug/-/debug-1.1.1.tgz#e96f104158340de92a4f06039208a78beba4e175"
+  integrity sha512-w1GrjaiTBsgoqo0UobxL0aaEqiCQ8q/UFJr8IJhoycsvPDqXiRJi62L87jd6iDPn2uluHG0VD4f1BsBEvUPx7Q==
+
 "@typedefs/parser@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@typedefs/parser/-/parser-1.3.0.tgz#f920d85654c72ce9b41c45e9ee762f0161c567da"
@@ -191,6 +242,11 @@ makepromise@^3.0.3, makepromise@^3.1.0:
   integrity sha512-wbRpYfLteGKd3j96r30G2xCrqp3blk/kYOzGKBPnEix4a/VcHcxcYFwJ79fCZFtcEqMn8MGSh8h+D+/LlI+JQQ==
   dependencies:
     erotic "^2.1.0"
+
+mime-db@^1.40.0:
+  version "1.40.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.40.0.tgz#a65057e998db090f732a68f6c276d387d4126c32"
+  integrity sha512-jYdeOMPy9vnxEqFRRo6ZvTZ8d9oPb+k18PKoYNYUe2stVEBPPwsln/qWzdbmaIvnhZ9v2P+CuecK+fpUfsV2mA==
 
 mismatch@^1.2.0:
   version "1.2.0"
