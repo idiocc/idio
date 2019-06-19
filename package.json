@@ -40,8 +40,8 @@
   },
   "homepage": "https://github.com/idiocc/idio#readme",
   "devDependencies": {
-    "alamode": "^2.1.2",
-    "documentary": "^1.27.2",
+    "alamode": "^2.3.4",
+    "documentary": "^1.27.3",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
     "zoroaster": "^4.1.1-alpha"
