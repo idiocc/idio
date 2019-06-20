@@ -1,5 +1,6 @@
-import serve from '../modules/koa-static'
 import compose from '@goa/goa/modules/koa-compose'
+import serve from '../modules/koa-static'
+import Mount from '../modules/koa-mount'
 
 const map = {
   // session: setupSession,
@@ -28,7 +29,7 @@ const map = {
       return fn
     })
     const c = compose(m)
-    // if (mount) return Mount(mount, c)
+    if (mount) return Mount(mount, c)
     return c
   },
   // cors: setupCors,

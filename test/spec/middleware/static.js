@@ -15,21 +15,21 @@ const T = {
       .get('/chapter2.txt')
       .assert(200, body)
   },
-  // async 'serves static files from specified mount point'(
-  //   { startApp, staticDir: root, readStaticFixture }
-  // ) {
-  //   const body = await readStaticFixture()
-  //   const { url } = await startApp({
-  //     static: {
-  //       root,
-  //       use: true,
-  //       mount: '/test',
-  //     },
-  //   })
-  //   const fullUrl = `${url}/test/chapter2.txt`
-  //   const res = await rqt(fullUrl)
-  //   equal(res, body)
-  // },
+  async 'serves static files from specified mount point'(
+    { startApp, createApp, staticDir: root, readStaticFixture }
+  ) {
+    const body = await readStaticFixture()
+    await createApp({
+      static: {
+        root,
+        use: true,
+        mount: '/test',
+      },
+    })
+    await startApp()
+      .get('/test/chapter2.txt')
+      .assert(200, body)
+  },
   // async 'serves static files from multiple roots'({
   //   startApp, staticDir, staticDir2, readStaticFixture, readStaticFixture2,
   // }) {
