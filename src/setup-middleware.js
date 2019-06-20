@@ -15,7 +15,7 @@ const map = {
    * @param {_idio.KoaStaticConfig} config
    * @param {_idio.StaticOptions} options
    */
-  static(app, config, {
+  'static'(app, config, {
     root = [],
     maxage,
     mount,
@@ -64,7 +64,7 @@ async function initMiddleware(name, conf, app) {
 }
 
 /**
- * @param {MiddlewareConfig} middlewareConfig
+ * @param {_idio.MiddlewareConfig} middlewareConfig
  * @param {_goa.Application} app
  */
 export default async function setupMiddleware(middlewareConfig = {}, app) {
@@ -96,9 +96,13 @@ export default async function setupMiddleware(middlewareConfig = {}, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/modules').KoaStaticConfig} _idio.KoaStaticConfig
+ * @typedef {import('.').StaticOptions} _idio.StaticOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').StaticOptions} _idio.StaticOptions
+ * @typedef {import('.').KoaStaticConfig} _idio.KoaStaticConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types').MiddlewareConfig} _idio.MiddlewareConfig
  */

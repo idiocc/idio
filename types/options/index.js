@@ -9,5 +9,9 @@ export {}
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  * @prop {string} [mount="/"] Path from which to serve files. Default `/`.
  * @prop {number} [maxage=0] How long to cache files for. Default `0`.
- * @prop {StaticConfig} [config] `koa-static` configuration.
+ * @prop {_idio.KoaStaticConfig} [config] `koa-static` configuration.
+ */
+
+/**
+ * @typedef {import('../../src').KoaStaticConfig} _idio.KoaStaticConfig
  */

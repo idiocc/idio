@@ -12,7 +12,7 @@
     <prop number name="maxage" default="0">
       How long to cache files for.
     </prop>
-    <prop opt type="StaticConfig" name="config">
+    <prop opt type="_idio.KoaStaticConfig" name="config">
       `koa-static` configuration.
     </prop>
   </type>

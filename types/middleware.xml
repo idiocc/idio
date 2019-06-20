@@ -1,0 +1,8 @@
+<types namespace="_idio">
+  <type name="MiddlewareConfig"
+    desc="Middleware configuration for the `idio` `core` server.">
+    <prop opt type="_idio.StaticOptions" name="static">
+      `static` options.
+    </prop>
+  </type>
+</types>
