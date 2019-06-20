@@ -44,10 +44,10 @@
   resolved "https://registry.yarnpkg.com/@goa/cookies/-/cookies-1.0.0.tgz#89b5a9198d985609cf0fd29801a7f9df4eff49f4"
   integrity sha512-mbyH1exYp/9PVstmlO9jCnhVFv0PUffiXAFW0/xgUZCDBrNiqTfx/5eYUfCvpjM3+zQV9gj1zJrBsTMcbUE+Gg==
 
-"@goa/goa@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@goa/goa/-/goa-1.1.1.tgz#8903a21a6a575b068bad6ffd49cc8702cc365622"
-  integrity sha512-A55cVt1tCD0tIX1BlFAJOrpfcYTPudTfF8BfZXNf1188ekXWOfHNCv7obuyj8MRiaDptzoD/lBcxFd28frBYzg==
+"@goa/goa@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@goa/goa/-/goa-1.2.0.tgz#0c0155b942145c4e1aec264e5dea5f814586992f"
+  integrity sha512-t3bNz9MmI0ddYmuv7c5FohjNn/eRvHpE3RyFj2lUe9W5Wtjx1sbivfYYwDSwmrgWPyA3v/ymB3207dcFl/0DFw==
   dependencies:
     "@goa/accepts" "^1.1.0"
     "@goa/cookies" "^1.0.0"

@@ -163,7 +163,7 @@ function decode (path) {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('@goa/goa/types').Context} _goa.Context
+ * @typedef {import('@goa/goa').Context} _goa.Context
  */
 /**
  * @suppress {nonStandardJsDocs}

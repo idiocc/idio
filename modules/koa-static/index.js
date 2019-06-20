@@ -63,5 +63,5 @@ export default (root, opts = {}) => {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('@goa/goa/types').Middleware} _goa.Middleware
+ * @typedef {import('@goa/goa').Middleware} _goa.Middleware
  */
