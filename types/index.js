@@ -1,9 +1,10 @@
+export {}
 /* typal types/index.xml closure noSuppress */
 /**
- * @typedef {_@idio/idio.Config} Config Options for the program.
+ * @typedef {_idio.Config} Config Server configuration object.
  */
 /**
- * @typedef {Object} _@idio/idio.Config Options for the program.
- * @prop {boolean} [shouldRun=true] A boolean option. Default `true`.
- * @prop {string} text A text to return.
+ * @typedef {Object} _idio.Config Server configuration object.
+ * @prop {number} [port=5000] The port on which to start the server. Default `5000`.
+ * @prop {string} [host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
  */

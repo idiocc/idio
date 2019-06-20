@@ -1,31 +1,31 @@
-import { debuglog } from 'util'
-
-const LOG = debuglog('@idio/idio')
+import startApp from './start-app'
 
 /**
- * @Goa/Koa Web Server Bundled With Essential Middleware.
- * @param {_@idio/idio.Config} [config] Options for the program.
- * @param {boolean} [config.shouldRun=true] A boolean option. Default `true`.
- * @param {string} config.text A text to return.
+ * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
+ * @param {MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` `core` server.
+ * @param {StaticOptions} [middlewareConfig.static] `static` options.
+ * @param {_idio.Config} [config] Server configuration object.
+ * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
+ * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
+ * @example
+```js
+// start a server, and serve files from the "static" directory.
+await idio({
+  static: {
+    use: true,
+    root: 'static',
+    config: {
+      hidden: true,
+    },
+  },
+})
+```
  */
-export default async function idio(config = {}) {
-  const {
-    shouldRun = true,
-    text,
-  } = config
-  if (!shouldRun) return
-  LOG('@idio/idio called with %s', text)
-  return text
+export default async function idio(middlewareConfig = {}, config = {}) {
+  return await startApp(middlewareConfig, config)
 }
 
-/* documentary types/index.xml */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {_@idio/idio.Config} Config Options for the program.
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {Object} _@idio/idio.Config Options for the program.
- * @prop {boolean} [shouldRun=true] A boolean option. Default `true`.
- * @prop {string} text A text to return.
+ * @typedef {import('../types').Config} _idio.Config
  */

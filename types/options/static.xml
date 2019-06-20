@@ -1,0 +1,19 @@
+<types namespace="_idio">
+  <type name="StaticOptions" noToc>
+    <prop type="string|!Array<string>" name="root">
+      Root or multiple roots from which to serve files.
+    </prop>
+    <prop boolean name="use" default="false">
+      Use this middleware for every request.
+    </prop>
+    <prop string name="mount" default="/">
+      Path from which to serve files.
+    </prop>
+    <prop number name="maxage" default="0">
+      How long to cache files for.
+    </prop>
+    <prop opt type="StaticConfig" name="config">
+      `koa-static` configuration.
+    </prop>
+  </type>
+</types>

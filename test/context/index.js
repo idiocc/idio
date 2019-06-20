@@ -1,32 +1,36 @@
 import { join } from 'path'
-import { debuglog } from 'util'
+import { createApp } from '../../src/start-app'
+import HttpContext from '@contexts/http'
+import _read from '@wrote/read'
 
-const LOG = debuglog('@idio/idio')
+const FIXTURE = 'test/fixture'
 
-/**
- * A testing context for the package.
- */
-export default class Context {
-  async _init() {
-    LOG('init context')
+const read = (...args) => _read(join(...args))
+
+export default class Context extends HttpContext {
+  async createApp(middlewareConfig) {
+    const { app } = await createApp(middlewareConfig)
+    this.app = app
   }
-  /**
-   * Example method.
-   */
-  example() {
-    return 'OK'
+  startApp() {
+    return this.startPlain(this.app.callback())
   }
-  /**
-   * A tagged template that returns the relative path to the fixture.
-   * @param {string} file
-   * @example
-   * fixture`input.txt` // -> test/fixture/input.txt
-   */
-  fixture(file) {
-    const f = file.raw[0]
-    return join('test/fixture', f)
+  get staticDir() {
+    return join(FIXTURE, 'static')
   }
-  async _destroy() {
-    LOG('destroy context')
+  get staticDir2() {
+    return join(FIXTURE, 'static2')
+  }
+  async readStaticFixture() {
+    const dracula = await read(this.staticDir, 'chapter2.txt')
+    return dracula
+  }
+  async readStaticFixture2() {
+    const dracula = await read(this.staticDir2, 'chapter3.txt')
+    return dracula
+  }
+  async readFixture() {
+    const dracula = await read(FIXTURE, 'chapter1.txt')
+    return dracula
   }
 }
