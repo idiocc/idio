@@ -26,7 +26,7 @@ export {}
  * @prop {string} [root=""] Root directory to restrict file access. Default ``.
  * @prop {string} [index] Name of the index file to serve automatically when visiting the root location. (defaults to none).
  * @prop {boolean} [gzip=true] Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with `.gz` extension exists. Default `true`.
- * @prop {boolean} [br=true] Try to serve the brotli version of a file automatically when brotli is supported by a client and if the requested file with `.br` extension exists (note, that brotli is only accepted over https). Default `true`.
+ * @prop {boolean} [brotli=true] Try to serve the brotli version of a file automatically when brotli is supported by a client and if the requested file with `.br` extension exists (note, that brotli is only accepted over https). Default `true`.
  * @prop {boolean} [format=true] Format the path to serve static file servers and not require a trailing slash for directories, so that you can do both `/directory` and `/directory/`. Default `true`.
  * @prop {_idio.SetHeaders} [setHeaders] Function to set custom headers on response.
  * @prop {boolean} [extensions=false] Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served. Default `false`.

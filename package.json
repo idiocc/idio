@@ -2,12 +2,13 @@
   "name": "@idio/idio",
   "version": "0.0.0-pre",
   "description": "@Goa/Koa Web Server Bundled With Essential Middleware.",
-  "main": "build/index.js",
+  "main": "depack/index.js",
   "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
+    "depack": "depack-dev src/depack -o depack -l -a -p -S -s --externs types/modules/externs.js --externs types/options/externs.js --externs types/externs.js",
     "mask": "yarn t test/mask",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
@@ -16,7 +17,7 @@
     "d": "yarn-s d1 dm externs",
     "dm": "typal types/modules/*.js types/options/*.js",
     "d1": "typal types/index.js -c -t types/index.xml",
-    "externs": "typal externs.js",
+    "externs": "typal types/externs.js",
     "build": "yarn-s d b doc",
     "e": "alanode"
   },
@@ -47,9 +48,7 @@
     "documentary": "^1.27.3",
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "^4.1.1-alpha"
-  },
-  "dependencies": {
+    "zoroaster": "^4.1.1-alpha",
     "@goa/goa": "^1.2.0",
     "erotic": "^2.1.1",
     "makepromise": "^3.1.0"

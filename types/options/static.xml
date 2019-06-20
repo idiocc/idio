@@ -1,6 +1,6 @@
 <types namespace="_idio">
   <type name="StaticOptions" noToc>
-    <prop type="string|!Array<string>" name="root">
+    <prop type="(string|!Array<string>)" name="root">
       Root or multiple roots from which to serve files.
     </prop>
     <prop boolean name="use" default="false">

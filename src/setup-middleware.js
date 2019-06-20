@@ -67,7 +67,7 @@ async function initMiddleware(name, conf, app) {
  * @param {_idio.MiddlewareConfig} middlewareConfig
  * @param {_goa.Application} app
  */
-export default async function setupMiddleware(middlewareConfig = {}, app) {
+export default async function setupMiddleware(middlewareConfig, app) {
   /** @type {Object.<string, _goa.Middleware>} */
   const res = await Object.keys(middlewareConfig)
     .reduce(async (acc, name) => {
@@ -93,6 +93,10 @@ export default async function setupMiddleware(middlewareConfig = {}, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('@goa/goa').Application} _goa.Application
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('@goa/goa').Middleware} _goa.Middleware
  */
 /**
  * @suppress {nonStandardJsDocs}

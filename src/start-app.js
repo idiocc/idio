@@ -34,20 +34,21 @@ await idio({
 })
 ```
  */
-export default async function startApp(middlewareConfig, config = {}) {
+export default async function startApp(middlewareConfig = {}, config = {}) {
   const {
     port = 5000,
     host = '0.0.0.0',
   } = config
 
   // close all connections when running nodemon
-  const sigListener = async () => {
-    await app.destroy()
-    process.kill(process.pid, 'SIGUSR2')
+  const sigListener = () => {
+    app.destroy().then(() => {
+      process.kill(process.pid, 'SIGUSR2')
+    })
   }
   process.once('SIGUSR2', sigListener)
 
-  const appMeta = await createApp(middlewareConfig, config)
+  const appMeta = await createApp(middlewareConfig)
   const { app } = appMeta
 
   const server = await listen(app, port, host)
@@ -67,7 +68,7 @@ export default async function startApp(middlewareConfig, config = {}) {
 }
 
 /**
- * @param {http.Server} server
+ * @param {!http.Server} server
  */
 const enableDestroy = async (server) => {
   const connections = {}
@@ -110,7 +111,7 @@ export const createApp = async (middlewareConfig) => {
  * @param {_goa.Application} app
  * @param {number} [port]
  * @param {string} [hostname='0.0.0.0']
- * @return {http.Server}
+ * @return {!Promise<!http.Server>}
  */
 function listen(app, port, hostname = '0.0.0.0') {
   const cb = erotic(true)

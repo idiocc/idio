@@ -8,7 +8,7 @@ _idio.SetHeaders
 
 /* typal types/modules/koa-send.xml externs */
 /**
- * @typedef {{ maxage: (number|undefined), immutable: (boolean|undefined), hidden: (boolean|undefined), root: (string|undefined), index: (string|undefined), gzip: (boolean|undefined), br: (boolean|undefined), format: (boolean|undefined), setHeaders: (_idio.SetHeaders|undefined), extensions: (boolean|undefined) }}
+ * @typedef {{ maxage: (number|undefined), immutable: (boolean|undefined), hidden: (boolean|undefined), root: (string|undefined), index: (string|undefined), gzip: (boolean|undefined), brotli: (boolean|undefined), format: (boolean|undefined), setHeaders: (_idio.SetHeaders|undefined), extensions: (boolean|undefined) }}
  */
 _idio.KoaSendConfig
 

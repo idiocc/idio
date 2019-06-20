@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { createApp } from '../../src/start-app'
+import { createApp } from '../../src'
 import HttpContext from '@contexts/http'
 import _read from '@wrote/read'
 

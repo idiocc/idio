@@ -8,7 +8,7 @@ const debug = Debug('koa-mount')
  * Mount `app` with `prefix`, `app` may be a Koa application or middleware function.
  *
  * @param {string|_goa.Application|_goa.Middleware} prefix prefix, app, or middleware
- * @param {_goa.Application|_goa.Middleware} _app app or middleware
+ * @param {_goa.Application|_goa.Middleware} app app or middleware
  * @return {_goa.Middleware}
  */
 export default function mount(prefix, app) {
@@ -65,10 +65,11 @@ export default function mount(prefix, app) {
    * @return {string|boolean}
    */
   function match (path) {
+    const p = /** @type {string} */ (prefix)
     // does not match prefix at all
-    if (path.indexOf(prefix) !== 0) return false
+    if (path.indexOf(p) != 0) return false
 
-    const newPath = path.replace(prefix, '') || '/'
+    const newPath = path.replace(p, '') || '/'
     if (trailingSlash) return newPath
 
     // `/mount` does not match `/mountlkjalskjdf`

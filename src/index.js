@@ -1,4 +1,4 @@
-export { default } from './start-app'
+export { default, createApp } from './start-app'
 
 /**
  * @suppress {nonStandardJsDocs}
