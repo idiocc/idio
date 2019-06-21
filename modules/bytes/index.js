@@ -5,16 +5,10 @@
  * MIT Licensed
  */
 
-/**
- * Module variables.
- * @private
- */
+const formatThousandsRegExp = /\B(?=(\d{3})+(?!\d))/g
+const formatDecimalsRegExp = /(?:\.0*|(\.[^0]+)0+)$/
 
-var formatThousandsRegExp = /\B(?=(\d{3})+(?!\d))/g
-
-var formatDecimalsRegExp = /(?:\.0*|(\.[^0]+)0+)$/
-
-var map = {
+const map = {
   b:  1,
   kb: 1 << 10,
   mb: 1 << 20,
@@ -30,22 +24,22 @@ var parseRegExp = /^((-|\+)?(\d+(?:\.\d+)?)) *(kb|mb|gb|tb|pb)$/i
  *
  * @param {string|number} value
  * @param {{
- *  case: [string],
- *  decimalPlaces: [number]
- *  fixedDecimals: [boolean]
- *  thousandsSeparator: [string]
- *  unitSeparator: [string]
+ *  case: (string|undefined),
+ *  decimalPlaces: (number|undefined),
+ *  fixedDecimals: (boolean|undefined),
+ *  thousandsSeparator: (string|undefined),
+ *  unitSeparator: (string|undefined),
  *  }} [options] bytes options.
  *
- * @returns {string|number|null}
+ * @returns {?(string|number)}
  */
 
 export default function bytes(value, options) {
-  if (typeof value === 'string') {
+  if (typeof value == 'string') {
     return parse(value)
   }
 
-  if (typeof value === 'number') {
+  if (typeof value == 'number') {
     return format(value, options)
   }
 
@@ -59,7 +53,7 @@ export default function bytes(value, options) {
  * it is rounded.
  *
  * @param {number} value
- * @param {object} [options]
+ * @param {Object} [options]
  * @param {number} [options.decimalPlaces=2]
  * @param {number} [options.fixedDecimals=false]
  * @param {string} [options.thousandsSeparator=]

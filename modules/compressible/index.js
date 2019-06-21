@@ -6,7 +6,7 @@
  * MIT Licensed
  */
 
-import db from 'mime-db'
+const db = require(/* depack-require */ 'mime-db')
 
 /**
  * Module variables.
@@ -25,10 +25,8 @@ const EXTRACT_TYPE_REGEXP = /^\s*([^;\s]*)(?:;|\s|$)/
  * Checks if a type is compressible.
  *
  * @param {string} type
- * @return {Boolean} compressible
- * @public
+ * @return {?boolean} compressible
  */
-
 export default function compressible (type) {
   if (!type || typeof type != 'string') {
     return false
@@ -45,5 +43,5 @@ export default function compressible (type) {
   }
 
   // fallback to regexp or unknown
-  return COMPRESSIBLE_TYPE_REGEXP.test(mime) || undefined
+  return COMPRESSIBLE_TYPE_REGEXP.test(mime) || null
 }
