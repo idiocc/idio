@@ -1621,7 +1621,7 @@ function vc(a, b) {
       "q" == h[0] && (f = parseFloat(h[1]));
     }
   }
-  return {prefix:a, F:d, q:f, f:b, j:e};
+  return {prefix:a, D:d, q:f, f:b, j:e};
 }
 function wc(a, b) {
   var c = uc(void 0 === a ? "*" : a || "");
@@ -2634,15 +2634,7 @@ function dd(a) {
     b.end(c);
   }
 }
-;const fd = y()("idio");
-async function gd(a) {
-  await new Promise(b => {
-    a.on("close", b);
-    a.destroy();
-  });
-  fd("Destroyed the server");
-}
-const hd = async a => {
+;const fd = async a => {
   const b = {};
   a.on("connection", c => {
     const {remoteAddress:d, remotePort:e} = c, f = [d, e].join(":");
@@ -2651,19 +2643,21 @@ const hd = async a => {
       delete b[f];
     });
   });
-  await new Promise(c => {
-    a.close(c);
-    for (let d in b) {
-      b[d].destroy();
-    }
-  });
-}, id = async a => {
+  a.destroy = async() => {
+    await new Promise(c => {
+      a.close(c);
+      for (let d in b) {
+        b[d].destroy();
+      }
+    });
+  };
+}, gd = async a => {
   const b = new ed;
   a = await Va(a, b);
   "production" == b.env && (b.proxy = !0);
   return {app:b, middleware:a};
 };
-function jd(a, b, c) {
+function hd(a, b, c) {
   c = void 0 === c ? "0.0.0.0" : c;
   const d = Ia(!0);
   return new Promise((e, f) => {
@@ -2685,16 +2679,16 @@ function jd(a, b, c) {
     });
   };
   process.once("SIGUSR2", e);
-  a = await id(a);
-  const {app:f} = a, g = await jd(f, c, d);
-  hd(g);
+  a = await gd(a);
+  const {app:f} = a, g = await hd(f, c, d);
+  fd(g);
   f.destroy = async() => {
-    await gd(g);
+    await g.destroy();
     process.removeListener("SIGUSR2", e);
   };
   ({port:b} = g.address());
-  return Object.assign({}, a, {url:`http://localhost:${b}`, D:g});
-}, createApp:id};
+  return Object.assign({}, a, {url:`http://localhost:${b}`, server:g});
+}, createApp:gd};
 
 
 module.exports = DEPACK_EXPORT
