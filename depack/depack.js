@@ -2688,7 +2688,7 @@ function hd(a, b, c) {
   };
   ({port:b} = g.address());
   return Object.assign({}, a, {url:`http://localhost:${b}`, server:g});
-}, createApp:gd};
+}, createApp:gd, compose:n, httpErrors:H, mount:Sa};
 
 
 module.exports = DEPACK_EXPORT

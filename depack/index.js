@@ -1,4 +1,4 @@
-const { createApp: _createApp, startApp } = require('./depack')
+const { createApp: _createApp, startApp, compose } = require('./depack')
 
 /**
  * Just create a Goa App.
@@ -38,6 +38,7 @@ async function idio(middlewareConfig = {}, config = {}) {
 
 module.exports = idio
 module.exports.createApp = createApp
+module.exports.compose = compose
 
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
