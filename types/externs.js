@@ -10,7 +10,7 @@ _idio.Config
 /* typal types/middleware.xml externs */
 /**
  * Middleware configuration for the `idio` `core` server.
- * @typedef {{ static: (_idio.StaticOptions|undefined) }}
+ * @typedef {{ static: (_idio.StaticOptions|undefined), compress: (_idio.CompressOptions|undefined) }}
  */
 _idio.MiddlewareConfig
 

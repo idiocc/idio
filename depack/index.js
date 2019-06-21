@@ -4,6 +4,7 @@ const { createApp: _createApp, startApp, compose } = require('./depack')
  * Just create a Goa App.
  * @param {MiddlewareConfig} middlewareConfig Middleware configuration for the `idio` `core` server.
  * @param {_idio.StaticOptions} [middlewareConfig.static] `static` options.
+ * @param {_idio.CompressOptions} [middlewareConfig.compress] `compress` options.
  * @returns {Promise<{app: Application, middleware: Middleware}>}
  */
 async function createApp(middlewareConfig) {
@@ -14,6 +15,7 @@ async function createApp(middlewareConfig) {
  * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
  * @param {MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` `core` server.
  * @param {_idio.StaticOptions} [middlewareConfig.static] `static` options.
+ * @param {_idio.CompressOptions} [middlewareConfig.compress] `compress` options.
  * @param {Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
  * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
@@ -60,6 +62,7 @@ module.exports.compose = compose
 /**
  * @typedef {Object} MiddlewareConfig Middleware configuration for the `idio` `core` server.
  * @prop {_idio.StaticOptions} [static] `static` options.
+ * @prop {_idio.CompressOptions} [compress] `compress` options.
  */
 
 /* typework */
