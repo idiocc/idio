@@ -1,0 +1,10 @@
+<types namespace="_idio">
+  <type name="CompressOptions" noToc>
+    <prop boolean name="use" default="false">
+      Use this middleware for every request.
+    </prop>
+    <prop opt type="_idio.KoaCompressConfig" name="config">
+      `koa-compress` configuration.
+    </prop>
+  </type>
+</types>

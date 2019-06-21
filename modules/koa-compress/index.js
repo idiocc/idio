@@ -1,4 +1,4 @@
-import compressible from 'compressible'
+import compressible from '../compressible'
 import isJSON from '@goa/goa/modules/koa-is-json'
 import { empty } from '@goa/goa/modules/statuses'
 import Stream from 'stream'

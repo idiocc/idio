@@ -33,4 +33,11 @@ export default class Context extends HttpContext {
     const dracula = await read(FIXTURE, 'chapter1.txt')
     return dracula
   }
+  assignRoute(path, body) {
+    this.app.use((ctx, next) => {
+      if (ctx.path == path) ctx.body = body
+      else next()
+    })
+    return `${this.tester.url}${path}`
+  }
 }

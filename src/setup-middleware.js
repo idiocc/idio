@@ -1,6 +1,8 @@
 import compose from '@goa/goa/modules/koa-compose'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
+import compress from '../modules/koa-compress'
+import { Z_SYNC_FLUSH } from 'zlib'
 
 const map = {
   // session: setupSession,
@@ -32,6 +34,21 @@ const map = {
     if (mount) return Mount(mount, c)
     return c
   },
+  /**
+   * @param {_goa.Application} app
+   * @param {_idio.KoaCompressConfig} config
+   * @param {_idio.CompressOptions} options
+   */
+  'compress'(app, config, {
+    threshold = 1024,
+  }) {
+    const fn = compress({
+      threshold,
+      flush: Z_SYNC_FLUSH,
+      ...config,
+    })
+    return fn
+  },
   // cors: setupCors,
   // frontend: setupFrontend,
 }
@@ -52,7 +69,7 @@ async function initMiddleware(name, conf, app) {
     }
     fn = conf.middlewareConstructor
   } else {
-    throw new Error('Either the "middleware" or "middlewareConstructor" properties must be passed.')
+    throw new Error(`Either the "middleware" or "middlewareConstructor" properties must be passed for middleware "${name}".`)
   }
   const { use, config = {}, ...options } = conf
   /** @type {_goa.Middleware} */
@@ -104,7 +121,15 @@ export default async function setupMiddleware(middlewareConfig, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').CompressOptions} _idio.CompressOptions
+ */
+/**
+ * @suppress {nonStandardJsDocs}
  * @typedef {import('..').KoaStaticConfig} _idio.KoaStaticConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').KoaCompressConfig} _idio.KoaCompressConfig
  */
 /**
  * @suppress {nonStandardJsDocs}

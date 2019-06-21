@@ -4,7 +4,7 @@
   "description": "@Goa/Koa Web Server Bundled With Essential Middleware.",
   "main": "depack/index.js",
   "scripts": {
-    "t": "zoroaster -a",
+    "t": "zoroaster -a test/index.js",
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "depack": "depack-dev src/depack -o depack -l -a -p -S -s --externs types/modules/externs.js --externs types/options/externs.js --externs types/externs.js",
@@ -48,6 +48,7 @@
     "@typedefs/goa": "^0.0.2",
     "@wrote/read": "^1.0.4",
     "alamode": "^2.3.4",
+    "catchment": "^3.3.0",
     "documentary": "^1.27.3",
     "erotic": "^2.1.1",
     "eslint-config-artdeco": "1.0.1",

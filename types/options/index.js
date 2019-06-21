@@ -1,4 +1,14 @@
 export {}
+/* typal types/options/compress.xml closure noSuppress */
+/**
+ * @typedef {_idio.CompressOptions} CompressOptions
+ */
+/**
+ * @typedef {Object} _idio.CompressOptions
+ * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
+ * @prop {_idio.KoaCompressConfig} [config] `koa-compress` configuration.
+ */
+
 /* typal types/options/static.xml closure noSuppress */
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
@@ -14,4 +24,5 @@ export {}
 
 /**
  * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
+ * @typedef {import('../..').KoaCompressConfig} _idio.KoaCompressConfig
  */

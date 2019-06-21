@@ -42,8 +42,10 @@ module.exports.compose = compose
 
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
+ * @typedef {_idio.CompressOptions} CompressOptions
  * @typedef {import('../types/options').StaticOptions} _idio.StaticOptions
- * @typedef {import('../types/modules').KoaSendConfig} KoaSendConfig
+ * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
+ * @typedef {import('../types/modules').KoaStaticConfig} KoaStaticConfig
  * @typedef {import('../types/modules').KoaCompressConfig} KoaCompressConfig
  */
 
