@@ -13,5 +13,5 @@ export {}
  */
 
 /**
- * @typedef {import('../../src').KoaStaticConfig} _idio.KoaStaticConfig
+ * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
  */

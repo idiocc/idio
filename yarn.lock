@@ -56,10 +56,10 @@
   resolved "https://registry.yarnpkg.com/@goa/cookies/-/cookies-1.0.0.tgz#89b5a9198d985609cf0fd29801a7f9df4eff49f4"
   integrity sha512-mbyH1exYp/9PVstmlO9jCnhVFv0PUffiXAFW0/xgUZCDBrNiqTfx/5eYUfCvpjM3+zQV9gj1zJrBsTMcbUE+Gg==
 
-"@goa/goa@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@goa/goa/-/goa-1.2.0.tgz#0c0155b942145c4e1aec264e5dea5f814586992f"
-  integrity sha512-t3bNz9MmI0ddYmuv7c5FohjNn/eRvHpE3RyFj2lUe9W5Wtjx1sbivfYYwDSwmrgWPyA3v/ymB3207dcFl/0DFw==
+"@goa/goa@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@goa/goa/-/goa-1.3.0.tgz#fe48a0ab8ff7908e224824048a8878317f1348d4"
+  integrity sha512-FbOdlFPto3MjKi/fSqkHIxuAOu1Mi74uBHDXIjuyTRbrw9r21DQKrgjFQqNPrVAf7D4938D9itJ8MCQByuoA5Q==
   dependencies:
     "@goa/accepts" "^1.1.0"
     "@goa/cookies" "^1.0.0"
@@ -68,6 +68,7 @@
     "@goa/negotiator" "^1.0.1"
     "@goa/vary" "^1.0.0"
     "@idio/debug" "^1.1.1"
+    "@typedefs/goa" "^0.0.1"
     mime-db "^1.40.0"
 
 "@goa/is-generator-function@^1.0.1":
@@ -104,6 +105,16 @@
   dependencies:
     catchment "^3.3.0"
     erotic "^2.1.1"
+
+"@typedefs/goa@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@typedefs/goa/-/goa-0.0.1.tgz#9fa70146b1978533611a508cda01f121277e5706"
+  integrity sha512-Z6GR8/5ODavsEMKCZ8FZK1QtJPYM/csLuAlJIy3lx35MwnXsdFhhIKuJTwVWd3gRRtWxFAox4fM7Czdi2XXDeg==
+
+"@typedefs/goa@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@typedefs/goa/-/goa-0.0.2.tgz#2ac264be5b5b057d8fa3b7d8cfb3b377e49122b8"
+  integrity sha512-2GlEVtbAJwz9JtcxWFlJwvyGEBN5G18EZXdGi5N4lVOJA11CUqn7kX/mosCeyhRF4hlMwJ4aSG6gP3umZ2IOsg==
 
 "@typedefs/parser@^1.3.0":
   version "1.3.0"
@@ -361,6 +372,11 @@ typal@^1.13.1:
     "@typedefs/parser" "^1.3.0"
     mismatch "^1.2.0"
     rexml "^1.4.0"
+
+typework@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/typework/-/typework-0.1.0.tgz#a7a2d74347f3ca886f27f5c568e34e091e0e22e6"
+  integrity sha512-2io4n7tukh4m+r5IwrKy4wGomR3SQyTmLJNoRS8YBPcphDfmpKbJ481DjNuaPGfw3yxqqmLDn6D+saz2udq7rg==
 
 usually@^1.2.0:
   version "1.2.0"

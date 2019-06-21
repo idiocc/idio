@@ -130,7 +130,7 @@ function listen(app, port, hostname = '0.0.0.0') {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('@goa/goa').Application} _goa.Application
+ * @typedef {import('@typedefs/goa').Application} _goa.Application
  */
 /**
  * @suppress {nonStandardJsDocs}
@@ -138,9 +138,9 @@ function listen(app, port, hostname = '0.0.0.0') {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').Config} _idio.Config
+ * @typedef {import('..').Config} _idio.Config
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types').MiddlewareConfig} _idio.MiddlewareConfig
+ * @typedef {import('..').MiddlewareConfig} _idio.MiddlewareConfig
  */
