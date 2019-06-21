@@ -1,0 +1,34 @@
+<types namespace="_idio">
+  <type name="KoaCompressConfig" noToc>
+    <prop opt type="function(string): boolean" name="filter">
+      An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
+    </prop>
+    <prop number name="threshold" default="1024">
+      Minimum response size in bytes to compress.
+    </prop>
+    <prop opt number name="flush">
+      Default: `zlib.constants.Z_NO_FLUSH`.
+    </prop>
+    <prop opt number name="finishFlush">
+      Default: `zlib.constants.Z_FINISH`.
+    </prop>
+    <prop opt number name="chunkSize">
+      Default: `16*1024`.
+    </prop>
+    <prop opt number name="windowBits">
+      Support extend types.
+    </prop>
+    <prop opt number name="level">
+      Compression only.
+    </prop>
+    <prop opt number name="memLevel">
+      Compression only.
+    </prop>
+    <prop opt number name="strategy">
+      Compression only.
+    </prop>
+    <prop opt name="dictionary">
+      Deflate/inflate only, empty dictionary by default.
+    </prop>
+  </type>
+</types>

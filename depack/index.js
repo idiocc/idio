@@ -43,8 +43,8 @@ module.exports.compose = compose
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
  * @typedef {import('../types/options').StaticOptions} _idio.StaticOptions
- * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
- * @typedef {import('../types/modules').KoaStaticConfig} _idio.KoaStaticConfig
+ * @typedef {import('../types/modules').KoaSendConfig} KoaSendConfig
+ * @typedef {import('../types/modules').KoaCompressConfig} KoaCompressConfig
  */
 
 /* typal types/index.xml */
@@ -72,7 +72,7 @@ module.exports.compose = compose
  * @typedef {import('../types/goa/typedefs/response').ContextDelegatedResponse} ContextDelegatedResponse
  */
 
- /**
+/**
   * @suppress {nonStandardJsDocs}
   * @typedef {import('http').Server} http.Server
   */

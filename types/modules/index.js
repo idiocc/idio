@@ -1,5 +1,23 @@
 export {}
 
+/* typal types/modules/koa-compress.xml closure noSuppress */
+/**
+ * @typedef {_idio.KoaCompressConfig} KoaCompressConfig
+ */
+/**
+ * @typedef {Object} _idio.KoaCompressConfig
+ * @prop {function(string): boolean} [filter] An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
+ * @prop {number} [threshold=1024] Minimum response size in bytes to compress. Default `1024`.
+ * @prop {number} [flush] Default: `zlib.constants.Z_NO_FLUSH`.
+ * @prop {number} [finishFlush] Default: `zlib.constants.Z_FINISH`.
+ * @prop {number} [chunkSize] Default: `16*1024`.
+ * @prop {number} [windowBits] Support extend types.
+ * @prop {number} [level] Compression only.
+ * @prop {number} [memLevel] Compression only.
+ * @prop {number} [strategy] Compression only.
+ * @prop {*} [dictionary] Deflate/inflate only, empty dictionary by default.
+ */
+
 /* typal types/modules/set-headers.xml closure noSuppress */
 /**
  * @typedef {_idio.SetHeaders} SetHeaders

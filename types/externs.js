@@ -13,3 +13,6 @@ _idio.Config
  * @typedef {{ static: (_idio.StaticOptions|undefined) }}
  */
 _idio.MiddlewareConfig
+
+/** @type {boolean} */
+_goa.Context.prototype.compress

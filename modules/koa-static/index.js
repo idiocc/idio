@@ -59,9 +59,9 @@ export default (root, opts = {}) => {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types/modules').KoaStaticConfig} _idio.KoaStaticConfig
+ * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('@goa/goa').Middleware} _goa.Middleware
+ * @typedef {import('@typedefs/goa').Middleware} _goa.Middleware
  */
