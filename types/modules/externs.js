@@ -1,4 +1,6 @@
 /* typal types/modules/koa-compress.xml externs */
+/** @const */
+var _idio = {}
 /**
  * @typedef {{ filter: ((function(string): boolean)|undefined), threshold: (number|undefined), flush: (number|undefined), finishFlush: (number|undefined), chunkSize: (number|undefined), windowBits: (number|undefined), level: (number|undefined), memLevel: (number|undefined), strategy: (number|undefined), dictionary: ((*)|undefined) }}
  */
@@ -11,8 +13,6 @@ _idio.KoaCompressConfig
 _idio.SetHeaders
 
 /* typal types/modules/koa-send.xml externs */
-/** @const */
-var _idio = {}
 /**
  * @typedef {{ maxage: (number|undefined), immutable: (boolean|undefined), hidden: (boolean|undefined), root: (string|undefined), index: (string|undefined), gzip: (boolean|undefined), brotli: (boolean|undefined), format: (boolean|undefined), setHeaders: (_idio.SetHeaders|undefined), extensions: (boolean|undefined) }}
  */
