@@ -1,7 +1,4 @@
-import startApp, { createApp } from './'
-import compose from '@goa/goa/modules/koa-compose'
-import mount from '../modules/koa-mount'
-import httpErrors from '@goa/goa/modules/http-errors'
+import startApp, { createApp, compose, httpErrors, mount } from './'
 
 DEPACK_EXPORT = {
   'startApp': startApp,
