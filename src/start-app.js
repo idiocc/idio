@@ -84,7 +84,7 @@ const enableDestroy = async (server) => {
 }
 
 /**
- * @param {_idio.MiddlewareConfig} middlewareConfig
+ * @param {!_idio.MiddlewareConfig} middlewareConfig
  */
 export const createApp = async (middlewareConfig) => {
   const app = new Goa()

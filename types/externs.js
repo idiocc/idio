@@ -10,7 +10,7 @@ _idio.Config
 /* typal types/middleware.xml externs */
 /**
  * Middleware configuration for the `idio` server.
- * @extends {FnMiddlewareConfig}
+ * @extends {_idio.FnMiddlewareConfig}
  * @record
  */
 _idio.MiddlewareConfig

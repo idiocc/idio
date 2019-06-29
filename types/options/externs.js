@@ -2,12 +2,68 @@
 /** @const */
 var _idio = {}
 /**
- * @typedef {{ root: (string|!Array<string>), use: (boolean|undefined), mount: (string|undefined), maxage: (number|undefined), config: (_idio.KoaStaticConfig|undefined) }}
+ * @record
  */
 _idio.StaticOptions
+/**
+ * Root or multiple roots from which to serve files.
+ * @type {(string|!Array<string>)}
+ */
+_idio.StaticOptions.prototype.root
+/**
+ * Use this middleware for every request.
+ * @type {boolean|undefined}
+ */
+_idio.StaticOptions.prototype.use
+/**
+ * Path from which to serve files. Default `/`.
+ * @type {string|undefined}
+ */
+_idio.StaticOptions.prototype.mount
+/**
+ * How long to cache files for.
+ * @type {number|undefined}
+ */
+_idio.StaticOptions.prototype.maxage
+/**
+ * `koa-static` configuration.
+ * @type {_idio.KoaStaticConfig|undefined}
+ */
+_idio.StaticOptions.prototype.config
 
 /* typal types/options/compress.xml externs */
 /**
- * @typedef {{ use: (boolean|undefined), config: (_idio.KoaCompressConfig|undefined) }}
+ * @record
  */
 _idio.CompressOptions
+/**
+ * Use this middleware for every request.
+ * @type {boolean|undefined}
+ */
+_idio.CompressOptions.prototype.use
+/**
+ * `koa-compress` configuration.
+ * @type {_idio.KoaCompressConfig|undefined}
+ */
+_idio.CompressOptions.prototype.config
+
+/* typal types/options/session.xml externs */
+/**
+ * @record
+ */
+_idio.SessionOptions
+/**
+ * A set of keys to be installed in `app.keys`.
+ * @type {!Array<string>}
+ */
+_idio.SessionOptions.prototype.keys
+/**
+ * Use this middleware for every request.
+ * @type {boolean|undefined}
+ */
+_idio.SessionOptions.prototype.use
+/**
+ * The `koa-session` configuration.
+ * @type {_idio.KoaSessionConfig|undefined}
+ */
+_idio.SessionOptions.prototype.config

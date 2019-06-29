@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <type name="SessionOptions" noToc>
+  <type record name="SessionOptions" noToc>
     <prop type="!Array<string>" name="keys">
       A set of keys to be installed in `app.keys`.
     </prop>

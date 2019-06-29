@@ -95,11 +95,11 @@ async function initMiddleware(name, conf, app) {
 }
 
 /**
- * @param {_idio.MiddlewareConfig} middlewareConfig
- * @param {_goa.Application} app
+ * @param {!_idio.MiddlewareConfig} middlewareConfig
+ * @param {!_goa.Application} app
  */
 export default async function setupMiddleware(middlewareConfig, app) {
-  /** @type {Object.<string, _goa.Middleware>} */
+  /** @type {Object.<string, !_goa.Middleware>} */
   const res = await Object.keys(middlewareConfig)
     .reduce(async (acc, name) => {
       const accRes = await acc

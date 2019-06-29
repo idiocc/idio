@@ -63,14 +63,24 @@ module.exports.compose = compose
  * @prop {string} [host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
  */
 
-/* typal types/middleware.xml */
+/* typal types/middleware.xml closure noSuppress */
 /**
- * @typedef {FnMiddlewareConfig & $MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
- * @typedef {Object} $MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
+ * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
+ */
+/**
+ * @typedef {_idio.FnMiddlewareConfig & _idio.$MiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
+ */
+/**
+ * @typedef {Object} _idio.$MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @prop {_idio.StaticOptions} [static] `koa-static` options.
  * @prop {_idio.CompressOptions} [compress] `koa-compress` options.
  * @prop {_idio.SessionOptions} [session] `koa-session` options.
- * @typedef {!Object<string, !_goa.Middleware>} FnMiddlewareConfig Middleware Config With Functions.
+ */
+/**
+ * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
+ */
+/**
+ * @typedef {!Object<string, !_goa.Middleware>} _idio.FnMiddlewareConfig Middleware Config With Functions.
  */
 
 /* typework */

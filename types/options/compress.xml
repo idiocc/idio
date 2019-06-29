@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <type name="CompressOptions" noToc>
+  <type record name="CompressOptions" noToc>
     <prop boolean name="use" default="false">
       Use this middleware for every request.
     </prop>
