@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.1.1.tgz#0a68b9a061b5076ebaf948c150ea26d09c1e753f"
   integrity sha512-q5lO3vGUo0WgkSqzgzjL0HQdA9t2HzQqZISuVuQWMh9xqLuiLFP/ZTsxFc8vpMl7mNpGk7Mm0OeyFQ+Evrp0Cw==
 
-"@contexts/http@^1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@contexts/http/-/http-1.2.6.tgz#e1aeb1a275eab9413fce86b81488582fc3d782de"
-  integrity sha512-kub/d8UThPS80XDddlIJPoEYTHCtTRzV78jTzUhGmw1Pxg/I3s3or5Mt5SjHmeElRcNM4/O6I8+atm51q1L/zA==
+"@contexts/http@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@contexts/http/-/http-1.4.0.tgz#eaf2e7edfeaa2b64c692dd8ffff327187bb69a8c"
+  integrity sha512-D/SSTCHnrKeZsCQTrDBa8FMgpuaPbd/eYTIGFhlohaZDTAlwJCfsOUJhaeE8bzYSAx5cNZvnBya/juopnGA+mA==
   dependencies:
     "@artdeco/clean-stack" "^1.1.1"
     "@rqt/aqt" "^1.2.5"
@@ -87,6 +87,16 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@goa/negotiator/-/negotiator-1.0.1.tgz#d0b0dccfafc4dc4a990ae92a65c4faedfbe884f7"
   integrity sha512-Hzu2cXJBI5/WKb+9nuLRfefLcRWUlgWTlWHaZbtrM/7BHQHQIX4FJWNzywQARmWDl9g8hoHdeWw58SPcx5ET4Q==
+
+"@goa/session@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@goa/session/-/session-1.0.3.tgz#796ea57acd3ca84c26f585e0f4ab24c0c36e0c81"
+  integrity sha512-4J1oL/sqrDRXkz4UetDxJ4NJznLaeEcE6RykRCyflaVB75qx/owgXK3Obd7+BRzWSDRq4MAA6p14CgFgvCofoA==
+
+"@goa/uuid@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@goa/uuid/-/uuid-1.0.2.tgz#8e782fc5892cb5e86388f63c83ef0ef7534100e2"
+  integrity sha512-TBIG9YTaTj62J2Gx8rzgFu9q5b20gj4WsPqOU5Gr+84NjxyxfzcpYUZvvD9kXSYTDKVKR89NmCH8Gc2M5w0AJw==
 
 "@goa/vary@^1.0.0":
   version "1.0.0"
@@ -330,10 +340,10 @@ rexml@^1.4.0:
   resolved "https://registry.yarnpkg.com/rexml/-/rexml-1.4.0.tgz#64368db531b4e86acf1a3e69a4cbbed94acc5232"
   integrity sha512-Pl2ZBXcHiIXBKMBJZp141jlfekTCgKVsMSw0NJ8QYYxAV6p3mXUC9DvGI5tUW3GqWr27ieGiAuZTBm8sqsX96w==
 
-rexml@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/rexml/-/rexml-2.0.1.tgz#964516e7bb6636decc832fb000620dd517d4a6c4"
-  integrity sha512-O5NsTMpdyltN/qZ3Z9KyIUEa1oMDcZnk86OPyYdlgIDeEpfveF02O+7NzLUl/bfm68yhUdGLr3HXzqjviJYVww==
+rexml@^2.0.0, rexml@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/rexml/-/rexml-2.0.2.tgz#e1e6b04aab7d26c72f5f732887c1d6abf0a1d92b"
+  integrity sha512-dfMmsI2M5x0xZdT9FhOieHcajXvcGrT9/RRkg/RvWUm055+srQoGuBJwhEYYeBe+zygmtN33lS5hGnxaqwCT4g==
   dependencies:
     mismatch "^1.2.0"
 
@@ -365,13 +375,13 @@ static-analysis@^1.3.3, static-analysis@^1.7.1:
     resolve-dependency "^1.0.3"
 
 typal@^1.13.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/typal/-/typal-1.13.1.tgz#072fa101b9c3e43a623ac5d5a600ca3eddcec919"
-  integrity sha512-GsD2FwEVdCg3DGliQEzeHzF9NvLJrnmNStXYeIp/yFdLHQhJJ546HiWu4QHeq9UjjqqowOg0CDgezxPSYiGiaA==
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/typal/-/typal-1.14.0.tgz#bc01f8065d497ca5f517de133993016b5c789061"
+  integrity sha512-buvfq0zwg1OdiTF30ui6Sc0HMxnCoeLNmSke5YXxWZ1cRdygTBTBV4KZkdDIp+OMMNcKAW8Z3EVgqXyhDzyQqw==
   dependencies:
     "@typedefs/parser" "^1.3.0"
     mismatch "^1.2.0"
-    rexml "^1.4.0"
+    rexml "^2.0.2"
 
 typework@^0.1.0:
   version "0.1.0"

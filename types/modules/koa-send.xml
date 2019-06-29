@@ -9,7 +9,7 @@
     <prop boolean name="hidden" default="false">
       Allow transfer of hidden files.
     </prop>
-    <prop string name="root" default="">
+    <prop string name="root" default=".">
       Root directory to restrict file access.
     </prop>
     <prop opt string name="index">

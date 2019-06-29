@@ -2,9 +2,10 @@ const { createApp: _createApp, startApp, compose } = require('./depack')
 
 /**
  * Just create a Goa App.
- * @param {MiddlewareConfig} middlewareConfig Middleware configuration for the `idio` `core` server.
- * @param {_idio.StaticOptions} [middlewareConfig.static] `static` options.
- * @param {_idio.CompressOptions} [middlewareConfig.compress] `compress` options.
+ * @param {MiddlewareConfig} middlewareConfig Middleware configuration for the `idio` server.
+ * @param {_idio.StaticOptions} [middlewareConfig.static] `koa-static` options.
+ * @param {_idio.CompressOptions} [middlewareConfig.compress] `koa-compress` options.
+ * @param {_idio.SessionOptions} [middlewareConfig.session] `koa-session` options.
  * @returns {Promise<{app: Application, middleware: Middleware}>}
  */
 async function createApp(middlewareConfig) {
@@ -13,9 +14,10 @@ async function createApp(middlewareConfig) {
 
 /**
  * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
- * @param {MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` `core` server.
- * @param {_idio.StaticOptions} [middlewareConfig.static] `static` options.
- * @param {_idio.CompressOptions} [middlewareConfig.compress] `compress` options.
+ * @param {MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` server.
+ * @param {_idio.StaticOptions} [middlewareConfig.static] `koa-static` options.
+ * @param {_idio.CompressOptions} [middlewareConfig.compress] `koa-compress` options.
+ * @param {_idio.SessionOptions} [middlewareConfig.session] `koa-session` options.
  * @param {Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
  * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
@@ -45,10 +47,13 @@ module.exports.compose = compose
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
  * @typedef {_idio.CompressOptions} CompressOptions
+ * @typedef {_idio.SessionOptions} SessionOptions
  * @typedef {import('../types/options').StaticOptions} _idio.StaticOptions
  * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
+ * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
  * @typedef {import('../types/modules').KoaStaticConfig} KoaStaticConfig
  * @typedef {import('../types/modules').KoaCompressConfig} KoaCompressConfig
+ * @typedef {import('../types/modules/session').KoaSessionConfig} KoaSessionConfig
  */
 
 /* typal types/index.xml */
@@ -60,14 +65,18 @@ module.exports.compose = compose
 
 /* typal types/middleware.xml */
 /**
- * @typedef {Object} MiddlewareConfig Middleware configuration for the `idio` `core` server.
- * @prop {_idio.StaticOptions} [static] `static` options.
- * @prop {_idio.CompressOptions} [compress] `compress` options.
+ * @typedef {FnMiddlewareConfig & $MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
+ * @typedef {Object} $MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
+ * @prop {_idio.StaticOptions} [static] `koa-static` options.
+ * @prop {_idio.CompressOptions} [compress] `koa-compress` options.
+ * @prop {_idio.SessionOptions} [session] `koa-session` options.
+ * @typedef {!Object<string, !_goa.Middleware>} FnMiddlewareConfig Middleware Config With Functions.
  */
 
 /* typework */
 /**
  * @typedef {import('../types/goa/vendor/cookies').Keygrip} Keygrip
+ * @typedef {Middleware} _goa.Middleware
  * @typedef {import('../types/goa/typedefs/application').Middleware} Middleware
  * @typedef {import('../types/goa/typedefs/application').Application} Application
  * @typedef {import('../types/goa/typedefs/context').KoaContext} Context

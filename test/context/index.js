@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { createApp } from '../../src'
-import HttpContext from '@contexts/http'
+import HttpContext from '@contexts/http/cookies'
 import _read from '@wrote/read'
 
 const FIXTURE = 'test/fixture'
@@ -8,6 +8,9 @@ const FIXTURE = 'test/fixture'
 const read = (...args) => _read(join(...args))
 
 export default class Context extends HttpContext {
+  /**
+   * @param {MiddlewareConfig} middlewareConfig
+   */
   async createApp(middlewareConfig) {
     const { app } = await createApp(middlewareConfig)
     this.app = app
@@ -41,3 +44,7 @@ export default class Context extends HttpContext {
     return `${this.tester.url}${path}`
   }
 }
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../').MiddlewareConfig} MiddlewareConfig
+ */

@@ -9,10 +9,31 @@ _idio.Config
 
 /* typal types/middleware.xml externs */
 /**
- * Middleware configuration for the `idio` `core` server.
- * @typedef {{ static: (_idio.StaticOptions|undefined), compress: (_idio.CompressOptions|undefined) }}
+ * Middleware configuration for the `idio` server.
+ * @extends {FnMiddlewareConfig}
+ * @record
  */
 _idio.MiddlewareConfig
+/**
+ * `koa-static` options.
+ * @type {_idio.StaticOptions|undefined}
+ */
+_idio.MiddlewareConfig.prototype.static
+/**
+ * `koa-compress` options.
+ * @type {_idio.CompressOptions|undefined}
+ */
+_idio.MiddlewareConfig.prototype.compress
+/**
+ * `koa-session` options.
+ * @type {_idio.SessionOptions|undefined}
+ */
+_idio.MiddlewareConfig.prototype.session
+/**
+ * Middleware Config With Functions.
+ * @typedef {!Object<string, !_goa.Middleware>}
+ */
+_idio.FnMiddlewareConfig
 
 /**
  * This is added by the koa-compress middleware.

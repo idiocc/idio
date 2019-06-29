@@ -1,4 +1,5 @@
 import compose from '@goa/goa/modules/koa-compose'
+import session from '@goa/session'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
 import compress from '../modules/koa-compress'
@@ -48,6 +49,19 @@ const map = {
       ...config,
     })
     return fn
+  },
+  /**
+   * @param {_goa.Application} app
+   * @param {_idio.KoaSessionConfig} config
+   * @param {_idio.SessionOptions} options
+   */
+  'session'(app, config, { keys }) {
+    if (!Array.isArray(keys)) {
+      throw new Error('Keys must be an array')
+    }
+    app.keys = keys
+    const ses = session(app, config)
+    return ses
   },
   // cors: setupCors,
   // frontend: setupFrontend,
@@ -125,11 +139,19 @@ export default async function setupMiddleware(middlewareConfig, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').SessionOptions} _idio.SessionOptions
+ */
+/**
+ * @suppress {nonStandardJsDocs}
  * @typedef {import('..').KoaStaticConfig} _idio.KoaStaticConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').KoaCompressConfig} _idio.KoaCompressConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').KoaSessionConfig} _idio.KoaSessionConfig
  */
 /**
  * @suppress {nonStandardJsDocs}

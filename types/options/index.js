@@ -22,7 +22,19 @@ export {}
  * @prop {_idio.KoaStaticConfig} [config] `koa-static` configuration.
  */
 
+/* typal types/options/session.xml closure noSuppress */
+/**
+ * @typedef {_idio.SessionOptions} SessionOptions
+ */
+/**
+ * @typedef {Object} _idio.SessionOptions
+ * @prop {!Array<string>} keys A set of keys to be installed in `app.keys`.
+ * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
+ * @prop {_idio.KoaSessionConfig} [config] The `koa-session` configuration.
+ */
+
 /**
  * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
  * @typedef {import('../..').KoaCompressConfig} _idio.KoaCompressConfig
+ * @typedef {import('../..').KoaSessionConfig} _idio.KoaSessionConfig
  */
