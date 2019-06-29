@@ -7,7 +7,7 @@
     "t": "zoroaster -a test/index.js",
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
-    "depack": "depack-dev src/depack -o depack -l -a -p -S -s --externs types/modules/externs.js --externs types/options/externs.js --externs types/externs.js",
+    "depack": "depack-dev src/depack -o depack -l -a -p -S -s --externs types/modules/externs.js --externs types/options/externs.js --externs types/externs.js --hide_warnings_for node_modules/util --hide_warnings_for node_modules/querystring --hide_warnings_for node_modules/http --hide_warnings_for node_modules/events",
     "mask": "yarn t test/mask",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",

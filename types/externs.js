@@ -14,5 +14,12 @@ _idio.Config
  */
 _idio.MiddlewareConfig
 
-/** @type {boolean} */
+/**
+ * This is added by the koa-compress middleware.
+ * @type {boolean}
+ */
 _goa.Context.prototype.compress
+/** @type {!Function} */
+_goa.Application.prototype.destroy
+/** @type {!Function} */
+http.Server.prototype.destroy

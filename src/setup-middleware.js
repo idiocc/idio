@@ -63,15 +63,15 @@ async function initMiddleware(name, conf, app) {
   let fn
   if (name in map) {
     fn = map[name]
-  } else if (conf.middlewareConstructor) {
-    if (typeof conf.middlewareConstructor != 'function') {
+  } else if (conf['middlewareConstructor']) {
+    if (typeof conf['middlewareConstructor'] != 'function') {
       throw new Error(`Expecting a function in the "middlewareConstructor" of the ${name} middleware.`)
     }
-    fn = conf.middlewareConstructor
+    fn = conf['middlewareConstructor']
   } else {
     throw new Error(`Either the "middleware" or "middlewareConstructor" properties must be passed for middleware "${name}".`)
   }
-  const { use, config = {}, ...options } = conf
+  const { 'use': use, 'config': config = {}, ...options } = conf
   /** @type {_goa.Middleware} */
   const res = await fn(app, config, options)
   if (use) {

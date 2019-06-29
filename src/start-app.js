@@ -34,7 +34,7 @@ export default async function startApp(middlewareConfig = {}, config = {}) {
 
   // close all connections when running nodemon
   const sigListener = () => {
-    app['destroy']().then(() => {
+    app.destroy().then(() => {
       process.kill(process.pid, 'SIGUSR2')
     })
   }
@@ -46,8 +46,8 @@ export default async function startApp(middlewareConfig = {}, config = {}) {
   const server = await listen(app, port, host)
 
   enableDestroy(server)
-  app['destroy'] = async () => {
-    await server['destroy']()
+  app.destroy = async () => {
+    await server.destroy()
     process.removeListener('SIGUSR2', sigListener)
   }
   const { port: p } = server.address()
@@ -63,6 +63,7 @@ export default async function startApp(middlewareConfig = {}, config = {}) {
  * @param {!http.Server} server
  */
 const enableDestroy = async (server) => {
+  /** @type {Object<string, net.Socket>} */
   const connections = {}
   server.on('connection', (con) => {
     const { remoteAddress, remotePort } = con
@@ -72,11 +73,11 @@ const enableDestroy = async (server) => {
       delete connections[k]
     })
   })
-  server['destroy'] = async () => {
+  server.destroy = async () => {
     await new Promise(r => {
       server.close(r)
       for (let k in connections) {
-        connections[k]['destroy']()
+        connections[k].destroy()
       }
     })
   }
@@ -128,6 +129,10 @@ function listen(app, port, hostname = '0.0.0.0') {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('http').Server} http.Server
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('net').Socket} net.Socket
  */
 /**
  * @suppress {nonStandardJsDocs}
