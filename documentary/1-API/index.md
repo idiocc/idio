@@ -8,18 +8,31 @@ import idio from '@idio/idio'
 
 %~%
 
-```## idio
+```## async idio => { app, url, middleware }
 [
-  ["arg1", "string"],
-  ["arg2?", "boolean"]
+  ["middlewareConfig?", "MiddlewareConfig"],
+  ["conf?", "Config"]
 ]
 ```
 
-Call this function to get the result you want.
+Starts the server and returns the `app` and `url` properties. The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
 
-%TYPEDEF types/index.xml%
+%TYPEDEF types/middleware.xml MiddlewareConfig%
 
-%EXAMPLE: example, ../src => @idio/idio%
+%TYPEDEF types/index.xml Config%
+
+<table>
+<!-- block-start -->
+<tr><th><a href="example/index.js">Source</a></th><th>Output</th>
+</tr><tr>
+<td>
+
+%EXAMPLE: example, .. => @idio/idio%
+</td>
+<td>
+
 %FORK example%
+</td></tr>
+</table>
 
 %~%
