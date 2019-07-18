@@ -90,7 +90,7 @@ Used to serve static files, such as stylesheets, images, videos, html and everyt
 ```js
 const { url, app } = await idio({
   static: {
-    root: ['example'], use: true,
+    root: 'example', use: true,
   },
 ```
 
@@ -107,7 +107,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:63699/app.css */ 
+/** http://localhost:65481/app.css */ 
 
 body {
   font-size: larger;
@@ -122,22 +122,19 @@ body {
 <xml></xml>
 ```
 </td></tr>
-<tr>
-  <td colspan="2" align="center">
-    <strong>The Headers</strong>
-  </td>
-</tr>
+
 <tr>
 <td colspan="2">
 
-
+<details>
+<summary>Show Response Headers</summary>
 
 ```http
 Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Thu, 18 Jul 2019 15:05:22 GMT
+Date: Thu, 18 Jul 2019 15:48:12 GMT
 Connection: close
 ```
 
@@ -151,6 +148,7 @@ Content-Type: image/svg+xml
 Date: Thu, 18 Jul 2019 15:05:24 GMT
 Connection: close
 ```
+</details>
 </td>
 </tr>
 </table>

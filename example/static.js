@@ -6,7 +6,7 @@ import printHeaders from './headers'
   /* start example */
   const { url, app } = await idio({
     static: {
-      root: ['example'], use: true,
+      root: 'example', use: true,
     },
   /* end example */
   }, { port: null })
