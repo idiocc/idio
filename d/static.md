@@ -2,6 +2,8 @@
 
 The static middleware can serve static files.
 
+<img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
+
 %TOC%
 
 %TYPEDEF types/options/static.xml%
