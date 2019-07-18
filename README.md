@@ -109,9 +109,10 @@ const { url, app } = await idio({
 <td>
 
 ```
-http://localhost:5000
-hello new user
-welcome back u448.5
+http://localhost:5000 
+
+/ hello new user
+/ welcome back u844.0
 ```
 </td></tr>
 </table>

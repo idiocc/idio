@@ -21,15 +21,15 @@ import idio from '..'
     },
   })
   /* end example */
-  console.log(url)
+  console.log(url, '\n')
   let { body, headers } = await aqt(url)
-  console.log(body)
+  console.log('/ %s', body)
 
   ;({ body, headers } = await aqt(url, {
     headers: {
       'Cookie': headers['set-cookie'],
     },
   }))
-  console.log(body)
+  console.log('/ %s', body)
   app.destroy()
 })()
