@@ -38,6 +38,8 @@ __<a name="type-staticoptions">`StaticOptions`</a>__: The top-level options when
 
 ## Example
 
+The `static` options slot accepts either a single, or multiple configuration items, which additionally can be mounted at certain path. The behaviour of serving files is to find the requested file in the root directory, and return its stream. With mount, the path will be prepended with the mount (must start with `/`), e.g., `example/t.dat` _->_`mount/t.dat` when `root` is `example` and `mount` is `mount`.
+
 <table>
 <tr><th><a href="example/index.js">Source</a></th><th>Output</th>
 </tr><tr>
@@ -46,48 +48,61 @@ __<a name="type-staticoptions">`StaticOptions`</a>__: The top-level options when
 ```js
 const { url, app } = await idio({
   static: [{
-    root: ['example'], use: true,
+    root: 'example', use: true,
   }, {
-    root: ['d'], use: true,
+    root: 'd', use: true,
     mount: '/mount',
+  }, {
+    root: ['src', 'test'], use: true,
+    mount: '/_',
   }],
+})
 ```
 </td>
 <td>
 
-```
-/** http://localhost:64574/app.css */ 
-
+```html
+<!-- http://localhost:65356/app.css -->
 body {
   font-size: larger;
-}
-<!-- http://localhost:64574/mount/em.svg --> 
+} 
 
-<xml></xml>
+<!-- http://localhost:65356/mount/em.svg -->
+<xml></xml> 
+
+<!-- http://localhost:65356/_/fixture/test.txt -->
+a test file
 ```
 </td></tr>
 <tr>
-  <td colspan="2" align="center">
-    <strong>The Headers</strong>
-  </td>
-</tr>
-<tr>
 <td colspan="2">
+
+<details>
+<summary>Show Response Headers</summary>
 
 ```http
 Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Thu, 18 Jul 2019 15:27:55 GMT
+Date: Thu, 18 Jul 2019 15:45:25 GMT
 Connection: close
+
 Content-Length: 11
 Last-Modified: Thu, 18 Jul 2019 14:47:20 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 18 Jul 2019 15:27:55 GMT
+Date: Thu, 18 Jul 2019 15:45:25 GMT
+Connection: close
+
+Content-Length: 12
+Last-Modified: Sun, 12 May 2019 15:06:56 GMT
+Cache-Control: max-age=0
+Content-Type: text/plain; charset=utf-8
+Date: Thu, 18 Jul 2019 15:45:25 GMT
 Connection: close
 ```
+</details>
 </td>
 </tr>
 </table>
