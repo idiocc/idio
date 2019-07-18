@@ -30,6 +30,7 @@
     "types/modules/index.js",
     "types/options/index.js"
   ],
+  "alamode": true,
   "externs": "types/externs.js",
   "repository": {
     "type": "git",
