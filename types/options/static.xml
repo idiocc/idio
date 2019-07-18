@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <type record name="StaticOptions" noToc>
+  <type record name="StaticOptions" desc="The top-level options when setting up the static middleware.">
     <prop type="(string|!Array<string>)" name="root">
       Root or multiple roots from which to serve files.
     </prop>

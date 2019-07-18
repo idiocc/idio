@@ -1,10 +1,16 @@
-## Static
+# Static
 
 The static middleware can serve static files.
+
+%TOC%
 
 %TYPEDEF types/options/static.xml%
 
 %TYPEDEF types/modules/koa-static.xml%
+
+%TYPEDEF types/modules/set-headers.xml%
+
+## Example
 
 <table>
 <!-- block-start -->
@@ -12,12 +18,18 @@ The static middleware can serve static files.
 </tr><tr>
 <td>
 
-%EXAMPLE: example/static, .. => @idio/idio%
+%EXAMPLE: example/static0, .. => @idio/idio%
 </td>
 <td>
 
-%FORK example/static%
+%FORK example/static0%
 </td></tr>
 </table>
 
+<!-- %TYPEDEF types/modules/koa-send.xml% -->
+
 %~%
+
+[Back To Documentation](/)
+
+%~ -1%
