@@ -9,7 +9,7 @@ import printHeaders from './headers'
       root: ['example'], use: true,
     }, {
       root: ['d'], use: true,
-      mount: 'mount',
+      mount: '/mount',
     }],
   /* end example */
   }, { port: null })
@@ -19,8 +19,8 @@ import printHeaders from './headers'
   console.log(body)
   printHeaders(headers)
 
-  u = url + `mount/em.svg`
-  console.log('/** %s */', u, '\n')
+  u = url + `/mount/em.svg`
+  console.log('<!-- %s -->', u, '\n')
   ;({ body, headers } = await aqt(u))
   console.log(body)
   printHeaders(headers)

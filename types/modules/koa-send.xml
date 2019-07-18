@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <type name="KoaSendConfig" noToc>
+  <type name="KoaSendConfig">
     <prop number name="maxage" default="0">
       Browser cache max-age in milliseconds.
     </prop>

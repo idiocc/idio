@@ -24,7 +24,19 @@ The static middleware can serve static files.
 
 %FORK example/static0%
 </td></tr>
+<tr>
+  <td colspan="2" align="center">
+    <strong>The Headers</strong>
+  </td>
+</tr>
+<tr>
+<td colspan="2">
+
+%FORKERR-http example/static0%
+</td>
+</tr>
 </table>
+
 
 <!-- %TYPEDEF types/modules/koa-send.xml% -->
 

@@ -49,17 +49,49 @@ const { url, app } = await idio({
     root: ['example'], use: true,
   }, {
     root: ['d'], use: true,
-    mount: 'mount',
+    mount: '/mount',
   }],
 ```
 </td>
 <td>
 
 ```
+/** http://localhost:64574/app.css */ 
 
+body {
+  font-size: larger;
+}
+<!-- http://localhost:64574/mount/em.svg --> 
+
+<xml></xml>
 ```
 </td></tr>
+<tr>
+  <td colspan="2" align="center">
+    <strong>The Headers</strong>
+  </td>
+</tr>
+<tr>
+<td colspan="2">
+
+```http
+Content-Length: 29
+Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
+Cache-Control: max-age=0
+Content-Type: text/css; charset=utf-8
+Date: Thu, 18 Jul 2019 15:27:55 GMT
+Connection: close
+Content-Length: 11
+Last-Modified: Thu, 18 Jul 2019 14:47:20 GMT
+Cache-Control: max-age=0
+Content-Type: image/svg+xml
+Date: Thu, 18 Jul 2019 15:27:55 GMT
+Connection: close
+```
+</td>
+</tr>
 </table>
+
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
 
