@@ -30,7 +30,7 @@
       "program": "${workspaceFolder}/node_modules/.bin/alanode",
       "console": "integratedTerminal",
       "args": [
-        "example"
+        "example/session"
       ],
       "skipFiles": [
         "<node_internals>/**/*.js"

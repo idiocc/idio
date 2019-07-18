@@ -81,13 +81,46 @@ hello world
 
 [Read Static Middleware Configuration](/doc/static.md)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
+
+<table>
+<tr><th><a href="example/session.js">Session source</a></th><th>The Output</th></tr>
+<tr><td>
+
+```js
+const { url, app } = await idio({
+  session: { use: true, keys:
+    ['hello', 'world'], config: {
+    signed: false,
+  } },
+  async middleware(ctx, next) {
+    if (ctx.session.user)
+      ctx.body = 'welcome back '
+        + ctx.session.user
+    else {
+      ctx.session.user = 'u'
+        +( Math.random() * 1000).toFixed(1)
+      ctx.body = 'hello new user'
+    }
+    await next()
+  },
+})
+```
+</td>
+<td>
+
+```
+http://localhost:5000
+hello new user
+welcome back u448.5
+```
+</td></tr>
+</table>
 
 ## Session
 
 [Read Session Component Configuration](/doc/session.md)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
 ## Copyright
 
