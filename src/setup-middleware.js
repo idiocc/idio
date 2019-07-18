@@ -1,5 +1,6 @@
 import compose from '@goa/goa/modules/koa-compose'
 import session from '@goa/session'
+import Keygrip from '@goa/cookies/src/Keygrip'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
 import compress from '../modules/koa-compress'
@@ -56,8 +57,8 @@ const map = {
    * @param {_idio.SessionOptions} options
    */
   'session'(app, config, { keys }) {
-    if (!Array.isArray(keys)) {
-      throw new Error('Keys must be an array')
+    if (!(keys instanceof Keygrip) && !Array.isArray(keys)) {
+      throw new Error('Keys must be an array or an instance of Keygrip / child classes.')
     }
     app.keys = keys
     const ses = session(app, config)

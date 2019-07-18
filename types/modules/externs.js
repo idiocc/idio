@@ -1,3 +1,7 @@
+/**
+ * @fileoverview The bundled modules' externs.
+ * @externs
+ */
 /* typal types/modules/koa-compress.xml externs */
 /** @const */
 var _idio = {}

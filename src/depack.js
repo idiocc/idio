@@ -1,9 +1,14 @@
+import '../types/modules/externs'
+import '../types/options/externs'
+import '../types/externs'
 import startApp, { createApp, compose, httpErrors, mount } from './'
+import Keygrip from '@goa/cookies/src/Keygrip'
 
-DEPACK_EXPORT = {
-  'startApp': startApp,
-  'createApp': createApp,
-  'compose': compose,
-  'httpErrors': httpErrors,
-  'mount': mount,
+module.exports = {
+  '_createApp': createApp,
+  '_compose': compose,
+  '_startApp': startApp,
+  '_httpErrors': httpErrors,
+  '_mount': mount,
+  '_Keygrip': Keygrip,
 }

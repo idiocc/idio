@@ -7,7 +7,7 @@ import erotic from 'erotic'
 
 /**
  * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
- * @param {_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` `core` server.
+ * @param {!_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` `core` server.
  * @param {_idio.StaticOptions} [middlewareConfig.static] `static` options.
  * @param {_idio.Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
