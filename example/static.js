@@ -5,12 +5,13 @@ import idio from '..'
   /* start example */
   const { url, app } = await idio({
     static: {
-      root: ['example'],
+      root: ['example'], use: true,
     },
   })
   /* end example */
-  console.log(url + `/example/hello-world.txt`)
-  const { body } = await aqt(url)
+  const u = url + `/hello-world.txt`
+  console.log(u)
+  const { body } = await aqt(u)
   console.log(body)
   app.destroy()
 })()

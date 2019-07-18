@@ -111,7 +111,7 @@ __<a name="type-_idiokoastaticconfig">`_idio.KoaStaticConfig`</a>__
 ```js
 const { url, app } = await idio({
   static: {
-    root: ['example'],
+    root: ['example'], use: true,
   },
 })
 ```
@@ -119,8 +119,8 @@ const { url, app } = await idio({
 <td>
 
 ```
-http://localhost:5000/example/hello-world.txt
-Not Found
+http://localhost:5000/hello-world.txt
+hello world!
 ```
 </td></tr>
 </table>
