@@ -3,16 +3,20 @@ import idio from '..'
 import printHeaders from './headers'
 
 (async () => {
-  /* start example */
   const { url, app } = await idio({
-    static: {
+    /* start example */
+    // or multiple locations
+    static: [{
       root: ['example'], use: true,
-    },
+    }, {
+      root: ['d'], use: true,
+    }],
+  })
   /* end example */
-  }, { port: null })
-  const u = url + `/app.css`
-  console.log('/** %s */', u, '\n')
-  const { body, headers } = await aqt(u)
+
+  let u = url + `/em.svg`
+  console.log('<!-- %s -->', u, '\n')
+  let { body, headers } = await aqt(u)
   console.log(body)
   printHeaders(headers)
   app.destroy()

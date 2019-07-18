@@ -79,8 +79,89 @@ hello world
 
 ## Static
 
+Used to serve static files, such as stylesheets, images, videos, html and everything else. Will perform mime-type lookup to serve the correct content-type in the returned header.
+
 [Read Static Middleware Configuration](/doc/static.md)
 
+<table>
+<tr><th><a href="example/static.js">Static</a> <a href="example/static2.js">source</a></th><th>The Output</th></tr>
+<tr><td>
+
+```js
+const { url, app } = await idio({
+  static: {
+    root: ['example'], use: true,
+  },
+```
+
+```js
+// or multiple locations
+  static: [{
+    root: ['example'], use: true,
+  }, {
+    root: ['d'], use: true,
+  }],
+})
+```
+</td>
+<td>
+
+```css
+/** http://localhost:63699/app.css */ 
+
+body {
+  font-size: larger;
+}
+```
+
+
+
+```svg
+<!-- http://localhost:5000/em.svg --> 
+
+<xml></xml>
+```
+</td></tr>
+<tr>
+  <td colspan="2" align="center">
+    <strong>The Headers</strong>
+  </td>
+</tr>
+<tr>
+<td colspan="2">
+
+
+
+```http
+Content-Length: 29
+Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
+Cache-Control: max-age=0
+Content-Type: text/css; charset=utf-8
+Date: Thu, 18 Jul 2019 15:05:22 GMT
+Connection: close
+```
+
+
+
+```http
+Content-Length: 11
+Last-Modified: Thu, 18 Jul 2019 14:47:20 GMT
+Cache-Control: max-age=0
+Content-Type: image/svg+xml
+Date: Thu, 18 Jul 2019 15:05:24 GMT
+Connection: close
+```
+</td>
+</tr>
+</table>
+
+
+
+## Session
+
+Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
+
+[Read Session Component Configuration](/doc/session.md)
 
 <table>
 <tr><th><a href="example/session.js">Session source</a></th><th>The Output</th></tr>
@@ -112,14 +193,11 @@ const { url, app } = await idio({
 http://localhost:5000 
 
 / hello new user
-/ welcome back u844.0
+/ welcome back u683.8
 ```
-</td></tr>
+</td>
+</tr>
 </table>
-
-## Session
-
-[Read Session Component Configuration](/doc/session.md)
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
