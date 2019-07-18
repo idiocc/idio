@@ -1,10 +1,9 @@
 ## Static
 
+> <img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
+> <kbd>🗂 <a href="/doc/static.md">Read Static Middleware Configuration</a></kbd> <kbd>🗿 <a href="https://idio.cc/static.html">Static Idio</a></kbd>
+
 Used to serve static files, such as stylesheets, images, videos, html and everything else. Will perform mime-type lookup to serve the correct content-type in the returned header.
-
-<img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
-
-[Read Static Middleware Configuration](/doc/static.md)
 
 <table>
 <!-- block-start -->

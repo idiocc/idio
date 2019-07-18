@@ -79,11 +79,10 @@ hello world
 
 ## Static
 
+> <img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
+> <kbd>🗂 <a href="/doc/static.md">Read Static Middleware Configuration</a></kbd> <kbd>🗿 <a href="https://idio.cc/static.html">Static Idio</a></kbd>
+
 Used to serve static files, such as stylesheets, images, videos, html and everything else. Will perform mime-type lookup to serve the correct content-type in the returned header.
-
-<img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
-
-[Read Static Middleware Configuration](/doc/static.md)
 
 <table>
 <tr><th><a href="example/static.js">Static</a> <a href="example/static2.js">source</a></th><th>The Output</th></tr>
@@ -159,9 +158,10 @@ Connection: close
 
 ## Session
 
-Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
 
-[Read Session Component Configuration](/doc/session.md)
+<img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="left" height="100"><kbd>[Read Session Configuration](/doc/session.md)</kbd>
+
+Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
 
 <table>
 <tr><th><a href="example/session.js">Session source</a></th><th>The Output</th></tr>
