@@ -1,9 +1,9 @@
-## 18 July 2019
+## 19 July 2019
 
 ### [0.2.0](https://github.com/idiocc/idio/compare/v0.1.0...v0.2.0)
 
 - [feature] Export Keygrip.
-- [doc] Start writing documentation, document static on a separate HTML page.
+- [doc] Start writing documentation, document static on a separate readme page, add links to [idio.cc](https://idio.cc).
 
 ## 29 June 2019
 
