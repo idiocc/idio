@@ -81,7 +81,7 @@ export {}
  */
 
 /**
- * @typedef {import('../../../depack').Application} _goa.Application
- * @typedef {import('../../../depack').Context} _goa.Context
- * @typedef {import('../../../depack').Request} _goa.Request
+ * @typedef {import('../../../compile').Application} _goa.Application
+ * @typedef {import('../../../compile').Context} _goa.Context
+ * @typedef {import('../../../compile').Request} _goa.Request
  */

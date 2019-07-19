@@ -1,5 +1,5 @@
 {
   "entry": "@typedefs/goa",
-  "js": "depack/index.js",
+  "js": "compile/index.js",
   "destination": "types/goa"
 }
