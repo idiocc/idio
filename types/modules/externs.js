@@ -12,6 +12,7 @@ _idio.KoaCompressConfig
 
 /* typal types/modules/set-headers.xml externs */
 /**
+ * The function which allows to set the headers prior to sending the response.
  * @typedef {function(http.ServerResponse, string, fs.Stats)}
  */
 _idio.SetHeaders
@@ -24,6 +25,7 @@ _idio.KoaSendConfig
 
 /* typal types/modules/koa-static.xml externs */
 /**
+ * The configuration that is passed to koa-session.
  * @typedef {{ maxage: (number|undefined), hidden: (boolean|undefined), index: (string|undefined), defer: (boolean|undefined), gzip: (boolean|undefined), br: (boolean|undefined), setHeaders: (_idio.SetHeaders|undefined), extensions: (boolean|undefined) }}
  */
 _idio.KoaStaticConfig

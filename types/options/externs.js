@@ -6,6 +6,7 @@
 /** @const */
 var _idio = {}
 /**
+ * The top-level options when setting up the static middleware.
  * @record
  */
 _idio.StaticOptions
@@ -15,7 +16,7 @@ _idio.StaticOptions
  */
 _idio.StaticOptions.prototype.root
 /**
- * Use this middleware for every request.
+ * Use this middleware for every request. Default `false`.
  * @type {boolean|undefined}
  */
 _idio.StaticOptions.prototype.use
@@ -25,7 +26,7 @@ _idio.StaticOptions.prototype.use
  */
 _idio.StaticOptions.prototype.mount
 /**
- * How long to cache files for.
+ * How long to cache files for. Default `0`.
  * @type {number|undefined}
  */
 _idio.StaticOptions.prototype.maxage
@@ -41,7 +42,7 @@ _idio.StaticOptions.prototype.config
  */
 _idio.CompressOptions
 /**
- * Use this middleware for every request.
+ * Use this middleware for every request. Default `false`.
  * @type {boolean|undefined}
  */
 _idio.CompressOptions.prototype.use
@@ -62,7 +63,7 @@ _idio.SessionOptions
  */
 _idio.SessionOptions.prototype.keys
 /**
- * Use this middleware for every request.
+ * Use this middleware for every request. Default `false`.
  * @type {boolean|undefined}
  */
 _idio.SessionOptions.prototype.use

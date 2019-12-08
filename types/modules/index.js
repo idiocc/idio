@@ -20,10 +20,10 @@ export {}
 
 /* typal types/modules/set-headers.xml closure noSuppress */
 /**
- * @typedef {_idio.SetHeaders} SetHeaders
+ * @typedef {_idio.SetHeaders} SetHeaders The function which allows to set the headers prior to sending the response.
  */
 /**
- * @typedef {function(http.ServerResponse, string, fs.Stats)} _idio.SetHeaders
+ * @typedef {function(http.ServerResponse, string, fs.Stats)} _idio.SetHeaders The function which allows to set the headers prior to sending the response.
  */
 /**
  * @typedef {import('http').ServerResponse} http.ServerResponse
@@ -52,10 +52,10 @@ export {}
 
 /* typal types/modules/koa-static.xml closure noSuppress */
 /**
- * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
+ * @typedef {_idio.KoaStaticConfig} KoaStaticConfig The configuration that is passed to koa-session.
  */
 /**
- * @typedef {Object} _idio.KoaStaticConfig
+ * @typedef {Object} _idio.KoaStaticConfig The configuration that is passed to koa-session.
  * @prop {number} [maxage=0] Browser cache max-age in milliseconds. Default `0`.
  * @prop {boolean} [hidden=false] Allow transfer of hidden files. Default `false`.
  * @prop {string} [index="index.html"] Default file name. Default `index.html`.
