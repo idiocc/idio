@@ -1,6 +1,6 @@
 {
   "name": "@idio/idio",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "@Goa/Koa Web Server Bundled With Essential Middleware: Static, Compress, Session, Cors.",
   "main": "compile/index.js",
   "scripts": {
