@@ -79,6 +79,7 @@ module.exports.Keygrip = _Keygrip
  * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
  * @typedef {import('../types/modules/session').KoaSessionConfig} _idio.KoaSessionConfig
  * @typedef {import('../').Middleware} _goa.Middleware
+ * @typedef {import('../').Application} _goa.Application
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {_idio.FnMiddlewareConfig & _idio.$MiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {Object} _idio.$MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
@@ -87,7 +88,11 @@ module.exports.Keygrip = _Keygrip
  * @prop {_idio.SessionOptions} [session] `koa-session` options.
  * @prop {_idio.CorsOptions} [cors] `koa-cors` options.
  * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
- * @typedef {!Object<string, !_goa.Middleware>} _idio.FnMiddlewareConfig Middleware Config With Functions.
+ * @typedef {!Object<string, !_idio.ConfigItem>} _idio.FnMiddlewareConfig Middleware Config With Functions.
+ * @typedef {_idio.ConfigItem} ConfigItem An item in middleware configuration.
+ * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }} _idio.ConfigItem An item in middleware configuration.
+ * @typedef {_idio.MiddlewareConstructor} MiddlewareConstructor A function used to create middleware.
+ * @typedef {(app: !_goa.Application, config: !Object, options: !Object) => !_goa.Middleware} _idio.MiddlewareConstructor A function used to create middleware.
  */
 
 

@@ -87,30 +87,36 @@ const map = {
   // frontend: setupFrontend,
 }
 
+/**
+ * Initialise the middleware function, either using the middleware constructors from the bundle, or a custom one.
+ * @param {string} name The name of the middleware.
+ * @param {!_idio.ConfigItem} conf The item from the middleware config.
+ * @param {!_goa.Application} app The application instance.
+ */
 async function initMiddleware(name, conf, app) {
   if (typeof conf == 'function') {
-    /** @type {_goa.Middleware} */
     const c = conf
     app.use(c)
     return c
   }
+  const { use, config = {}, middlewareConstructor,
+    ...options } = conf
+
+  /** @type {!_idio.MiddlewareConstructor} */
   let fn
   if (name in map) {
     fn = map[name]
-  } else if (conf['middlewareConstructor']) {
-    if (typeof conf['middlewareConstructor'] != 'function') {
+  } else if (middlewareConstructor) {
+    fn = middlewareConstructor
+    if (typeof fn != 'function') {
       throw new Error(`Expecting a function in the "middlewareConstructor" of the ${name} middleware.`)
     }
-    fn = conf['middlewareConstructor']
   } else {
-    throw new Error(`Either the "middleware" or "middlewareConstructor" properties must be passed for middleware "${name}".`)
+    throw new Error(`Unknown middleware config item "${name}". Either specify one from the idio bundle, or pass the "middlewareConstructor" property.`)
   }
-  const { 'use': use, 'config': config = {}, ...options } = conf
-  /** @type {_goa.Middleware} */
   const res = await fn(app, config, options)
-  if (use) {
-    app.use(res)
-  }
+
+  if (use) app.use(res)
   return res
 }
 
@@ -122,7 +128,7 @@ export default async function setupMiddleware(middlewareConfig, app) {
   /** @type {Object.<string, !_goa.Middleware>} */
   const res = await Object.keys(middlewareConfig)
     .reduce(async (acc, name) => {
-      const accRes = await acc
+      acc = await acc
       const conf = middlewareConfig[name]
       let installed
       if (Array.isArray(conf)) {
@@ -134,7 +140,7 @@ export default async function setupMiddleware(middlewareConfig, app) {
         installed = await initMiddleware(name, conf, app)
       }
       return {
-        ...accRes,
+        ...acc,
         [name]: installed,
       }
     }, {})
@@ -187,4 +193,12 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').MiddlewareConfig} _idio.MiddlewareConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').ConfigItem} _idio.ConfigItem
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').MiddlewareConstructor} _idio.MiddlewareConstructor
  */

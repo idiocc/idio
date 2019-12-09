@@ -1190,22 +1190,21 @@ async function Jb(a, b, c) {
   if ("function" == typeof b) {
     return c.use(b), b;
   }
+  const {use:d, config:e = {}, middlewareConstructor:f, ...g} = b;
   if (a in Ib) {
-    a = Ib[a];
+    b = Ib[a];
   } else {
-    if (b.middlewareConstructor) {
-      if ("function" != typeof b.middlewareConstructor) {
+    if (f) {
+      if (b = f, "function" != typeof b) {
         throw Error(`Expecting a function in the "middlewareConstructor" of the ${a} middleware.`);
       }
-      a = b.middlewareConstructor;
     } else {
-      throw Error(`Either the "middleware" or "middlewareConstructor" properties must be passed for middleware "${a}".`);
+      throw Error(`Unknown middleware config item "${a}". Either specify one from the idio bundle, or pass the "middlewareConstructor" property.`);
     }
   }
-  const {use:d, config:e = {}, ...f} = b;
-  b = await a(c, e, f);
-  d && c.use(b);
-  return b;
+  a = await b(c, e, g);
+  d && c.use(a);
+  return a;
 }
 async function Kb(a, b) {
   return await Object.keys(a).reduce(async(c, d) => {

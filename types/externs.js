@@ -40,9 +40,19 @@ _idio.MiddlewareConfig.prototype.session
 _idio.MiddlewareConfig.prototype.cors
 /**
  * Middleware Config With Functions.
- * @typedef {!Object<string, !_goa.Middleware>}
+ * @typedef {!Object<string, !_idio.ConfigItem>}
  */
 _idio.FnMiddlewareConfig
+/**
+ * An item in middleware configuration.
+ * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }}
+ */
+_idio.ConfigItem
+/**
+ * A function used to create middleware.
+ * @typedef {function(!_goa.Application,!Object,!Object): !Promise<!_goa.Middleware>}
+ */
+_idio.MiddlewareConstructor
 
 /**
  * This is added by the koa-compress middleware.

@@ -44,5 +44,5 @@ export {}
  * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
  * @typedef {import('../..').KoaCompressConfig} _idio.KoaCompressConfig
  * @typedef {import('../..').KoaSessionConfig} _idio.KoaSessionConfig
- * @typedef {import('../..').CorsConfig} _idio.CorsConfig
+ * @typedef {import('../..').CorsConfig} _goa.CorsConfig
  */

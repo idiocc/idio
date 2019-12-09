@@ -12,6 +12,7 @@
   <import from="../types/modules/session" ns="_idio" name="KoaSessionConfig" />
 
   <import from="../" ns="_goa" name="Middleware" />
+  <import from="../" ns="_goa" name="Application" />
 
   <type record name="MiddlewareConfig"
     desc="Middleware configuration for the `idio` server."
@@ -29,6 +30,15 @@
       `koa-cors` options.
     </prop>
   </type>
-  <type type="!Object<string, !_goa.Middleware>" name="FnMiddlewareConfig" desc="Middleware Config With Functions.">
+  <type type="!Object<string, !_idio.ConfigItem>" name="FnMiddlewareConfig" desc="Middleware Config With Functions.">
   </type>
+
+  <type type="!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }" name="ConfigItem" desc="An item in middleware configuration."/>
+
+  <method name="MiddlewareConstructor" async return="!_goa.Middleware">
+    <arg type="!_goa.Application" name="app">The application instance.</arg>
+    <arg type="!Object" name="config">The config for the item.</arg>
+    <arg type="!Object" name="options">Any other additional middleware options.</arg>
+    A function used to create middleware.
+  </method>
 </types>
