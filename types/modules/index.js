@@ -1,12 +1,10 @@
 export {}
 
-/* typal types/modules/koa-compress.xml closure noSuppress */
+/* typal types/modules/koa-compress.xml namespace */
 /**
  * @typedef {_idio.KoaCompressConfig} KoaCompressConfig
- */
-/**
  * @typedef {Object} _idio.KoaCompressConfig
- * @prop {function(string): boolean} [filter] An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
+ * @prop {(arg0: string) => boolean} [filter] An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
  * @prop {number} [threshold=1024] Minimum response size in bytes to compress. Default `1024`.
  * @prop {number} [flush] Default: `zlib.constants.Z_NO_FLUSH`.
  * @prop {number} [finishFlush] Default: `zlib.constants.Z_FINISH`.
@@ -18,25 +16,17 @@ export {}
  * @prop {*} [dictionary] Deflate/inflate only, empty dictionary by default.
  */
 
-/* typal types/modules/set-headers.xml closure noSuppress */
-/**
- * @typedef {_idio.SetHeaders} SetHeaders The function which allows to set the headers prior to sending the response.
- */
-/**
- * @typedef {function(http.ServerResponse, string, fs.Stats)} _idio.SetHeaders The function which allows to set the headers prior to sending the response.
- */
+/* typal types/modules/set-headers.xml namespace */
 /**
  * @typedef {import('http').ServerResponse} http.ServerResponse
- */
-/**
  * @typedef {import('fs').Stats} fs.Stats
+ * @typedef {_idio.SetHeaders} SetHeaders The function which allows to set the headers prior to sending the response.
+ * @typedef {(res: ServerResponse, path: string, stats: Stats) => any} _idio.SetHeaders The function which allows to set the headers prior to sending the response.
  */
 
-/* typal types/modules/koa-send.xml closure noSuppress */
+/* typal types/modules/koa-send.xml namespace */
 /**
  * @typedef {_idio.KoaSendConfig} KoaSendConfig
- */
-/**
  * @typedef {Object} _idio.KoaSendConfig
  * @prop {number} [maxage=0] Browser cache max-age in milliseconds. Default `0`.
  * @prop {boolean} [immutable=false] Tell the browser the resource is immutable and can be cached indefinitely. Default `false`.
@@ -50,11 +40,9 @@ export {}
  * @prop {boolean} [extensions=false] Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served. Default `false`.
  */
 
-/* typal types/modules/koa-static.xml closure noSuppress */
+/* typal types/modules/koa-static.xml namespace */
 /**
  * @typedef {_idio.KoaStaticConfig} KoaStaticConfig The configuration that is passed to koa-session.
- */
-/**
  * @typedef {Object} _idio.KoaStaticConfig The configuration that is passed to koa-session.
  * @prop {number} [maxage=0] Browser cache max-age in milliseconds. Default `0`.
  * @prop {boolean} [hidden=false] Allow transfer of hidden files. Default `false`.

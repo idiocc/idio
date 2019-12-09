@@ -1,4 +1,18 @@
 <types namespace="_idio">
+  <import from="../types/options" ns="_idio" name="CorsOptions" />
+  <import from="../types/modules/cors" ns="_goa" name="CorsConfig" />
+
+  <import from="../types/options" ns="_idio" name="StaticOptions" />
+  <import from="../types/modules" ns="_idio" name="KoaStaticConfig" />
+
+  <import from="../types/options" ns="_idio" name="CompressOptions" />
+  <import from="../types/modules" ns="_idio" name="KoaCompressConfig" />
+
+  <import from="../types/options" ns="_idio" name="SessionOptions" />
+  <import from="../types/modules/session" ns="_idio" name="KoaSessionConfig" />
+
+  <import from="../" ns="_goa" name="Middleware" />
+
   <type record name="MiddlewareConfig"
     desc="Middleware configuration for the `idio` server."
     extends="_idio.FnMiddlewareConfig">
@@ -10,6 +24,9 @@
     </prop>
     <prop opt type="_idio.SessionOptions" name="session">
       `koa-session` options.
+    </prop>
+    <prop opt type="_idio.CorsOptions" name="cors">
+      `koa-cors` options.
     </prop>
   </type>
   <type type="!Object<string, !_goa.Middleware>" name="FnMiddlewareConfig" desc="Middleware Config With Functions.">

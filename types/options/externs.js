@@ -72,3 +72,27 @@ _idio.SessionOptions.prototype.use
  * @type {_idio.KoaSessionConfig|undefined}
  */
 _idio.SessionOptions.prototype.config
+
+/* typal types/options/cors.xml externs */
+/**
+ * @record
+ */
+_idio.CorsOptions
+/**
+ * The origin or an array of origins to accept as valid.
+ * - In case of an array, the origin from the request headers will be searched in the array, and if found, it will be returned (since browsers only support a single `Access-Control-Allow-Origin` header).
+ * - If a function is passed, it should return the string with the origin to set.
+ * - If not passed, the request origin is returned, allowing any origin to access the resource (use with caution).
+ * @type {(string|Array<string>|(function(!_goa.Context): string))|undefined}
+ */
+_idio.CorsOptions.prototype.origin
+/**
+ * Use this middleware for every request. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.CorsOptions.prototype.use
+/**
+ * `@koa/cors` configuration.
+ * @type {(!_goa.CorsConfig)|undefined}
+ */
+_idio.CorsOptions.prototype.config

@@ -6,6 +6,7 @@ const { _createApp, _startApp, _compose, _Keygrip } = require('./idio')
  * @param {_idio.StaticOptions} [middlewareConfig.static] `koa-static` options.
  * @param {_idio.CompressOptions} [middlewareConfig.compress] `koa-compress` options.
  * @param {_idio.SessionOptions} [middlewareConfig.session] `koa-session` options.
+ * @param {_idio.CorsOptions} [middlewareConfig.cors] `koa-cors` options.
  * @returns {Promise<{app: Application, middleware: Middleware}>}
  */
 async function createApp(middlewareConfig) {
@@ -18,6 +19,7 @@ async function createApp(middlewareConfig) {
  * @param {_idio.StaticOptions} [middlewareConfig.static] `koa-static` options.
  * @param {_idio.CompressOptions} [middlewareConfig.compress] `koa-compress` options.
  * @param {_idio.SessionOptions} [middlewareConfig.session] `koa-session` options.
+ * @param {_idio.CorsOptions} [middlewareConfig.cors] `koa-cors` options.
  * @param {Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
  * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
@@ -47,14 +49,16 @@ module.exports.Keygrip = _Keygrip
 
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
+ * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
+ *
  * @typedef {_idio.CompressOptions} CompressOptions
+ * @typedef {_idio.KoaCompressConfig} KoaCompressConfig
+ *
  * @typedef {_idio.SessionOptions} SessionOptions
- * @typedef {import('../types/options').StaticOptions} _idio.StaticOptions
- * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
- * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
- * @typedef {import('../types/modules').KoaStaticConfig} KoaStaticConfig
- * @typedef {import('../types/modules').KoaCompressConfig} KoaCompressConfig
- * @typedef {import('../types/modules/session').KoaSessionConfig} KoaSessionConfig
+ * @typedef {_idio.KoaSessionConfig} KoaSessionConfig
+ *
+ * @typedef {_idio.CorsOptions} CorsOptions
+ * @typedef {_goa.CorsConfig} CorsConfig
  */
 
 /* typal types/index.xml */
@@ -64,40 +68,43 @@ module.exports.Keygrip = _Keygrip
  * @prop {string} [host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
  */
 
-/* typal types/middleware.xml closure noSuppress */
+/* typal types/middleware.xml namespace */
 /**
+ * @typedef {import('../types/options').CorsOptions} _idio.CorsOptions
+ * @typedef {import('../types/modules/cors').CorsConfig} _goa.CorsConfig
+ * @typedef {import('../types/options').StaticOptions} _idio.StaticOptions
+ * @typedef {import('../types/modules').KoaStaticConfig} _idio.KoaStaticConfig
+ * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
+ * @typedef {import('../types/modules').KoaCompressConfig} _idio.KoaCompressConfig
+ * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
+ * @typedef {import('../types/modules/session').KoaSessionConfig} _idio.KoaSessionConfig
+ * @typedef {import('../').Middleware} _goa.Middleware
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
- */
-/**
  * @typedef {_idio.FnMiddlewareConfig & _idio.$MiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
- */
-/**
  * @typedef {Object} _idio.$MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @prop {_idio.StaticOptions} [static] `koa-static` options.
  * @prop {_idio.CompressOptions} [compress] `koa-compress` options.
  * @prop {_idio.SessionOptions} [session] `koa-session` options.
- */
-/**
+ * @prop {_idio.CorsOptions} [cors] `koa-cors` options.
  * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
- */
-/**
  * @typedef {!Object<string, !_goa.Middleware>} _idio.FnMiddlewareConfig Middleware Config With Functions.
  */
+
+
+/**
+* @typedef {import('http').Server} http.Server
+*/
 
 /* typework */
 /**
  * @typedef {import('../types/goa/vendor/cookies').Keygrip} Keygrip
- * @typedef {Middleware} _goa.Middleware
+ * @typedef {import('../types/goa/vendor/cookies').Cookies} Cookies
+ * @typedef {import('../types/goa/vendor/accepts').Accepts} Accepts
  * @typedef {import('../types/goa/typedefs/application').Middleware} Middleware
  * @typedef {import('../types/goa/typedefs/application').Application} Application
- * @typedef {import('../types/goa/typedefs/context').KoaContext} Context
+ * @typedef {import('../types/goa/typedefs/context').Context} Context
  * @typedef {import('../types/goa/typedefs/request').Request} Request
  * @typedef {import('../types/goa/typedefs/request').ContextDelegatedRequest} ContextDelegatedRequest
  * @typedef {import('../types/goa/typedefs/response').Response} Response
  * @typedef {import('../types/goa/typedefs/response').ContextDelegatedResponse} ContextDelegatedResponse
  */
-
-/**
-  * @suppress {nonStandardJsDocs}
-  * @typedef {import('http').Server} http.Server
-  */

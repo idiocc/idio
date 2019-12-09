@@ -1,6 +1,7 @@
 import compose from '@goa/goa/modules/koa-compose'
 import session from '@goa/session'
 import Keygrip from '@goa/cookies/src/Keygrip'
+import cors from '@goa/cors'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
 import compress from '../modules/koa-compress'
@@ -52,6 +53,7 @@ const map = {
     return fn
   },
   /**
+   * The session middleware.
    * @param {_goa.Application} app
    * @param {_idio.KoaSessionConfig} config
    * @param {_idio.SessionOptions} options
@@ -64,7 +66,24 @@ const map = {
     const ses = session(app, config)
     return ses
   },
-  // cors: setupCors,
+  /**
+   * The CORS middleware.
+   * @param {_goa.Application} app
+   * @param {_goa.CorsConfig} config
+   * @param {_idio.CorsOptions} options
+   */
+  'cors'(app, config, { origin }) {
+    const o = Array.isArray(origin) ? (ctx) => {
+      const oh = ctx.get('Origin')
+      const found = origin.find(a => a == oh)
+      return found
+    } : origin
+    const fn = cors({
+      origin: o,
+      ...config,
+    })
+    return fn
+  },
   // frontend: setupFrontend,
 }
 
@@ -138,10 +157,25 @@ export default async function setupMiddleware(middlewareConfig, app) {
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').CompressOptions} _idio.CompressOptions
  */
+
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').SessionOptions} _idio.SessionOptions
  */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').KoaSessionConfig} _idio.KoaSessionConfig
+ */
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').CorsOptions} _idio.CorsOptions
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').CorsConfig} _goa.CorsConfig
+ */
+
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').KoaStaticConfig} _idio.KoaStaticConfig
@@ -149,10 +183,6 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').KoaCompressConfig} _idio.KoaCompressConfig
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('..').KoaSessionConfig} _idio.KoaSessionConfig
  */
 /**
  * @suppress {nonStandardJsDocs}

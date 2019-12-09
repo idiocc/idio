@@ -34,6 +34,11 @@ _idio.MiddlewareConfig.prototype.compress
  */
 _idio.MiddlewareConfig.prototype.session
 /**
+ * `koa-cors` options.
+ * @type {_idio.CorsOptions|undefined}
+ */
+_idio.MiddlewareConfig.prototype.cors
+/**
  * Middleware Config With Functions.
  * @typedef {!Object<string, !_goa.Middleware>}
  */

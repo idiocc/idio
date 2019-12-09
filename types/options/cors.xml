@@ -1,0 +1,17 @@
+<types namespace="_idio">
+  <import from="../.." ns="_goa" name="Context"/>
+  <type record name="CorsOptions" noToc>
+    <prop opt type="string|Array<string>|(function(!_goa.Context): string)" name="origin">
+      The origin or an array of origins to accept as valid.
+      - In case of an array, the origin from the request headers will be searched in the array, and if found, it will be returned (since browsers only support a single `Access-Control-Allow-Origin` header).
+      - If a function is passed, it should return the string with the origin to set.
+      - If not passed, the request origin is returned, allowing any origin to access the resource (use with caution).
+    </prop>
+    <prop boolean name="use" default="false">
+      Use this middleware for every request.
+    </prop>
+    <prop opt type="!_goa.CorsConfig" name="config">
+      `@koa/cors` configuration.
+    </prop>
+  </type>
+</types>
