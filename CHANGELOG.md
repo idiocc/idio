@@ -1,5 +1,9 @@
 ## 9 December 2019
 
+### [0.2.1](https://github.com/idiocc/idio/compare/v0.2.0...v0.2.1)
+
+- [feature] Types for _MiddlewareConstructor_.
+
 ### [0.2.0](https://github.com/idiocc/idio/compare/v0.1.0...v0.2.0)
 
 - [feature] Add `CORS` middleware.
