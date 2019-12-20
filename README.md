@@ -2,9 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/%40idio%2Fidio.svg)](https://www.npmjs.com/package/@idio/idio)
 
-<a href="https://github.com/idio/core"><img src="https://raw.github.com/idiocc/core/master/images/logo.svg?sanitize=true" width="150" align="left"></a>
+<a href="https://github.com/idiocc/idio"><img src="https://raw.github.com/idiocc/core/master/images/logo.svg?sanitize=true" width="150" align="left"></a>
 
-`@idio/idio` is a Koa's fork called Goa web server compiled with Closure Compiler so that its source code is optimised and contains only 1 external dependency (`mime-db`). Idio adds essential middleware to Goa, and includes the router.
+`@idio/idio` contains Koa's fork called Goa &mdash; web server compiled with _Closure Compiler_ so that its source code is optimised and contains only 1 external dependency (`mime-db`). Idio adds essential middleware to Goa for session, static files, CORS and compression and includes the router. As the project grows, more middleware will be added and optimised.
+
+This is a production-ready server that puts all components together for the ease of use, while providing great developer experience using JSDoc annotations for auto-completions. _Idio_ is not a framework, but a library that enables **idiomatic** usage and compilation of the server and middleware.
 
 <p align="center">
   <a href="https://www.idio.cc"><img alt="Developer-Friendly Suggestions For Middleware" src="app2.gif"></a>
@@ -25,6 +27,7 @@ yarn add @idio/idio
   * [`Idio`](#type-idio)
 - [Static](#static)
 - [Session](#session)
+- [Custom Middleware](#custom-middleware)
 - [Router Set-up](#router-set-up)
 - [Copyright & License](#copyright--license)
 
@@ -206,12 +209,14 @@ Connection: close
 </tr>
 </table>
 
-
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+</a></p>
 
 ## Session
 
 
-<img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="left" height="100"><kbd>[Read Session Configuration](/doc/session.md)</kbd>
+<img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="left" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
 
 Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
 
@@ -252,7 +257,100 @@ http://localhost:5000
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+</a></p>
+
+## Custom Middleware
+
+When required to add any other middleware in the application not included in the _Idio_ bundle, it can be done in several ways.
+
+1. Passing the middleware function as part of the <a href="1-API/index.md#type-middlewareconfig" title="Middleware configuration for the `idio` server.">_MiddlewareConfig_</a>. It will be automatically installed to be used by the _Application_. All middleware will be installed in order it is found in the _MiddlewareConfig_.
+    ```js
+    import idio from '@idio/idio'
+    
+    const APIServer = async (port) => {
+      const { url } = await idio({
+        // 1. Add logging middleware.
+        async log(ctx, next) {
+          await next()
+          console.log(' --> API: %s %s %s', ctx.method, ctx.url, ctx.status)
+        },
+        // 2. Add always used error middleware.
+        async error(ctx, next) {
+          try {
+            await next()
+          } catch (err) {
+            ctx.status = 403
+            ctx.body = err.message
+          }
+        },
+        // 3. Add validation middleware.
+        async validateKey(ctx, next) {
+          if (ctx.query.key !== 'app-secret')
+            throw new Error('Wrong API key.')
+          ctx.body = 'ok'
+          await next()
+        },
+      }, { port })
+      return url
+    }
+    
+    export default APIServer
+    ```
+    ```
+    Started API server at: http://localhost:5005
+     --> API: GET / 403
+     --> API: GET /?key=app-secret 200
+    ```
+2. Passing a configuration object as part of the _MiddlewareConfig_ that includes the `middlewareConstructor` property which will receive the reference to the `app`. Other properties such as `conf` and `use` will be used in the same way as when setting up bundled middleware: setting `use` to `true` will result in the middleware being used for every request, and the `config` will be passed to the constructor.
+    ```js
+    import rqt from 'rqt'
+    import idio from '@idio/idio'
+    import APIServer from './api-server'
+    
+    const ProxyServer = async (port) => {
+      // 1. Start the API server.
+      const API = await APIServer(5001)
+      console.log('API server started at %s', API)
+    
+      // 2. Start a proxy server to the API.
+      const { url } = await idio({
+        async log(ctx, next) {
+          await next()
+          console.log(' --> Proxy: %s %s %s', ctx.method, ctx.url, ctx.status)
+        },
+        api: {
+          use: true,
+          async middlewareConstructor(app, config) {
+            // e.g., read from a virtual network
+            app.context.SECRET = await Promise.resolve('app-secret')
+    
+            /** @type {import('@typedefs/goa').Middleware} */
+            const fn = async (ctx, next) => {
+              const { path } = ctx
+              const res = await rqt(`${config.API}${path}?key=${ctx.SECRET}`)
+              ctx.body = res
+              await next()
+            }
+            return fn
+          },
+          config: {
+            API,
+          },
+        },
+      }, { port })
+      return url
+    }
+    ```
+    ```
+    API server started at http://localhost:5001
+    Proxy started at http://localhost:5002
+     --> API: GET /?key=app-secret 200
+     --> Proxy: GET / 200
+    ```
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
 </a></p>
 
 ## Router Set-up
@@ -261,7 +359,7 @@ After the _Application_ and _Router_ instances are obtained after starting the s
 
 ```js
 import { collect } from 'catchment'
-import idio from '@idio/core'
+import idio from '@idio/idio'
 
 const Server = async () => {
   const {
@@ -343,7 +441,7 @@ Page available at: http://localhost:5003
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/6.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License
@@ -352,7 +450,29 @@ GNU Affero General Public License v3.0
 
 All original work on middleware and Koa are under MIT license.
 
-<idio-footer>
+<table>
+  <tr>
+    <th>
+      <a href="https://artd.eco">
+        <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
+          alt="Art Deco">
+      </a>
+    </th>
+    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a> 2019</th>
+    <th>
+      <a href="https://idio.cc">
+        <img src="https://avatars3.githubusercontent.com/u/40834161?s=100" width="100" alt="Idio">
+      </a>
+    </th>
+    <th>
+      <a href="https://www.technation.sucks" title="Tech Nation Visa">
+        <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
+          alt="Tech Nation Visa">
+      </a>
+    </th>
+    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
+  </tr>
+</table>
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/-1.svg?sanitize=true">

@@ -8,6 +8,6 @@ GNU Affero General Public License v3.0
 
 All original work on middleware and Koa are under MIT license.
 
-<idio-footer>
+<idio-footer />
 
 %~ -1%
