@@ -65,6 +65,9 @@ module.exports.createApp = createApp
  * @typedef {(app: !_goa.Application, config: !Object, options: !Object) => !_goa.Middleware} _idio.MiddlewareConstructor A function used to create middleware.
  */
 
+/* typal node_modules/@goa/router/types/index.xml ignore:_goa.LayerConfig namespace */
+
+/* typal node_modules/@goa/router/types/router.xml namespace */
 
 /**
 * @typedef {import('http').Server} http.Server

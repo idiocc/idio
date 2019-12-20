@@ -1,5 +1,6 @@
 import setupMiddleware from './setup-middleware'
 import Goa from '@goa/goa'
+import Router from '@goa/router'
 // import Debug from '@idio/debug'
 import erotic from 'erotic'
 
@@ -7,29 +8,15 @@ import erotic from 'erotic'
 
 /**
  * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
- * @param {!_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` `core` server.
- * @param {_idio.StaticOptions} [middlewareConfig.static] `static` options.
- * @param {_idio.Config} [config] Server configuration object.
- * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
- * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
- * @example
-```js
-// start a server, and serve files from the "static" directory.
-await idio({
-  static: {
-    use: true,
-    root: 'static',
-    config: {
-      hidden: true,
-    },
-  },
-})
-```
+ * @param {!_idio.MiddlewareConfig} [middlewareConfig]
+ * @param {!_idio.Config} [config]
+ * @return {!Promise<!_idio.Idio>}
  */
 export default async function startApp(middlewareConfig = {}, config = {}) {
   const {
     port = 5000,
     host = '0.0.0.0',
+    router: routerConfig,
   } = config
 
   // close all connections when running nodemon
@@ -41,7 +28,7 @@ export default async function startApp(middlewareConfig = {}, config = {}) {
   process.once('SIGUSR2', sigListener)
 
   const appMeta = await createApp(middlewareConfig)
-  const { app } = appMeta
+  const { app, middleware } = appMeta
 
   const server = await listen(app, port, host)
 
@@ -54,9 +41,9 @@ export default async function startApp(middlewareConfig = {}, config = {}) {
 
   const url = `http://localhost:${p}`
 
-  // const router = new Router()
+  const router = new Router(routerConfig)
 
-  return { ...appMeta, 'url': url, 'server': server }
+  return { app, middleware, url, server, router }
 }
 
 /**
@@ -87,7 +74,7 @@ const enableDestroy = async (server) => {
  * @param {!_idio.MiddlewareConfig} middlewareConfig
  */
 export const createApp = async (middlewareConfig) => {
-  const app = new Goa()
+  const app = /** @type {!_goa.Application} */ (new Goa())
 
   const middleware = await setupMiddleware(middlewareConfig, app)
 
@@ -96,8 +83,8 @@ export const createApp = async (middlewareConfig) => {
   }
 
   return {
-    'app': app,
-    'middleware': middleware,
+    app,
+    middleware,
   }
 }
 
@@ -141,4 +128,12 @@ function listen(app, port, hostname = '0.0.0.0') {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').MiddlewareConfig} _idio.MiddlewareConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').Idio} _idio.Idio
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('@typedefs/goa').Application} _goa.Application
  */

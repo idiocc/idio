@@ -111,10 +111,10 @@
   resolved "https://registry.yarnpkg.com/@goa/negotiator/-/negotiator-1.0.1.tgz#d0b0dccfafc4dc4a990ae92a65c4faedfbe884f7"
   integrity sha512-Hzu2cXJBI5/WKb+9nuLRfefLcRWUlgWTlWHaZbtrM/7BHQHQIX4FJWNzywQARmWDl9g8hoHdeWw58SPcx5ET4Q==
 
-"@goa/router@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@goa/router/-/router-1.1.0.tgz#4687d0b642a888e12ffaa03c46aa8346d26cf0c7"
-  integrity sha512-+MG6dU+t4NSm/ttU4HbN7YAgGO0E+tl0OV9Mr9fAjfl5zyq3cgVLHVda2pDe2gQhWr9U7iShVKIE0nD2/SLP7Q==
+"@goa/router@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@goa/router/-/router-1.1.2.tgz#dc197182379ddf86e989b29b4a825ab48e8af5b7"
+  integrity sha512-0kHC/r3I08lekJJA9NiOFM3cNLcAJsf8QNo8nUmhiC/ByclJx3u5tLMkUBLYWBuOTvh+lCFcLYQi/ay3CjPvVw==
 
 "@goa/session@^1.0.3":
   version "1.0.3"

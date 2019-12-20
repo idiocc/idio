@@ -7,9 +7,38 @@
 var _idio = {}
 /**
  * Server configuration object.
- * @typedef {{ port: (number|undefined), host: (string|undefined) }}
+ * @typedef {{ port: (number|undefined), host: (string|undefined), router: ((!_goa.RouterConfig)|undefined) }}
  */
 _idio.Config
+/**
+ * @record
+ */
+_idio.Idio
+/**
+ * The URL on which the server was started, such as `http://localhost:5000`.
+ * @type {string}
+ */
+_idio.Idio.prototype.url
+/**
+ * The server instance.
+ * @type {!http.Server}
+ */
+_idio.Idio.prototype.server
+/**
+ * The Goa application instance.
+ * @type {!_goa.Application}
+ */
+_idio.Idio.prototype.app
+/**
+ * An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`.
+ * @type {!Object<string, !_goa.Middleware>}
+ */
+_idio.Idio.prototype.middleware
+/**
+ * The router instance.
+ * @type {!_goa.Router}
+ */
+_idio.Idio.prototype.router
 
 /* typal types/middleware.xml externs */
 /**

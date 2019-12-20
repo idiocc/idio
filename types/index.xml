@@ -6,5 +6,26 @@
     <prop string name="host" default="0.0.0.0">
       The host on which to listen.
     </prop>
+    <prop type="!_goa.RouterConfig" name="router" opt>
+      The configuration for the router.
+    </prop>
   </type>
+
+  <record name="Idio">
+    <prop string name="url">
+      The URL on which the server was started, such as `http://localhost:5000`.
+    </prop>
+    <prop type="!http.Server" name="server">
+      The server instance.
+    </prop>
+    <prop type="!_goa.Application" name="app">
+      The Goa application instance.
+    </prop>
+    <prop type="!Object<string, !_goa.Middleware>" name="middleware">
+      An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`.
+    </prop>
+    <prop type="!_goa.Router" name="router">
+      The router instance.
+    </prop>
+  </record>
 </types>
