@@ -30,8 +30,9 @@
       `koa-cors` options.
     </prop>
   </record>
-  <type type="!Object<string, !_idio.ConfigItem>" name="FnMiddlewareConfig" desc="Middleware Config With Functions.">
-  </type>
+
+  <!-- Plain config on top of which the idio middleware is installed. -->
+  <type type="!Object<string, !_idio.ConfigItem>" name="FnMiddlewareConfig" desc="Middleware Config With Functions."/>
 
   <type type="!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }" name="ConfigItem" desc="An item in middleware configuration."/>
 

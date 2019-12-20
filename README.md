@@ -2,7 +2,14 @@
 
 [![npm version](https://badge.fury.io/js/%40idio%2Fidio.svg)](https://www.npmjs.com/package/@idio/idio)
 
+<a href="https://github.com/idio/core"><img src="https://raw.github.com/idiocc/core/master/images/logo.svg?sanitize=true" width="150" align="left"></a>
+
 `@idio/idio` is a Koa's fork called Goa web server compiled with Closure Compiler so that its source code is optimised and contains only 1 external dependency (`mime-db`). Idio adds essential middleware to Goa, and includes the router.
+
+<p align="center">
+  <a href="https://www.idio.cc"><img alt="Developer-Friendly Suggestions For Middleware" src="app2.gif"></a>
+</p>
+
 
 ```sh
 yarn add @idio/idio
@@ -18,6 +25,7 @@ yarn add @idio/idio
   * [`Idio`](#type-idio)
 - [Static](#static)
 - [Session](#session)
+- [Router Set-up](#router-set-up)
 - [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
@@ -92,8 +100,16 @@ The example below starts a simple server with session and custom middleware, whi
 
 ```js
 const { url, app } = await idio({
-  session: { use: true, keys: new Keygrip(
-    ['hello', 'world']) },
+  // Idio's bundled middleware.
+  session: {
+    use: true,
+    keys: new Keygrip(['hello', 'world']),
+    config: {
+      prefix: 'example-',
+    },
+  },
+
+  // Any middleware function to be installed.
   async middleware(ctx, next) {
     ctx.body = 'hello world'
     await next()
@@ -237,6 +253,85 @@ http://localhost:5000
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+</a></p>
+
+## Router Set-up
+
+After the _Application_ and _Router_ instances are obtained after starting the server as the `app` and `router` properties of the <a href="1-API/index.md#type-idio" title="The return type of the idio.">returned object</a>, the router can be configured to respond to custom paths. This can be done by assigning configured middleware from the map and standalone middleware, and calling the `use` method on the _Application_ instance.
+
+```js
+import { collect } from 'catchment'
+import idio from '@idio/core'
+
+
+const Server = async () => {
+  const path = '/test'
+  const {
+    url, router, app, middleware: { pre, post, bodyparser },
+  } = await idio({
+    // 1. Configure middlewares via middlewareConstructor without installing them.
+    pre: {
+      middlewareConstructor() {
+        return async function(ctx, next) {
+          console.log('  <-- %s %s',
+            ctx.request.method,
+            ctx.request.path,
+          )
+          await next()
+        }
+      },
+    },
+    post: {
+      middlewareConstructor() {
+        return async function(ctx, next) {
+          console.log('  --> %s %s %s',
+            ctx.request.method,
+            ctx.request.path,
+            ctx.response.status,
+          )
+          await next()
+        }
+      },
+    },
+    bodyparser: {
+      middlewareConstructor() {
+        return async (ctx, next) => {
+          let body = await collect(ctx.req)
+          if (ctx.is('application/json')) {
+            body = JSON.parse(body)
+          }
+          ctx.request.body = body
+          await next()
+        }
+      },
+    },
+  }, { port: 5003 })
+
+  // 2. Setup router with the bodyparser and path-specific middleware.
+  router.post(path,
+    pre,
+    bodyparser,
+    async (ctx, next) => {
+      ctx.body = {
+        ok: true,
+        request: ctx.request.body,
+      }
+      await next()
+    },
+    post,
+  )
+  app.use(router.routes())
+  return `${url}${path}`
+}
+```
+```
+Page available at: http://localhost:5003/test
+  <-- POST /test
+  --> POST /test 200
+```
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License

@@ -3368,11 +3368,11 @@ const ae = async a => {
       }
     });
   };
-}, be = async a => {
-  const b = new Md;
-  a = await Lb(a, b);
-  "production" == b.env && (b.proxy = !0);
-  return {app:b, middleware:a};
+}, be = async(a = {}, b = {}) => {
+  const c = new Md;
+  a = await Lb(a, c);
+  "production" == c.env && (c.proxy = !0);
+  return {app:c, middleware:a, router:new Z(b)};
 };
 function ce(a, b, c = "0.0.0.0") {
   const d = nb(!0);
@@ -3393,17 +3393,18 @@ function ce(a, b, c = "0.0.0.0") {
     });
   };
   process.once("SIGUSR2", f);
-  a = await be(a);
-  const g = a.app;
-  a = a.middleware;
+  b = await be(a, e);
+  const g = b.app;
+  a = b.middleware;
+  b = b.router;
   const h = await ce(g, c, d);
   ae(h);
   g.destroy = async() => {
     await h.destroy();
     process.removeListener("SIGUSR2", f);
   };
-  ({port:b} = h.address());
-  return {app:g, middleware:a, url:`http://localhost:${b}`, server:h, router:new Z(e)};
+  const {port:k} = h.address();
+  return {app:g, middleware:a, url:`http://localhost:${k}`, server:h, router:b};
 }, _httpErrors:v, _mount:wa, _Keygrip:Pa};
 
 

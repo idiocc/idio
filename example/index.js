@@ -4,8 +4,16 @@ import idio, { Keygrip } from '../compile'
 (async () => {
   /* start example */
   const { url, app } = await idio({
-    session: { use: true, keys: new Keygrip(
-      ['hello', 'world']) },
+    // Idio's bundled middleware.
+    session: {
+      use: true,
+      keys: new Keygrip(['hello', 'world']),
+      config: {
+        prefix: 'example-',
+      },
+    },
+
+    // Any middleware function to be installed.
     async middleware(ctx, next) {
       ctx.body = 'hello world'
       await next()
