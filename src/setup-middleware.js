@@ -1,4 +1,4 @@
-import compose from '@goa/goa/modules/koa-compose'
+import compose from '@goa/compose'
 import session from '@goa/session'
 import Keygrip from '@goa/cookies/src/Keygrip'
 import cors from '@goa/cors'

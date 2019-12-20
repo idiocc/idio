@@ -1,6 +1,6 @@
 import { equal } from 'assert'
 import Debug from '@idio/debug'
-import compose from '@goa/goa/modules/koa-compose'
+import compose from '@goa/compose'
 
 const debug = Debug('koa-mount')
 

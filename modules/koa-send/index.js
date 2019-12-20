@@ -1,6 +1,6 @@
 import Debug from '@idio/debug'
 import { normalize, basename, extname, resolve, parse, sep } from 'path'
-import createError from '@goa/goa/modules/http-errors'
+import createError from '@goa/http-errors'
 import assert from 'assert'
 import { exists as fsExists, stat as fsStat, createReadStream } from 'fs'
 import makePromise from 'makepromise'

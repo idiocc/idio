@@ -5,7 +5,7 @@
  * MIT Licensed
  */
 
-import createError from '@goa/goa/modules/http-errors'
+import createError from '@goa/http-errors'
 import { join, normalize, resolve, sep, isAbsolute } from 'path'
 
 /**

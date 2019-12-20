@@ -1,6 +1,6 @@
 import compressible from '../compressible'
 import isJSON from '@goa/goa/modules/koa-is-json'
-import { empty } from '@goa/goa/modules/statuses'
+import { empty } from '@goa/statuses'
 import Stream from 'stream'
 import { createGzip, createDeflate } from 'zlib'
 import bytes from '../bytes'
