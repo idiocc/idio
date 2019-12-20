@@ -7,6 +7,14 @@
           "to": "$1compile"
         }
       }
+    },
+    "test-dev": {
+      "import": {
+        "replacement": {
+          "from": "@goa/goa$",
+          "to": "@goa/koa"
+        }
+      }
     }
   }
 }

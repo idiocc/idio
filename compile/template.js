@@ -1,29 +1,14 @@
 const { _createApp, _startApp, _compose, _Keygrip } = require('./idio')
 
 /**
- * Just create a _Goa_ app without starting it.
- * @param {!_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` server.
- * @param {_idio.StaticOptions} [middlewareConfig.static] `koa-static` options.
- * @param {_idio.CompressOptions} [middlewareConfig.compress] `koa-compress` options.
- * @param {_idio.SessionOptions} [middlewareConfig.session] `koa-session` options.
- * @param {_idio.CorsOptions} [middlewareConfig.cors] `koa-cors` options.
- * @return {Promise<{app: !_goa.Application, middleware: !_goa.Middleware}>}
+ * @methodType {_idio.createApp}
  */
 async function createApp(middlewareConfig) {
   return _createApp(middlewareConfig)
 }
 
 /**
- * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
- * @param {!_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` server.
- * @param {_idio.StaticOptions} [middlewareConfig.static] `koa-static` options.
- * @param {_idio.CompressOptions} [middlewareConfig.compress] `koa-compress` options.
- * @param {_idio.SessionOptions} [middlewareConfig.session] `koa-session` options.
- * @param {_idio.CorsOptions} [middlewareConfig.cors] `koa-cors` options.
- * @param {!_idio.Config} [config] Server configuration object.
- * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
- * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
- * @return {Promise<{url:string, server: !http.Server, app: !_goa.Application, middleware: Object<string, !_goa.Middleware>}>}
+ * @methodType {_idio.idio}
  */
 async function idio(middlewareConfig = {}, config = {}) {
   return _startApp(middlewareConfig, config)
@@ -48,8 +33,7 @@ module.exports.createApp = createApp
 
 /* typal types/index.xml namespace */
 /**
- * @typedef {_idio.Config} Config Server configuration object.
- * @typedef {Object} _idio.Config Server configuration object.
+ * @typedef {Object} Config Server configuration object.
  * @prop {number} [port=5000] The port on which to start the server. Default `5000`.
  * @prop {string} [host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
  */
@@ -87,15 +71,3 @@ module.exports.createApp = createApp
 */
 
 /* typework */
-/**
- * @typedef {import('../types/goa/vendor/cookies').Keygrip} Keygrip
- * @typedef {import('../types/goa/vendor/cookies').Cookies} Cookies
- * @typedef {import('../types/goa/vendor/accepts').Accepts} Accepts
- * @typedef {import('../types/goa/typedefs/application').Middleware} Middleware
- * @typedef {import('../types/goa/typedefs/application').Application} Application
- * @typedef {import('../types/goa/typedefs/context').Context} Context
- * @typedef {import('../types/goa/typedefs/request').Request} Request
- * @typedef {import('../types/goa/typedefs/request').ContextDelegatedRequest} ContextDelegatedRequest
- * @typedef {import('../types/goa/typedefs/response').Response} Response
- * @typedef {import('../types/goa/typedefs/response').ContextDelegatedResponse} ContextDelegatedResponse
- */

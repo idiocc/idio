@@ -6,10 +6,8 @@ const debug = Debug('koa-mount')
 
 /**
  * Mount `app` with `prefix`, `app` may be a Koa application or middleware function.
- *
- * @param {string|_goa.Application|_goa.Middleware} prefix prefix, app, or middleware
- * @param {_goa.Application|_goa.Middleware} app app or middleware
- * @return {_goa.Middleware}
+ * @param {string|!_goa.Application|!_goa.Middleware} prefix prefix, app, or middleware
+ * @param {!_goa.Application|!_goa.Middleware} app app or middleware
  */
 export default function mount(prefix, app) {
   if (typeof prefix != 'string') {
@@ -32,20 +30,23 @@ export default function mount(prefix, app) {
   const name = app.name || 'unnamed'
   debug('mount %s %s', prefix, name)
 
-  return async function (ctx, upstream) {
+  /**
+   * @type {!_goa.Middleware}
+   */
+  async function middleware(ctx, upstream) {
     const prev = ctx.path
     const newPath = match(prev)
     debug('mount %s %s -> %s', prefix, name, newPath)
     if (!newPath) return await upstream()
 
     ctx['mountPath'] = prefix
-    ctx.path = newPath
+    ctx.path = /** @type {string} */ (newPath)
     debug('enter %s -> %s', prev, ctx.path)
 
     await downstream(ctx, async () => {
       ctx.path = prev
       await upstream()
-      ctx.path = newPath
+      ctx.path = /** @type {string} */ (newPath)
     })
 
     debug('leave %s -> %s', prev, ctx.path)
@@ -76,6 +77,7 @@ export default function mount(prefix, app) {
     if (newPath[0] != '/') return false
     return newPath
   }
+  return middleware
 }
 
 /**

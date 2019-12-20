@@ -6,8 +6,8 @@
     <prop boolean name="hidden" default="false">
       Allow transfer of hidden files.
     </prop>
-    <prop string name="index" default="index.html">
-      Default file name.
+    <prop type="string|boolean" name="index" default="index.html">
+      Default file name. Pass `false` to not have default name.
     </prop>
     <prop boolean name="defer" default="false">
       If `true`, serves after return next(), allowing any downstream middleware to respond first.

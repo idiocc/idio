@@ -7,10 +7,8 @@ const debug = Debug('koa-static')
 
 /**
  * Serve static files from `root`.
- *
  * @param {string} root
  * @param {_idio.KoaStaticConfig} [opts]
- * @returns {_goa.Middleware}
  */
 export default (root, opts = {}) => {
   assert(root, 'root directory is required to serve files')
@@ -21,10 +19,11 @@ export default (root, opts = {}) => {
   if (opts.index !== false) opts.index = opts.index || 'index.html'
 
   if (!opts.defer) {
-    return async function serve(ctx, next) {
+    /** @type {!_goa.Middleware} */
+    const serve = async (ctx, next) => {
       let done = false
 
-      if (ctx.method === 'HEAD' || ctx.method === 'GET') {
+      if (ctx.method == 'HEAD' || ctx.method == 'GET') {
         try {
           done = await send(ctx, ctx.path, opts)
         } catch (err) {
@@ -38,14 +37,16 @@ export default (root, opts = {}) => {
         await next()
       }
     }
+    return serve
   }
 
-  return async function serve(ctx, next) {
+  /** @type {!_goa.Middleware} */
+  const serve = async (ctx, next) => {
     await next()
 
     if (ctx.method != 'HEAD' && ctx.method != 'GET') return
     // response is already handled
-    if (ctx.body != null || ctx.status != 404) return // eslint-disable-line
+    if (ctx.body != null || ctx.status != 404) return
 
     try {
       await send(ctx, ctx.path, opts)
@@ -55,6 +56,7 @@ export default (root, opts = {}) => {
       }
     }
   }
+  return serve
 }
 
 /**

@@ -16,13 +16,15 @@ const encodingMethods = {
 /**
  * Compress middleware.
  * @param {_idio.KoaCompressConfig} [options]
- * @return {_goa.Middleware}
  */
 export default (options = {}) => {
   let { filter = compressible, threshold = 1024 } = options
   if (typeof threshold == 'string') threshold = bytes(threshold)
 
-  return async (ctx, next) => {
+  /**
+   * @type {!_goa.Middleware}
+   */
+  async function middleware(ctx, next) {
     ctx.vary('Accept-Encoding')
 
     await next()
@@ -60,6 +62,7 @@ export default (options = {}) => {
       stream.end(body)
     }
   }
+  return middleware
 }
 
 /**
