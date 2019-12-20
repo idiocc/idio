@@ -1,8 +1,8 @@
 # @idio/idio
 
-[![npm version](https://badge.fury.io/js/%40idio%2Fidio.svg)](https://npmjs.org/package/@idio/idio)
+[![npm version](https://badge.fury.io/js/%40idio%2Fidio.svg)](https://www.npmjs.com/package/@idio/idio)
 
-`@idio/idio` is @Goa/Koa Web Server Bundled With Essential Middleware.
+`@idio/idio` is a Koa's fork called Goa web server compiled with Closure Compiler so that its source code is optimised and contains only 1 external dependency (`mime-db`). Idio adds essential middleware to Goa, and includes the router.
 
 ```sh
 yarn add @idio/idio
@@ -12,14 +12,18 @@ yarn add @idio/idio
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`async idio(middlewareConfig?: MiddlewareConfig, conf?: Config): { app, url, middleware }`](#async-idiomiddlewareconfig-middlewareconfigconf-config--app-url-middleware-)
-  * [`MiddlewareConfig`](#type-middlewareconfig)
+- [`async idio(middlewareConfig=: !MiddlewareConfig, config=: !Config): !Idio`](#async-idiomiddlewareconfig-middlewareconfigconfig-config-idio)
   * [`Config`](#type-config)
+  * [`Idio`](#type-idio)
 - [Static](#static)
 - [Session](#session)
-- [Copyright](#copyright)
+- [Copyright & License](#copyright--license)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
+
+
 
 ## API
 
@@ -29,26 +33,118 @@ The package is available by importing its default function:
 import idio from '@idio/idio'
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/1.svg?sanitize=true">
+</a></p>
 
-## `async idio(`<br/>&nbsp;&nbsp;`middlewareConfig?: MiddlewareConfig,`<br/>&nbsp;&nbsp;`conf?: Config,`<br/>`): { app, url, middleware }`
+## <code>async <ins>idio</ins>(</code><sub><br/>&nbsp;&nbsp;`middlewareConfig=: !MiddlewareConfig,`<br/>&nbsp;&nbsp;`config=: !Config,`<br/></sub><code>): <i>!Idio</i></code>
+Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
 
-Starts the server and returns the `app` and `url` properties. The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
+ - <kbd>middlewareConfig</kbd> <em>`!MiddlewareConfig`</em> (optional): The middleware configuration for the `idio` server.
+ - <kbd>config</kbd> <em><code><a href="#type-config" title="Server configuration object.">!Config</a></code></em> (optional): The server configuration object.
 
-__<a name="type-middlewareconfig">`MiddlewareConfig`</a>__: Middleware configuration for the `idio` server.
-
-|   Name   |           Type           |       Description       |
-| -------- | ------------------------ | ----------------------- |
-| static   | <em>StaticOptions</em>   | `koa-static` options.   |
-| compress | <em>CompressOptions</em> | `koa-compress` options. |
-| session  | <em>SessionOptions</em>  | `koa-session` options.  |
+The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
 
 __<a name="type-config">`Config`</a>__: Server configuration object.
+<table>
+ <thead><tr>
+  <th>Name</th>
+  <th>Type &amp; Description</th>
+  <th>Default</th>
+ </tr></thead>
+ <tr>
+  <td rowSpan="3" align="center">port</td>
+  <td><em>number</em></td>
+  <td rowSpan="3"><code>5000</code></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   The port on which to start the server.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center">host</td>
+  <td><em>string</em></td>
+  <td rowSpan="3"><code>0.0.0.0</code></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   The host on which to listen.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center">router</td>
+  <td><em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-routerconfig" title="Config for the router.">!_goa.RouterConfig</a></em></td>
+  <td rowSpan="3">-</td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   The configuration for the router.
+  </td>
+ </tr>
+</table>
 
-| Name |      Type       |              Description               |  Default  |
-| ---- | --------------- | -------------------------------------- | --------- |
-| port | <em>number</em> | The port on which to start the server. | `5000`    |
-| host | <em>string</em> | The host on which to listen.           | `0.0.0.0` |
+
+__<a name="type-idio">`Idio`</a>__: The return type of the idio.
+<table>
+ <thead><tr>
+  <th>Name</th>
+  <th>Type &amp; Description</th>
+ </tr></thead>
+ <tr>
+  <td rowSpan="3" align="center"><strong>url*</strong></td>
+  <td><em>string</em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   The URL on which the server was started, such as <code>http://localhost:5000</code>.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><strong>server*</strong></td>
+  <td><em><a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-even.png" alt="Node.JS Docs">!http.Server</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   The server instance.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><strong>app*</strong></td>
+  <td><em><a href="https://github.com/idiocc/goa/wiki/Application#type-application" title="The application interface.">!_goa.Application</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   The Goa application instance.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><strong>middleware*</strong></td>
+  <td><em>!Object&lt;string, <a href="https://github.com/idiocc/goa/wiki/Application#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!_goa.Middleware</a>&gt;</em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   An object with configured middleware functions, which can be installed manually using <code>app.use</code>, or <code>router.use</code>.
+  </td>
+ </tr>
+ <tr>
+  <td rowSpan="3" align="center"><strong>router*</strong></td>
+  <td><em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-router" title="Router For Goa Apps.">!_goa.Router</a></em></td>
+ </tr>
+ <tr></tr>
+ <tr>
+  <td>
+   The router instance.
+  </td>
+ </tr>
+</table>
 
 <table>
 <tr><th><a href="example/index.js">Source</a></th><th>Output</th>
@@ -75,7 +171,9 @@ hello world
 </td></tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/2.svg?sanitize=true">
+</a></p>
 
 ## Static
 
@@ -108,7 +206,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:65481/app.css */ 
+/** http://localhost:53685/app.css */ 
 
 body {
   font-size: larger;
@@ -135,7 +233,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Thu, 18 Jul 2019 15:48:12 GMT
+Date: Fri, 20 Dec 2019 07:04:57 GMT
 Connection: close
 ```
 
@@ -146,7 +244,7 @@ Content-Length: 11
 Last-Modified: Thu, 18 Jul 2019 14:47:20 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 18 Jul 2019 15:05:24 GMT
+Date: Fri, 20 Dec 2019 07:05:38 GMT
 Connection: close
 ```
 </details>
@@ -193,18 +291,24 @@ const { url, app } = await idio({
 http://localhost:5000 
 
 / hello new user
-/ welcome back u683.8
+/ welcome back u190.1
 ```
 </td>
 </tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+</a></p>
 
-## Copyright
+## Copyright & License
 
-(c) [Idio][1] 2019
+GNU Affero General Public License v3.0
 
-[1]: https://idio.cc
+All original work on middleware and Koa are under MIT license.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<idio-footer>
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/-1.svg?sanitize=true">
+</a></p>

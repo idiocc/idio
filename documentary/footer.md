@@ -2,10 +2,12 @@
 
 - [ ] Add a new item to the todo list. -->
 
-## Copyright
+## Copyright & License
 
-(c) [Idio][1] 2019
+GNU Affero General Public License v3.0
 
-[1]: https://idio.cc
+All original work on middleware and Koa are under MIT license.
+
+<idio-footer>
 
 %~ -1%

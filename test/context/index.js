@@ -12,8 +12,10 @@ export default class Context extends HttpContext {
    * @param {MiddlewareConfig} middlewareConfig
    */
   async createApp(middlewareConfig) {
-    const { app } = await createApp(middlewareConfig)
-    this.app = app
+    const res = await createApp(middlewareConfig)
+    this.app = res.app
+    this.router = res.router
+    return res
   }
   startApp() {
     return this.startPlain(this.app.callback())

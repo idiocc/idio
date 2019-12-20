@@ -1,5 +1,5 @@
 import aqt from '@rqt/aqt'
-import idio, { Keygrip } from '..'
+import idio, { Keygrip } from '../compile'
 
 (async () => {
   /* start example */

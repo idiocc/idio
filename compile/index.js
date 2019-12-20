@@ -7,6 +7,11 @@ const { _createApp, _startApp, _compose, _Keygrip } = require('./idio')
  * @param {_idio.CompressOptions} [middlewareConfig.compress] `koa-compress` options.
  * @param {_idio.SessionOptions} [middlewareConfig.session] `koa-session` options.
  * @param {_idio.CorsOptions} [middlewareConfig.cors] `koa-cors` options.
+ * @param {!_goa.RouterConfig} [routerConfig] Config for the router.
+ * @param {!Array<string>} [routerConfig.methods] The methods to serve.
+ * Default `HEAD`, `OPTIONS`, `GET`, `PUT`, `PATCH`, `POST`, `DELETE`.
+ * @param {string} [routerConfig.prefix] Prefix router paths.
+ * @param {string} [routerConfig.routerPath] Custom routing path.
  * @return {Promise<{ app: !_goa.Application, middleware: !Object<string, !_goa.Middleware>, router: !_goa.Router }>}
  */
 async function createApp(middlewareConfig) {
@@ -30,8 +35,15 @@ async function idio(middlewareConfig = {}, config = {}) {
   return _startApp(middlewareConfig, config)
 }
 
+/**
+ * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
+ * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => Keygrip}
+ */
+const $Keygrip = _Keygrip
+
 module.exports = idio
 module.exports.createApp = createApp
+module.exports.Keygrip = $Keygrip
 
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
@@ -54,8 +66,8 @@ module.exports.createApp = createApp
  * @prop {number} [port=5000] The port on which to start the server. Default `5000`.
  * @prop {string} [host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
  * @prop {!_goa.RouterConfig} [router] The configuration for the router.
- * @typedef {_idio.Idio} Idio `＠record`
- * @typedef {Object} _idio.Idio `＠record`
+ * @typedef {_idio.Idio} Idio `＠record` The return type of the idio.
+ * @typedef {Object} _idio.Idio `＠record` The return type of the idio.
  * @prop {string} url The URL on which the server was started, such as `http://localhost:5000`.
  * @prop {!http.Server} server The server instance.
  * @prop {!_goa.Application} app The Goa application instance.

@@ -14,8 +14,15 @@ async function idio(middlewareConfig = {}, config = {}) {
   return _startApp(middlewareConfig, config)
 }
 
+/**
+ * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
+ * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => Keygrip}
+ */
+const $Keygrip = _Keygrip
+
 module.exports = idio
 module.exports.createApp = createApp
+module.exports.Keygrip = $Keygrip
 
 /**
  * @typedef {_idio.StaticOptions} StaticOptions

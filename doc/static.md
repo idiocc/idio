@@ -4,6 +4,8 @@ The static middleware can serve static files.
 
 <img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
 
+<a name="table-of-contents"></a>
+
 * [`StaticOptions`](#type-staticoptions)
 * [`KoaStaticConfig`](#type-koastaticconfig)
 * [`SetHeaders`](#type-setheaders)
@@ -25,14 +27,14 @@ __<a name="type-staticoptions">`StaticOptions`</a>__: The top-level options when
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | maxage     | <em>number</em>                                                                                                                        | Browser cache max-age in milliseconds.                                                                                                                                                              | `0`          |
 | hidden     | <em>boolean</em>                                                                                                                       | Allow transfer of hidden files.                                                                                                                                                                     | `false`      |
-| index      | <em>string</em>                                                                                                                        | Default file name.                                                                                                                                                                                  | `index.html` |
+| index      | <em>(string \| boolean)</em>                                                                                                           | Default file name. Pass `false` to not have default name.                                                                                                                                           | `index.html` |
 | defer      | <em>boolean</em>                                                                                                                       | If `true`, serves after return next(), allowing any downstream middleware to respond first.                                                                                                         | `false`      |
 | gzip       | <em>boolean</em>                                                                                                                       | Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with `.gz` extension exists.                                                  | `true`       |
 | br         | <em>boolean</em>                                                                                                                       | Try to serve the brotli version of a file automatically when brotli is supported by a client and if the requested file with `.br` extension exists (note, that brotli is only accepted over https). | `true`       |
 | setHeaders | <em><a href="#type-setheaders" title="The function which allows to set the headers prior to sending the response.">SetHeaders</a></em> | Function to set custom headers on response.                                                                                                                                                         | -            |
 | extensions | <em>boolean</em>                                                                                                                       | Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served.                                                                           | `false`      |
 
-[`import('http').ServerResponse`](https://nodejs.org/api/http.html#http_class_http_serverresponse) __<a name="type-httpserverresponse">`http.ServerResponse`</a>__
+[`import('http').ServerResponse`](https://nodejs.org/api/http.html#http_class_http_serverresponse) __<a name="type-httpserverresponse">`http.ServerResponse`</a>__: A writable stream that communicates data to the client. The second argument of the http.Server.on("request") event.
 
 [`import('fs').Stats`](https://nodejs.org/api/fs.html#fs_class_fs_stats) __<a name="type-fsstats">`fs.Stats`</a>__
 
@@ -64,15 +66,15 @@ const { url, app } = await idio({
 <td>
 
 ```html
-<!-- http://localhost:65356/app.css -->
+<!-- http://localhost:53713/app.css -->
 body {
   font-size: larger;
 } 
 
-<!-- http://localhost:65356/mount/em.svg -->
+<!-- http://localhost:53713/mount/em.svg -->
 <xml></xml> 
 
-<!-- http://localhost:65356/_/fixture/test.txt -->
+<!-- http://localhost:53713/_/fixture/test.txt -->
 a test file
 ```
 </td></tr>
@@ -87,21 +89,21 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Thu, 18 Jul 2019 15:45:25 GMT
+Date: Fri, 20 Dec 2019 07:05:43 GMT
 Connection: close
 
 Content-Length: 11
 Last-Modified: Thu, 18 Jul 2019 14:47:20 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 18 Jul 2019 15:45:25 GMT
+Date: Fri, 20 Dec 2019 07:05:43 GMT
 Connection: close
 
 Content-Length: 12
 Last-Modified: Sun, 12 May 2019 15:06:56 GMT
 Cache-Control: max-age=0
 Content-Type: text/plain; charset=utf-8
-Date: Thu, 18 Jul 2019 15:45:25 GMT
+Date: Fri, 20 Dec 2019 07:05:43 GMT
 Connection: close
 ```
 </details>
@@ -110,8 +112,12 @@ Connection: close
 </table>
 
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
 
 [Back To Documentation](/)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/-1.svg?sanitize=true">
+</a></p>

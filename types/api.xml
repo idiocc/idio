@@ -17,6 +17,9 @@
     <arg type="!_idio.MiddlewareConfig" name="middlewareConfig" opt>
       The middleware configuration for the `idio` server.
     </arg>
+    <arg type="!_goa.RouterConfig" name="routerConfig" opt>
+      The optional configuration for the router.
+    </arg>
     Just create a _Goa_ app without starting it.
   </method>
 </types>

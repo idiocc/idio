@@ -27,8 +27,8 @@ export default async function startApp(middlewareConfig = {}, config = {}) {
   }
   process.once('SIGUSR2', sigListener)
 
-  const appMeta = await createApp(middlewareConfig)
-  const { app, middleware } = appMeta
+  const appMeta = await createApp(middlewareConfig, routerConfig)
+  const { app, middleware, router } = appMeta
 
   const server = await listen(app, port, host)
 
@@ -40,8 +40,6 @@ export default async function startApp(middlewareConfig = {}, config = {}) {
   const { port: p } = server.address()
 
   const url = `http://localhost:${p}`
-
-  const router = new Router(routerConfig)
 
   return { app, middleware, url, server, router }
 }
@@ -71,9 +69,10 @@ const enableDestroy = async (server) => {
 }
 
 /**
- * @param {!_idio.MiddlewareConfig} middlewareConfig
+ * @param {!_idio.MiddlewareConfig} [middlewareConfig]
+ * @param {!_goa.RouterConfig} [routerConfig]
  */
-export const createApp = async (middlewareConfig) => {
+export const createApp = async (middlewareConfig = {}, routerConfig = {}) => {
   const app = /** @type {!_goa.Application} */ (new Goa())
 
   const middleware = await setupMiddleware(middlewareConfig, app)
@@ -82,9 +81,12 @@ export const createApp = async (middlewareConfig) => {
     app.proxy = true
   }
 
+  const router = new Router(routerConfig)
+
   return {
     app,
     middleware,
+    router,
   }
 }
 
@@ -136,4 +138,8 @@ function listen(app, port, hostname = '0.0.0.0') {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('@typedefs/goa').Application} _goa.Application
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('@goa/router').RouterConfig} _goa.RouterConfig
  */

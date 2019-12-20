@@ -11,7 +11,7 @@
     </prop>
   </type>
 
-  <record name="Idio">
+  <record name="Idio" desc="The return type of the idio.">
     <prop string name="url">
       The URL on which the server was started, such as `http://localhost:5000`.
     </prop>

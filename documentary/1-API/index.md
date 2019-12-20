@@ -8,18 +8,13 @@ import idio from '@idio/idio'
 
 %~%
 
-```## async idio => { app, url, middleware }
-[
-  ["middlewareConfig?", "MiddlewareConfig"],
-  ["conf?", "Config"]
-]
-```
+<typedef name="idio">types/api.xml</typedef>
 
-Starts the server and returns the `app` and `url` properties. The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
+The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
 
-%TYPEDEF types/middleware.xml MiddlewareConfig%
+<!-- <typedef name="MiddlewareConfig">types/middleware.xml</typedef> -->
 
-%TYPEDEF types/index.xml Config%
+<typedef narrow flatten>types/index.xml</typedef>
 
 <table>
 <!-- block-start -->
@@ -27,7 +22,7 @@ Starts the server and returns the `app` and `url` properties. The app can be sto
 </tr><tr>
 <td>
 
-%EXAMPLE: example, .. => @idio/idio%
+%EXAMPLE: example, ../compile => @idio/idio%
 </td>
 <td>
 

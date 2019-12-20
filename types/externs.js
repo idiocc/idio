@@ -11,6 +11,7 @@ var _idio = {}
  */
 _idio.Config
 /**
+ * The return type of the idio.
  * @record
  */
 _idio.Idio
