@@ -13,6 +13,7 @@ yarn add @idio/idio
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
 - [`async idio(middlewareConfig=: !MiddlewareConfig, config=: !Config): !Idio`](#async-idiomiddlewareconfig-middlewareconfigconfig-config-idio)
+  * [`MiddlewareConfig`](#type-middlewareconfig)
   * [`Config`](#type-config)
   * [`Idio`](#type-idio)
 - [Static](#static)
@@ -27,10 +28,10 @@ yarn add @idio/idio
 
 ## API
 
-The package is available by importing its default function:
+The package is available by importing its default function and named components:
 
 ```js
-import idio from '@idio/idio'
+import idio, { Keygrip } from '@idio/idio'
 ```
 
 <p align="center"><a href="#table-of-contents">
@@ -40,10 +41,25 @@ import idio from '@idio/idio'
 ## <code>async <ins>idio</ins>(</code><sub><br/>&nbsp;&nbsp;`middlewareConfig=: !MiddlewareConfig,`<br/>&nbsp;&nbsp;`config=: !Config,`<br/></sub><code>): <i>!Idio</i></code>
 Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
 
- - <kbd>middlewareConfig</kbd> <em>`!MiddlewareConfig`</em> (optional): The middleware configuration for the `idio` server.
+ - <kbd>middlewareConfig</kbd> <em><code><a href="#type-middlewareconfig" title="Middleware configuration for the `idio` server.">!MiddlewareConfig</a></code></em> (optional): The middleware configuration for the `idio` server.
  - <kbd>config</kbd> <em><code><a href="#type-config" title="Server configuration object.">!Config</a></code></em> (optional): The server configuration object.
 
 The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
+
+
+There are multiple items for middleware configuration:
+
+__<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareConfig__: Middleware configuration for the `idio` server.
+
+
+|   Name   |                                                                                  Type                                                                                   |       Description       |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">StaticOptions</a></em> | `koa-static` options.   |
+| compress | <em>[CompressOptions](#type-compressoptions)</em>                                                                                                                       | `koa-compress` options. |
+| session  | <em>[SessionOptions](#type-sessionoptions)</em>                                                                                                                         | `koa-session` options.  |
+| cors     | <em>[CorsOptions](#type-corsoptions)</em>                                                                                                                               | `koa-cors` options.     |
+
+The types for starting the server include the address, port and router configuration.
 
 __<a name="type-config">`Config`</a>__: Server configuration object.
 
@@ -54,6 +70,7 @@ __<a name="type-config">`Config`</a>__: Server configuration object.
 | host   | <em>string</em>                                                                                                                           | The host on which to listen.           | `0.0.0.0` |
 | router | <em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-routerconfig" title="Config for the router.">!_goa.RouterConfig</a></em> | The configuration for the router.      | -         |
 
+After the app is started, it can be accessed from the return type.
 
 __<a name="type-idio">`Idio`</a>__: The return type of the idio.
 
@@ -65,6 +82,8 @@ __<a name="type-idio">`Idio`</a>__: The return type of the idio.
 | __app*__        | <em><a href="https://github.com/idiocc/goa/wiki/Application#type-application" title="The application interface.">!_goa.Application</a></em>                                                                                                         | The Goa application instance.                                                                                     |
 | __middleware*__ | <em>!Object&lt;string, <a href="https://github.com/idiocc/goa/wiki/Application#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!_goa.Middleware</a>&gt;</em> | An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. |
 | __router*__     | <em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-router" title="Router For Goa Apps.">!_goa.Router</a></em>                                                                                                                         | The router instance.                                                                                              |
+
+The example below starts a simple server with session and custom middleware, which is installed (used) automatically because it's defined as a function.
 
 <table>
 <tr><th><a href="example/index.js">Source</a></th><th>Output</th>

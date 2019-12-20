@@ -1,9 +1,9 @@
 ## API
 
-The package is available by importing its default function:
+The package is available by importing its default function and named components:
 
 ```js
-import idio from '@idio/idio'
+import idio, { Keygrip } from '@idio/idio'
 ```
 
 %~%
@@ -12,9 +12,21 @@ import idio from '@idio/idio'
 
 The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
 
-<!-- <typedef name="MiddlewareConfig">types/middleware.xml</typedef> -->
+<include-typedefs>typedefs.json</include-typedefs>
 
-<typedef>types/index.xml</typedef>
+There are multiple items for middleware configuration:
+
+<typedef name="MiddlewareConfig">types/middleware.xml</typedef>
+
+The types for starting the server include the address, port and router configuration.
+
+<typedef name="Config">types/index.xml</typedef>
+
+After the app is started, it can be accessed from the return type.
+
+<typedef name="Idio">types/index.xml</typedef>
+
+The example below starts a simple server with session and custom middleware, which is installed (used) automatically because it's defined as a function.
 
 <table>
 <!-- block-start -->
