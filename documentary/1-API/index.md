@@ -14,7 +14,7 @@ The app can be stopped with an async `.destroy` method implemented on it that cl
 
 <!-- <typedef name="MiddlewareConfig">types/middleware.xml</typedef> -->
 
-<typedef narrow flatten>types/index.xml</typedef>
+<typedef>types/index.xml</typedef>
 
 <table>
 <!-- block-start -->

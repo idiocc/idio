@@ -46,105 +46,25 @@ Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal
 The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
 
 __<a name="type-config">`Config`</a>__: Server configuration object.
-<table>
- <thead><tr>
-  <th>Name</th>
-  <th>Type &amp; Description</th>
-  <th>Default</th>
- </tr></thead>
- <tr>
-  <td rowSpan="3" align="center">port</td>
-  <td><em>number</em></td>
-  <td rowSpan="3"><code>5000</code></td>
- </tr>
- <tr></tr>
- <tr>
-  <td>
-   The port on which to start the server.
-  </td>
- </tr>
- <tr>
-  <td rowSpan="3" align="center">host</td>
-  <td><em>string</em></td>
-  <td rowSpan="3"><code>0.0.0.0</code></td>
- </tr>
- <tr></tr>
- <tr>
-  <td>
-   The host on which to listen.
-  </td>
- </tr>
- <tr>
-  <td rowSpan="3" align="center">router</td>
-  <td><em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-routerconfig" title="Config for the router.">!_goa.RouterConfig</a></em></td>
-  <td rowSpan="3">-</td>
- </tr>
- <tr></tr>
- <tr>
-  <td>
-   The configuration for the router.
-  </td>
- </tr>
-</table>
+
+
+|  Name  |                                                                   Type                                                                    |              Description               |  Default  |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | --------- |
+| port   | <em>number</em>                                                                                                                           | The port on which to start the server. | `5000`    |
+| host   | <em>string</em>                                                                                                                           | The host on which to listen.           | `0.0.0.0` |
+| router | <em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-routerconfig" title="Config for the router.">!_goa.RouterConfig</a></em> | The configuration for the router.      | -         |
 
 
 __<a name="type-idio">`Idio`</a>__: The return type of the idio.
-<table>
- <thead><tr>
-  <th>Name</th>
-  <th>Type &amp; Description</th>
- </tr></thead>
- <tr>
-  <td rowSpan="3" align="center"><strong>url*</strong></td>
-  <td><em>string</em></td>
- </tr>
- <tr></tr>
- <tr>
-  <td>
-   The URL on which the server was started, such as <code>http://localhost:5000</code>.
-  </td>
- </tr>
- <tr>
-  <td rowSpan="3" align="center"><strong>server*</strong></td>
-  <td><em><a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-even.png" alt="Node.JS Docs">!http.Server</a></em></td>
- </tr>
- <tr></tr>
- <tr>
-  <td>
-   The server instance.
-  </td>
- </tr>
- <tr>
-  <td rowSpan="3" align="center"><strong>app*</strong></td>
-  <td><em><a href="https://github.com/idiocc/goa/wiki/Application#type-application" title="The application interface.">!_goa.Application</a></em></td>
- </tr>
- <tr></tr>
- <tr>
-  <td>
-   The Goa application instance.
-  </td>
- </tr>
- <tr>
-  <td rowSpan="3" align="center"><strong>middleware*</strong></td>
-  <td><em>!Object&lt;string, <a href="https://github.com/idiocc/goa/wiki/Application#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!_goa.Middleware</a>&gt;</em></td>
- </tr>
- <tr></tr>
- <tr>
-  <td>
-   An object with configured middleware functions, which can be installed manually using <code>app.use</code>, or <code>router.use</code>.
-  </td>
- </tr>
- <tr>
-  <td rowSpan="3" align="center"><strong>router*</strong></td>
-  <td><em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-router" title="Router For Goa Apps.">!_goa.Router</a></em></td>
- </tr>
- <tr></tr>
- <tr>
-  <td>
-   The router instance.
-  </td>
- </tr>
-</table>
+
+
+|      Name       |                                                                                                                        Type                                                                                                                         |                                                    Description                                                    |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| __url*__        | <em>string</em>                                                                                                                                                                                                                                     | The URL on which the server was started, such as `http://localhost:5000`.                                         |
+| __server*__     | <em><a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-even.png" alt="Node.JS Docs">!http.Server</a></em>          | The server instance.                                                                                              |
+| __app*__        | <em><a href="https://github.com/idiocc/goa/wiki/Application#type-application" title="The application interface.">!_goa.Application</a></em>                                                                                                         | The Goa application instance.                                                                                     |
+| __middleware*__ | <em>!Object&lt;string, <a href="https://github.com/idiocc/goa/wiki/Application#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!_goa.Middleware</a>&gt;</em> | An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. |
+| __router*__     | <em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-router" title="Router For Goa Apps.">!_goa.Router</a></em>                                                                                                                         | The router instance.                                                                                              |
 
 <table>
 <tr><th><a href="example/index.js">Source</a></th><th>Output</th>
