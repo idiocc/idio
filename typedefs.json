@@ -1,0 +1,14 @@
+{
+  "_idio.StaticOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Static#type-staticoptions",
+    "description": "The top-level options when setting up the static middleware."
+  },
+  "_idio.KoaStaticConfig": {
+    "link": "https://github.com/idiocc/idio/wiki/Static#type-koastaticconfig",
+    "description": "The configuration that is passed to koa-session."
+  },
+  "_idio.SetHeaders": {
+    "link": "https://github.com/idiocc/idio/wiki/Static#setheadersres-httpserverresponsepath-stringstats-fsstats-void",
+    "description": "The function which allows to set the headers prior to sending the response."
+  }
+}

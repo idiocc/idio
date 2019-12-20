@@ -12,7 +12,7 @@ var _idio = {}
 _idio.StaticOptions
 /**
  * Root or multiple roots from which to serve files.
- * @type {(string|!Array<string>)}
+ * @type {string|!Array<string>}
  */
 _idio.StaticOptions.prototype.root
 /**

@@ -1,16 +1,14 @@
-# Static
-
 The static middleware can serve static files.
 
 <img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
 
 %TOC%
 
-%TYPEDEF types/options/static.xml%
+<typedef narrow flatten>types/options/static.xml</typedef>
 
-%TYPEDEF types/modules/koa-static.xml%
+<typedef narrow flatten>types/modules/koa-static.xml</typedef>
 
-%TYPEDEF types/modules/set-headers.xml%
+<typedef narrow flatten>types/modules/set-headers.xml</typedef>
 
 ## Example
 
@@ -44,12 +42,3 @@ The `static` options slot accepts either a single, or multiple configuration ite
 </td>
 </tr>
 </table>
-
-
-<!-- %TYPEDEF types/modules/koa-send.xml% -->
-
-%~%
-
-[Back To Documentation](/)
-
-%~ -1%

@@ -21,7 +21,7 @@ export {}
  * @typedef {import('http').ServerResponse} http.ServerResponse
  * @typedef {import('fs').Stats} fs.Stats
  * @typedef {_idio.SetHeaders} SetHeaders The function which allows to set the headers prior to sending the response.
- * @typedef {(res: ServerResponse, path: string, stats: Stats) => any} _idio.SetHeaders The function which allows to set the headers prior to sending the response.
+ * @typedef {(res: !http.ServerResponse, path: string, stats: !fs.Stats) => void} _idio.SetHeaders The function which allows to set the headers prior to sending the response.
  */
 
 /* typal types/modules/koa-send.xml namespace */

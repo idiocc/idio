@@ -11,7 +11,7 @@ export {}
 /**
  * @typedef {_idio.StaticOptions} StaticOptions `＠record` The top-level options when setting up the static middleware.
  * @typedef {Object} _idio.StaticOptions `＠record` The top-level options when setting up the static middleware.
- * @prop {(string|!Array<string>)} root Root or multiple roots from which to serve files.
+ * @prop {string|!Array<string>} root Root or multiple roots from which to serve files.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  * @prop {string} [mount="/"] Path from which to serve files. Default `/`.
  * @prop {number} [maxage=0] How long to cache files for. Default `0`.

@@ -11,8 +11,8 @@
     "mask": "yarn t test/mask",
     "test-compile": "ALAMODE_ENV=test-compile yarn test",
     "lint": "eslint .",
-    "doc": "yarn-s doc-0 doc-1",
-    "doc-0": "doc -o README.md -n _idio -d",
+    "doc": "doc -o README.md -n _idio -d",
+    "wiki": "doc wiki -W wiki.git -n _idio -a",
     "doc-1": "doc d/static.md -o doc/static.md -n _idio -d",
     "b": "alamode src -o build -s",
     "d": "yarn-s template d1 dm do externs typework",
@@ -39,6 +39,7 @@
     "type": "git",
     "url": "git://github.com/idiocc/idio.git"
   },
+  "typedefs": "typedefs.json",
   "keywords": [
     "idio"
   ],

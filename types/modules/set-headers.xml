@@ -1,6 +1,17 @@
 <types namespace="_idio">
-  <import name="ServerResponse" from="http" link="https://nodejs.org/api/http.html#http_class_http_serverresponse" />
-  <import name="Stats" from="fs" link="https://nodejs.org/api/fs.html#fs_class_fs_stats" />
+  <import name="ServerResponse" from="http" />
+  <import name="Stats" from="fs" link="https://nodejs.org/api/fs.html#fs_class_fs_stats"  />
 
-  <type name="SetHeaders" type="(res: ServerResponse, path: string, stats: Stats) => any" closure="function(http.ServerResponse, string, fs.Stats)" desc="The function which allows to set the headers prior to sending the response." />
+  <method name="SetHeaders">
+    <arg type="!http.ServerResponse" name="res">
+      The server response object.
+    </arg>
+    <arg string name="path">
+      The path.
+    </arg>
+    <arg type="!fs.Stats" name="stats">
+      The stats object.
+    </arg>
+    The function which allows to set the headers prior to sending the response.
+  </method>
 </types>
