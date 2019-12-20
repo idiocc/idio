@@ -72,6 +72,7 @@ const Server = async () => {
   const res = await rqt(s, {
     data: { hello: 'world' },
   })
+  console.error('// server response:')
   console.error(res)
   process.exit()
 })()

@@ -324,11 +324,25 @@ const Server = async () => {
   return `${url}${path}`
 }
 ```
+
+<table>
+<tr><th>Logging</th><th>Response</th></tr>
+<tr><td>
+
 ```
 Page available at: http://localhost:5003/test
   <-- POST /test
   --> POST /test 200
 ```
+</td>
+<td>
+
+```js
+// server response:
+{ ok: true, request: { hello: 'world' } }
+```
+</td></tr>
+</table>
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/4.svg?sanitize=true">
