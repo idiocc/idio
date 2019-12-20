@@ -17,14 +17,24 @@ export {}
  * @prop {boolean} respond To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
  * @prop {string} originalUrl Get request original URL.
  * @prop {Object} state The recommended namespace for passing information through middleware and to your frontend views.
- * @prop {() => ?} inspect util.inspect() implementation, which just returns the JSON output.
- * @prop {() => ?} toJSON Return JSON representation.
- * @prop {() => ?} assert Similar to .throw(), adds assertion.
- * @prop {() => ?} throw Throw an error with `msg` and optional `status` defaulting to 500. Note that these are user-level errors, and the message may be exposed to the client.
  * @prop {!_goa.Application} app The reference to the application.
  * @prop {!_goa.Request} request The reference to the request instance.
  * @prop {!_goa.Response} response The reference to the response instance.
  * @prop {!http.IncomingMessage} req The message from the client.
  * @prop {!http.ServerResponse} res The response from the server.
+ * @prop {() => !Object} inspect `util.inspect()` implementation, which just returns the JSON output.
+ * @prop {() => !Object} toJSON Return JSON representation.
+ * @prop {(value: *, status?: number, message?: string, opts?: !Object) => void} assert Similar to .throw(), adds assertion.
+ * ```js
+ * ctx.assert(ctx.user, 401, 'Please login!')
+ * ```
+ * @prop {(status?: number, message?: string, props?: string) => ?} throw Throw an error with `msg` and optional `status` defaulting to 500. Note that these are user-level errors, and the message may be exposed to the client.
+ * ```js
+ * ctx.throw(403)
+ * ctx.throw(400, 'name required')
+ * ctx.throw('something exploded')
+ * ctx.throw(new Error('invalid'))
+ * ctx.throw(400, new Error('invalid'))
+ * ```
  * @prop {(error: !Error) => ?} onerror Default error handling.
  */

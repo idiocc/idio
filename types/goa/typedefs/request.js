@@ -12,76 +12,6 @@ export {}
  * @typedef {import('../../../compile').Response} _goa.Response
  * @typedef {_goa.ContextDelegatedRequest} ContextDelegatedRequest `＠interface` The request API available via Context.
  * @typedef {Object} _goa.ContextDelegatedRequest `＠interface` The request API available via Context.
- * @prop {(arg0?: (!Array<string>|string), ...args: string[]) => (string|!Array<string>|boolean)} acceptsLanguages Return accepted languages or best fit based on `langs`. Given `Accept-Language: en;q=0.8, es, pt` an array sorted by quality is returned: `['es', 'pt', 'en']`.
- * @prop {(arg0?: (!Array<string>|string), ...args: string[]) => (string|!Array<string>|boolean)} acceptsEncodings Return accepted encodings or best fit based on `encodings`. Given `Accept-Encoding: gzip, deflate` an array sorted by quality is returned: `['gzip', 'deflate']`.
- * @prop {(arg0?: (!Array<string>|string), ...args: string[]) => (string|!Array<string>|boolean)} acceptsCharsets Return accepted charsets or best fit based on `charsets`. Given `Accept-Charset: utf-8, iso-8859-1;q=0.2, utf-7;q=0.5` an array sorted by quality is returned: `['utf-8', 'utf-7', 'iso-8859-1']`.
- * @prop {(arg0?: (!Array<string>|string), ...args: string[]) => (string|!Array<string>|boolean)} accepts Check if the given `type(s)` is acceptable, returning the best match when true, otherwise `false`, in which case you should respond with 406 "Not Acceptable".
- *
- * The `type` value may be a single mime type string such as "application/json", the extension name such as "json" or an array `["json", "html", "text/plain"]`. When a list or array is given the _best_ match, if any is returned. When no types are given as arguments, returns all types accepted by the client in the preference order.
- *
- * _Examples_:
- *
- * - Accept: text/html
- *
- *     ```js
- *     this.types('html') => "html"
- *     ```
- * - Accept: text/＊, application/json
- *
- *     ```js
- *     this.types('html') => "html"
- *     this.types('text/html') => "text/html"
- *     this.types('json', 'text') => "json"
- *     this.types('application/json') => "application/json"
- *     ```
- * - Accept: text/＊, application/json
- *
- *     ```js
- *     this.types('image/png') => false
- *     this.types('png') => false
- *     ```
- * - Accept: text/＊;q=.5, application/json
- *
- *     ```js
- *     this.types(['html', 'json']) => "json"
- *     this.types('html', 'json') => "json"
- *     ```
- * - Accept: application/＊;q=0.2, image/jpeg;q=0.8, text/html, text/plain
- *
- *     ```js
- *     this.types() => ["text/html", "text/plain",
- *       "image/jpeg", "application/＊"]
- *     ```
- * @prop {(arg0: string) => string} get Return request header. The `Referrer` header field is special-cased, both `Referrer` and `Referer` are interchangeable.
- *
- * _Examples_:
- *
- * ```js
- * this.get('Content-Type') => "text/plain"
- * this.get('content-type') => "text/plain"
- * this.get('Something') => undefined
- * ```
- * @prop {(arg0: (!Array<string>|string), ...args: string[]) => ?} is Check if the incoming request contains the "Content-Type" header field, and it contains any of the give mime `type`s. If there is no request body, `null` is returned. If there is no content type, `false` is returned. Otherwise, it returns the first `type` that matches.
- *
- * _Examples_:
- *
- * - With Content-Type: text/html; charset=utf-8
- *
- *     ```js
- *     this.is('html'); // => 'html'
- *     this.is('text/html'); // => 'text/html'
- *     this.is('text/*', 'application/json');
- *       // => 'text/html'
- *     ```
- * - When Content-Type is application/json
- *
- *     ```js
- *     this.is('json', 'urlencoded'); // => 'json'
- *     this.is('application/json'); // => 'application/json'
- *     this.is('html', 'application/*');
- *               // => 'application/json'
- *     this.is('html'); // => false
- *     ```
  * @prop {string} querystring Get/Set query string.
  * @prop {boolean} idempotent Check if the request is idempotent.
  * @prop {net.Socket} socket Return the request socket.
@@ -108,6 +38,78 @@ export {}
  * @prop {boolean} fresh Check if the request is fresh, aka Last-Modified and/or the ETag still match.
  * @prop {!Array<string>} ips When `app.proxy` is `true`, parse the "X-Forwarded-For" ip address list. For example if the value were "client, proxy1, proxy2" you would receive the array `["client", "proxy1", "proxy2"]` where "proxy2" is the furthest down-stream.
  * @prop {string} ip Request remote address. Supports X-Forwarded-For when app.proxy is true.
+ * @prop {(language?: (!Array<string>|string), ...languages: string[]) => (string|!Array<string>|boolean)} acceptsLanguages Return accepted languages or best fit based on `langs`. Given `Accept-Language: en;q=0.8, es, pt` an array sorted by quality is returned: `['es', 'pt', 'en']`.
+ * @prop {(encoding?: (!Array<string>|string), ...encodings: string[]) => (string|!Array<string>|boolean)} acceptsEncodings Return accepted encodings or best fit based on `encodings`. Given `Accept-Encoding: gzip, deflate` an array sorted by quality is returned: `['gzip', 'deflate']`.
+ * @prop {(charset?: (!Array<string>|string), ...charsets: string[]) => (string|!Array<string>|boolean)} acceptsCharsets Return accepted charsets or best fit based on `charsets`. Given `Accept-Charset: utf-8, iso-8859-1;q=0.2, utf-7;q=0.5` an array sorted by quality is returned: `['utf-8', 'utf-7', 'iso-8859-1']`.
+ * @prop {(type?: (!Array<string>|string), ...types: string[]) => (string|!Array<string>|boolean)} accepts Check if the given `type(s)` is acceptable, returning the best match when true, otherwise `false`, in which case you should respond with 406 "Not Acceptable".
+ *
+ * The `type` value may be a single mime type string such as "application/json", the extension name such as "json" or an array `["json", "html", "text/plain"]`. When a list or array is given the _best_ match, if any is returned. When no types are given as arguments, returns all types accepted by the client in the preference order.
+ * _Examples:_
+ * - Accept: text/html
+ * ```js
+ * ctx.request.accepts('html')
+ * // => "html"
+ * ```
+ * - Accept: text/＊, application/json
+ * ```js
+ * ctx.request.accepts('html')
+ * // => "html"
+ * ctx.request.accepts('text/html')
+ * // => "text/html"
+ * ctx.request.accepts('json', 'text')
+ * // => "json"
+ * ctx.request.accepts('application/json')
+ * // => "application/json"
+ * ```
+ * - Accept: text/＊, application/json
+ * ```js
+ * ctx.request.accepts('image/png')
+ * // => false
+ * ctx.request.accepts('png')
+ * // => false
+ * ```
+ * - Accept: text/＊;q=.5, application/json
+ * ```js
+ * ctx.request.accepts(['html', 'json'])
+ * // => "json"
+ * ctx.request.accepts('html', 'json')
+ * // => "json"
+ * ```
+ * - Accept: application/＊;q=0.2, image/jpeg;q=0.8, text/html, text/plain
+ * ```js
+ * ctx.request.accepts([
+ *   "text/html", "text/plain",
+ *   "image/jpeg", "application/＊",
+ * ])
+ * ```
+ * @prop {(header: string) => string} get Return request header. The `Referrer` header field is special-cased, both `Referrer` and `Referer` are interchangeable.
+ * ```js
+ * ctx.request.get('Content-Type') // => "text/plain"
+ * ctx.request.get('content-type') //  => "text/plain"
+ * ctx.request.get('Something') // => undefined
+ * ```
+ * @prop {(type: (!Array<string>|string), ...types: string[]) => (string|boolean|null)} is Check if the incoming request contains the "Content-Type" header field, and it contains any of the give mime `type`s. If there is no request body, `null` is returned. If there is no content type, `false` is returned. Otherwise, it returns the first `type` that matches.
+ * _Examples_:
+ * - With Content-Type: text/html; charset=utf-8
+ * ```js
+ * ctx.request.is('html')
+ * // => 'html'
+ * ctx.request.is('text/html')
+ * // => 'text/html'
+ * ctx.request.is('text/＊', 'application/json')
+ * // => 'text/html'
+ * ```
+ * - When Content-Type is application/json
+ * ```js
+ * ctx.request.is('json', 'urlencoded')
+ * // => 'json'
+ * ctx.request.is('application/json')
+ * // => 'application/json'
+ * ctx.request.is('html', 'application/＊')
+ * // => 'application/json'
+ * ctx.request.is('html')
+ * // => false
+ * ```
  * @typedef {_goa.BaseRequest} BaseRequest `＠interface` The additional API not available via Context.
  * @typedef {_goa.ContextDelegatedRequest & _goa.$BaseRequest} _goa.BaseRequest `＠interface` The additional API not available via Context.
  * @typedef {Object} _goa.$BaseRequest `＠interface` The additional API not available via Context.

@@ -1,0 +1,17 @@
+<types ns="_idio">
+  <method async name="idio" return="{url:string, server: !http.Server, app: !_goa.Application, middleware: Object<string, !_goa.Middleware>}" example="example/jsdoc/idio.js">
+    <arg type="!_idio.MiddlewareConfig" name="middlewareConfig" opt>
+      The middleware configuration for the `idio` server.
+    </arg>
+    <arg type="!_idio.Config" name="config" opt>
+      The server configuration object.
+    </arg>
+    Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
+  </method>
+  <method async name="createApp" return="{app: !_goa.Application, middleware: !_goa.Middleware}">
+    <arg type="!_idio.MiddlewareConfig" name="middlewareConfig" opt>
+      The middleware configuration for the `idio` server.
+    </arg>
+    Just create a _Goa_ app without starting it.
+  </method>
+</types>
