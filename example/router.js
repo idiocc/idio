@@ -3,9 +3,7 @@ import rqt from 'rqt'
 import { collect } from 'catchment'
 import idio from '../compile'
 
-
 const Server = async () => {
-  const path = '/test'
   const {
     url, router, app, middleware: { pre, post, bodyparser },
   } = await idio({
@@ -48,7 +46,7 @@ const Server = async () => {
   }, { port: 5003 })
 
   // 2. Setup router with the bodyparser and path-specific middleware.
-  router.post(path,
+  router.post('/example',
     pre,
     bodyparser,
     async (ctx, next) => {
@@ -61,7 +59,7 @@ const Server = async () => {
     post,
   )
   app.use(router.routes())
-  return `${url}${path}`
+  return url
 }
 
 /* end example */
@@ -69,7 +67,7 @@ const Server = async () => {
 (async () => {
   const s = await Server()
   console.log('Page available at: %s', s)
-  const res = await rqt(s, {
+  const res = await rqt(`${s}/example`, {
     data: { hello: 'world' },
   })
   console.error('// server response:')

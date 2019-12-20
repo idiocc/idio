@@ -263,9 +263,7 @@ After the _Application_ and _Router_ instances are obtained after starting the s
 import { collect } from 'catchment'
 import idio from '@idio/core'
 
-
 const Server = async () => {
-  const path = '/test'
   const {
     url, router, app, middleware: { pre, post, bodyparser },
   } = await idio({
@@ -308,7 +306,7 @@ const Server = async () => {
   }, { port: 5003 })
 
   // 2. Setup router with the bodyparser and path-specific middleware.
-  router.post(path,
+  router.post('/example',
     pre,
     bodyparser,
     async (ctx, next) => {
@@ -321,7 +319,7 @@ const Server = async () => {
     post,
   )
   app.use(router.routes())
-  return `${url}${path}`
+  return url
 }
 ```
 
@@ -330,9 +328,9 @@ const Server = async () => {
 <tr><td>
 
 ```
-Page available at: http://localhost:5003/test
-  <-- POST /test
-  --> POST /test 200
+Page available at: http://localhost:5003
+  <-- POST /example
+  --> POST /example 200
 ```
 </td>
 <td>
