@@ -1,13 +1,24 @@
 <types ns="_idio">
+  <interface name="Application" extends="_goa.Application" desc="The application with some additions.">
+    <fn void async name="destroy">
+      Terminate all active connections and close the server.
+    </fn>
+  </interface>
+
   <interface name="Context" extends="_goa.Context" desc="The extension to the standard Goa context with properties set by middleware.">
-    <prop name="session" type="_idio.Session" initial="null">
+    <prop name="session" type="?_idio.Session" initial="null">
       The session object for updating, if `session` was installed.
     </prop>
-    <prop name="sessionOptions" type="_idio.SessionConfig" initial="null">
+    <prop name="sessionOptions" type="?_idio.SessionConfig" initial="null">
       The options used to create the session middleware.
     </prop>
     <prop type="?boolean" name="compress" initial="null">
       A flag added by `koa-compress` middleware.
     </prop>
   </interface>
+  <method name="Middleware" return="(!Promise|void)">
+    <arg type="!_idio.Context" name="ctx">The context.</arg>
+    <arg type="!Function" name="next" opt>The callback.</arg>
+    The function to handle requests which can be installed with the `.use` method.
+  </method>
 </types>

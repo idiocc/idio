@@ -1,0 +1,22 @@
+{
+  "name": "@externs/idio",
+  "main": "require.js",
+  "module": "index.js",
+  "description": "The Idio Web-Server Externs.",
+  "version": "0.0.0",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "p": "yarn publish  --no-git-tag-version"
+  },
+  "keywords": [
+    "goa",
+    "externs",
+    "idio",
+    "closure compiler"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/idiocc/idio.git",
+    "directory": "types/externs"
+  }
+}
