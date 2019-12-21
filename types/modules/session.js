@@ -20,9 +20,11 @@ export {}
 
 /* typal node_modules/@goa/session/types/index.xml namespace */
 /**
+ * @typedef {import('@typedefs/idio').Application} _idio.Application
+ * @typedef {import('@typedefs/idio').Context} _idio.Context
  * @typedef {_idio.KoaContextSession} KoaContextSession `＠interface` The context for the session API. Is actually private, as only accessible from context by a symbol.
  * @typedef {Object} _idio.KoaContextSession `＠interface` The context for the session API. Is actually private, as only accessible from context by a symbol.
- * @prop {!_goa.Context} ctx The context.
+ * @prop {!_idio.Context} ctx The context.
  * @prop {() => !Promise} commit Commit the session changes or removal.
  * @typedef {_idio.ExternalStore} ExternalStore `＠interface` By implementing this class, the session can be recorded and retrieved from an external store (e.g., a database), instead of cookies.
  * @typedef {Object} _idio.ExternalStore `＠interface` By implementing this class, the session can be recorded and retrieved from an external store (e.g., a database), instead of cookies.

@@ -3,7 +3,7 @@
   "main": "require.js",
   "module": "index.js",
   "description": "The Idio Web-Server Externs.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "AGPL-3.0",
   "scripts": {
     "p": "yarn publish  --no-git-tag-version"

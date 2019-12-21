@@ -46,6 +46,26 @@ _idio.Context.prototype.sessionOptions
  */
 _idio.Context.prototype.compress
 /**
+ * When middleware was invoked by the router, this will set the url, e.g., `user/:id`. Default `null`.
+ * @type {?string}
+ */
+_idio.Context.prototype._matchedRoute
+/**
+ * When middleware was invoked by the router, this will set the route name if the route was created with a name. Default `null`.
+ * @type {?string}
+ */
+_idio.Context.prototype._matchedRouteName
+/**
+ * The parameters extracted from the router. Default `null`.
+ * @type {?Object}
+ */
+_idio.Context.prototype.params
+/**
+ * An instance of the router if the middleware was invoked via it. Default `null`.
+ * @type {?_goa.Router}
+ */
+_idio.Context.prototype.router
+/**
  * The function to handle requests which can be installed with the `.use` method.
  * @typedef {function(!_idio.Context,!Function=): (!Promise|void)}
  */

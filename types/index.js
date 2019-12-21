@@ -15,6 +15,10 @@ export {}
  * @prop {?_idio.Session} session The session object for updating, if `session` was installed. Default `null`.
  * @prop {?_idio.SessionConfig} sessionOptions The options used to create the session middleware. Default `null`.
  * @prop {?boolean} compress A flag added by `koa-compress` middleware. Default `null`.
+ * @prop {?string} _matchedRoute When middleware was invoked by the router, this will set the url, e.g., `user/:id`. Default `null`.
+ * @prop {?string} _matchedRouteName When middleware was invoked by the router, this will set the route name if the route was created with a name. Default `null`.
+ * @prop {?Object} params The parameters extracted from the router. Default `null`.
+ * @prop {?_goa.Router} router An instance of the router if the middleware was invoked via it. Default `null`.
  * @typedef {_idio.Middleware} Middleware The function to handle requests which can be installed with the `.use` method.
  * @typedef {(ctx: !_idio.Context, next?: !Function) => (!Promise|void)} _idio.Middleware The function to handle requests which can be installed with the `.use` method.
  */
