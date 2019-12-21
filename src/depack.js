@@ -1,6 +1,7 @@
 import '../types/modules/externs'
 import '../types/options/externs'
 import '../types/externs'
+import '../types/externs/'
 import startApp, { createApp, compose, httpErrors, mount, Keygrip } from './'
 
 module.exports = {

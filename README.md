@@ -36,7 +36,6 @@ yarn add @idio/idio
 </a></p>
 
 
-
 ## API
 
 The package is available by importing its default function and named components:
@@ -67,7 +66,7 @@ __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareCon
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
 | static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">StaticOptions</a></em> | `koa-static` options.   |
 | compress | <em>[CompressOptions](#type-compressoptions)</em>                                                                                                                       | `koa-compress` options. |
-| session  | <em>[SessionOptions](#type-sessionoptions)</em>                                                                                                                         | `koa-session` options.  |
+| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">SessionOptions</a></em>                                  | `koa-session` options.  |
 | cors     | <em>[CorsOptions](#type-corsoptions)</em>                                                                                                                               | `koa-cors` options.     |
 
 The types for starting the server include the address, port and router configuration.
@@ -259,6 +258,8 @@ http://localhost:5000
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/4.svg?sanitize=true">
 </a></p>
+
+
 
 ## Custom Middleware
 

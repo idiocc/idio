@@ -30,5 +30,13 @@
   "_idio.Session": {
     "link": "https://github.com/idiocc/idio/wiki/Session#type-session",
     "description": "The session instance accessible via Goa's context."
+  },
+  "_idio.Application": {
+    "link": "https://github.com/idiocc/idio/wiki/Home#type-application",
+    "description": "The application with some additions."
+  },
+  "_idio.Middleware": {
+    "link": "https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid",
+    "description": "The function to handle requests which can be installed with the `.use` method."
   }
 }

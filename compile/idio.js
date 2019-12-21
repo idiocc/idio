@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-'use strict';
+             
 const assert = require('assert');
 const tty = require('tty');
 const util = require('util');
-const zlib = require('zlib');
 const _crypto = require('crypto');
+const zlib = require('zlib');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -472,16 +472,64 @@ function ya(a, b) {
   };
 }
 ;const za = _crypto.createHmac, Aa = _crypto.randomBytes;
-function Ba() {
+function Ba(a, b, c, d) {
+  return za(b, c).update(a).digest(d).replace(/\/|\+|=/g, e => ({"/":"_", "+":"-", "=":""})[e]);
+}
+;function Ca(a, b) {
+  if (null == a && null != b || null == b && null != a) {
+    return !1;
+  }
+  if (null == a && null == b) {
+    return !0;
+  }
+  if (a.length != b.length) {
+    return !1;
+  }
+  for (var c = 0, d = 0; d < a.length; d++) {
+    c |= a.charCodeAt(d) ^ b.charCodeAt(d);
+  }
+  return 0 === c;
+}
+;/*
+ keygrip
+ Copyright(c) 2011-2014 Jed Schmidt
+ MIT Licensed
+*/
+class Da {
+  constructor(a, b = "sha1", c = "base64") {
+    if (!(a && 0 in a)) {
+      throw Error("Keys must be provided.");
+    }
+    this.a = b;
+    this.encoding = c;
+    this.keys = a;
+  }
+  sign(a) {
+    return Ba(a, this.a, this.keys[0], this.encoding);
+  }
+  verify(a, b) {
+    return -1 < this.index(a, b);
+  }
+  index(a, b) {
+    for (let c = 0, d = this.keys.length; c < d; c++) {
+      const e = Ba(a, this.a, this.keys[c], this.encoding);
+      if (Ca(b, e)) {
+        return c;
+      }
+    }
+    return -1;
+  }
+}
+;function Ea() {
   return Aa(16);
 }
 ;for (var G = [], H = 0; 256 > H; ++H) {
   G[H] = (H + 256).toString(16).substr(1);
 }
-;function Ca(a = {}, b = null, c = 0) {
+;function Fa(a = {}, b = null, c = 0) {
   c = b && c;
   "string" == typeof a && (b = "binary" == a ? Array(16) : null, a = null);
-  const {random:d, rng:e = Ba} = a;
+  const {random:d, rng:e = Ea} = a;
   a = d || e();
   a[6] = a[6] & 15 | 64;
   a[8] = a[8] & 63 | 128;
@@ -493,7 +541,7 @@ function Ba() {
   b || (b = 0, b = [G[a[b++]], G[a[b++]], G[a[b++]], G[a[b++]], "-", G[a[b++]], G[a[b++]], "-", G[a[b++]], G[a[b++]], "-", G[a[b++]], G[a[b++]], "-", G[a[b++]], G[a[b++]], G[a[b++]], G[a[b++]], G[a[b++]], G[a[b++]]].join(""));
   return b;
 }
-;class Da {
+;class Ga {
   constructor(a, b) {
     this._expire = 0;
     this._requireSave = !1;
@@ -541,14 +589,14 @@ function Ba() {
  MIT https://github.com/alexgorbatchev
  crc32
 */
-let Ea = [0, 1996959894, 3993919788, 2567524794, 124634137, 1886057615, 3915621685, 2657392035, 249268274, 2044508324, 3772115230, 2547177864, 162941995, 2125561021, 3887607047, 2428444049, 498536548, 1789927666, 4089016648, 2227061214, 450548861, 1843258603, 4107580753, 2211677639, 325883990, 1684777152, 4251122042, 2321926636, 335633487, 1661365465, 4195302755, 2366115317, 997073096, 1281953886, 3579855332, 2724688242, 1006888145, 1258607687, 3524101629, 2768942443, 901097722, 1119000684, 3686517206, 
+let Ha = [0, 1996959894, 3993919788, 2567524794, 124634137, 1886057615, 3915621685, 2657392035, 249268274, 2044508324, 3772115230, 2547177864, 162941995, 2125561021, 3887607047, 2428444049, 498536548, 1789927666, 4089016648, 2227061214, 450548861, 1843258603, 4107580753, 2211677639, 325883990, 1684777152, 4251122042, 2321926636, 335633487, 1661365465, 4195302755, 2366115317, 997073096, 1281953886, 3579855332, 2724688242, 1006888145, 1258607687, 3524101629, 2768942443, 901097722, 1119000684, 3686517206, 
 2898065728, 853044451, 1172266101, 3705015759, 2882616665, 651767980, 1373503546, 3369554304, 3218104598, 565507253, 1454621731, 3485111705, 3099436303, 671266974, 1594198024, 3322730930, 2970347812, 795835527, 1483230225, 3244367275, 3060149565, 1994146192, 31158534, 2563907772, 4023717930, 1907459465, 112637215, 2680153253, 3904427059, 2013776290, 251722036, 2517215374, 3775830040, 2137656763, 141376813, 2439277719, 3865271297, 1802195444, 476864866, 2238001368, 4066508878, 1812370925, 453092731, 
 2181625025, 4111451223, 1706088902, 314042704, 2344532202, 4240017532, 1658658271, 366619977, 2362670323, 4224994405, 1303535960, 984961486, 2747007092, 3569037538, 1256170817, 1037604311, 2765210733, 3554079995, 1131014506, 879679996, 2909243462, 3663771856, 1141124467, 855842277, 2852801631, 3708648649, 1342533948, 654459306, 3188396048, 3373015174, 1466479909, 544179635, 3110523913, 3462522015, 1591671054, 702138776, 2966460450, 3352799412, 1504918807, 783551873, 3082640443, 3233442989, 3988292384, 
 2596254646, 62317068, 1957810842, 3939845945, 2647816111, 81470997, 1943803523, 3814918930, 2489596804, 225274430, 2053790376, 3826175755, 2466906013, 167816743, 2097651377, 4027552580, 2265490386, 503444072, 1762050814, 4150417245, 2154129355, 426522225, 1852507879, 4275313526, 2312317920, 282753626, 1742555852, 4189708143, 2394877945, 397917763, 1622183637, 3604390888, 2714866558, 953729732, 1340076626, 3518719985, 2797360999, 1068828381, 1219638859, 3624741850, 2936675148, 906185462, 1090812512, 
 3747672003, 2825379669, 829329135, 1181335161, 3412177804, 3160834842, 628085408, 1382605366, 3423369109, 3138078467, 570562233, 1426400815, 3317316542, 2998733608, 733239954, 1555261956, 3268935591, 3050360625, 752459403, 1541320221, 2607071920, 3965973030, 1969922972, 40735498, 2617837225, 3943577151, 1913087877, 83908371, 2512341634, 3803740692, 2075208622, 213261112, 2463272603, 3855990285, 2094854071, 198958881, 2262029012, 4057260610, 1759359992, 534414190, 2176718541, 4139329115, 1873836001, 
 414664567, 2282248934, 4279200368, 1711684554, 285281116, 2405801727, 4167216745, 1634467795, 376229701, 2685067896, 3608007406, 1308918612, 956543938, 2808555105, 3495958263, 1231636301, 1047427035, 2932959818, 3654703836, 1088359270, 936918E3, 2847714899, 3736837829, 1202900863, 817233897, 3183342108, 3401237130, 1404277552, 615818150, 3134207493, 3453421203, 1423857449, 601450431, 3009837614, 3294710456, 1567103746, 711928724, 3020668471, 3272380065, 1510334235, 755167117];
-"undefined" !== typeof Int32Array && (Ea = new Int32Array(Ea));
-const Fa = function(a, b) {
+"undefined" !== typeof Int32Array && (Ha = new Int32Array(Ha));
+const Ia = function(a, b) {
   const c = (d, e) => b(d, e) >>> 0;
   c.signed = b;
   c.a = c;
@@ -558,35 +606,35 @@ const Fa = function(a, b) {
   Buffer.isBuffer(a) || (a = Buffer.from(a));
   b = 0 === b ? 0 : ~~b ^ -1;
   for (let c = 0; c < a.length; c++) {
-    b = Ea[(b ^ a[c]) & 255] ^ b >>> 8;
+    b = Ha[(b ^ a[c]) & 255] ^ b >>> 8;
   }
   return b ^ -1;
 });
-function Ga(a) {
+function Ja(a) {
   a = Buffer.from(a, "base64").toString("utf8");
   return JSON.parse(a);
 }
-function Ha(a) {
+function Ka(a) {
   a = JSON.stringify(a);
   return Buffer.from(a).toString("base64");
 }
 ;const I = E("koa-session:context");
-async function Ia(a) {
+async function La(a) {
   I("init from external");
   var b = a.ctx, c = a.opts;
   c.externalKey ? (b = c.externalKey.get(b), I("get external key from custom %s", b)) : (b = b.cookies.get(c.key, c), I("get external key from cookie %s", b));
-  b ? (c = await a.store.get(b, c.maxAge, {rolling:c.rolling || !1}), a.valid(c, b) ? (a.create(c, b), a.a = Fa(JSON.stringify(a.session.toJSON()))) : a.create()) : a.create();
+  b ? (c = await a.store.get(b, c.maxAge, {rolling:c.rolling || !1}), a.valid(c, b) ? (a.create(c, b), a.a = Ia(JSON.stringify(a.session.toJSON()))) : a.create()) : a.create();
 }
-function Ja(a) {
+function Ma(a) {
   const b = a.a;
   var c = a.session;
   if (c._requireSave) {
     return "force";
   }
   const d = c.toJSON();
-  return b || Object.keys(d).length ? b !== Fa(JSON.stringify(d)) ? "changed" : a.opts.rolling ? "rolling" : a.opts.renew && (a = c._expire, c = c.maxAge, a && c && a - Date.now() < c / 2) ? "renew" : "" : "";
+  return b || Object.keys(d).length ? b !== Ia(JSON.stringify(d)) ? "changed" : a.opts.rolling ? "rolling" : a.opts.renew && (a = c._expire, c = c.maxAge, a && c && a - Date.now() < c / 2) ? "renew" : "" : "";
 }
-class Ka {
+class Na {
   constructor(a, b = {}) {
     this.ctx = a;
     this.app = a.app;
@@ -620,7 +668,7 @@ class Ka {
             break a;
           }
           I("parsed %j", b);
-          this.valid(b) ? (this.create(b), this.a = Fa(JSON.stringify(this.session.toJSON()))) : this.create();
+          this.valid(b) ? (this.create(b), this.a = Ia(JSON.stringify(this.session.toJSON()))) : this.create();
         } else {
           this.create();
         }
@@ -658,7 +706,7 @@ class Ka {
   create(a, b) {
     I("create session with val: %j externalKey: %s", a, b);
     this.store && (this.externalKey = b || this.opts.genid && this.opts.genid(this.ctx));
-    this.session = new Da(this, a);
+    this.session = new Ga(this, a);
   }
   async commit() {
     const {session:a, opts:{beforeSave:b}, ctx:c} = this;
@@ -666,7 +714,7 @@ class Ka {
       if (null === a) {
         await this.remove();
       } else {
-        var d = Ja(this);
+        var d = Ma(this);
         I("should save session: %s", d);
         d && ("function" == typeof b && (I("before save"), b(c, a)), await this.save("changed" == d));
       }
@@ -688,16 +736,16 @@ class Ka {
 
  MIT https://github.com/miguelmota/is-class
 */
-const La = E("koa-session"), J = Symbol("context#contextSession"), K = Symbol("context#_contextSession");
-function Ma(a, b = {}) {
+const Oa = E("koa-session"), J = Symbol("context#contextSession"), K = Symbol("context#_contextSession");
+function Pa(a, b = {}) {
   if (!a || "function" != typeof a.use) {
     throw new TypeError("app instance required: `session(app, opts)`");
   }
-  b = Na(b);
-  Oa(a.context, b);
+  b = Qa(b);
+  Ra(a.context, b);
   return async function(c, d) {
     c = c[J];
-    c.store && await Ia(c);
+    c.store && await La(c);
     try {
       await d();
     } finally {
@@ -705,16 +753,16 @@ function Ma(a, b = {}) {
     }
   };
 }
-function Na(a = {}) {
+function Qa(a = {}) {
   a.key = a.key || "koa:sess";
   a.maxAge = a.maxAge || 864E5;
   null == a.overwrite && (a.overwrite = !0);
   null == a.httpOnly && (a.httpOnly = !0);
   null == a.signed && (a.signed = !0);
   null == a.autoCommit && (a.autoCommit = !0);
-  La("session options %j", a);
-  "function" != typeof a.encode && (a.encode = Ha);
-  "function" != typeof a.decode && (a.decode = Ga);
+  Oa("session options %j", a);
+  "function" != typeof a.encode && (a.encode = Ka);
+  "function" != typeof a.decode && (a.decode = Ja);
   var b = a.store;
   b && (w("function" == typeof b.get, "store.get must be function"), w("function" == typeof b.set, "store.set must be function"), w("function" == typeof b.destroy, "store.destroy must be function"));
   if (b = a.externalKey) {
@@ -723,15 +771,15 @@ function Na(a = {}) {
   if (b = a.ContextStore) {
     w("function" == typeof b && (/^class[\s{]/.test(b.toString()) || /classCallCheck\(/.test(b.toString().replace(/^[^{]*{\s*/, "").replace(/\s*}[^}]*$/, ""))), "ContextStore must be a class"), w("function" == typeof b.prototype.get, "ContextStore.prototype.get must be function"), w("function" == typeof b.prototype.set, "ContextStore.prototype.set must be function"), w("function" == typeof b.prototype.destroy, "ContextStore.prototype.destroy must be function");
   }
-  a.genid || (a.prefix ? a.genid = () => `${a.prefix}${Ca()}` : a.genid = Ca);
+  a.genid || (a.prefix ? a.genid = () => `${a.prefix}${Fa()}` : a.genid = Fa);
   return a;
 }
-function Oa(a, b) {
+function Ra(a, b) {
   a.hasOwnProperty(J) || Object.defineProperties(a, {[J]:{get() {
     if (this[K]) {
       return this[K];
     }
-    this[K] = new Ka(this, b);
+    this[K] = new Na(this, b);
     return this[K];
   }}, session:{get() {
     return this[J].get();
@@ -740,54 +788,6 @@ function Oa(a, b) {
   }, configurable:!0}, sessionOptions:{get() {
     return this[J].opts;
   }}});
-}
-;function Pa(a, b, c, d) {
-  return za(b, c).update(a).digest(d).replace(/\/|\+|=/g, e => ({"/":"_", "+":"-", "=":""})[e]);
-}
-;function Qa(a, b) {
-  if (null == a && null != b || null == b && null != a) {
-    return !1;
-  }
-  if (null == a && null == b) {
-    return !0;
-  }
-  if (a.length != b.length) {
-    return !1;
-  }
-  for (var c = 0, d = 0; d < a.length; d++) {
-    c |= a.charCodeAt(d) ^ b.charCodeAt(d);
-  }
-  return 0 === c;
-}
-;/*
- keygrip
- Copyright(c) 2011-2014 Jed Schmidt
- MIT Licensed
-*/
-class Ra {
-  constructor(a, b = "sha1", c = "base64") {
-    if (!(a && 0 in a)) {
-      throw Error("Keys must be provided.");
-    }
-    this.a = b;
-    this.encoding = c;
-    this.keys = a;
-  }
-  sign(a) {
-    return Pa(a, this.a, this.keys[0], this.encoding);
-  }
-  verify(a, b) {
-    return -1 < this.index(a, b);
-  }
-  index(a, b) {
-    for (let c = 0, d = this.keys.length; c < d; c++) {
-      const e = Pa(a, this.a, this.keys[c], this.encoding);
-      if (Qa(b, e)) {
-        return c;
-      }
-    }
-    return -1;
-  }
 }
 ;/*
  vary
@@ -1171,11 +1171,11 @@ const Lb = {["static"](a, b, {root:c = [], maxage:d, mount:e}) {
 }, ["compress"](a, b, {threshold:c = 1024}) {
   return Kb({threshold:c, flush:Fb, ...b});
 }, ["session"](a, b, {keys:c}) {
-  if (!(c instanceof Ra || Array.isArray(c))) {
+  if (!(c instanceof Da || Array.isArray(c))) {
     throw Error("Keys must be an array or an instance of Keygrip / child classes.");
   }
   a.keys = c;
-  return Ma(a, b);
+  return Pa(a, b);
 }, ["cors"](a, b, {origin:c}) {
   a = Array.isArray(c) ? d => {
     const e = d.get("Origin");
@@ -1683,7 +1683,7 @@ class Nc {
     this.secure = void 0;
     this.request = a;
     this.a = b;
-    c && (this.keys = Array.isArray(c.keys) ? new Ra(c.keys) : c.keys, this.secure = c.secure);
+    c && (this.keys = Array.isArray(c.keys) ? new Da(c.keys) : c.keys, this.secure = c.secure);
   }
   get(a, b) {
     const c = `${a}.sig`;
@@ -2503,7 +2503,7 @@ class Id {
   }
 }
 ;const W = Symbol("context#cookies");
-class Jd {
+class X {
   constructor() {
     this.state = this.originalUrl = this.res = this.req = this.response = this.request = this.app = null;
     this[W] = null;
@@ -2559,9 +2559,9 @@ class Jd {
     return this.inspect();
   }
 }
-S(S((new xd(Jd.prototype, "response")).method("attachment").method("redirect").method("remove").method("vary").method("set").method("append").method("flushHeaders").access("status").access("message").access("body").access("length").access("type").access("lastModified").access("etag"), "headerSent"), "writable");
-S(S(S(S(S(S(S(S(S(S(S(S(S(S((new xd(Jd.prototype, "request")).method("acceptsLanguages").method("acceptsEncodings").method("acceptsCharsets").method("accepts").method("get").method("is").access("querystring").access("idempotent").access("socket").access("search").access("method").access("query").access("path").access("url").access("accept"), "origin"), "href"), "subdomains"), "protocol"), "host"), "hostname"), "URL"), "header"), "headers"), "secure"), "stale"), "fresh"), "ips"), "ip");
-class Kd {
+S(S((new xd(X.prototype, "response")).method("attachment").method("redirect").method("remove").method("vary").method("set").method("append").method("flushHeaders").access("status").access("message").access("body").access("length").access("type").access("lastModified").access("etag"), "headerSent"), "writable");
+S(S(S(S(S(S(S(S(S(S(S(S(S(S((new xd(X.prototype, "request")).method("acceptsLanguages").method("acceptsEncodings").method("acceptsCharsets").method("accepts").method("get").method("is").access("querystring").access("idempotent").access("socket").access("search").access("method").access("query").access("path").access("url").access("accept"), "origin"), "href"), "subdomains"), "protocol"), "host"), "hostname"), "URL"), "header"), "headers"), "secure"), "stale"), "fresh"), "ips"), "ip");
+class Jd {
   constructor() {
     this.i = this.res = this.req = this.request = this.ctx = this.app = null;
     this.a = void 0;
@@ -2767,34 +2767,36 @@ class Kd {
     return this.inspect();
   }
 }
-;const Ld = E("@goa/koa:application");
-async function Md(a, b) {
+;const Kd = E("@goa/koa:application");
+async function Ld(a, b) {
   const c = a.res;
   c.statusCode = 404;
   ac(c, d => a.onerror(d));
   try {
-    return await b(a), Nd(a);
+    return await b(a), Md(a);
   } catch (d) {
     a.onerror(d);
   }
 }
-class Od extends Yb {
-  constructor() {
+class Nd extends Yb {
+  constructor(a = {}) {
+    const {proxy:b = !1, subdomainOffset:c = 2, env:d = process.env.NODE_ENV || "development", keys:e, Context:f = X} = a;
     super();
-    this.silent = this.proxy = !1;
+    this.proxy = b;
+    this.silent = !1;
     this.middleware = [];
-    this.subdomainOffset = 2;
-    this.env = process.env.NODE_ENV || "development";
-    this.context = Object.create(Jd.prototype);
+    this.subdomainOffset = c;
+    this.env = d;
+    this.context = Object.create(f.prototype);
     this.request = Object.create(Id.prototype);
-    this.response = Object.create(Kd.prototype);
-    this.keys = void 0;
+    this.response = Object.create(Jd.prototype);
+    this.keys = e;
   }
   [x.custom]() {
     return this.inspect();
   }
   listen(...a) {
-    Ld("listen");
+    Kd("listen");
     return Xb(this.callback()).listen(...a);
   }
   toJSON() {
@@ -2810,7 +2812,7 @@ class Od extends Yb {
     if ("function" != typeof a ? 0 : Qb.test(Pb.call(a)) || (Rb ? Sb(a) == Ub : "[object GeneratorFunction]" == Ob.call(a))) {
       throw Error("Generator functions are not supported by @goa/koa. Use koa-convert on them first.");
     }
-    Ld("use %s", a.M || a.name || "-");
+    Kd("use %s", a.M || a.name || "-");
     this.middleware.push(a);
     return this;
   }
@@ -2821,7 +2823,7 @@ class Od extends Yb {
     }
     return (b, c) => {
       b = this.createContext(b, c);
-      return Md(b, a);
+      return Ld(b, a);
     };
   }
   createContext(a, b) {
@@ -2843,7 +2845,7 @@ class Od extends Yb {
     404 == a.status || a.expose || this.silent || (a = a.stack || a.toString(), console.error(), console.error(a.replace(/^/gm, "  ")), console.error());
   }
 }
-function Nd(a) {
+function Md(a) {
   if (0 != a.respond && a.writable) {
     var b = a.res, c = a.status, d = a.body;
     if (t[c]) {
@@ -2874,7 +2876,7 @@ function Nd(a) {
  The MIT License (MIT)
  Copyright (c) 2014 Blake Embrey (hello@blakeembrey.com)
 */
-function Pd(a) {
+function Od(a) {
   const b = [];
   let c = 0;
   for (; c < a.length;) {
@@ -2951,10 +2953,10 @@ function Pd(a) {
   b.push({type:"END", index:c, value:""});
   return b;
 }
-function Qd(a, b = {}) {
-  const c = Pd(a);
+function Pd(a, b = {}) {
+  const c = Od(a);
   ({S:a = "./"} = b);
-  b = `[^${X(b.delimiter || "/#?")}]+?`;
+  b = `[^${Y(b.delimiter || "/#?")}]+?`;
   const d = [];
   let e = 0, f = 0, g = "";
   const h = q => {
@@ -2998,12 +3000,12 @@ function Qd(a, b = {}) {
   }
   return d;
 }
-function Rd(a) {
+function Qd(a) {
   var b = {encode:encodeURIComponent};
-  return Sd(Qd(a, b), b);
+  return Rd(Pd(a, b), b);
 }
-function Sd(a, b = {}) {
-  const c = Td(b), {encode:d = g => g, W:e = !0} = b, f = a.map(g => {
+function Rd(a, b = {}) {
+  const c = Sd(b), {encode:d = g => g, W:e = !0} = b, f = a.map(g => {
     if ("object" === typeof g) {
       return new RegExp(`^(?:${g.pattern})$`, c);
     }
@@ -3051,31 +3053,31 @@ function Sd(a, b = {}) {
     return h;
   };
 }
-function X(a) {
+function Y(a) {
   return a.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
 }
-function Td(a = {}) {
+function Sd(a = {}) {
   return a.sensitive ? "" : "i";
 }
-function Ud(a, b, c) {
-  a = a.map(d => Vd(d, b, c).source);
-  return new RegExp(`(?:${a.join("|")})`, Td(c));
+function Td(a, b, c) {
+  a = a.map(d => Ud(d, b, c).source);
+  return new RegExp(`(?:${a.join("|")})`, Sd(c));
 }
-function Wd(a, b, c = {}) {
-  const {strict:d = !1, start:e = !0, end:f = !0, encode:g = l => l} = c, h = `[${X(c.endsWith || "")}]|$`, k = `[${X(c.delimiter || "/#?")}]`;
+function Vd(a, b, c = {}) {
+  const {strict:d = !1, start:e = !0, end:f = !0, encode:g = l => l} = c, h = `[${Y(c.endsWith || "")}]|$`, k = `[${Y(c.delimiter || "/#?")}]`;
   let m = e ? "^" : "";
   for (const l of a) {
     if ("string" == typeof l) {
-      m += X(g(l));
+      m += Y(g(l));
     } else {
-      const p = X(g(l.prefix)), n = X(g(l.u));
+      const p = Y(g(l.prefix)), n = Y(g(l.u));
       l.pattern ? (b && b.push(l), m = p || n ? "+" == l.j || "*" == l.j ? m + `(?:${p}((?:${l.pattern})(?:${n}${p}(?:${l.pattern}))*)${n})${"*" == l.j ? "?" : ""}` : m + `(?:${p}(${l.pattern})${n})${l.j}` : m + `(${l.pattern})${l.j}`) : m += `(?:${p}${n})${l.j}`;
     }
   }
   f ? (d || (m += `${k}?`), m += c.endsWith ? `(?=${h})` : "$") : (a = a[a.length - 1], a = "string" === typeof a ? -1 < k.indexOf(a[a.length - 1]) : void 0 === a, d || (m += `(?:${k}(?=${h}))?`), a || (m += `(?=${k}|${h})`));
-  return new RegExp(m, Td(c));
+  return new RegExp(m, Sd(c));
 }
-function Vd(a, b, c) {
+function Ud(a, b, c) {
   if (a instanceof RegExp) {
     if (b && (c = a.source.match(/\((?!\?)/g))) {
       for (var d = 0; d < c.length; d++) {
@@ -3083,15 +3085,15 @@ function Vd(a, b, c) {
       }
     }
   } else {
-    Array.isArray(a) ? d = Ud(a, b, c) : d = Wd(Qd(a, c), b, c), a = d;
+    Array.isArray(a) ? d = Td(a, b, c) : d = Vd(Pd(a, c), b, c), a = d;
   }
   return a;
 }
-;const Zd = E("koa-router");
-function Y(a, b) {
-  a.path && (a.path = b + a.path, a.paramNames = [], b = a.path, a.regexp = Vd("string" == typeof b ? b.replace(/\/$/, "") : b, a.paramNames, a.opts));
+;const Wd = E("koa-router");
+function Z(a, b) {
+  a.path && (a.path = b + a.path, a.paramNames = [], b = a.path, a.regexp = Ud("string" == typeof b ? b.replace(/\/$/, "") : b, a.paramNames, a.opts));
 }
-class $d {
+class Zd {
   constructor(a, b, c, d = {}) {
     const {name:e = null} = d;
     this.opts = d;
@@ -3110,8 +3112,8 @@ class $d {
       }
     });
     this.path = a;
-    this.regexp = Vd("string" == typeof a ? a.replace(/\/$/, "") : a, this.paramNames, this.opts);
-    Zd("defined route %s %s", this.methods, this.opts.prefix + this.path);
+    this.regexp = Ud("string" == typeof a ? a.replace(/\/$/, "") : a, this.paramNames, this.opts);
+    Wd("defined route %s %s", this.methods, this.opts.prefix + this.path);
   }
   match(a) {
     return this.regexp.test(a);
@@ -3139,9 +3141,9 @@ class $d {
     return this.opts.ignoreCaptures ? [] : a.match(this.regexp).slice(1);
   }
   url(a, b) {
-    var c = a, d = this.path.replace(/\(\.\*\)/g, ""), e = Rd(d);
+    var c = a, d = this.path.replace(/\(\.\*\)/g, ""), e = Qd(d);
     "object" != typeof a && (c = [...arguments], "object" == typeof c[c.length - 1] && (b = c[c.length - 1], c = c.slice(0, c.length - 1)));
-    d = Qd(d);
+    d = Pd(d);
     let f = {};
     if (Array.isArray(c)) {
       for (let g = d.length, h = 0, k = 0; h < g; h++) {
@@ -3173,8 +3175,8 @@ class $d {
  @author Alex Mingoia <talk@alexmingoia.com>
  @link https://github.com/alexmingoia/koa-router
 */
-const ae = E("@goa/router");
-class Z {
+const $d = E("@goa/router");
+class ae {
   constructor(a = {}) {
     const {methods:b = "HEAD OPTIONS GET PUT PATCH POST DELETE".split(" ")} = a;
     this.opts = a;
@@ -3244,8 +3246,8 @@ class Z {
         this.register(p, b, c, d);
       }), this;
     }
-    const l = new $d(a, b, c, {end:h, name:k, sensitive:m, strict:g, prefix:f, ignoreCaptures:e});
-    this.opts.prefix && Y(l, this.opts.prefix);
+    const l = new Zd(a, b, c, {end:h, name:k, sensitive:m, strict:g, prefix:f, ignoreCaptures:e});
+    this.opts.prefix && Z(l, this.opts.prefix);
     Object.keys(this.params).forEach(p => {
       l.param(p, this.params[p]);
     });
@@ -3270,7 +3272,7 @@ class Z {
     let d;
     const e = {path:[], B:[], route:!1};
     for (let f = c.length, g = 0; g < f; g++) {
-      if (d = c[g], ae("test %s %s", d.path, d.regexp), d.match(a) && (e.path.push(d), 0 == d.methods.length || d.methods.includes(b))) {
+      if (d = c[g], $d("test %s %s", d.path, d.regexp), d.match(a) && (e.path.push(d), 0 == d.methods.length || d.methods.includes(b))) {
         e.B.push(d), d.methods.length && (e.route = !0);
       }
     }
@@ -3287,7 +3289,7 @@ class Z {
     a = a.replace(/\/$/, "");
     this.opts.prefix = a;
     this.stack.forEach(b => {
-      Y(b, a);
+      Z(b, a);
     });
     return this;
   }
@@ -3302,8 +3304,8 @@ class Z {
     b.forEach(d => {
       const e = d.router;
       e ? (e.stack.forEach(f => {
-        a && Y(f, a);
-        this.opts.prefix && Y(f, this.opts.prefix);
+        a && Z(f, a);
+        this.opts.prefix && Z(f, this.opts.prefix);
         this.stack.push(f);
       }), this.params && Object.keys(this.params).forEach(f => {
         e.param(f, this.params[f]);
@@ -3316,7 +3318,7 @@ class Z {
   }
   middleware() {
     const a = (b, c) => {
-      ae("%s %s", b.method, b.path);
+      $d("%s %s", b.method, b.path);
       const d = this.opts.routerPath || b.routerPath || b.path;
       var e = this.match(d, b.method);
       b.a ? b.a.push(e.path) : b.a = e.path;
@@ -3343,8 +3345,8 @@ class Z {
     return a;
   }
 }
-Z.url = function(a, ...b) {
-  return $d.prototype.url.apply({path:a}, b);
+ae.url = function(a, ...b) {
+  return Zd.prototype.url.apply({path:a}, b);
 };
 const be = Vb.map(a => a.toLowerCase());
 [...be, "all"].forEach(a => {
@@ -3353,10 +3355,16 @@ const be = Vb.map(a => a.toLowerCase());
     this.register(d, "all" == a ? be : [a], e, {name:c});
     return this;
   }
-  Z.prototype[a] = b;
-  "delete" == a && (Z.prototype.del = b);
+  ae.prototype[a] = b;
+  "delete" == a && (ae.prototype.del = b);
 });
-const ce = async a => {
+class ce extends X {
+  constructor() {
+    super();
+    this.router = this.params = this._matchedRouteName = this._matchedRoute = this.compress = this.sessionOptions = this.session = null;
+  }
+}
+const de = async a => {
   const b = {};
   a.on("connection", c => {
     const d = [c.remoteAddress, c.remotePort].join(":");
@@ -3373,13 +3381,13 @@ const ce = async a => {
       }
     });
   };
-}, de = async(a = {}, b = {}) => {
-  const c = new Od;
+}, ee = async(a = {}, b = {}) => {
+  const c = new Nd({Context:ce});
   a = await Nb(a, c);
   "production" == c.env && (c.proxy = !0);
-  return {app:c, middleware:a, router:new Z(b)};
+  return {app:c, middleware:a, router:new ae(b)};
 };
-function ee(a, b, c = "0.0.0.0") {
+function fe(a, b, c = "0.0.0.0") {
   const d = pb(!0);
   return new Promise((e, f) => {
     const g = k => {
@@ -3391,26 +3399,26 @@ function ee(a, b, c = "0.0.0.0") {
     }).once("error", g);
   });
 }
-;module.exports = {_createApp:de, _compose:r, _startApp:async function(a = {}, b = {}) {
+;module.exports = {_createApp:ee, _compose:r, _startApp:async function(a = {}, b = {}) {
   const {port:c = 5000, host:d = "0.0.0.0", router:e} = b, f = () => {
     g.destroy().then(() => {
       process.kill(process.pid, "SIGUSR2");
     });
   };
   process.once("SIGUSR2", f);
-  b = await de(a, e);
+  b = await ee(a, e);
   const g = b.app;
   a = b.middleware;
   b = b.router;
-  const h = await ee(g, c, d);
-  ce(h);
+  const h = await fe(g, c, d);
+  de(h);
   g.destroy = async() => {
     await h.destroy();
     process.removeListener("SIGUSR2", f);
   };
   const {port:k} = h.address();
   return {app:g, middleware:a, url:`http://localhost:${k}`, server:h, router:b};
-}, _httpErrors:v, _mount:ya, _Keygrip:Ra};
+}, _httpErrors:v, _mount:ya, _Keygrip:Da};
 
 
 //# sourceMappingURL=idio.js.map

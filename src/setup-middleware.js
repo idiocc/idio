@@ -54,9 +54,9 @@ const map = {
   },
   /**
    * The session middleware.
-   * @param {_goa.Application} app
-   * @param {_idio.SessionConfig} config
-   * @param {_idio.SessionOptions} options
+   * @param {!_idio.Application} app
+   * @param {!_idio.SessionConfig} config
+   * @param {!_idio.SessionOptions} options
    */
   'session'(app, config, { keys }) {
     if (!(keys instanceof Keygrip) && !Array.isArray(keys)) {

@@ -111,15 +111,15 @@
   resolved "https://registry.yarnpkg.com/@goa/negotiator/-/negotiator-1.0.1.tgz#d0b0dccfafc4dc4a990ae92a65c4faedfbe884f7"
   integrity sha512-Hzu2cXJBI5/WKb+9nuLRfefLcRWUlgWTlWHaZbtrM/7BHQHQIX4FJWNzywQARmWDl9g8hoHdeWw58SPcx5ET4Q==
 
-"@goa/router@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@goa/router/-/router-1.1.2.tgz#dc197182379ddf86e989b29b4a825ab48e8af5b7"
-  integrity sha512-0kHC/r3I08lekJJA9NiOFM3cNLcAJsf8QNo8nUmhiC/ByclJx3u5tLMkUBLYWBuOTvh+lCFcLYQi/ay3CjPvVw==
+"@goa/router@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@goa/router/-/router-1.2.0.tgz#ec054eeddf8fd14c5064c2e5c264be9e1a5a2499"
+  integrity sha512-w+sawURKn30pADD/nZK7psf0UBR3M7/I3vB6F8YH2qFp6nNHRxqVgW/3Aly6IOcx7Q23Buz6x74vHAx5GhiJmw==
 
-"@goa/session@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@goa/session/-/session-2.0.0.tgz#fbba99393b26a18709c7886f748d0093b46301b5"
-  integrity sha512-SYIgA2vfF96EXA1trqecia8xkUgNYmXNNl4WSq3seHHsDyqMC6DaWqnd8mBRWaOlL5EuJ1kWAhtLBaZleK/GiQ==
+"@goa/session@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@goa/session/-/session-2.1.0.tgz#b14ef6934c11dafd12e253f4f53550070838c579"
+  integrity sha512-5EgEe0jToW9Xe6fX/52tutrtnILokW/wW2s+s0R63WfCMiKXU/OKpBdXDG1R/6fPGKeDKQaIKwiEKqq+lg+GeA==
 
 "@goa/statuses@^1.0.1":
   version "1.0.1"
@@ -220,10 +220,10 @@ differently@^1.0.0:
   dependencies:
     erte "^1.2.0"
 
-documentary@^1.35.6:
-  version "1.35.6"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.6.tgz#88583b2c0c32f8184b1a9de2deb923e21daf4d3a"
-  integrity sha512-4qGBilFu1qNUFbq/mAQ8oOtQQwmPXTIZmvYtIsI63kWAD8fWZrYfZevcuGHgs17NTtwG5LxAYTemscBgG56jmA==
+documentary@^1.35.7:
+  version "1.35.7"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.7.tgz#8d06a7b706bd26beb88b1785b057271f52cf0dde"
+  integrity sha512-aFMW1D+X47WRFgy+Ir0874kW+sFZY1HM+piPTumaL+HhLkC8Anw71tuYt67AvJd3osfvZD/VLt0ivanCk52sUw==
   dependencies:
     alamode "^3.3.0"
     preact "8.5.3"

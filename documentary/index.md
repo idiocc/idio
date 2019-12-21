@@ -23,10 +23,5 @@ yarn add @idio/idio
 
 %~%
 
-<include-typedefs>
-  node_modules/@goa/router/typedefs.json
-</include-typedefs>
-
-<include-typedefs>
-  node_modules/@goa/goa/typedefs.json
-</include-typedefs>
+<include-typedefs>@goa/router</include-typedefs>
+<include-typedefs>@goa/goa</include-typedefs>

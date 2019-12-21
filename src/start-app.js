@@ -1,5 +1,6 @@
 import setupMiddleware from './setup-middleware'
-import Goa, { Context } from '@goa/goa'
+import Goa from '@goa/goa'
+import Context from '@goa/goa/src/context'
 import Router from '@goa/router'
 // import Debug from '@idio/debug'
 import erotic from 'erotic'
@@ -15,6 +16,11 @@ class IdioContext extends Context {
     this.session = null
     this.sessionOptions = null
     this.compress = null
+    // router
+    this._matchedRoute = null
+    this._matchedRouteName = null
+    this.params = null
+    this.router = null
   }
 }
 
