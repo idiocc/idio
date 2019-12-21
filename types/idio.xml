@@ -1,4 +1,7 @@
 <types ns="_idio">
+  <import from="@typedefs/goa" ns="_goa" name="Application" />
+  <import from="@typedefs/goa" ns="_goa" name="Context" />
+
   <interface name="Application" extends="_goa.Application" desc="The application with some additions.">
     <fn void async name="destroy">
       Terminate all active connections and close the server.
