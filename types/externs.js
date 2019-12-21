@@ -26,13 +26,13 @@ _idio.Idio.prototype.url
  */
 _idio.Idio.prototype.server
 /**
- * The Goa application instance.
- * @type {!_goa.Application}
+ * The Goa application instance (with additional `.destroy` method).
+ * @type {!_idio.Application}
  */
 _idio.Idio.prototype.app
 /**
- * An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`.
- * @type {!Object<string, !_goa.Middleware>}
+ * An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`.
+ * @type {!Object<string, !_idio.Middleware>}
  */
 _idio.Idio.prototype.middleware
 /**
@@ -83,6 +83,18 @@ _idio.ConfigItem
  * @typedef {function(!_goa.Application,!Object,!Object): !Promise<!_goa.Middleware>}
  */
 _idio.MiddlewareConstructor
+
+/* typal types/api.xml externs */
+/**
+ * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
+ * @typedef {function(!_idio.MiddlewareConfig=,!_idio.Config=): !Promise<!_idio.Idio>}
+ */
+_idio.idio
+/**
+ * Just create a _Goa_ app without starting it.
+ * @typedef {function(!_idio.MiddlewareConfig=,!_goa.RouterConfig=): !Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_goa.Router }>}
+ */
+_idio.createApp
 
 // this we implemented manually
 /** @type {!Function} */

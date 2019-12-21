@@ -10,8 +10,8 @@
   </method>
 
   <method async name="createApp" return="{
-    app: !_goa.Application,
-    middleware: !Object<string, !_goa.Middleware>,
+    app: !_idio.Application,
+    middleware: !Object<string, !_idio.Middleware>,
     router: !_goa.Router
   }">
     <arg type="!_idio.MiddlewareConfig" name="middlewareConfig" opt>

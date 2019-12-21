@@ -3364,7 +3364,7 @@ class ce extends X {
     this.router = this.params = this._matchedRouteName = this._matchedRoute = this.compress = this.sessionOptions = this.session = null;
   }
 }
-const de = async a => {
+;const de = a => {
   const b = {};
   a.on("connection", c => {
     const d = [c.remoteAddress, c.remotePort].join(":");
@@ -3381,7 +3381,8 @@ const de = async a => {
       }
     });
   };
-}, ee = async(a = {}, b = {}) => {
+};
+const ee = async(a = {}, b = {}) => {
   const c = new Nd({Context:ce});
   a = await Nb(a, c);
   "production" == c.env && (c.proxy = !0);

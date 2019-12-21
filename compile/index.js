@@ -12,7 +12,7 @@ const { _createApp, _startApp, _compose, _Keygrip } = require('./idio')
  * Default `HEAD`, `OPTIONS`, `GET`, `PUT`, `PATCH`, `POST`, `DELETE`.
  * @param {string} [routerConfig.prefix] Prefix router paths.
  * @param {string} [routerConfig.routerPath] Custom routing path.
- * @return {Promise<{ app: !_goa.Application, middleware: !Object<string, !_goa.Middleware>, router: !_goa.Router }>}
+ * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_goa.Router }>}
  */
 async function createApp(middlewareConfig) {
   return _createApp(middlewareConfig)
@@ -37,7 +37,7 @@ async function idio(middlewareConfig = {}, config = {}) {
 
 /**
  * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
- * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => Keygrip}
+ * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => $$Keygrip}
  */
 const $Keygrip = _Keygrip
 
@@ -53,14 +53,38 @@ module.exports.Keygrip = $Keygrip
  * @typedef {_idio.KoaCompressConfig} KoaCompressConfig
  *
  * @typedef {_idio.SessionOptions} SessionOptions
- * @typedef {_idio.KoaSessionConfig} KoaSessionConfig
+ * @typedef {_idio.SessionConfig} SessionConfig
  *
  * @typedef {_idio.CorsOptions} CorsOptions
  * @typedef {_goa.CorsConfig} CorsConfig
  */
 
+/* typal types/idio.xml namespace */
+/**
+ * @typedef {import('@typedefs/goa').Application} _goa.Application
+ * @typedef {import('@typedefs/goa').Context} _goa.Context
+ * @typedef {_idio.Application} Application `＠interface` The application with some additions.
+ * @typedef {_goa.Application & _idio.$Application} _idio.Application `＠interface` The application with some additions.
+ * @typedef {Object} _idio.$Application `＠interface` The application with some additions.
+ * @prop {!_idio.Context} context The context object for each request.
+ * @prop {() => !Promise} destroy Terminate all active connections and close the server.
+ * @typedef {_idio.Context} Context `＠interface` The extension to the standard Goa context with properties set by middleware.
+ * @typedef {_goa.Context & _idio.$Context} _idio.Context `＠interface` The extension to the standard Goa context with properties set by middleware.
+ * @typedef {Object} _idio.$Context `＠interface` The extension to the standard Goa context with properties set by middleware.
+ * @prop {?_idio.Session} session The session object for updating, if `session` was installed. Default `null`.
+ * @prop {?_idio.SessionConfig} sessionOptions The options used to create the session middleware. Default `null`.
+ * @prop {?boolean} compress A flag added by `koa-compress` middleware. Default `null`.
+ * @prop {?string} _matchedRoute When middleware was invoked by the router, this will set the url, e.g., `user/:id`. Default `null`.
+ * @prop {?string} _matchedRouteName When middleware was invoked by the router, this will set the route name if the route was created with a name. Default `null`.
+ * @prop {?Object} params The parameters extracted from the router. Default `null`.
+ * @prop {?_goa.Router} router An instance of the router if the middleware was invoked via it. Default `null`.
+ * @typedef {_idio.Middleware} Middleware The function to handle requests which can be installed with the `.use` method.
+ * @typedef {(ctx: !_idio.Context, next?: !Function) => (!Promise|void)} _idio.Middleware The function to handle requests which can be installed with the `.use` method.
+ */
+
 /* typal types/index.xml namespace */
 /**
+ * @typedef {import('http').Server} http.Server
  * @typedef {_idio.Config} Config Server configuration object.
  * @typedef {Object} _idio.Config Server configuration object.
  * @prop {number} [port=5000] The port on which to start the server. Default `5000`.
@@ -70,8 +94,8 @@ module.exports.Keygrip = $Keygrip
  * @typedef {Object} _idio.Idio `＠record` The return type of the idio.
  * @prop {string} url The URL on which the server was started, such as `http://localhost:5000`.
  * @prop {!http.Server} server The server instance.
- * @prop {!_goa.Application} app The Goa application instance.
- * @prop {!Object<string, !_goa.Middleware>} middleware An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`.
+ * @prop {!_idio.Application} app The Goa application instance (with additional `.destroy` method).
+ * @prop {!Object<string, !_idio.Middleware>} middleware An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`.
  * @prop {!_goa.Router} router The router instance.
  */
 
@@ -214,9 +238,17 @@ module.exports.Keygrip = $Keygrip
  * @prop {string} [routerPath] Custom routing path.
  */
 
+/* typal types/api.xml namespace */
 /**
-* @typedef {import('http').Server} http.Server
-*/
+ * @typedef {_idio.idio} idio Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
+ * @typedef {(middlewareConfig?: !_idio.MiddlewareConfig, config?: !_idio.Config) => !_idio.Idio} _idio.idio Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
+ * @typedef {_idio.createApp} createApp Just create a _Goa_ app without starting it.
+ * @typedef {(middlewareConfig?: !_idio.MiddlewareConfig, routerConfig?: !_goa.RouterConfig) => { app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_goa.Router }} _idio.createApp Just create a _Goa_ app without starting it.
+ */
+
+/**
+ * @typedef {import('../types/goa/vendor/cookies').Keygrip} $$Keygrip
+ */
 
 /* typework */
 /**

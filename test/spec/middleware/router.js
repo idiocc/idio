@@ -14,6 +14,21 @@ const T = {
       .get('/test')
       .assert(200, 'hello world test')
   },
+  async 'uses session'({ createApp, startApp }) {
+    const { router, app } = await createApp({
+      session: {
+        keys: ['test'],
+      },
+    })
+    app.use(router.routes())
+    const body = 'test'
+    router.get('/test', (ctx) => {
+      ctx.body = 'hello world ' + body
+    })
+    await startApp()
+      .get('/test')
+      .assert(200, 'hello world test')
+  },
 }
 
 export default T

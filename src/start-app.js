@@ -1,36 +1,15 @@
 import setupMiddleware from './setup-middleware'
 import Goa from '@goa/goa'
-import Context from '@goa/goa/src/context'
 import Router from '@goa/router'
 // import Debug from '@idio/debug'
 import erotic from 'erotic'
-
-// const debug = Debug('idio')
-
-/**
- * @implements {_idio.Context}
- */
-class IdioContext extends Context {
-  constructor() {
-    super()
-    this.session = null
-    this.sessionOptions = null
-    this.compress = null
-    // router
-    this._matchedRoute = null
-    this._matchedRouteName = null
-    this.params = null
-    this.router = null
-  }
-}
+import IdioContext from './idio'
+import { enableDestroy } from './lib'
 
 /**
- * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
- * @param {!_idio.MiddlewareConfig} [middlewareConfig]
- * @param {!_idio.Config} [config]
- * @return {!Promise<!_idio.Idio>}
+ * @type {_idio.idio}
  */
-export default async function startApp(middlewareConfig = {}, config = {}) {
+async function $idio(middlewareConfig = {}, config = {}) {
   const {
     port = 5000,
     host = '0.0.0.0',
@@ -62,29 +41,7 @@ export default async function startApp(middlewareConfig = {}, config = {}) {
   return { app, middleware, url, server, router }
 }
 
-/**
- * @param {!http.Server} server
- */
-const enableDestroy = async (server) => {
-  /** @type {Object<string, net.Socket>} */
-  const connections = {}
-  server.on('connection', (con) => {
-    const { remoteAddress, remotePort } = con
-    const k = [remoteAddress, remotePort].join(':')
-    connections[k] = con
-    con.on('close', () => {
-      delete connections[k]
-    })
-  })
-  server.destroy = async () => {
-    await new Promise(r => {
-      server.close(r)
-      for (let k in connections) {
-        connections[k].destroy()
-      }
-    })
-  }
-}
+export default $idio
 
 /**
  * @param {!_idio.MiddlewareConfig} [middlewareConfig]
@@ -162,4 +119,8 @@ function listen(app, port, hostname = '0.0.0.0') {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('@goa/router').RouterConfig} _goa.RouterConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types/api').idio} _idio.idio
  */

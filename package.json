@@ -19,7 +19,7 @@
     "template": "typal compile/template.js -T compile/index.js -t types/api.xml",
     "dm": "typal types/modules/*.js -u",
     "do": "typal types/options/*.js -u",
-    "d1": "typal types/index.js compile/index.js -u -t types",
+    "d1": "typal types/api.js types/index.js compile/index.js -u -t types",
     "externs": "typal types/externs/index.js types/externs.js",
     "build": "yarn-s d b doc",
     "typework": "typework types/config.json",
