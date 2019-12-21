@@ -14,6 +14,11 @@ var _idio = {}
  */
 _idio.Application = function() {}
 /**
+ * The context object for each request.
+ * @type {!_idio.Context}
+ */
+_idio.Application.prototype.context
+/**
  * Terminate all active connections and close the server.
  * @return {!Promise}
  */

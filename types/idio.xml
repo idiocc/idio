@@ -3,6 +3,9 @@
     <fn void async name="destroy">
       Terminate all active connections and close the server.
     </fn>
+    <prop type="!_idio.Context" name="context">
+      The context object for each request.
+    </prop>
   </interface>
 
   <interface name="Context" extends="_goa.Context" desc="The extension to the standard Goa context with properties set by middleware.">
