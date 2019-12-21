@@ -1,13 +1,13 @@
 <types namespace="_idio">
-  <type record name="SessionOptions" noToc>
+  <record name="SessionOptions" desc="Options for the session.">
     <prop type="!Array<string>" name="keys">
       A set of keys to be installed in `app.keys`.
     </prop>
     <prop boolean name="use" default="false">
       Use this middleware for every request.
     </prop>
-    <prop opt type="_idio.KoaSessionConfig" name="config">
+    <prop opt type="_idio.SessionConfig" name="config">
       The `koa-session` configuration.
     </prop>
-  </type>
+  </record>
 </types>

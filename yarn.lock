@@ -25,10 +25,10 @@
   resolved "https://registry.yarnpkg.com/@depack/nodejs/-/nodejs-1.1.4.tgz#36195f33fef7a6b9b1f93a043a52a87fac087729"
   integrity sha512-vtmNtylOPNjFkQHOgC1M8Ru9c211FgtD3sG3KGS9dvlcHDUAiNoJ52gVwOep5Tkp0I4qmwPx3oyTV6OwKchmlg==
 
-"@externs/goa@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@externs/goa/-/goa-0.1.3.tgz#6801cd29a34183bd526c0f2c6caf03832a4bb4ab"
-  integrity sha512-Du3VqrO6GdZvg41bLAOnPATUZvbHuevC1jAKlO3TsRFiHawI5czpZ3r08xJhW8AaVHAegP1+uuPKoBbVbMwU+A==
+"@externs/goa@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@externs/goa/-/goa-1.0.1.tgz#28e21477ee63ab6a9e4a263ef5543fcb2d742f7b"
+  integrity sha512-ZRMwQ/TV16Koxhrp2vrrYkbnuYoljc2gloi8THIdZgin+TCxLVpdkvqpzegm2A+xKBYWzMubiH2grVFwdkWnzA==
 
 "@externs/nodejs@^1.5.0":
   version "1.5.0"
@@ -62,10 +62,10 @@
   resolved "https://registry.yarnpkg.com/@goa/cors/-/cors-1.0.2.tgz#a5de98ce884d3195db804cd58c16d6ef3576d5bd"
   integrity sha512-l1YMQ6iRYm3gDLwVIfyns2F14m2a1sd0k5SXmD4x/Y5wWa4kXhJDeluVnc++0Mz37akvoko/xcIfAtSrMYxBuQ==
 
-"@goa/goa@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@goa/goa/-/goa-1.5.2.tgz#f16d165ff728fdee3a39be606e43e95693e30f82"
-  integrity sha512-q0vh9oLPGvSk9w945Dx7ensi9YQDBVGrGJTTDfS3hnbWj4+p41OmzrsX3qfp/OzFxhWttZPOqY/HC3X3mrvXcQ==
+"@goa/goa@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@goa/goa/-/goa-1.6.1.tgz#20d9740e39b9b3395ea63f94e701def19aa405cd"
+  integrity sha512-aV2ks1SLSfRRa5VbuFXv7TW2488gBDGAhudyuVzrzgPlWq51kbn+ROabpJpg6AETIpsCn+2AkmutzV/TXFak7A==
   dependencies:
     "@goa/accepts" "^2.0.1"
     "@goa/compose" "^1.0.0"
@@ -79,7 +79,7 @@
     "@goa/type-is" "^1.0.2"
     "@goa/vary" "^1.0.0"
     "@idio/debug" "^1.2.3"
-    "@typedefs/goa" "^0.1.2"
+    "@typedefs/goa" "^0.1.4"
     mime-db "^1.42.0"
 
 "@goa/http-errors@^1.0.0":
@@ -92,10 +92,10 @@
   resolved "https://registry.yarnpkg.com/@goa/is-generator-function/-/is-generator-function-1.0.2.tgz#f001b3bdb4b39330fee3afe534dea1fd78a73b2d"
   integrity sha512-Vo5IS92aTbygksryZuETbn2dfjRKWqJfyUDaxUyi4oL5Vyv6asJLNVkEK0aZp+1A+ORTFA8+p26x6zte02YL7A==
 
-"@goa/koa@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@goa/koa/-/koa-2.0.2.tgz#07a15fc505f188babcfc7348dd013267ce878136"
-  integrity sha512-YkrZT3xWrVNLvuDGB5r/8YLBBB14rOoWr9+9WEcVunEZYQaJV/c8o4O1qLbgTZLY0PiWpt9TEIgtygcgpNVztA==
+"@goa/koa@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@goa/koa/-/koa-2.1.0.tgz#09bbab898bf1596bdf58008250b2df17f02477d7"
+  integrity sha512-kA63rkz4+6LDG+yBUJIKu/QSdVvhelILMhdlK0GvPvgAF+BsGpxq4yAOZ9nkmh9Z8zqa8ZMt9laoUssufc2yFQ==
   dependencies:
     mime-db "^1.42.0"
 
@@ -116,10 +116,10 @@
   resolved "https://registry.yarnpkg.com/@goa/router/-/router-1.1.2.tgz#dc197182379ddf86e989b29b4a825ab48e8af5b7"
   integrity sha512-0kHC/r3I08lekJJA9NiOFM3cNLcAJsf8QNo8nUmhiC/ByclJx3u5tLMkUBLYWBuOTvh+lCFcLYQi/ay3CjPvVw==
 
-"@goa/session@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@goa/session/-/session-1.0.3.tgz#796ea57acd3ca84c26f585e0f4ab24c0c36e0c81"
-  integrity sha512-4J1oL/sqrDRXkz4UetDxJ4NJznLaeEcE6RykRCyflaVB75qx/owgXK3Obd7+BRzWSDRq4MAA6p14CgFgvCofoA==
+"@goa/session@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@goa/session/-/session-2.0.0.tgz#fbba99393b26a18709c7886f748d0093b46301b5"
+  integrity sha512-SYIgA2vfF96EXA1trqecia8xkUgNYmXNNl4WSq3seHHsDyqMC6DaWqnd8mBRWaOlL5EuJ1kWAhtLBaZleK/GiQ==
 
 "@goa/statuses@^1.0.1":
   version "1.0.1"
@@ -158,10 +158,15 @@
   resolved "https://registry.yarnpkg.com/@rqt/aqt/-/aqt-1.3.0.tgz#06472f50f85ab8e2a391db5b92c43ee726a8a844"
   integrity sha512-Ux0ygtQqaJE2bLuxw4J/mJpPyJGtLs1AdEdi/5FUG59CHwHiDWEsrldF4kxsJNFyWkWYT6Fe/zNTKnzv6KFREQ==
 
-"@typedefs/goa@^0.1.2", "@typedefs/goa@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@typedefs/goa/-/goa-0.1.3.tgz#31c6be9ca5707b35a9fc1f2533921c1b94329dc0"
-  integrity sha512-WXlI+3VXcT9QFFetau5ftgNA32FIUsAzkRg3Y2WaG2cQG0+6XB2foPyB4iJZcvk9De9JvQR3lSPBQCo3vOpS5Q==
+"@typedefs/goa@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@typedefs/goa/-/goa-0.1.4.tgz#728af94e06efd2bc158072c3e29c713b5f726865"
+  integrity sha512-yGrlT+RDiyVswch1JFAnr3NlLaedMfNxS2eOhGhKKkRRFI2G+Va4cezV3c6ApB+zFbtmJz5dgsmjUuXemRHP9A==
+
+"@typedefs/goa@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@typedefs/goa/-/goa-0.1.5.tgz#d833cb6abc917647d0bf97a2f12055ad7b0daffa"
+  integrity sha512-PD5o1zjDID6WVxo16E9sus1dNEAoFcu2gtc6jrn0JHmXMSDt04e9NuOdAg/Inrt+KJnVj3vRhu95AY2Wny9mrg==
 
 "@wrote/read@^1.0.4":
   version "1.0.4"
@@ -215,14 +220,14 @@ differently@^1.0.0:
   dependencies:
     erte "^1.2.0"
 
-documentary@^1.35.3:
-  version "1.35.3"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.3.tgz#9ac599f3f33cc7520d8092ed3ae9c0681c46903b"
-  integrity sha512-IGkDlWdTwE0PRvNl9uTteYloocoar/cRw1UHlkTzuc00AxcKdrUgA6SYZALW7dnYIjCsn49tfSqdcQB/x7JcCQ==
+documentary@^1.35.6:
+  version "1.35.6"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.6.tgz#88583b2c0c32f8184b1a9de2deb923e21daf4d3a"
+  integrity sha512-4qGBilFu1qNUFbq/mAQ8oOtQQwmPXTIZmvYtIsI63kWAD8fWZrYfZevcuGHgs17NTtwG5LxAYTemscBgG56jmA==
   dependencies:
     alamode "^3.3.0"
     preact "8.5.3"
-    typal "^1.24.17"
+    typal "^1.24.19"
 
 erotic@^2.1.0, erotic@^2.1.1:
   version "2.1.1"
@@ -268,10 +273,10 @@ rqt@^4.0.0:
   resolved "https://registry.yarnpkg.com/rqt/-/rqt-4.0.0.tgz#b57f64bf1b3b8b8109617f9dc67b9dd9ea5cb4d6"
   integrity sha512-DUm6ZAt6ESeY46aFWhQwBvsOpXABRL5TTkpN/3KJjog7uk2ncYuU4UZ8FQV6qfWybihkMFCdoESNSxYQ5rSZiQ==
 
-typal@^1.24.17:
-  version "1.24.17"
-  resolved "https://registry.yarnpkg.com/typal/-/typal-1.24.17.tgz#0bb301ad8be4a8076f59527f167622a17b15f4d8"
-  integrity sha512-8qPwL4uPqRBAmHkGz0DIoWbCswykXo9kjz4urajEz7G7GsT2p6KNCiAqk+mJ+1MhNsO9yW9U1zSVS7TvSj3B3g==
+typal@^1.24.19:
+  version "1.24.19"
+  resolved "https://registry.yarnpkg.com/typal/-/typal-1.24.19.tgz#b77d62a25cf65bfbb13808d3939a571c8a65a8f4"
+  integrity sha512-LAdurZ+1RxVKXkxGR9qr+CM7b5DfQ+HB7zk1dBd2YVL3mcCS+s0K5k/5plxM3NMPcmjQi12nz2woWxoQp9nnbQ==
 
 typework@^0.1.1:
   version "0.1.1"

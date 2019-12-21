@@ -84,7 +84,7 @@ module.exports.Keygrip = $Keygrip
  * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
  * @typedef {import('../types/modules').KoaCompressConfig} _idio.KoaCompressConfig
  * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
- * @typedef {import('../types/modules/session').KoaSessionConfig} _idio.KoaSessionConfig
+ * @typedef {import('../types/modules/session').SessionConfig} _idio.SessionConfig
  * @typedef {import('../').Middleware} _goa.Middleware
  * @typedef {import('../').Application} _goa.Application
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
@@ -225,6 +225,7 @@ module.exports.Keygrip = $Keygrip
  * @typedef {import('../types/goa/vendor/accepts').Accepts} Accepts
  * @typedef {import('../types/goa/typedefs/application').Middleware} Middleware
  * @typedef {import('../types/goa/typedefs/application').Application} Application
+ * @typedef {import('../types/goa/typedefs/application').ApplicationOptions} ApplicationOptions
  * @typedef {import('../types/goa/typedefs/context').Context} Context
  * @typedef {import('../types/goa/typedefs/request').Request} Request
  * @typedef {import('../types/goa/typedefs/request').ContextDelegatedRequest} ContextDelegatedRequest

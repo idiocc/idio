@@ -55,7 +55,7 @@ const map = {
   /**
    * The session middleware.
    * @param {_goa.Application} app
-   * @param {_idio.KoaSessionConfig} config
+   * @param {_idio.SessionConfig} config
    * @param {_idio.SessionOptions} options
    */
   'session'(app, config, { keys }) {
@@ -170,9 +170,8 @@ export default async function setupMiddleware(middlewareConfig, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').KoaSessionConfig} _idio.KoaSessionConfig
+ * @typedef {import('..').SessionConfig} _idio.SessionConfig
  */
-
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').CorsOptions} _idio.CorsOptions

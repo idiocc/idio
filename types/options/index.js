@@ -20,11 +20,11 @@ export {}
 
 /* typal types/options/session.xml namespace */
 /**
- * @typedef {_idio.SessionOptions} SessionOptions `＠record`
- * @typedef {Object} _idio.SessionOptions `＠record`
+ * @typedef {_idio.SessionOptions} SessionOptions `＠record` Options for the session.
+ * @typedef {Object} _idio.SessionOptions `＠record` Options for the session.
  * @prop {!Array<string>} keys A set of keys to be installed in `app.keys`.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
- * @prop {_idio.KoaSessionConfig} [config] The `koa-session` configuration.
+ * @prop {_idio.SessionConfig} [config] The `koa-session` configuration.
  */
 
 /* typal types/options/cors.xml namespace */
@@ -43,6 +43,6 @@ export {}
 /**
  * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
  * @typedef {import('../..').KoaCompressConfig} _idio.KoaCompressConfig
- * @typedef {import('../..').KoaSessionConfig} _idio.KoaSessionConfig
+ * @typedef {import('../..').SessionConfig} _idio.SessionConfig
  * @typedef {import('../..').CorsConfig} _goa.CorsConfig
  */

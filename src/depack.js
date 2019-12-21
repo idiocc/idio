@@ -1,8 +1,7 @@
 import '../types/modules/externs'
 import '../types/options/externs'
 import '../types/externs'
-import startApp, { createApp, compose, httpErrors, mount } from './'
-import Keygrip from '@goa/cookies/src/Keygrip'
+import startApp, { createApp, compose, httpErrors, mount, Keygrip } from './'
 
 module.exports = {
   '_createApp': createApp,

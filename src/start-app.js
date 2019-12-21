@@ -1,10 +1,22 @@
 import setupMiddleware from './setup-middleware'
-import Goa from '@goa/goa'
+import Goa, { Context } from '@goa/goa'
 import Router from '@goa/router'
 // import Debug from '@idio/debug'
 import erotic from 'erotic'
 
 // const debug = Debug('idio')
+
+/**
+ * @implements {_idio.Context}
+ */
+class IdioContext extends Context {
+  constructor() {
+    super()
+    this.session = null
+    this.sessionOptions = null
+    this.compress = null
+  }
+}
 
 /**
  * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
@@ -73,7 +85,9 @@ const enableDestroy = async (server) => {
  * @param {!_goa.RouterConfig} [routerConfig]
  */
 export const createApp = async (middlewareConfig = {}, routerConfig = {}) => {
-  const app = /** @type {!_goa.Application} */ (new Goa())
+  const app = new Goa({
+    Context: IdioContext,
+  })
 
   const middleware = await setupMiddleware(middlewareConfig, app)
 

@@ -31,6 +31,13 @@ export {}
  * @prop {(error: !Error) => ?} onerror `＠private` Default error handler.
  * @prop {() => !Object} toJSON Return JSON representation.
  * @prop {() => !Object} inspect `util.inspect()` implementation, which just returns the JSON output.
+ * @typedef {_goa.ApplicationOptions} ApplicationOptions `＠record` Options for the application constructor.
+ * @typedef {Object} _goa.ApplicationOptions `＠record` Options for the application constructor.
+ * @prop {boolean} [proxy=false] Whether the app should start in a proxy mode. Default `false`.
+ * @prop {number} [subdomainOffset=2] The offset for subdomains. Default `2`.
+ * @prop {string} [env] App environment. The default is `process.env.NODE_ENV || 'development'`.
+ * @prop {!(_goa.Keygrip|Array<string>)} [keys] The keys for cookies, or a _Keygrip_ instance.
+ * @prop {new () => _goa.Context} [Context] The custom context constructor.
  * @typedef {_goa.Middleware} Middleware The function to handle requests which can be installed with the `.use` method.
  * @typedef {(ctx: !_goa.Context, next?: !Function) => (!Promise|void)} _goa.Middleware The function to handle requests which can be installed with the `.use` method.
  */

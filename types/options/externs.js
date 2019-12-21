@@ -54,6 +54,7 @@ _idio.CompressOptions.prototype.config
 
 /* typal types/options/session.xml externs */
 /**
+ * Options for the session.
  * @record
  */
 _idio.SessionOptions
@@ -69,7 +70,7 @@ _idio.SessionOptions.prototype.keys
 _idio.SessionOptions.prototype.use
 /**
  * The `koa-session` configuration.
- * @type {_idio.KoaSessionConfig|undefined}
+ * @type {_idio.SessionConfig|undefined}
  */
 _idio.SessionOptions.prototype.config
 

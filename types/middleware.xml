@@ -9,7 +9,7 @@
   <import from="../types/modules" ns="_idio" name="KoaCompressConfig" />
 
   <import from="../types/options" ns="_idio" name="SessionOptions" />
-  <import from="../types/modules/session" ns="_idio" name="KoaSessionConfig" />
+  <import from="../types/modules/session" ns="_idio" name="SessionConfig" />
 
   <import from="../" ns="_goa" name="Middleware" />
   <import from="../" ns="_goa" name="Application" />
