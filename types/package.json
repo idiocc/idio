@@ -2,7 +2,7 @@
   "name": "@typedefs/idio",
   "main": "index.js",
   "description": "The Idio Web-Server Typedefs.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "AGPL-3.0",
   "scripts": {
     "p": "yarn publish  --no-git-tag-version"
