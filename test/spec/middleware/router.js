@@ -1,4 +1,5 @@
 import Context from '../../context'
+import { $Router } from '../../../src'
 
 /** @type {Object.<string, (c: Context)>} */
 const T = {
@@ -13,6 +14,18 @@ const T = {
     await startApp()
       .get('/test')
       .assert(200, 'hello world test')
+  },
+  async 'installs nested router'({ createApp, startApp }) {
+    const { router, app } = await createApp()
+    const r = new $Router()
+    r.get('/api', (ctx) => {
+      ctx.body = 'ok'
+    })
+    router.use('/test', r.middleware())
+    app.use(router.routes())
+    await startApp()
+      .get('/test/api')
+      .assert(200, 'ok')
   },
   async 'uses session'({ createApp, startApp }) {
     const { router, app, middleware: { session } } = await createApp({
