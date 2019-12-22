@@ -9,6 +9,13 @@
     <prop type="!_idio.Context" name="context">
       The context object for each request.
     </prop>
+    <prop type="!Array<!_idio.Middleware>" name="middleware" initial="[]">
+      The array with middleware used on the server.
+    </prop>
+    <fn name="use" return="!_idio.Application">
+      <arg type="!_idio.Middleware" name="middleware">The middleware to install.</arg>
+      Use the given middleware `fn`. Old-style middleware will be converted.
+    </fn>
   </interface>
 
   <interface name="Context" extends="_goa.Context" desc="The extension to the standard Goa context with properties set by middleware.">
@@ -38,6 +45,7 @@
       An instance of the router if the middleware was invoked via it.
     </prop>
   </interface>
+
   <method name="Middleware" return="(!Promise|void)">
     <arg type="!_idio.Context" name="ctx">The context.</arg>
     <arg type="!Function" name="next" opt>The callback.</arg>

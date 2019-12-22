@@ -19,10 +19,21 @@ _idio.Application = function() {}
  */
 _idio.Application.prototype.context
 /**
+ * The array with middleware used on the server. Default `[]`.
+ * @type {!Array<!_idio.Middleware>}
+ */
+_idio.Application.prototype.middleware
+/**
  * Terminate all active connections and close the server.
  * @return {!Promise}
  */
 _idio.Application.prototype.destroy = function() {}
+/**
+ * Use the given middleware `fn`. Old-style middleware will be converted.
+ * @param {!_idio.Middleware} middleware The middleware to install.
+ * @return {!_idio.Application}
+ */
+_idio.Application.prototype.use = function(middleware) {}
 /**
  * The extension to the standard Goa context with properties set by middleware.
  * Constructor method.

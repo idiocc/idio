@@ -8,7 +8,9 @@ export {}
  * @typedef {_goa.Application & _idio.$Application} _idio.Application `＠interface` The application with some additions.
  * @typedef {Object} _idio.$Application `＠interface` The application with some additions.
  * @prop {!_idio.Context} context The context object for each request.
+ * @prop {!Array<!_idio.Middleware>} middleware The array with middleware used on the server. Default `[]`.
  * @prop {() => !Promise} destroy Terminate all active connections and close the server.
+ * @prop {(middleware: !_idio.Middleware) => !_idio.Application} use Use the given middleware `fn`. Old-style middleware will be converted.
  * @typedef {_idio.Context} Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @typedef {_goa.Context & _idio.$Context} _idio.Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @typedef {Object} _idio.$Context `＠interface` The extension to the standard Goa context with properties set by middleware.
