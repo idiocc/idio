@@ -54,5 +54,13 @@
   "_idio.Idio": {
     "link": "https://github.com/idiocc/idio#type-idio",
     "description": "The return type of the idio."
+  },
+  "_idio.CorsOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Cors#type-corsoptions",
+    "description": null
+  },
+  "_goa.CorsConfig": {
+    "link": "https://github.com/idiocc/idio/wiki/Cors#type-corsconfig",
+    "description": "Options for the program."
   }
 }

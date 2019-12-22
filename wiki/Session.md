@@ -12,7 +12,7 @@ Session handles the cookies to implement state persistance with the browser. It'
 
 The example below configures session middleware, but does not use it (since `use` is not set to `true`). The session is passed to router manually before the actual routing middleware, so that the context will contain the `.session` property. When the session is not added to the router (`/info` path), the `ctx.session` does not exist.
 
-%EXAMPLE: example/wiki/session%
+%EXAMPLE: example/wiki/session, ../../compile => @idio/idio%
 
 <fork lang="c">example/wiki/session</fork>
 

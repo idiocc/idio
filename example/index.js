@@ -1,5 +1,5 @@
 import aqt from '@rqt/aqt'
-import idio, { Keygrip } from '../compile'
+import idio, { $Keygrip } from '../compile'
 
 (async () => {
   /* start example */
@@ -7,7 +7,7 @@ import idio, { Keygrip } from '../compile'
     // Idio's bundled middleware.
     session: {
       use: true,
-      keys: new Keygrip(['hello', 'world']),
+      keys: new $Keygrip(['hello', 'world'], 'sha512'),
       config: {
         prefix: 'example-',
       },

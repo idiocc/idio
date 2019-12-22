@@ -93,7 +93,7 @@ _idio.CorsOptions.prototype.origin
  */
 _idio.CorsOptions.prototype.use
 /**
- * `@koa/cors` configuration.
+ * The CORS configuration.
  * @type {(!_goa.CorsConfig)|undefined}
  */
 _idio.CorsOptions.prototype.config

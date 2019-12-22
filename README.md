@@ -15,6 +15,7 @@ This is a production-ready server that puts all components together for the ease
 
 ```sh
 yarn add @idio/idio
+npm install @idio/idio
 ```
 
 ## Table Of Contents
@@ -67,7 +68,7 @@ __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareCon
 | static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">StaticOptions</a></em> | `koa-static` options.   |
 | compress | <em>[CompressOptions](#type-compressoptions)</em>                                                                                                                       | `koa-compress` options. |
 | session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">SessionOptions</a></em>                                  | `koa-session` options.  |
-| cors     | <em>[CorsOptions](#type-corsoptions)</em>                                                                                                                               | `koa-cors` options.     |
+| cors     | <em>[CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                       | `koa-cors` options.     |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -105,7 +106,7 @@ const { url, app } = await idio({
   // Idio's bundled middleware.
   session: {
     use: true,
-    keys: new Keygrip(['hello', 'world']),
+    keys: new $Keygrip(['hello', 'world'], 'sha512'),
     config: {
       prefix: 'example-',
     },

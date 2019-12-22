@@ -848,7 +848,7 @@ function Sa(a) {
         return await m();
       }
       k.set("Access-Control-Allow-Origin", p);
-      f && k.set("Access-Control-Allow-Credentials", !0);
+      f && k.set("Access-Control-Allow-Credentials", "true");
       e && k.set("Access-Control-Max-Age", e);
       b && k.set("Access-Control-Allow-Methods", b);
       d || (d = k.get("Access-Control-Request-Headers"));
@@ -3389,7 +3389,7 @@ function ce(a, b, c = "0.0.0.0") {
   };
   const {port:k} = h.address();
   return {app:g, middleware:a, url:`http://localhost:${k}`, server:h, router:b};
-}, _httpErrors:v, _mount:xa, _Keygrip:Ca};
+}, _httpErrors:v, _mount:xa, _Keygrip:Ca, _Router:Z};
 
 
 //# sourceMappingURL=idio.js.map

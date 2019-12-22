@@ -1,4 +1,4 @@
-const { _createApp, _startApp, _compose, _Keygrip } = require('./idio')
+const { _createApp, _startApp, _compose, _Keygrip, _Router } = require('./idio')
 
 /**
  * @methodType {_idio.createApp}
@@ -14,15 +14,20 @@ async function idio(middlewareConfig = {}, config = {}) {
   return _startApp(middlewareConfig, config)
 }
 
-/**
- * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
- * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => $$Keygrip}
- */
-const $Keygrip = _Keygrip
-
 module.exports = idio
 module.exports.createApp = createApp
-module.exports.Keygrip = $Keygrip
+
+/**
+ * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
+ * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => _goa.Keygrip}
+ */
+module.exports.$Keygrip = _Keygrip
+
+/**
+ * A new router constructor.
+ * @type {new (opts: _goa.RouterConfig) => _goa.Router}
+ */
+module.exports.$Router = _Router
 
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
@@ -49,9 +54,5 @@ module.exports.Keygrip = $Keygrip
 /* typal node_modules/@goa/router/types/router.xml namespace */
 
 /* typal node_modules/@goa/session/types/session.xml ignore:KoaSession namespace */
-
-/**
- * @typedef {import('../types/goa/vendor/cookies').Keygrip} $$Keygrip
- */
 
 /* typework */

@@ -29,7 +29,7 @@ export {}
 
 /* typal types/options/cors.xml namespace */
 /**
- * @typedef {import('../..').Context} _goa.Context
+ * @typedef {import('@typedefs/goa').Context} _goa.Context
  * @typedef {_idio.CorsOptions} CorsOptions `＠record`
  * @typedef {Object} _idio.CorsOptions `＠record`
  * @prop {string|Array<string>|(function(!_goa.Context): string)} [origin] The origin or an array of origins to accept as valid.
@@ -37,7 +37,7 @@ export {}
  * - If a function is passed, it should return the string with the origin to set.
  * - If not passed, the request origin is returned, allowing any origin to access the resource (use with caution).
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
- * @prop {!_goa.CorsConfig} [config] `@koa/cors` configuration.
+ * @prop {!_goa.CorsConfig} [config] The CORS configuration.
  */
 
 /**

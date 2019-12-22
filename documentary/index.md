@@ -15,6 +15,7 @@ This is a production-ready server that puts all components together for the ease
 
 ```sh
 yarn add @idio/idio
+npm install @idio/idio
 ```
 
 ## Table Of Contents
