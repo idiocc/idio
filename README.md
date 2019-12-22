@@ -271,16 +271,20 @@ To enable dynamic communication between clients and the server via JavaScript re
 <tr><td>
 
 ```js
+const { NODE_ENV } = process.env
+
 const { url, app } = await idio({
-  example(ctx, next) {
-    console.log('//', ctx.method, ctx.path, 'from', ctx.get('Origin'))
+  async example(ctx, next) {
+    console.log('//', ctx.method,
+      ctx.path, 'from', ctx.get('Origin'))
+
     ctx.body = 'hello world'
-    return next()
+    await next()
   },
   cors: {
     use: true,
-    origin: process.env.NODE_ENV == 'production' ?
-      'https://prod.com' : null,
+    origin: NODE_ENV == 'production' ?
+      'http://prod.com' : null,
     config: {
       allowMethods: ['GET', 'POST'],
     },
@@ -295,15 +299,16 @@ const { url, app } = await idio({
 { 'content-type': 'text/plain; charset=utf-8',
   'content-length': '11',
   vary: 'Origin',
-  'access-control-allow-origin': 'https://prod.com',
-  date: 'Sun, 22 Dec 2019 09:14:19 GMT',
+  'access-control-allow-origin': 'http://prod.com',
+  date: 'Sun, 22 Dec 2019 09:19:39 GMT',
   connection: 'close' }
-// GET / from https://prod.com
+
+// GET / from http://prod.com
 { 'content-type': 'text/plain; charset=utf-8',
   'content-length': '11',
   vary: 'Origin',
-  'access-control-allow-origin': 'https://prod.com',
-  date: 'Sun, 22 Dec 2019 09:14:19 GMT',
+  'access-control-allow-origin': 'http://prod.com',
+  date: 'Sun, 22 Dec 2019 09:19:39 GMT',
   connection: 'close' }
 ```
 </td>

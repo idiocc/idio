@@ -3,32 +3,37 @@ import idio from '../compile'
 
 (async () => {
   /* start example */
+  const { NODE_ENV } = process.env
+
   const { url, app } = await idio({
-    example(ctx, next) {
-      console.log('//', ctx.method, ctx.path, 'from', ctx.get('Origin'))
+    async example(ctx, next) {
+      console.log('//', ctx.method,
+        ctx.path, 'from', ctx.get('Origin'))
+
       ctx.body = 'hello world'
-      return next()
+      await next()
     },
     cors: {
       use: true,
-      origin: process.env.NODE_ENV == 'production' ?
-        'https://prod.com' : null,
+      origin: NODE_ENV == 'production' ?
+        'http://prod.com' : null,
       config: {
         allowMethods: ['GET', 'POST'],
       },
     },
   })
   /* end example */
-  let { body, headers } = await aqt(url, {
+  let { headers } = await aqt(url, {
     headers: {
       origin: 'https://3rd.party',
     },
   })
   console.log(headers)
+  console.log()
 
-  ;({ body, headers } = await aqt(url, {
+  ;({ headers } = await aqt(url, {
     headers: {
-      origin: 'https://prod.com',
+      origin: 'http://prod.com',
     },
   }))
   console.log(headers)
