@@ -28,6 +28,7 @@ npm install @idio/idio
   * [`Idio`](#type-idio)
 - [Static](#static)
 - [Session](#session)
+- [CORS](#cors)
 - [Custom Middleware](#custom-middleware)
 - [Router Set-up](#router-set-up)
 - [Copyright & License](#copyright--license)
@@ -215,7 +216,6 @@ Connection: close
 
 ## Session
 
-
 <img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="left" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
 
 Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
@@ -260,7 +260,59 @@ http://localhost:5000
   <img src="/.documentary/section-breaks/4.svg?sanitize=true">
 </a></p>
 
+## CORS
 
+<img src="https://raw.github.com/idiocc/core/master/images/cors.svg?sanitize=true" align="left" height="100"><kbd>👮‍♀️[Explore CORS Middleware Configuration](../../wiki/Cors)</kbd>
+
+To enable dynamic communication between clients and the server via JavaScript requests from the browser, the server must respond with `Access-Control-Allow-Origin` header that sets the appropriate allowed _Origin_s. This middleware is easy to use on production and development environments.
+
+<table>
+<tr><th><a href="example/cors.js">CORS source</a></th><th>The Output</th></tr>
+<tr><td>
+
+```js
+const { url, app } = await idio({
+  example(ctx, next) {
+    console.log('//', ctx.method, ctx.path, 'from', ctx.get('Origin'))
+    ctx.body = 'hello world'
+    return next()
+  },
+  cors: {
+    use: true,
+    origin: process.env.NODE_ENV == 'production' ?
+      'https://prod.com' : null,
+    config: {
+      allowMethods: ['GET', 'POST'],
+    },
+  },
+})
+```
+</td>
+<td>
+
+```js
+// GET / from https://3rd.party
+{ 'content-type': 'text/plain; charset=utf-8',
+  'content-length': '11',
+  vary: 'Origin',
+  'access-control-allow-origin': 'https://prod.com',
+  date: 'Sun, 22 Dec 2019 09:14:19 GMT',
+  connection: 'close' }
+// GET / from https://prod.com
+{ 'content-type': 'text/plain; charset=utf-8',
+  'content-length': '11',
+  vary: 'Origin',
+  'access-control-allow-origin': 'https://prod.com',
+  date: 'Sun, 22 Dec 2019 09:14:19 GMT',
+  connection: 'close' }
+```
+</td>
+</tr>
+</table>
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
+</a></p>
 
 ## Custom Middleware
 
@@ -352,7 +404,7 @@ When required to add any other middleware in the application not included in the
     ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/6.svg?sanitize=true">
 </a></p>
 
 ## Router Set-up
@@ -443,7 +495,7 @@ Page available at: http://localhost:5003
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/6.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/7.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License
