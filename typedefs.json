@@ -38,5 +38,21 @@
   "_idio.Middleware": {
     "link": "https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid",
     "description": "The function to handle requests which can be installed with the `.use` method."
+  },
+  "_idio.idio": {
+    "link": "https://github.com/idiocc/idio#async-idiomiddlewareconfig-middlewareconfigconfig-config-idio",
+    "description": "Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_."
+  },
+  "_idio.MiddlewareConfig": {
+    "link": "https://github.com/idiocc/idio#type-middlewareconfig",
+    "description": "Middleware configuration for the `idio` server."
+  },
+  "_idio.Config": {
+    "link": "https://github.com/idiocc/idio#type-config",
+    "description": "Server configuration object."
+  },
+  "_idio.Idio": {
+    "link": "https://github.com/idiocc/idio#type-idio",
+    "description": "The return type of the idio."
   }
 }

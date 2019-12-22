@@ -215,10 +215,10 @@ differently@^1.0.0:
   dependencies:
     erte "^1.2.0"
 
-documentary@^1.35.7:
-  version "1.35.7"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.7.tgz#8d06a7b706bd26beb88b1785b057271f52cf0dde"
-  integrity sha512-aFMW1D+X47WRFgy+Ir0874kW+sFZY1HM+piPTumaL+HhLkC8Anw71tuYt67AvJd3osfvZD/VLt0ivanCk52sUw==
+documentary@^1.35.8:
+  version "1.35.8"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.8.tgz#17e86eeecdca6daa0c8058484e6ced78ce5e3199"
+  integrity sha512-/V3Qs4oru12RFl0zif4TPmTcJ0whCnaWZxOsblpkzyFx7wZkWK9QTMGMz1C2Qv2aYVswMjV2BKQuE5UBHAsa6Q==
   dependencies:
     alamode "^3.3.0"
     preact "8.5.3"

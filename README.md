@@ -265,7 +265,7 @@ http://localhost:5000
 
 When required to add any other middleware in the application not included in the _Idio_ bundle, it can be done in several ways.
 
-1. Passing the middleware function as part of the <a href="1-API/index.md#type-middlewareconfig" title="Middleware configuration for the `idio` server.">_MiddlewareConfig_</a>. It will be automatically installed to be used by the _Application_. All middleware will be installed in order it is found in the _MiddlewareConfig_.
+1. Passing the middleware function as part of the <a href="#type-middlewareconfig" title="Middleware configuration for the `idio` server.">_MiddlewareConfig_</a>. It will be automatically installed to be used by the _Application_. All middleware will be installed in order it is found in the _MiddlewareConfig_.
     ```js
     import idio from '@idio/idio'
     
@@ -356,7 +356,7 @@ When required to add any other middleware in the application not included in the
 
 ## Router Set-up
 
-After the _Application_ and _Router_ instances are obtained after starting the server as the `app` and `router` properties of the <a href="1-API/index.md#type-idio" title="The return type of the idio.">returned object</a>, the router can be configured to respond to custom paths. This can be done by assigning configured middleware from the map and standalone middleware, and calling the `use` method on the _Application_ instance.
+After the _Application_ and _Router_ instances are obtained after starting the server as the `app` and `router` properties of the <a href="#type-idio" title="The return type of the idio.">returned object</a>, the router can be configured to respond to custom paths. This can be done by assigning configured middleware from the map and standalone middleware, and calling the `use` method on the _Application_ instance.
 
 ```js
 import { collect } from 'catchment'
