@@ -8,15 +8,13 @@ import compress from '../modules/koa-compress'
 import { Z_SYNC_FLUSH } from 'zlib'
 
 const map = {
-  // session: setupSession,
   // multer: setupMulter,
   // csrf: setupCsrf,
-  // compress: setupCompress,
   // bodyparser: setupBodyParser,
   // checkauth: setupCheckAuth,
   // logger: setupLogger,
   /**
-   * @param {_goa.Application} app
+   * @param {!_goa.Application} app
    * @param {_idio.KoaStaticConfig} config
    * @param {_idio.StaticOptions} options
    */
@@ -38,7 +36,7 @@ const map = {
     return c
   },
   /**
-   * @param {_goa.Application} app
+   * @param {!_goa.Application} app
    * @param {_idio.KoaCompressConfig} config
    * @param {_idio.CompressOptions} options
    */
@@ -54,21 +52,21 @@ const map = {
   },
   /**
    * The session middleware.
-   * @param {!_idio.Application} app
+   * @param {!_goa.Application} app
    * @param {!_idio.SessionConfig} config
    * @param {!_idio.SessionOptions} options
    */
   'session'(app, config, { keys }) {
-    if (!(keys instanceof Keygrip) && !Array.isArray(keys)) {
+    if (!(keys instanceof Keygrip) && !Array.isArray(keys))
       throw new Error('Keys must be an array or an instance of Keygrip / child classes.')
-    }
+
     app.keys = keys
-    const ses = session(app, config)
+    const ses = session(config)
     return ses
   },
   /**
    * The CORS middleware.
-   * @param {_goa.Application} app
+   * @param {!_goa.Application} app
    * @param {_goa.CorsConfig} config
    * @param {_idio.CorsOptions} options
    */

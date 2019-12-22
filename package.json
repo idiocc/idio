@@ -58,7 +58,7 @@
     "@goa/http-errors": "^1.0.0",
     "@goa/koa": "^2.1.0",
     "@goa/router": "^1.2.0",
-    "@goa/session": "^2.1.0",
+    "@goa/session": "^3.0.0",
     "@goa/statuses": "^1.0.1",
     "@goa/uuid": "^1.0.2",
     "@typedefs/goa": "^0.1.5",

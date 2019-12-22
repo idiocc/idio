@@ -6,8 +6,8 @@ import Context from '@goa/goa/src/context'
 export default class IdioContext extends Context {
   constructor() {
     super()
-    this.session = null
-    this.sessionOptions = null
+    this.session = undefined
+    this.sessionOptions = undefined
     this.compress = null
     // router
     this._matchedRoute = null

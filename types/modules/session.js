@@ -1,6 +1,6 @@
 export {}
 
-/* typal node_modules/@goa/session/types/session.xml namespace */
+/* typal node_modules/@goa/session/types/session.xml ignore:_idio.KoaSession namespace */
 /**
  * @typedef {_idio.Session} Session `＠record` The session instance accessible via Goa's context.
  * @typedef {Object} _idio.Session `＠record` The session instance accessible via Goa's context.
@@ -9,23 +9,11 @@ export {}
  * @prop {number|string} maxAge Get/set cookie's maxAge.
  * @prop {() => void} save Save this session no matter whether it is populated.
  * @prop {() => !Promise} manuallyCommit Session headers are auto committed by default. Use this if `autoCommit` is set to false.
- * @typedef {_idio.KoaSession} KoaSession `＠interface` A private session model.
- * @typedef {_idio.Session & _idio.$KoaSession} _idio.KoaSession `＠interface` A private session model.
- * @typedef {Object} _idio.$KoaSession `＠interface` A private session model.
- * @prop {number} _expire Private JSON serialisation.
- * @prop {boolean} _requireSave Private JSON serialisation.
- * @prop {_idio.KoaContextSession} _sessCtx Private JSON serialisation.
- * @prop {_goa.Context} _ctx Private JSON serialisation.
  */
 
-/* typal node_modules/@goa/session/types/index.xml namespace */
+/* typal node_modules/@goa/session/types/index.xml ignore:_idio.KoaContextSession namespace */
 /**
- * @typedef {import('@typedefs/idio').Application} _idio.Application
- * @typedef {import('@typedefs/idio').Context} _idio.Context
- * @typedef {_idio.KoaContextSession} KoaContextSession `＠interface` The context for the session API. Is actually private, as only accessible from context by a symbol.
- * @typedef {Object} _idio.KoaContextSession `＠interface` The context for the session API. Is actually private, as only accessible from context by a symbol.
- * @prop {!_idio.Context} ctx The context.
- * @prop {() => !Promise} commit Commit the session changes or removal.
+ * @typedef {import('@typedefs/goa').Context} _goa.Context
  * @typedef {_idio.ExternalStore} ExternalStore `＠interface` By implementing this class, the session can be recorded and retrieved from an external store (e.g., a database), instead of cookies.
  * @typedef {Object} _idio.ExternalStore `＠interface` By implementing this class, the session can be recorded and retrieved from an external store (e.g., a database), instead of cookies.
  * @prop {(key: string, maxAge: (number|string), opts: { rolling: boolean }) => !Promise<!Object>} get Get session object by key.

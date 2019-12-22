@@ -42,13 +42,13 @@ _idio.Application.prototype.use = function(middleware) {}
  */
 _idio.Context = function() {}
 /**
- * The session object for updating, if `session` was installed. Default `null`.
- * @type {?_idio.Session}
+ * The session object for updating, if `session` was installed. Set the `ctx.session` to null to destroy the session.
+ * @type {!_idio.Session|undefined}
  */
 _idio.Context.prototype.session
 /**
- * The options used to create the session middleware. Default `null`.
- * @type {?_idio.SessionConfig}
+ * The options used to create the session middleware. Deep cloned for each request.
+ * @type {!_idio.SessionConfig|undefined}
  */
 _idio.Context.prototype.sessionOptions
 /**

@@ -67,12 +67,14 @@ module.exports.Keygrip = $Keygrip
  * @typedef {_goa.Application & _idio.$Application} _idio.Application `＠interface` The application with some additions.
  * @typedef {Object} _idio.$Application `＠interface` The application with some additions.
  * @prop {!_idio.Context} context The context object for each request.
+ * @prop {!Array<!_idio.Middleware>} middleware The array with middleware used on the server. Default `[]`.
  * @prop {() => !Promise} destroy Terminate all active connections and close the server.
+ * @prop {(middleware: !_idio.Middleware) => !_idio.Application} use Use the given middleware `fn`. Old-style middleware will be converted.
  * @typedef {_idio.Context} Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @typedef {_goa.Context & _idio.$Context} _idio.Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @typedef {Object} _idio.$Context `＠interface` The extension to the standard Goa context with properties set by middleware.
- * @prop {?_idio.Session} session The session object for updating, if `session` was installed. Default `null`.
- * @prop {?_idio.SessionConfig} sessionOptions The options used to create the session middleware. Default `null`.
+ * @prop {!_idio.Session|undefined} session The session object for updating, if `session` was installed. Set the `ctx.session` to null to destroy the session.
+ * @prop {!_idio.SessionConfig|undefined} sessionOptions The options used to create the session middleware. Deep cloned for each request.
  * @prop {?boolean} compress A flag added by `koa-compress` middleware. Default `null`.
  * @prop {?string} _matchedRoute When middleware was invoked by the router, this will set the url, e.g., `user/:id`. Default `null`.
  * @prop {?string} _matchedRouteName When middleware was invoked by the router, this will set the route name if the route was created with a name. Default `null`.
@@ -238,12 +240,22 @@ module.exports.Keygrip = $Keygrip
  * @prop {string} [routerPath] Custom routing path.
  */
 
-/* typal types/api.xml namespace */
+/* typal node_modules/@goa/session/types/session.xml ignore:KoaSession namespace */
 /**
- * @typedef {_idio.idio} idio Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
- * @typedef {(middlewareConfig?: !_idio.MiddlewareConfig, config?: !_idio.Config) => !_idio.Idio} _idio.idio Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
- * @typedef {_idio.createApp} createApp Just create a _Goa_ app without starting it.
- * @typedef {(middlewareConfig?: !_idio.MiddlewareConfig, routerConfig?: !_goa.RouterConfig) => { app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_goa.Router }} _idio.createApp Just create a _Goa_ app without starting it.
+ * @typedef {_idio.Session} Session `＠record` The session instance accessible via Goa's context.
+ * @typedef {Object} _idio.Session `＠record` The session instance accessible via Goa's context.
+ * @prop {boolean} isNew Returns true if the session is new.
+ * @prop {boolean} populated Populated flag, which is just a boolean alias of `.length`.
+ * @prop {number|string} maxAge Get/set cookie's maxAge.
+ * @prop {() => void} save Save this session no matter whether it is populated.
+ * @prop {() => !Promise} manuallyCommit Session headers are auto committed by default. Use this if `autoCommit` is set to false.
+ * @typedef {_idio.KoaSession} KoaSession `＠interface` A private session model.
+ * @typedef {_idio.Session & _idio.$KoaSession} _idio.KoaSession `＠interface` A private session model.
+ * @typedef {Object} _idio.$KoaSession `＠interface` A private session model.
+ * @prop {number} _expire Private JSON serialisation.
+ * @prop {boolean} _requireSave Private JSON serialisation.
+ * @prop {_idio.KoaContextSession} _sessCtx Private JSON serialisation.
+ * @prop {_goa.Context} _ctx Private JSON serialisation.
  */
 
 /**

@@ -116,10 +116,10 @@
   resolved "https://registry.yarnpkg.com/@goa/router/-/router-1.2.0.tgz#ec054eeddf8fd14c5064c2e5c264be9e1a5a2499"
   integrity sha512-w+sawURKn30pADD/nZK7psf0UBR3M7/I3vB6F8YH2qFp6nNHRxqVgW/3Aly6IOcx7Q23Buz6x74vHAx5GhiJmw==
 
-"@goa/session@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@goa/session/-/session-2.1.0.tgz#b14ef6934c11dafd12e253f4f53550070838c579"
-  integrity sha512-5EgEe0jToW9Xe6fX/52tutrtnILokW/wW2s+s0R63WfCMiKXU/OKpBdXDG1R/6fPGKeDKQaIKwiEKqq+lg+GeA==
+"@goa/session@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@goa/session/-/session-3.0.0.tgz#2f0ac4eb833921ba6a7a5ad24eeb97945d564e87"
+  integrity sha512-DGN363VOxi4QGKZhh7XaFXssMK3EYo3OR8G37dEJg2UIiRrA2eJDugk7tO+ee5vuiDZoVIkvgPWZ+G+x119wdg==
 
 "@goa/statuses@^1.0.1":
   version "1.0.1"
@@ -158,12 +158,7 @@
   resolved "https://registry.yarnpkg.com/@rqt/aqt/-/aqt-1.3.0.tgz#06472f50f85ab8e2a391db5b92c43ee726a8a844"
   integrity sha512-Ux0ygtQqaJE2bLuxw4J/mJpPyJGtLs1AdEdi/5FUG59CHwHiDWEsrldF4kxsJNFyWkWYT6Fe/zNTKnzv6KFREQ==
 
-"@typedefs/goa@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@typedefs/goa/-/goa-0.1.4.tgz#728af94e06efd2bc158072c3e29c713b5f726865"
-  integrity sha512-yGrlT+RDiyVswch1JFAnr3NlLaedMfNxS2eOhGhKKkRRFI2G+Va4cezV3c6ApB+zFbtmJz5dgsmjUuXemRHP9A==
-
-"@typedefs/goa@^0.1.5":
+"@typedefs/goa@^0.1.4", "@typedefs/goa@^0.1.5":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@typedefs/goa/-/goa-0.1.5.tgz#d833cb6abc917647d0bf97a2f12055ad7b0daffa"
   integrity sha512-PD5o1zjDID6WVxo16E9sus1dNEAoFcu2gtc6jrn0JHmXMSDt04e9NuOdAg/Inrt+KJnVj3vRhu95AY2Wny9mrg==
