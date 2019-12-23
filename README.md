@@ -29,6 +29,7 @@ npm install @idio/idio
 - [Static](#static)
 - [Session](#session)
 - [CORS](#cors)
+- [Compression](#compression)
 - [Custom Middleware](#custom-middleware)
 - [Router Set-up](#router-set-up)
 - [Copyright & License](#copyright--license)
@@ -300,7 +301,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Sun, 22 Dec 2019 09:19:39 GMT',
+  date: 'Mon, 23 Dec 2019 05:02:30 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -308,7 +309,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Sun, 22 Dec 2019 09:19:39 GMT',
+  date: 'Mon, 23 Dec 2019 05:02:31 GMT',
   connection: 'close' }
 ```
 </td>
@@ -317,6 +318,51 @@ const { url, app } = await idio({
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/5.svg?sanitize=true">
+</a></p>
+
+## Compression
+
+<a href="../../wiki/cors"><img src="https://raw.github.com/idiocc/core/master/images/compress.svg?sanitize=true" align="left" height="100"></a>
+<kbd>🗜[Explore Compression Middleware Configuration](../../wiki/Compression)</kbd>
+
+When the body of the response is set to a string (or JSON, but not a stream), the response can be compressed using gzip compression. This allows to save data transmitted over the network. Compression with streams is only possible when there's no threshold, or if the stream contains the `.length` property.
+
+<table>
+<tr><th><a href="example/compression.js">Compression source</a></th><th>The Output</th></tr>
+<tr><td>
+
+```js
+const { url, app } = await idio({
+  async serve(ctx, next) {
+    console.log('//',
+      ctx.method, ctx.path)
+
+    ctx.body = packageJson
+    await next()
+  },
+  compress: {
+    use: true,
+  },
+})
+```
+</td>
+<td>
+
+```js
+// GET /
+{ 'content-type': 'application/json; charset=utf-8',
+  vary: 'Accept-Encoding',
+  'content-encoding': 'gzip',
+  date: 'Mon, 23 Dec 2019 05:02:31 GMT',
+  connection: 'close',
+  'transfer-encoding': 'chunked' }
+```
+</td>
+</tr>
+</table>
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/6.svg?sanitize=true">
 </a></p>
 
 ## Custom Middleware
@@ -409,7 +455,7 @@ When required to add any other middleware in the application not included in the
     ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/6.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/7.svg?sanitize=true">
 </a></p>
 
 ## Router Set-up
@@ -500,7 +546,7 @@ Page available at: http://localhost:5003
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/7.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/8.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License

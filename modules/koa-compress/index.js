@@ -15,7 +15,7 @@ const encodingMethods = {
 
 /**
  * Compress middleware.
- * @param {_idio.KoaCompressConfig} [options]
+ * @param {!_idio.KoaCompressConfig} [options]
  */
 export default (options = {}) => {
   let { filter = compressible, threshold = 1024 } = options
@@ -33,7 +33,7 @@ export default (options = {}) => {
     if (!body) return
     if (ctx.res.headersSent || !ctx.writable) return
     if (ctx.compress === false) return
-    if (ctx.request.method === 'HEAD') return
+    if (ctx.request.method == 'HEAD') return
     if (empty[ctx.response.status]) return
     if (ctx.response.get('Content-Encoding')) return
 
