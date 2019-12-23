@@ -146,8 +146,8 @@ Idio's advantage is that is has the essential middleware, that was compiled toge
 
 ### Static
 
-<img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
-<kbd>🗂 <a href="../../wiki/Static">Explore Static Middleware Configuration</a></kbd>
+<img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100"><kbd>🗂 [Explore Static Middleware Configuration](../../wiki/Static)</kbd>
+
 Used to serve static files, such as stylesheets, images, videos, html and everything else. Will perform mime-type lookup to serve the correct content-type in the returned header.
 
 <table>
@@ -302,7 +302,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 06:55:16 GMT',
+  date: 'Mon, 23 Dec 2019 06:57:18 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -310,7 +310,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 06:55:16 GMT',
+  date: 'Mon, 23 Dec 2019 06:57:18 GMT',
   connection: 'close' }
 ```
 </td>

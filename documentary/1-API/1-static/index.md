@@ -1,8 +1,6 @@
 ### Static
 
-<img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
-<kbd>🗂 <a href="../../wiki/Static">Explore Static Middleware Configuration</a></kbd>
-<!-- <kbd>🗿 <a href="https://www.idio.cc/static.html">Static Idio</a></kbd> -->
+<img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100"><kbd>🗂 [Explore Static Middleware Configuration](../../wiki/Static)</kbd>
 
 Used to serve static files, such as stylesheets, images, videos, html and everything else. Will perform mime-type lookup to serve the correct content-type in the returned header.
 
