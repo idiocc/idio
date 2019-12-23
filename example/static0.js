@@ -21,7 +21,7 @@ const idio = (opts) => {
       root: ['src', 'test'], use: true,
       mount: '/_',
     }],
-  })
+  }, { port: null })
   /* end example */
   let u = url + `/app.css`
   console.log('<!-- %s -->', u)

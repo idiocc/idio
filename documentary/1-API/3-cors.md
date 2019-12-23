@@ -1,4 +1,4 @@
-## CORS
+### CORS
 
 <img src="https://raw.github.com/idiocc/core/master/images/cors.svg?sanitize=true" align="left" height="100"><kbd>👮‍♀️[Explore CORS Middleware Configuration](../../wiki/Cors)</kbd>
 
@@ -19,4 +19,4 @@ To enable dynamic communication between clients and the server via JavaScript re
 </tr>
 </table>
 
-%~%
+%~ width="25"%

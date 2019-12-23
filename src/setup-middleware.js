@@ -4,7 +4,7 @@ import Keygrip from '@goa/cookies/src/Keygrip'
 import cors from '@goa/cors'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
-import compress from '../modules/koa-compress'
+import compress from '@goa/compress'
 import { Z_SYNC_FLUSH } from 'zlib'
 
 const map = {
@@ -37,7 +37,7 @@ const map = {
   },
   /**
    * @param {!_goa.Application} app
-   * @param {_idio.KoaCompressConfig} config
+   * @param {_goa.CompressConfig} config
    * @param {_idio.CompressOptions} options
    */
   'compress'(app, config, {
@@ -178,14 +178,13 @@ export default async function setupMiddleware(middlewareConfig, app) {
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').CorsConfig} _goa.CorsConfig
  */
-
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').KoaStaticConfig} _idio.KoaStaticConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').KoaCompressConfig} _idio.KoaCompressConfig
+ * @typedef {import('..').CompressConfig} _goa.CompressConfig
  */
 /**
  * @suppress {nonStandardJsDocs}

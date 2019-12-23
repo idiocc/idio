@@ -6,7 +6,7 @@
   <import from="../types/modules" ns="_idio" name="KoaStaticConfig" />
 
   <import from="../types/options" ns="_idio" name="CompressOptions" />
-  <import from="../types/modules" ns="_idio" name="KoaCompressConfig" />
+  <import from="../types/modules" ns="_goa" name="CompressConfig" />
 
   <import from="../types/options" ns="_idio" name="SessionOptions" />
   <import from="../types/modules/session" ns="_idio" name="SessionConfig" />

@@ -1,4 +1,4 @@
-import idio, { $Router } from '../../../compile'
+import idio, { Router } from '../../../compile'
 
 export default async () => {
   /* start example */
@@ -9,7 +9,7 @@ export default async () => {
         null,
     },
   }, { port: null })
-  const api = new $Router()
+  const api = new Router()
   api.get('/user', (ctx) => {
     ctx.body = { id: 3 }
   })

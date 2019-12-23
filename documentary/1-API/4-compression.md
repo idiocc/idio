@@ -1,4 +1,4 @@
-## Compression
+### Compression
 
 <a href="../../wiki/cors"><img src="https://raw.github.com/idiocc/core/master/images/compress.svg?sanitize=true" align="left" height="100"></a>
 <kbd>🗜[Explore Compression Middleware Configuration](../../wiki/Compression)</kbd>
@@ -19,5 +19,4 @@ When the body of the response is set to a string (or JSON, but not a stream), th
 <!-- <td>%FORKERR-fs example/session%</td> -->
 </tr>
 </table>
-
-%~%
+<!-- %~ width="25"% -->

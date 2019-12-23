@@ -35,7 +35,7 @@ module.exports.Router = Router
  * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
  *
  * @typedef {_idio.CompressOptions} CompressOptions
- * @typedef {_idio.KoaCompressConfig} KoaCompressConfig
+ * @typedef {_goa.CompressConfig} CompressConfig
  *
  * @typedef {_idio.SessionOptions} SessionOptions
  * @typedef {_idio.SessionConfig} SessionConfig

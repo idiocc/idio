@@ -13,7 +13,7 @@ import idio from '../../compile'
         key: 'example:sess',
       },
     },
-  })
+  }, { port: null })
   router.use(async (ctx, next) => {
     console.log('#', ctx.method, ctx.path)
     await next()
@@ -36,22 +36,25 @@ import idio from '../../compile'
     } else ctx.body = 'You are not user.'
   })
   /* end example */
-  const { body, headers: { 'set-cookie': setCookie } }
-    = await aqt(`${url}/signin`)
-  console.log('>', body)
-  console.log('>', setCookie.map(s => s.split(';').join('\n ')).join('\n> '), '\n')
+  try {
+    const { body, headers: { 'set-cookie': setCookie } }
+      = await aqt(`${url}/signin`)
+    console.log('>', body)
+    console.log('>', setCookie.map(s => s.split(';').join('\n ')).join('\n> '), '\n')
 
-  const { body: body2 }
-    = await aqt(`${url}/member`, { headers: {
-      cookie: setCookie,
-    } })
+    const { body: body2 }
+      = await aqt(`${url}/member`, { headers: {
+        cookie: setCookie,
+      } })
 
-  console.log('>', body2, '\n')
+    console.log('>', body2, '\n')
 
-  const { body: body3 }
-    = await aqt(`${url}/info`, { headers: {
-      cookie: setCookie,
-    } })
-  console.log('>', body3)
-  await app.destroy()
+    const { body: body3 }
+      = await aqt(`${url}/info`, { headers: {
+        cookie: setCookie,
+      } })
+    console.log('>', body3)
+  } finally {
+    await app.destroy()
+  }
 })()

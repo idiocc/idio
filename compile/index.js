@@ -254,7 +254,7 @@ module.exports.Router = Router
  * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
  *
  * @typedef {_idio.CompressOptions} CompressOptions
- * @typedef {_idio.KoaCompressConfig} KoaCompressConfig
+ * @typedef {_goa.CompressConfig} CompressConfig
  *
  * @typedef {_idio.SessionOptions} SessionOptions
  * @typedef {_idio.SessionConfig} SessionConfig
@@ -312,7 +312,7 @@ module.exports.Router = Router
  * @typedef {import('../types/options').StaticOptions} _idio.StaticOptions
  * @typedef {import('../types/modules').KoaStaticConfig} _idio.KoaStaticConfig
  * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
- * @typedef {import('../types/modules').KoaCompressConfig} _idio.KoaCompressConfig
+ * @typedef {import('../types/modules').CompressConfig} _goa.CompressConfig
  * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
  * @typedef {import('../types/modules/session').SessionConfig} _idio.SessionConfig
  * @typedef {import('../').Middleware} _goa.Middleware

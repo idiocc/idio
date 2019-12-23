@@ -26,10 +26,11 @@ npm install @idio/idio
   * [`MiddlewareConfig`](#type-middlewareconfig)
   * [`Config`](#type-config)
   * [`Idio`](#type-idio)
-- [Static](#static)
-- [Session](#session)
-- [CORS](#cors)
-- [Compression](#compression)
+- [Middleware](#middleware)
+  * [Static](#static)
+  * [Session](#session)
+  * [CORS](#cors)
+  * [Compression](#compression)
 - [Custom Middleware](#custom-middleware)
 - [Router Set-up](#router-set-up)
 - [Copyright & License](#copyright--license)
@@ -65,12 +66,12 @@ There are multiple items for middleware configuration:
 __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareConfig__: Middleware configuration for the `idio` server.
 
 
-|   Name   |                                                                                  Type                                                                                   |       Description       |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">StaticOptions</a></em> | `koa-static` options.   |
-| compress | <em>[CompressOptions](#type-compressoptions)</em>                                                                                                                       | `koa-compress` options. |
-| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">SessionOptions</a></em>                                  | `koa-session` options.  |
-| cors     | <em>[CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                       | `koa-cors` options.     |
+|   Name   |                                                                                   Type                                                                                   |            Description            |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- |
+| static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">!StaticOptions</a></em> | _Static_ middleware options.      |
+| compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                        | _Compression_ middleware options. |
+| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">!SessionOptions</a></em>                                  | _Session_ middleware options.     |
+| cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                       | _CORS_ middleware options.        |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -135,7 +136,11 @@ hello world
   <img src="/.documentary/section-breaks/2.svg?sanitize=true">
 </a></p>
 
-## Static
+## Middleware
+
+Idio's advantage is that is has the essential middleware, that was compiled together with the server, so that the packages are reused and memory footprint is low.
+
+### Static
 
 > <img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
 > <kbd>🗂 <a href="../../wiki/Static">Explore Static Middleware Configuration</a></kbd>
@@ -159,7 +164,7 @@ const { url, app } = await idio({
   }, {
     root: ['d'], use: true,
   }],
-})
+}, { port: null })
 ```
 </td>
 <td>
@@ -175,9 +180,9 @@ body {
 
 
 ```svg
-<!-- http://localhost:5000/em.svg --> 
+<!-- http://localhost:61075/em.svg --> 
 
-<xml></xml>
+Not Found
 ```
 </td></tr>
 
@@ -199,11 +204,9 @@ Connection: close
 
 
 ```http
-Content-Length: 11
-Last-Modified: Thu, 18 Jul 2019 14:47:20 GMT
-Cache-Control: max-age=0
-Content-Type: image/svg+xml
-Date: Fri, 20 Dec 2019 07:05:38 GMT
+Content-Type: text/plain; charset=utf-8
+Content-Length: 9
+Date: Mon, 23 Dec 2019 06:45:20 GMT
 Connection: close
 ```
 </details>
@@ -215,7 +218,7 @@ Connection: close
   <img src="/.documentary/section-breaks/3.svg?sanitize=true">
 </a></p>
 
-## Session
+### Session
 
 <img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="left" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
 
@@ -258,10 +261,10 @@ http://localhost:5000
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true" width="25">
 </a></p>
 
-## CORS
+### CORS
 
 <img src="https://raw.github.com/idiocc/core/master/images/cors.svg?sanitize=true" align="left" height="100"><kbd>👮‍♀️[Explore CORS Middleware Configuration](../../wiki/Cors)</kbd>
 
@@ -301,7 +304,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 05:06:59 GMT',
+  date: 'Mon, 23 Dec 2019 06:47:19 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -309,7 +312,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 05:06:59 GMT',
+  date: 'Mon, 23 Dec 2019 06:47:19 GMT',
   connection: 'close' }
 ```
 </td>
@@ -317,10 +320,10 @@ const { url, app } = await idio({
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true" width="25">
 </a></p>
 
-## Compression
+### Compression
 
 <a href="../../wiki/cors"><img src="https://raw.github.com/idiocc/core/master/images/compress.svg?sanitize=true" align="left" height="100"></a>
 <kbd>🗜[Explore Compression Middleware Configuration](../../wiki/Compression)</kbd>
@@ -353,13 +356,14 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Mon, 23 Dec 2019 05:02:31 GMT',
+  date: 'Mon, 23 Dec 2019 06:45:23 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
 </td>
 </tr>
 </table>
+
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/6.svg?sanitize=true">

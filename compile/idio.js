@@ -1119,7 +1119,7 @@ function Gb(a) {
   return a;
 }
 ;const Hb = {gzip:zlib.createGzip, deflate:zlib.createDeflate};
-var Ib = (a = {}) => {
+function Ib(a = {}) {
   let {filter:b = Bb, threshold:c = 1024} = a;
   "string" == typeof c && (c = Gb(c));
   return async function(d, e) {
@@ -1132,8 +1132,8 @@ var Ib = (a = {}) => {
       "identity" != f && (Cb(e) && (e = d.body = JSON.stringify(e)), c && d.response.length < c || (d.set("Content-Encoding", f), d.res.removeHeader("Content-Length"), d = d.body = Hb[f](a), e instanceof L ? e.pipe(d) : d.end(e)));
     }
   };
-};
-const Jb = {["static"](a, b, {root:c = [], maxage:d, mount:e}) {
+}
+;const Jb = {["static"](a, b, {root:c = [], maxage:d, mount:e}) {
   a = (Array.isArray(c) ? c : [c]).map(f => xb(f, {maxage:d, ...b}));
   a = r(a);
   return e ? xa(e, a) : a;

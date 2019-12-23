@@ -62,5 +62,13 @@
   "_goa.CorsConfig": {
     "link": "https://github.com/idiocc/idio/wiki/Cors#type-corsconfig",
     "description": "Options for the program."
+  },
+  "_idio.CompressOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Compression#type-compressoptions",
+    "description": null
+  },
+  "_goa.CompressConfig": {
+    "link": "https://github.com/idiocc/idio/wiki/Compression#type-compressconfig",
+    "description": null
   }
 }

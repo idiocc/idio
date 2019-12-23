@@ -1,4 +1,4 @@
-## Static
+### Static
 
 > <img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
 > <kbd>🗂 <a href="../../wiki/Static">Explore Static Middleware Configuration</a></kbd>

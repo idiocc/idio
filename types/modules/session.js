@@ -11,9 +11,8 @@ export {}
  * @prop {() => !Promise} manuallyCommit Session headers are auto committed by default. Use this if `autoCommit` is set to false.
  */
 
-/* typal node_modules/@goa/session/types/index.xml ignore:_idio.KoaContextSession namespace */
+/* typal node_modules/@goa/session/types/index.xml ignore:_idio.KoaContextSession,_goa.Context namespace */
 /**
- * @typedef {import('@typedefs/goa').Context} _goa.Context
  * @typedef {_idio.ExternalStore} ExternalStore `＠interface` By implementing this class, the session can be recorded and retrieved from an external store (e.g., a database), instead of cookies.
  * @typedef {Object} _idio.ExternalStore `＠interface` By implementing this class, the session can be recorded and retrieved from an external store (e.g., a database), instead of cookies.
  * @prop {(key: string, maxAge: (number|string), opts: { rolling: boolean }) => !Promise<!Object>} get Get session object by key.
