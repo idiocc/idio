@@ -4,4 +4,4 @@ export { default as mount } from '../modules/koa-mount'
 export { default as Keygrip } from '@goa/cookies/src/Keygrip'
 export { default, createApp } from './start-app'
 
-export { default as $Router } from '@goa/router'
+export { default as Router } from '@goa/router'

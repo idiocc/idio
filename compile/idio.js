@@ -1126,7 +1126,7 @@ var Ib = (a = {}) => {
     d.vary("Accept-Encoding");
     await e();
     ({body:e} = d);
-    if (e && !d.res.headersSent && d.writable && !1 !== d.compress && "HEAD" !== d.request.method && !t[d.response.status] && !d.response.get("Content-Encoding") && (!0 === d.compress || b(d.response.type))) {
+    if (e && !d.res.headersSent && d.writable && !1 !== d.compress && "HEAD" != d.request.method && !t[d.response.status] && !d.response.get("Content-Encoding") && (!0 === d.compress || b(d.response.type))) {
       var f = d.acceptsEncodings("gzip", "deflate", "identity");
       f || d.throw(406, "supported encodings: gzip, deflate, identity");
       "identity" != f && (Cb(e) && (e = d.body = JSON.stringify(e)), c && d.response.length < c || (d.set("Content-Encoding", f), d.res.removeHeader("Content-Length"), d = d.body = Hb[f](a), e instanceof L ? e.pipe(d) : d.end(e)));

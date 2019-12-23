@@ -1,10 +1,9 @@
 export {}
 
-/* typal types/modules/koa-compress.xml namespace */
+/* typal node_modules/@goa/compress/types/index.xml namespace */
 /**
- * @typedef {_idio.KoaCompressConfig} KoaCompressConfig
- * @typedef {Object} _idio.KoaCompressConfig
- * @prop {(arg0: string) => boolean} [filter] An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
+ * @typedef {_goa.CompressConfig} CompressConfig `＠record`
+ * @typedef {Object} _goa.CompressConfig `＠record`
  * @prop {number} [threshold=1024] Minimum response size in bytes to compress. Default `1024`.
  * @prop {number} [flush] Default: `zlib.constants.Z_NO_FLUSH`.
  * @prop {number} [finishFlush] Default: `zlib.constants.Z_FINISH`.
@@ -14,6 +13,7 @@ export {}
  * @prop {number} [memLevel] Compression only.
  * @prop {number} [strategy] Compression only.
  * @prop {*} [dictionary] Deflate/inflate only, empty dictionary by default.
+ * @prop {(type?: string) => boolean} [filter] An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
  */
 
 /* typal types/modules/set-headers.xml namespace */

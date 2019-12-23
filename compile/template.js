@@ -24,10 +24,11 @@ module.exports.createApp = createApp
 module.exports.$Keygrip = _Keygrip
 
 /**
- * A new router constructor.
- * @type {new (opts: _goa.RouterConfig) => _goa.Router}
+ * @constructor {_goa.Router}
  */
-module.exports.$Router = _Router
+class Router extends _Router {}
+
+module.exports.Router = Router
 
 /**
  * @typedef {_idio.StaticOptions} StaticOptions
@@ -49,9 +50,9 @@ module.exports.$Router = _Router
 
 /* typal types/middleware.xml namespace */
 
-/* typal node_modules/@goa/router/types/index.xml ignore:_goa.LayerConfig namespace */
+/* typal node_modules/@goa/router/types/index.xml ignore:_goa.LayerConfig,_goa.Middleware namespace */
 
-/* typal node_modules/@goa/router/types/router.xml namespace */
+/* typal node_modules/@goa/router/types/router.xml ignore:_goa.Router,_goa.Middleware namespace */
 
 /* typal node_modules/@goa/session/types/session.xml ignore:KoaSession namespace */
 

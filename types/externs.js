@@ -49,23 +49,23 @@ _idio.Idio.prototype.router
  */
 _idio.MiddlewareConfig
 /**
- * `koa-static` options.
- * @type {_idio.StaticOptions|undefined}
+ * _Static_ middleware options.
+ * @type {(!_idio.StaticOptions)|undefined}
  */
 _idio.MiddlewareConfig.prototype.static
 /**
- * `koa-compress` options.
- * @type {_idio.CompressOptions|undefined}
+ * _Compression_ middleware options.
+ * @type {(!_idio.CompressOptions)|undefined}
  */
 _idio.MiddlewareConfig.prototype.compress
 /**
- * `koa-session` options.
- * @type {_idio.SessionOptions|undefined}
+ * _Session_ middleware options.
+ * @type {(!_idio.SessionOptions)|undefined}
  */
 _idio.MiddlewareConfig.prototype.session
 /**
- * `koa-cors` options.
- * @type {_idio.CorsOptions|undefined}
+ * _CORS_ middleware options.
+ * @type {(!_idio.CorsOptions)|undefined}
  */
 _idio.MiddlewareConfig.prototype.cors
 /**

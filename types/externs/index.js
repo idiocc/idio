@@ -52,7 +52,7 @@ _idio.Context.prototype.session
  */
 _idio.Context.prototype.sessionOptions
 /**
- * A flag added by `koa-compress` middleware. Default `null`.
+ * A flag that can be added to explicitly set whether the response should be compressed by the `compress` middleware. Default `null`.
  * @type {?boolean}
  */
 _idio.Context.prototype.compress

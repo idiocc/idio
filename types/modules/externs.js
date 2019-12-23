@@ -2,15 +2,10 @@
  * @fileoverview The bundled modules' externs.
  * @externs
  */
-/* typal types/modules/koa-compress.xml externs */
-/** @const */
-var _idio = {}
-/**
- * @typedef {{ filter: ((function(string): boolean)|undefined), threshold: (number|undefined), flush: (number|undefined), finishFlush: (number|undefined), chunkSize: (number|undefined), windowBits: (number|undefined), level: (number|undefined), memLevel: (number|undefined), strategy: (number|undefined), dictionary: ((*)|undefined) }}
- */
-_idio.KoaCompressConfig
 
 /* typal types/modules/set-headers.xml externs */
+/** @const */
+var _idio = {}
 /**
  * The function which allows to set the headers prior to sending the response.
  * @typedef {function(!http.ServerResponse,string,!fs.Stats)}

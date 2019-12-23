@@ -16,7 +16,7 @@ export {}
  * @typedef {Object} _idio.$Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @prop {!_idio.Session|undefined} session The session object for updating, if `session` was installed. Set the `ctx.session` to null to destroy the session.
  * @prop {!_idio.SessionConfig|undefined} sessionOptions The options used to create the session middleware. Deep cloned for each request.
- * @prop {?boolean} compress A flag added by `koa-compress` middleware. Default `null`.
+ * @prop {?boolean} compress A flag that can be added to explicitly set whether the response should be compressed by the `compress` middleware. Default `null`.
  * @prop {?string} _matchedRoute When middleware was invoked by the router, this will set the url, e.g., `user/:id`. Default `null`.
  * @prop {?string} _matchedRouteName When middleware was invoked by the router, this will set the route name if the route was created with a name. Default `null`.
  * @prop {?Object} params The parameters extracted from the router. Default `null`.

@@ -17,17 +17,17 @@
   <record name="MiddlewareConfig"
     desc="Middleware configuration for the `idio` server."
     extends="_idio.FnMiddlewareConfig">
-    <prop opt type="_idio.StaticOptions" name="static">
-      `koa-static` options.
+    <prop opt type="!_idio.StaticOptions" name="static">
+      _Static_ middleware options.
     </prop>
-    <prop opt type="_idio.CompressOptions" name="compress">
-      `koa-compress` options.
+    <prop opt type="!_idio.CompressOptions" name="compress">
+      _Compression_ middleware options.
     </prop>
-    <prop opt type="_idio.SessionOptions" name="session">
-      `koa-session` options.
+    <prop opt type="!_idio.SessionOptions" name="session">
+      _Session_ middleware options.
     </prop>
-    <prop opt type="_idio.CorsOptions" name="cors">
-      `koa-cors` options.
+    <prop opt type="!_idio.CorsOptions" name="cors">
+      _CORS_ middleware options.
     </prop>
   </record>
 

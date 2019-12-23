@@ -1,10 +1,11 @@
 export {}
 /* typal types/options/compress.xml namespace */
 /**
+ * @typedef {import('@goa/compress').CompressConfig} _goa.CompressConfig
  * @typedef {_idio.CompressOptions} CompressOptions `＠record`
  * @typedef {Object} _idio.CompressOptions `＠record`
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
- * @prop {_idio.KoaCompressConfig} [config] `koa-compress` configuration.
+ * @prop {!_goa.CompressConfig} [config] The `compress` configuration.
  */
 
 /* typal types/options/static.xml namespace */

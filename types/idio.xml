@@ -28,7 +28,7 @@
     </prop>
 
     <prop type="?boolean" name="compress" initial="null">
-      A flag added by `koa-compress` middleware.
+      A flag that can be added to explicitly set whether the response should be compressed by the `compress` middleware.
     </prop>
 
     <!-- ROUTER -->

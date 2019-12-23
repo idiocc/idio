@@ -1,10 +1,12 @@
 <types namespace="_idio">
-  <type record name="CompressOptions" noToc>
+  <import from="@goa/compress" ns="_goa" name="CompressConfig" />
+
+  <record name="CompressOptions" noToc>
     <prop boolean name="use" default="false">
       Use this middleware for every request.
     </prop>
-    <prop opt type="_idio.KoaCompressConfig" name="config">
-      `koa-compress` configuration.
+    <prop opt type="!_goa.CompressConfig" name="config">
+      The `compress` configuration.
     </prop>
-  </type>
+  </record>
 </types>

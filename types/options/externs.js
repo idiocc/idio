@@ -47,8 +47,8 @@ _idio.CompressOptions
  */
 _idio.CompressOptions.prototype.use
 /**
- * `koa-compress` configuration.
- * @type {_idio.KoaCompressConfig|undefined}
+ * The `compress` configuration.
+ * @type {(!_goa.CompressConfig)|undefined}
  */
 _idio.CompressOptions.prototype.config
 

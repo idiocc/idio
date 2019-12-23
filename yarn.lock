@@ -47,6 +47,13 @@
   resolved "https://registry.yarnpkg.com/@goa/compose/-/compose-1.0.0.tgz#3672a32269bec4bf061c8dd50a7ab22872c156c3"
   integrity sha512-NdFS/ijCZ4e1WSHZLsQq5CbUHvkK6a20tx2wfNJS2hw55o8iYpmFDGTSgDnQwj09/Lxy5Kj8R5TNq9+leK41xA==
 
+"@goa/compress@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@goa/compress/-/compress-1.0.0.tgz#e61fbeff2e17091b236883b97ae90c6ccc6db638"
+  integrity sha512-2BoLMP7K3hGc4pAS+2UU6z4u10ORjzAfJgtqYGEhqmfs2GZRnWSpLd0r/MTsFHfZv+UEioBKd6S6WV4rEMIaPQ==
+  dependencies:
+    mime-db "^1.42.0"
+
 "@goa/content-type@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@goa/content-type/-/content-type-1.0.1.tgz#c5df9764f4263b31b5462822a3da54c15b28d526"
