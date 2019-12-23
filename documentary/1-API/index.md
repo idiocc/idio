@@ -3,12 +3,12 @@
 The package is available by importing its default function and named components:
 
 ```js
-import idio, { Keygrip } from '@idio/idio'
+import idio, { Keygrip, Router } from '@idio/idio'
 ```
 
 %~%
 
-<typedef name="idio">types/api.xml</typedef>
+<typedef noArgTypesInToc name="idio">types/api.xml</typedef>
 
 The app can be stopped with an async `.destroy` method implemented on it that closes all connections.
 

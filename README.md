@@ -22,7 +22,7 @@ npm install @idio/idio
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`async idio(middlewareConfig=: !MiddlewareConfig, config=: !Config): !Idio`](#async-idiomiddlewareconfig-middlewareconfigconfig-config-idio)
+- [`async idio(middlewareConfig=, config=): !Idio`](#async-idiomiddlewareconfig-middlewareconfigconfig-config-idio)
   * [`MiddlewareConfig`](#type-middlewareconfig)
   * [`Config`](#type-config)
   * [`Idio`](#type-idio)
@@ -44,7 +44,7 @@ npm install @idio/idio
 The package is available by importing its default function and named components:
 
 ```js
-import idio, { Keygrip } from '@idio/idio'
+import idio, { Keygrip, Router } from '@idio/idio'
 ```
 
 <p align="center"><a href="#table-of-contents">
@@ -265,7 +265,7 @@ http://localhost:5000
 
 <img src="https://raw.github.com/idiocc/core/master/images/cors.svg?sanitize=true" align="left" height="100"><kbd>👮‍♀️[Explore CORS Middleware Configuration](../../wiki/Cors)</kbd>
 
-To enable dynamic communication between clients and the server via JavaScript requests from the browser, the server must respond with `Access-Control-Allow-Origin` header that sets the appropriate allowed _Origin_s. This middleware is easy to use on production and development environments.
+To enable dynamic communication between clients and the server via JavaScript requests from the browser, the server must respond with `Access-Control-Allow-Origin` header that sets the appropriate allowed _Origin_. This middleware is easy to use on production and development environments.
 
 <table>
 <tr><th><a href="example/cors.js">CORS source</a></th><th>The Output</th></tr>
@@ -301,7 +301,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 05:02:30 GMT',
+  date: 'Mon, 23 Dec 2019 05:06:59 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -309,7 +309,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 05:02:31 GMT',
+  date: 'Mon, 23 Dec 2019 05:06:59 GMT',
   connection: 'close' }
 ```
 </td>
