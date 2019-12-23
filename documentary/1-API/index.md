@@ -47,3 +47,5 @@ The example below starts a simple server with session and custom middleware, whi
 ## Middleware
 
 Idio's advantage is that is has the essential middleware, that was compiled together with the server, so that the packages are reused and memory footprint is low.
+
+%~ width="25"%

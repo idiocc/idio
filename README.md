@@ -140,10 +140,14 @@ hello world
 
 Idio's advantage is that is has the essential middleware, that was compiled together with the server, so that the packages are reused and memory footprint is low.
 
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true" width="25">
+</a></p>
+
 ### Static
 
-> <img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
-> <kbd>🗂 <a href="../../wiki/Static">Explore Static Middleware Configuration</a></kbd>
+<img src="https://raw.github.com/idiocc/core/master/images/static.svg?sanitize=true" align="left" height="100">
+<kbd>🗂 <a href="../../wiki/Static">Explore Static Middleware Configuration</a></kbd>
 Used to serve static files, such as stylesheets, images, videos, html and everything else. Will perform mime-type lookup to serve the correct content-type in the returned header.
 
 <table>
@@ -179,12 +183,6 @@ body {
 
 
 
-```svg
-<!-- http://localhost:61075/em.svg --> 
-
-Not Found
-```
-</td></tr>
 
 <tr>
 <td colspan="2">
@@ -215,7 +213,7 @@ Connection: close
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true" width="25">
 </a></p>
 
 ### Session
@@ -261,7 +259,7 @@ http://localhost:5000
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/4.svg?sanitize=true" width="25">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true" width="25">
 </a></p>
 
 ### CORS
@@ -304,7 +302,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 06:47:19 GMT',
+  date: 'Mon, 23 Dec 2019 06:55:16 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -312,7 +310,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 06:47:19 GMT',
+  date: 'Mon, 23 Dec 2019 06:55:16 GMT',
   connection: 'close' }
 ```
 </td>
@@ -320,7 +318,7 @@ const { url, app } = await idio({
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/5.svg?sanitize=true" width="25">
+  <img src="/.documentary/section-breaks/6.svg?sanitize=true" width="25">
 </a></p>
 
 ### Compression
@@ -366,7 +364,7 @@ const { url, app } = await idio({
 
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/6.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/7.svg?sanitize=true">
 </a></p>
 
 ## Custom Middleware
@@ -459,7 +457,7 @@ When required to add any other middleware in the application not included in the
     ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/7.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/8.svg?sanitize=true">
 </a></p>
 
 ## Router Set-up
@@ -550,7 +548,7 @@ Page available at: http://localhost:5003
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/8.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/9.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License
