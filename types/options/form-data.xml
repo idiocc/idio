@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <import from="@multipart/form-data" ns="_multipart" name="FormDataConfig" />
+  <!-- <import1 from="@multipart/form-data" ns="_multipart" name="FormDataConfig" /> -->
 
   <type name="FormDataOptions">
     <!-- todo: any, single, array, all -->

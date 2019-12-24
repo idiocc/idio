@@ -13,10 +13,10 @@ _Form Data_ options currently don't support any options. The instance of _FormDa
 
 The actual middleware functions can be generated using `.any`, `.single`, _etc_ methods on the instance.
 
-<typedef level="2" name="FormData" narrow>node_modules/@multipart/form-data/types/misc.xml</typedef>
+<typedef slimFunctions level="2" name="FormData" narrow>node_modules/@multipart/form-data/types/misc.xml</typedef>
 
 %~%
 
-The configuration is from the <link external type="_multipart.FormData">`@multipart/form-data`</link> package.
+The configuration is from the <link external type="_multipart.FormDataConfig">`@multipart/form-data`</link> package.
 
 <typedef level="2" name="FormDataConfig" narrow>node_modules/@multipart/form-data/types/index.xml</typedef>
