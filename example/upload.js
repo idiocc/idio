@@ -30,7 +30,9 @@ import idio from '../compile'
     data: f.data,
     type: `multipart/form-data; boundary=${f.boundary}`,
   })
-  console.log(body)
+  const path = body.path.replace(/upload\/(.{5}).+/, 'upload/$1')
+  const filename = body.filename.replace(/(.{5}).+/, '$1')
+  console.log({ ...body, path, filename })
   try {
     await rm(body.path)
   } finally {

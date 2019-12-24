@@ -316,7 +316,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Tue, 24 Dec 2019 13:48:03 GMT',
+  date: 'Tue, 24 Dec 2019 14:15:02 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -324,7 +324,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Tue, 24 Dec 2019 13:48:03 GMT',
+  date: 'Tue, 24 Dec 2019 14:15:02 GMT',
   connection: 'close' }
 ```
 </td>
@@ -418,8 +418,8 @@ router.post('/example',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'example/upload',
-  filename: 'd4b4de14214456ca3195e75ef3bd74d0',
-  path: 'example/upload/d4b4de14214456ca3195e75ef3bd74d0',
+  filename: 'e2d22',
+  path: 'example/upload/e2d22',
   size: 29 }
 ```
 </td>
