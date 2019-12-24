@@ -61,6 +61,7 @@
   "devDependencies": {
     "@contexts/http": "^1.6.1",
     "@externs/goa": "^1.0.1",
+    "@goa/busboy": "^1.2.3",
     "@goa/compose": "^1.0.0",
     "@goa/compress": "^1.0.0",
     "@goa/cors": "^1.1.0",
@@ -71,6 +72,7 @@
     "@goa/session": "^3.0.0",
     "@goa/statuses": "^1.0.1",
     "@goa/uuid": "^1.0.2",
+    "@multipart/form-data": "^1.0.0",
     "@typedefs/goa": "^0.1.5",
     "@wrote/read": "^1.0.4",
     "alamode": "^3.3.0",
@@ -86,6 +88,7 @@
     "zoroaster": "^4.1.2"
   },
   "dependencies": {
-    "mime-db": "^1.42.0"
+    "mime-db": "^1.42.0",
+    "text-decoding": "^1.0.0"
   }
 }

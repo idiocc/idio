@@ -53,6 +53,9 @@ module.exports.compose = $compose
  *
  * @typedef {_idio.CorsOptions} CorsOptions
  * @typedef {_goa.CorsConfig} CorsConfig
+ *
+ * @typedef {_idio.FormDataOptions} FormDataOptions
+ * @typedef {_multipart.FormDataConfig} FormDataConfig
  */
 
 /* typal types/idio.xml namespace */
@@ -60,11 +63,5 @@ module.exports.compose = $compose
 /* typal types/index.xml namespace */
 
 /* typal types/middleware.xml namespace */
-
-/* typal node_modules/@goa/router/types/index.xml ignore:_goa.LayerConfig,_goa.Middleware namespace */
-
-/* typal node_modules/@goa/router/types/router.xml ignore:_goa.Router,_goa.Middleware namespace */
-
-/* typal node_modules/@goa/session/types/session.xml ignore:KoaSession namespace */
 
 /* typework */

@@ -11,8 +11,12 @@
   <import from="../types/options" ns="_idio" name="SessionOptions" />
   <import from="../types/modules/session" ns="_idio" name="SessionConfig" />
 
-  <import from="../" ns="_goa" name="Middleware" />
-  <import from="../" ns="_goa" name="Application" />
+  <import from="../types/options" ns="_idio" name="FormDataOptions" />
+  <import from="../types/modules/form-data" ns="_multipart" name="FormDataConfig" />
+
+  <import from="../types/modules/router" ns="_goa" name="Layer" />
+  <import from="../types/modules/router" ns="_goa" name="RouterConfig" />
+  <import from="../types/modules/router" ns="_goa" name="AllowedMethodsOptions" />
 
   <record name="MiddlewareConfig"
     desc="Middleware configuration for the `idio` server."

@@ -7,11 +7,7 @@ const { _createApp, _startApp, _compose, _Keygrip, _Router } = require('./idio')
  * @param {!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
  * @param {!_idio.SessionOptions} [middlewareConfig.session] _Session_ middleware options.
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
- * @param {!_goa.RouterConfig} [routerConfig] Config for the router.
- * @param {!Array<string>} [routerConfig.methods] The methods to serve.
- * Default `HEAD`, `OPTIONS`, `GET`, `PUT`, `PATCH`, `POST`, `DELETE`.
- * @param {string} [routerConfig.prefix] Prefix router paths.
- * @param {string} [routerConfig.routerPath] Custom routing path.
+ * @param {!_goa.RouterConfig=} [routerConfig] The optional configuration for the router.
  * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_goa.Router }>}
  */
 async function createApp(middlewareConfig) {
@@ -50,11 +46,7 @@ module.exports.$Keygrip = _Keygrip
 class Router extends _Router {
   /**
    * Create a new router.
-   * @param {!_goa.RouterConfig} [opts] Config for the router.
-   * @param {!Array<string>} [opts.methods] The methods to serve.
-   * Default `HEAD`, `OPTIONS`, `GET`, `PUT`, `PATCH`, `POST`, `DELETE`.
-   * @param {string} [opts.prefix] Prefix router paths.
-   * @param {string} [opts.routerPath] Custom routing path.
+   * @param {!_goa.RouterConfig=} [opts] The options for the router.
    * @example
    * ```js
    * import Goa from '＠goa/koa'
@@ -93,10 +85,7 @@ class Router extends _Router {
    * Returns separate middleware for responding to `OPTIONS` requests with
    * an `Allow` header containing the allowed methods, as well as responding
    * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
-   * @param {!_goa.AllowedMethodsOptions} options The options for the `allowedMethods` middleware generation.
-   * @param {boolean} [options.throw] Throw error instead of setting status and header.
-   * @param {() => !Error} [options.notImplemented] Throw the returned value in place of the default `NotImplemented` error.
-   * @param {() => !Error} [options.methodNotAllowed] Throw the returned value in place of the default `MethodNotAllowed` error.
+   * @param {!_goa.AllowedMethodsOptions} options The options.
    * @return {!_goa.Middleware}
    * @example
    * ```js
@@ -272,6 +261,9 @@ module.exports.compose = $compose
  *
  * @typedef {_idio.CorsOptions} CorsOptions
  * @typedef {_goa.CorsConfig} CorsConfig
+ *
+ * @typedef {_idio.FormDataOptions} FormDataOptions
+ * @typedef {_multipart.FormDataConfig} FormDataConfig
  */
 
 /* typal types/idio.xml namespace */
@@ -326,8 +318,11 @@ module.exports.compose = $compose
  * @typedef {import('../types/modules').CompressConfig} _goa.CompressConfig
  * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
  * @typedef {import('../types/modules/session').SessionConfig} _idio.SessionConfig
- * @typedef {import('../').Middleware} _goa.Middleware
- * @typedef {import('../').Application} _goa.Application
+ * @typedef {import('../types/options').FormDataOptions} _idio.FormDataOptions
+ * @typedef {import('../types/modules/form-data').FormDataConfig} _multipart.FormDataConfig
+ * @typedef {import('../types/modules/router').Layer} _goa.Layer
+ * @typedef {import('../types/modules/router').RouterConfig} _goa.RouterConfig
+ * @typedef {import('../types/modules/router').AllowedMethodsOptions} _goa.AllowedMethodsOptions
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {_idio.FnMiddlewareConfig & _idio.$MiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {Object} _idio.$MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
@@ -341,46 +336,6 @@ module.exports.compose = $compose
  * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }} _idio.ConfigItem An item in middleware configuration.
  * @typedef {_idio.MiddlewareConstructor} MiddlewareConstructor A function used to create middleware.
  * @typedef {(app: !_goa.Application, config: !Object, options: !Object) => !_goa.Middleware} _idio.MiddlewareConstructor A function used to create middleware.
- */
-
-/* typal node_modules/@goa/router/types/index.xml ignore:_goa.LayerConfig,_goa.Middleware namespace */
-/**
- * @typedef {_goa.Layer} Layer `＠interface` A single piece of middleware that can be matched for all possible routes.
- * @typedef {Object} _goa.Layer `＠interface` A single piece of middleware that can be matched for all possible routes.
- * @prop {!Array<{ name: string }>} paramNames Parameter names stored in this layer. Default `[]`.
- */
-
-/* typal node_modules/@goa/router/types/router.xml ignore:_goa.Router,_goa.Middleware namespace */
-/**
- * @typedef {_goa.AllowedMethodsOptions} AllowedMethodsOptions `＠record` The options for the `allowedMethods` middleware generation.
- * @typedef {Object} _goa.AllowedMethodsOptions `＠record` The options for the `allowedMethods` middleware generation.
- * @prop {boolean} [throw] Throw error instead of setting status and header.
- * @prop {() => !Error} [notImplemented] Throw the returned value in place of the default `NotImplemented` error.
- * @prop {() => !Error} [methodNotAllowed] Throw the returned value in place of the default `MethodNotAllowed` error.
- * @typedef {_goa.RouterConfig} RouterConfig `＠record` Config for the router.
- * @typedef {Object} _goa.RouterConfig `＠record` Config for the router.
- * @prop {!Array<string>} [methods] The methods to serve.
- * Default `HEAD`, `OPTIONS`, `GET`, `PUT`, `PATCH`, `POST`, `DELETE`.
- * @prop {string} [prefix] Prefix router paths.
- * @prop {string} [routerPath] Custom routing path.
- */
-
-/* typal node_modules/@goa/session/types/session.xml ignore:KoaSession namespace */
-/**
- * @typedef {_idio.Session} Session `＠record` The session instance accessible via Goa's context.
- * @typedef {Object} _idio.Session `＠record` The session instance accessible via Goa's context.
- * @prop {boolean} isNew Returns true if the session is new.
- * @prop {boolean} populated Populated flag, which is just a boolean alias of `.length`.
- * @prop {number|string} maxAge Get/set cookie's maxAge.
- * @prop {() => void} save Save this session no matter whether it is populated.
- * @prop {() => !Promise} manuallyCommit Session headers are auto committed by default. Use this if `autoCommit` is set to false.
- * @typedef {_idio.KoaSession} KoaSession `＠interface` A private session model.
- * @typedef {_idio.Session & _idio.$KoaSession} _idio.KoaSession `＠interface` A private session model.
- * @typedef {Object} _idio.$KoaSession `＠interface` A private session model.
- * @prop {number} _expire Private JSON serialisation.
- * @prop {boolean} _requireSave Private JSON serialisation.
- * @prop {_idio.KoaContextSession} _sessCtx Private JSON serialisation.
- * @prop {_goa.Context} _ctx Private JSON serialisation.
  */
 
 /* typework */

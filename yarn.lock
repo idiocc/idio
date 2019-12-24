@@ -42,6 +42,13 @@
   dependencies:
     mime-db "^1.42.0"
 
+"@goa/busboy@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@goa/busboy/-/busboy-1.2.3.tgz#df7b633f9f1825d9dab2b99bcf4f40cba1d7c936"
+  integrity sha512-ais1rZsKnE/k9beKFFcv+1YAqxuiCgRWnbxZ5WxbWJ+3aI2Gw3rYmyzQ2/araWYAAKUMKXZeCxE+9kbzFkOqnw==
+  dependencies:
+    text-decoding "^1.0.0"
+
 "@goa/compose@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@goa/compose/-/compose-1.0.0.tgz#3672a32269bec4bf061c8dd50a7ab22872c156c3"
@@ -154,6 +161,13 @@
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@idio/debug/-/debug-1.2.3.tgz#ff002ec176bf45782aca7f70adcdde650fcb2a04"
   integrity sha512-MalXJDXpDY7p8oNlKqQTmk6d5Q5WTeT18HqvySj4byU0BX2G7KX+IISUMH7uLdYv9y/usKU+uZO+5n2v41/kqw==
+
+"@multipart/form-data@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@multipart/form-data/-/form-data-1.0.0.tgz#1e455c573d543ea6f5975957d86581211ae58255"
+  integrity sha512-e0y8njQPqpQERVp9EXlxJ+ekXbk57l+q1uFNTIjcmu8AJiN6gGc/DCMtY6ei5GgH+a2NIBOSsGPqqJWZzbUFNg==
+  dependencies:
+    text-decoding "^1.0.0"
 
 "@multipart/form@^1.1.0":
   version "1.1.0"
@@ -274,6 +288,11 @@ rqt@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/rqt/-/rqt-4.0.0.tgz#b57f64bf1b3b8b8109617f9dc67b9dd9ea5cb4d6"
   integrity sha512-DUm6ZAt6ESeY46aFWhQwBvsOpXABRL5TTkpN/3KJjog7uk2ncYuU4UZ8FQV6qfWybihkMFCdoESNSxYQ5rSZiQ==
+
+text-decoding@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/text-decoding/-/text-decoding-1.0.0.tgz#38a5692d23b5c2b12942d6e245599cb58b1bc52f"
+  integrity sha512-/0TJD42KDnVwKmDK6jj3xP7E2MG7SHAOG4tyTgyUCRPdHwvkquYNLEQltmdMa3owq3TkddCVcTsoctJI8VQNKA==
 
 typal@^1.24.19:
   version "1.24.19"

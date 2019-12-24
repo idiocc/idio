@@ -41,9 +41,17 @@ export {}
  * @prop {!_goa.CorsConfig} [config] The CORS configuration.
  */
 
+/* typal types/options/form-data.xml namespace ignore:_multipart.FormDataConfig */
+/**
+ * @typedef {Object} FormDataOptions
+ * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
+ * @prop {_multipart.FormDataConfig} [config] The configuration object configuration.
+ */
+
 /**
  * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
  * @typedef {import('../..').KoaCompressConfig} _idio.KoaCompressConfig
  * @typedef {import('../..').SessionConfig} _idio.SessionConfig
  * @typedef {import('../..').CorsConfig} _goa.CorsConfig
+ * @typedef {import('../..').FormDataConfig} _multipart.FormDataConfig
  */

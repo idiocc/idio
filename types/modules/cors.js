@@ -1,8 +1,7 @@
 export {}
 
-/* typal node_modules/@goa/cors/types/index.xml namespace */
+/* typal node_modules/@goa/cors/types/index.xml ignore:_goa.Context namespace */
 /**
- * @typedef {import('@typedefs/goa').Context} _goa.Context
  * @typedef {_goa.CorsConfig} CorsConfig `＠record` Options for the program.
  * @typedef {Object} _goa.CorsConfig `＠record` Options for the program.
  * @prop {string|function(!_goa.Context)} [origin] `Access-Control-Allow-Origin` header, default is taken from the `Origin` request header.
