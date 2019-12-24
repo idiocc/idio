@@ -41,7 +41,16 @@
   },
   "typedefs": "typedefs.json",
   "keywords": [
-    "idio"
+    "idio",
+    "web",
+    "server",
+    "middleware",
+    "session",
+    "static",
+    "cors",
+    "compress",
+    "goa",
+    "koa"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "AGPL-3.0",
