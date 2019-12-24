@@ -2,6 +2,7 @@ import compose from '@goa/compose'
 import session from '@goa/session'
 import Keygrip from '@goa/cookies/src/Keygrip'
 import cors from '@goa/cors'
+import FormData from '@multipart/form-data'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
 import compress from '@goa/compress'
@@ -82,6 +83,17 @@ const map = {
     })
     return fn
   },
+  /**
+   * The Form Data middleware.
+   * @param {!_goa.Application} app
+   * @param {_multipart.FormDataConfig} config
+   * @param {_idio.FormDataOptions} options
+   */
+  'form'(app, config, options) {
+    // todo check options to return middleware
+    const f = new FormData(config)
+    return f
+  },
   // frontend: setupFrontend,
 }
 
@@ -123,7 +135,7 @@ async function initMiddleware(name, conf, app) {
  * @param {!_goa.Application} app
  */
 export default async function setupMiddleware(middlewareConfig, app) {
-  /** @type {Object.<string, !_goa.Middleware>} */
+  /** @type {!_idio.ConfiguredMiddleware} */
   const res = await Object.keys(middlewareConfig)
     .reduce(async (acc, name) => {
       acc = await acc
@@ -197,4 +209,16 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').MiddlewareConstructor} _idio.MiddlewareConstructor
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').FormDataConfig} _multipart.FormDataConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').FormDataOptions} _idio.FormDataOptions
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').ConfiguredMiddleware} _idio.ConfiguredMiddleware
  */

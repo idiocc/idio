@@ -43,8 +43,8 @@ export {}
 
 /* typal types/options/form-data.xml namespace ignore:_multipart.FormDataConfig */
 /**
- * @typedef {Object} FormDataOptions
- * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
+ * @typedef {_idio.FormDataOptions} FormDataOptions
+ * @typedef {Object} _idio.FormDataOptions
  * @prop {_multipart.FormDataConfig} [config] The configuration object configuration.
  */
 

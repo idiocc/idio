@@ -56,9 +56,13 @@ module.exports.compose = $compose
  *
  * @typedef {_idio.FormDataOptions} FormDataOptions
  * @typedef {_multipart.FormDataConfig} FormDataConfig
+ *
+ * @typedef {import('../types/goa/typedefs/application').Application} _goa.Application
+ * @typedef {import('../types/goa/typedefs/application').Middleware} _goa.Middleware
+ * @typedef {import('../types/goa/typedefs/context').Context} _goa.Context
  */
 
-/* typal types/idio.xml namespace */
+/* typal types/idio.xml namespace ignore:_goa.Application,_goa.Context */
 
 /* typal types/index.xml namespace */
 

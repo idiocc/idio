@@ -26,6 +26,10 @@ After the app is started, it can be accessed from the return type.
 
 <typedef name="Idio">types/index.xml</typedef>
 
+All middleware can be accessed from the `middleware` property, so that it can be installed on individual basis on specific routes, if it's not used app-wise.
+
+<typedef details="ConfiguredMiddleware" name="ConfiguredMiddleware">types/index.xml</typedef>
+
 The example below starts a simple server with session and custom middleware, which is installed (used) automatically because it's defined as a function.
 
 <table>

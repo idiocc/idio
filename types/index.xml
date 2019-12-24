@@ -23,11 +23,22 @@
     <prop type="!_idio.Application" name="app">
       The Goa application instance (with additional `.destroy` method).
     </prop>
-    <prop type="!Object<string, !_idio.Middleware>" name="middleware">
+    <prop type="!_idio.ConfiguredMiddleware" name="middleware">
       An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`.
     </prop>
     <prop type="!_goa.Router" name="router">
       The router instance.
+    </prop>
+  </record>
+
+  <type type="!Object<string, !_idio.Middleware>" name="MiddlewareObject" desc="The object with all configured middleware after the server has been configured."/>
+
+  <record extends="_idio.MiddlewareObject" name="ConfiguredMiddleware" desc="Idio-specific properties of the middleware object.">
+    <prop type="!_multipart.FormData" name="form" opt>
+      An instance of the form data class that can be used to create middleware.
+    </prop>
+    <prop type="!_idio.Middleware" name="session" opt>
+      The session middleware to be installed on individual routes.
     </prop>
   </record>
 </types>

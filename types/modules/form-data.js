@@ -37,11 +37,18 @@ export {}
  * @prop {stream.Readable} stream The _Readable_ stream with the file data. This stream should not be read other than by a storage engine.
  */
 
-/* typal node_modules/@multipart/form-data/types/misc.xml ignore:_goa.Middleware,_multipart.FormData namespace */
+/* typal node_modules/@multipart/form-data/types/misc.xml ignore:_goa.Middleware namespace */
 /**
  * @typedef {import('http').IncomingMessage} http.IncomingMessage
  * @typedef {_multipart.FormDataFileFilter} FormDataFileFilter The function to control which files are accepted.
  * @typedef {(req: !http.IncomingMessage, file: !_multipart.FormDataFile) => void} _multipart.FormDataFileFilter The function to control which files are accepted.
+ * @typedef {_multipart.FormData} FormData `＠interface` An instance to create middleware.
+ * @typedef {Object} _multipart.FormData `＠interface` An instance to create middleware.
+ * @prop {(name: string) => !_goa.Middleware} single Accept a single file.
+ * @prop {(name: string, maxFiles: string) => !_goa.Middleware} array Accept multiple files.
+ * @prop {(fields: !Array<_multipart.FormDataField>) => !_goa.Middleware} fields Accept files according to the configured fields.
+ * @prop {() => !_goa.Middleware} none Do not accept files, only fields.
+ * @prop {() => !_goa.Middleware} any Accept any fields and files.
  * @typedef {_multipart.FormDataStorageEngine} FormDataStorageEngine `＠interface`
  * @typedef {Object} _multipart.FormDataStorageEngine `＠interface`
  * @prop {(req: !http.IncomingMessage, file: !_multipart.FormDataFile) => void} _handleFile Saves the file asynchronously.

@@ -7,6 +7,7 @@ const { _createApp, _startApp, _compose, _Keygrip, _Router } = require('./idio')
  * @param {!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
  * @param {!_idio.SessionOptions} [middlewareConfig.session] _Session_ middleware options.
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
+ * @param {!_idio.FormDataOptions} [middlewareConfig.form] _Form Data_ middleware options for receiving file uploads and form submissions.
  * @param {!_goa.RouterConfig=} [routerConfig] The optional configuration for the router.
  * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_goa.Router }>}
  */
@@ -21,6 +22,7 @@ async function createApp(middlewareConfig) {
  * @param {!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
  * @param {!_idio.SessionOptions} [middlewareConfig.session] _Session_ middleware options.
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
+ * @param {!_idio.FormDataOptions} [middlewareConfig.form] _Form Data_ middleware options for receiving file uploads and form submissions.
  * @param {!_idio.Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
  * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
@@ -264,12 +266,14 @@ module.exports.compose = $compose
  *
  * @typedef {_idio.FormDataOptions} FormDataOptions
  * @typedef {_multipart.FormDataConfig} FormDataConfig
+ *
+ * @typedef {import('../types/goa/typedefs/application').Application} _goa.Application
+ * @typedef {import('../types/goa/typedefs/application').Middleware} _goa.Middleware
+ * @typedef {import('../types/goa/typedefs/context').Context} _goa.Context
  */
 
-/* typal types/idio.xml namespace */
+/* typal types/idio.xml namespace ignore:_goa.Application,_goa.Context */
 /**
- * @typedef {import('@typedefs/goa').Application} _goa.Application
- * @typedef {import('@typedefs/goa').Context} _goa.Context
  * @typedef {_idio.Application} Application `＠interface` The application with some additions.
  * @typedef {_goa.Application & _idio.$Application} _idio.Application `＠interface` The application with some additions.
  * @typedef {Object} _idio.$Application `＠interface` The application with some additions.
@@ -304,8 +308,15 @@ module.exports.compose = $compose
  * @prop {string} url The URL on which the server was started, such as `http://localhost:5000`.
  * @prop {!http.Server} server The server instance.
  * @prop {!_idio.Application} app The Goa application instance (with additional `.destroy` method).
- * @prop {!Object<string, !_idio.Middleware>} middleware An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`.
+ * @prop {!_idio.ConfiguredMiddleware} middleware An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`.
  * @prop {!_goa.Router} router The router instance.
+ * @typedef {_idio.MiddlewareObject} MiddlewareObject The object with all configured middleware after the server has been configured.
+ * @typedef {!Object<string, !_idio.Middleware>} _idio.MiddlewareObject The object with all configured middleware after the server has been configured.
+ * @typedef {_idio.ConfiguredMiddleware} ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
+ * @typedef {_idio.MiddlewareObject & _idio.$ConfiguredMiddleware} _idio.ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
+ * @typedef {Object} _idio.$ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
+ * @prop {!_multipart.FormData} [form] An instance of the form data class that can be used to create middleware.
+ * @prop {!_idio.Middleware} [session] The session middleware to be installed on individual routes.
  */
 
 /* typal types/middleware.xml namespace */
@@ -320,7 +331,9 @@ module.exports.compose = $compose
  * @typedef {import('../types/modules/session').SessionConfig} _idio.SessionConfig
  * @typedef {import('../types/options').FormDataOptions} _idio.FormDataOptions
  * @typedef {import('../types/modules/form-data').FormDataConfig} _multipart.FormDataConfig
+ * @typedef {import('../types/modules/form-data').FormData} _multipart.FormData
  * @typedef {import('../types/modules/router').Layer} _goa.Layer
+ * @typedef {import('../types/modules/router').Router} _goa.Router
  * @typedef {import('../types/modules/router').RouterConfig} _goa.RouterConfig
  * @typedef {import('../types/modules/router').AllowedMethodsOptions} _goa.AllowedMethodsOptions
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
@@ -330,12 +343,13 @@ module.exports.compose = $compose
  * @prop {!_idio.CompressOptions} [compress] _Compression_ middleware options.
  * @prop {!_idio.SessionOptions} [session] _Session_ middleware options.
  * @prop {!_idio.CorsOptions} [cors] _CORS_ middleware options.
+ * @prop {!_idio.FormDataOptions} [form] _Form Data_ middleware options for receiving file uploads and form submissions.
  * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>} _idio.FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {_idio.ConfigItem} ConfigItem An item in middleware configuration.
  * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }} _idio.ConfigItem An item in middleware configuration.
- * @typedef {_idio.MiddlewareConstructor} MiddlewareConstructor A function used to create middleware.
- * @typedef {(app: !_goa.Application, config: !Object, options: !Object) => !_goa.Middleware} _idio.MiddlewareConstructor A function used to create middleware.
+ * @typedef {_idio.MiddlewareConstructor} MiddlewareConstructor A function used to create middleware. It will generate a middleware function using the options and config.
+ * @typedef {(app: !_goa.Application, config: !Object, options: !Object) => !_goa.Middleware|!_multipart.FormData} _idio.MiddlewareConstructor A function used to create middleware. It will generate a middleware function using the options and config.
  */
 
 /* typework */

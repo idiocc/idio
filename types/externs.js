@@ -32,7 +32,7 @@ _idio.Idio.prototype.server
 _idio.Idio.prototype.app
 /**
  * An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`.
- * @type {!Object<string, !_idio.Middleware>}
+ * @type {!_idio.ConfiguredMiddleware}
  */
 _idio.Idio.prototype.middleware
 /**
@@ -40,6 +40,27 @@ _idio.Idio.prototype.middleware
  * @type {!_goa.Router}
  */
 _idio.Idio.prototype.router
+/**
+ * The object with all configured middleware after the server has been configured.
+ * @typedef {!Object<string, !_idio.Middleware>}
+ */
+_idio.MiddlewareObject
+/**
+ * Idio-specific properties of the middleware object.
+ * @extends {_idio.MiddlewareObject}
+ * @record
+ */
+_idio.ConfiguredMiddleware
+/**
+ * An instance of the form data class that can be used to create middleware.
+ * @type {(!_multipart.FormData)|undefined}
+ */
+_idio.ConfiguredMiddleware.prototype.form
+/**
+ * The session middleware to be installed on individual routes.
+ * @type {(!_idio.Middleware)|undefined}
+ */
+_idio.ConfiguredMiddleware.prototype.session
 
 /* typal types/middleware.xml externs */
 /**
@@ -69,6 +90,11 @@ _idio.MiddlewareConfig.prototype.session
  */
 _idio.MiddlewareConfig.prototype.cors
 /**
+ * _Form Data_ middleware options for receiving file uploads and form submissions.
+ * @type {(!_idio.FormDataOptions)|undefined}
+ */
+_idio.MiddlewareConfig.prototype.form
+/**
  * Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>}
  */
@@ -79,8 +105,8 @@ _idio.FnMiddlewareConfig
  */
 _idio.ConfigItem
 /**
- * A function used to create middleware.
- * @typedef {function(!_goa.Application,!Object,!Object): !Promise<!_goa.Middleware>}
+ * A function used to create middleware. It will generate a middleware function using the options and config.
+ * @typedef {function(!_goa.Application,!Object,!Object): !Promise<!_goa.Middleware|!_multipart.FormData>}
  */
 _idio.MiddlewareConstructor
 

@@ -1,10 +1,8 @@
-<types>
+<types namespace="_idio">
   <import from="@multipart/form-data" ns="_multipart" name="FormDataConfig" />
 
   <type name="FormDataOptions">
-    <prop boolean name="use" default="false">
-      Use this middleware for every request.
-    </prop>
+    <!-- todo: any, single, array, all -->
     <prop opt type="_multipart.FormDataConfig" name="config">
       The configuration object configuration.
     </prop>

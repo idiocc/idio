@@ -97,3 +97,9 @@ _idio.CorsOptions.prototype.use
  * @type {(!_goa.CorsConfig)|undefined}
  */
 _idio.CorsOptions.prototype.config
+
+/* typal types/options/form-data.xml externs */
+/**
+ * @typedef {{ config: (_multipart.FormDataConfig|undefined) }}
+ */
+_idio.FormDataOptions

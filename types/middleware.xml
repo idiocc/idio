@@ -13,8 +13,10 @@
 
   <import from="../types/options" ns="_idio" name="FormDataOptions" />
   <import from="../types/modules/form-data" ns="_multipart" name="FormDataConfig" />
+  <import from="../types/modules/form-data" ns="_multipart" name="FormData" />
 
   <import from="../types/modules/router" ns="_goa" name="Layer" />
+  <import from="../types/modules/router" ns="_goa" name="Router" />
   <import from="../types/modules/router" ns="_goa" name="RouterConfig" />
   <import from="../types/modules/router" ns="_goa" name="AllowedMethodsOptions" />
 
@@ -33,6 +35,9 @@
     <prop opt type="!_idio.CorsOptions" name="cors">
       _CORS_ middleware options.
     </prop>
+    <prop opt type="!_idio.FormDataOptions" name="form">
+      _Form Data_ middleware options for receiving file uploads and form submissions.
+    </prop>
   </record>
 
   <!-- Plain config on top of which the idio middleware is installed. -->
@@ -40,10 +45,10 @@
 
   <type type="!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }" name="ConfigItem" desc="An item in middleware configuration."/>
 
-  <method name="MiddlewareConstructor" async return="!_goa.Middleware">
+  <method name="MiddlewareConstructor" async return="!_goa.Middleware|!_multipart.FormData">
     <arg type="!_goa.Application" name="app">The application instance.</arg>
     <arg type="!Object" name="config">The config for the item.</arg>
     <arg type="!Object" name="options">Any other additional middleware options.</arg>
-    A function used to create middleware.
+    A function used to create middleware. It will generate a middleware function using the options and config.
   </method>
 </types>

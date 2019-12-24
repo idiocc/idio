@@ -26,11 +26,13 @@ npm install @idio/idio
   * [`MiddlewareConfig`](#type-middlewareconfig)
   * [`Config`](#type-config)
   * [`Idio`](#type-idio)
+  * [<code>ConfiguredMiddleware</code>](#type-configuredmiddleware)
 - [Middleware](#middleware)
   * [Static](#static)
   * [Session](#session)
   * [CORS](#cors)
   * [Compression](#compression)
+  * [File Upload](#file-upload)
 - [Custom Middleware](#custom-middleware)
 - [Router Set-up](#router-set-up)
 - [Copyright & License](#copyright--license)
@@ -66,12 +68,13 @@ There are multiple items for middleware configuration:
 __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareConfig__: Middleware configuration for the `idio` server.
 
 
-|   Name   |                                                                                   Type                                                                                   |            Description            |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- |
-| static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">!StaticOptions</a></em> | _Static_ middleware options.      |
-| compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                        | _Compression_ middleware options. |
-| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">!SessionOptions</a></em>                                  | _Session_ middleware options.     |
-| cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                       | _CORS_ middleware options.        |
+|   Name   |                                                                                   Type                                                                                   |                                   Description                                   |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
+| static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">!StaticOptions</a></em> | _Static_ middleware options.                                                    |
+| compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                        | _Compression_ middleware options.                                               |
+| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">!SessionOptions</a></em>                                  | _Session_ middleware options.                                                   |
+| cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                       | _CORS_ middleware options.                                                      |
+| form     | <em>[!FormDataOptions](https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions)</em>                                                                          | _Form Data_ middleware options for receiving file uploads and form submissions. |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -94,8 +97,19 @@ __<a name="type-idio">`Idio`</a>__: The return type of the idio.
 | __url*__        | <em>string</em>                                                                                                                                                                                                                            | The URL on which the server was started, such as `http://localhost:5000`.                                                                                                                                                          |
 | __server*__     | <em><a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-even.png" alt="Node.JS Docs">!http.Server</a></em> | The server instance.                                                                                                                                                                                                               |
 | __app*__        | <em><a href="https://github.com/idiocc/idio/wiki/Home#type-application" title="The application with some additions.">!Application</a></em>                                                                                                 | The Goa application instance (with additional `.destroy` method).                                                                                                                                                                  |
-| __middleware*__ | <em>!Object&lt;string, <a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a>&gt;</em>   | An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`. |
+| __middleware*__ | <em><a href="#type-configuredmiddleware" title="Idio-specific properties of the middleware object.">!ConfiguredMiddleware</a></em>                                                                                                         | An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`. |
 | __router*__     | <em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-router" title="Router For Goa Apps.">!_goa.Router</a></em>                                                                                                                | The router instance.                                                                                                                                                                                                               |
+
+All middleware can be accessed from the `middleware` property, so that it can be installed on individual basis on specific routes, if it's not used app-wise.
+
+<details>
+ <summary><strong><a name="type-configuredmiddleware"><code>ConfiguredMiddleware</code></a> extends MiddlewareObject</strong>: Idio-specific properties of the middleware object.</summary>
+
+|  Name   |                                                                                                       Type                                                                                                        |                                Description                                |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| form    | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdata" title="An instance to create middleware.">!_multipart.FormData</a></em>                                                                 | An instance of the form data class that can be used to create middleware. |
+| session | <em><a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a></em> | The session middleware to be installed on individual routes.              |
+</details>
 
 The example below starts a simple server with session and custom middleware, which is installed (used) automatically because it's defined as a function.
 
@@ -174,7 +188,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:53685/app.css */ 
+/** http://localhost:58363/app.css */ 
 
 body {
   font-size: larger;
@@ -195,7 +209,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Fri, 20 Dec 2019 07:04:57 GMT
+Date: Tue, 24 Dec 2019 13:20:06 GMT
 Connection: close
 ```
 
@@ -204,7 +218,7 @@ Connection: close
 ```http
 Content-Type: text/plain; charset=utf-8
 Content-Length: 9
-Date: Mon, 23 Dec 2019 06:45:20 GMT
+Date: Tue, 24 Dec 2019 13:20:06 GMT
 Connection: close
 ```
 </details>
@@ -252,7 +266,7 @@ const { url, app } = await idio({
 http://localhost:5000 
 
 / hello new user
-/ welcome back u190.1
+/ welcome back u624.3
 ```
 </td>
 </tr>
@@ -302,7 +316,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 06:57:18 GMT',
+  date: 'Tue, 24 Dec 2019 13:24:58 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -310,7 +324,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 23 Dec 2019 06:57:18 GMT',
+  date: 'Tue, 24 Dec 2019 13:24:58 GMT',
   connection: 'close' }
 ```
 </td>
@@ -354,7 +368,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Mon, 23 Dec 2019 06:45:23 GMT',
+  date: 'Tue, 24 Dec 2019 13:20:08 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -362,6 +376,50 @@ const { url, app } = await idio({
 </tr>
 </table>
 
+
+### File Upload
+
+<a href="../../wiki/Form-Data"><img src="https://raw.github.com/idiocc/core/master/images/multer.svg?sanitize=true" align="left" height="100"></a>
+<kbd>🗜[Explore Form Data Middleware Configuration](../../wiki/Form-Data)</kbd>
+
+Browser will submit forms and send files using `multipart/form-data` type of the request. It will put all fields of the form together and stream them to the server, sending pairs of keys/values as well as files when they were attached. The _Form Data_ middleware is the **[Multer](https://github.com/expressjs/multer)** middleware specifically rewritten for Koa that can handle file uploads.
+
+<table>
+<tr><th><a href="example/upload.js">File Upload source</a></th><th>The Output</th></tr>
+<tr><td>
+
+```js
+const { url, app, router, middleware: {
+  form,
+} } = await idio({
+  form: {
+    config: {
+      dest: 'example/upload',
+    },
+  },
+})
+app.use(router.routes())
+router.post('/example', form.single('bio'), (ctx) => {
+  delete ctx.req.file.stream
+  ctx.body = ctx.req.file
+})
+```
+</td>
+<td>
+
+```js
+{ fieldname: 'bio',
+  originalname: 'bio.txt',
+  encoding: '7bit',
+  mimetype: 'application/octet-stream',
+  destination: 'example/upload',
+  filename: '22aaa867e1738fde08e78d81ec8476e9',
+  path: 'example/upload/22aaa867e1738fde08e78d81ec8476e9',
+  size: 29 }
+```
+</td>
+</tr>
+</table>
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/7.svg?sanitize=true">

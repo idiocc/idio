@@ -1,35 +1,36 @@
 import aqt from '@rqt/aqt'
-import idio from '..'
+import Form from '@multipart/form'
+import rm from '@wrote/rm'
+import idio from '../compile'
 
 (async () => {
   /* start example */
-  const { url, app } = await idio({
-    session: { use: true, keys:
-      ['hello', 'world'], config: {
-      signed: false,
-    } },
-    async middleware(ctx, next) {
-      if (ctx.session.user)
-        ctx.body = 'welcome back '
-          + ctx.session.user
-      else {
-        ctx.session.user = 'u'
-          +( Math.random() * 1000).toFixed(1)
-        ctx.body = 'hello new user'
-      }
-      await next()
+  const { url, app, router, middleware: {
+    form,
+  } } = await idio({
+    form: {
+      config: {
+        dest: 'example/upload',
+      },
     },
   })
+  app.use(router.routes())
+  router.post('/example', form.single('bio'), (ctx) => {
+    delete ctx.req.file.stream
+    ctx.body = ctx.req.file
+  })
   /* end example */
-  console.log(url, '\n')
-  let { body, headers } = await aqt(url)
-  console.log('/ %s', body)
-
-  ;({ body, headers } = await aqt(url, {
-    headers: {
-      'Cookie': headers['set-cookie'],
-    },
-  }))
-  console.log('/ %s', body)
-  app.destroy()
+  const f = new Form()
+  await f.addFile('example/bio.txt', 'bio')
+  // console.log(url, '\n')
+  let { body } = await aqt(`${url}/example`, {
+    data: f.data,
+    type: `multipart/form-data; boundary=${f.boundary}`,
+  })
+  console.log(body)
+  try {
+    await rm(body.path)
+  } finally {
+    await app.destroy()
+  }
 })()

@@ -70,5 +70,21 @@
   "_goa.CompressConfig": {
     "link": "https://github.com/idiocc/idio/wiki/Compression#type-compressconfig",
     "description": null
+  },
+  "_idio.FormDataOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions",
+    "description": null
+  },
+  "_idio.ConfiguredMiddleware": {
+    "link": "https://github.com/idiocc/idio#type-configuredmiddleware",
+    "description": "Idio-specific properties of the middleware object."
+  },
+  "_multipart.FormData": {
+    "link": "https://github.com/idiocc/idio/wiki/Form-Data#type-formdata",
+    "description": "An instance to create middleware."
+  },
+  "_multipart.FormDataConfig": {
+    "link": "https://github.com/idiocc/idio/wiki/Form-Data#type-formdataconfig",
+    "description": "The configuration for the instance."
   }
 }
