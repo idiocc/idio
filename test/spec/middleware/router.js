@@ -1,5 +1,5 @@
 import Context from '../../context'
-import { $Router } from '../../../src'
+import { Router } from '../../../src'
 
 /** @type {Object.<string, (c: Context)>} */
 const T = {
@@ -17,7 +17,7 @@ const T = {
   },
   async 'installs nested router'({ createApp, startApp }) {
     const { router, app } = await createApp()
-    const r = new $Router()
+    const r = new Router()
     r.get('/api', (ctx) => {
       ctx.body = 'ok'
     })

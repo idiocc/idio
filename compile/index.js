@@ -250,6 +250,17 @@ class Router extends _Router {
 module.exports.Router = Router
 
 /**
+ * Compose a single middleware function for Goa out of many.
+ * @param {!Array<!Function>} middleware The array with the middleware.
+ * @return {!_goa.Middleware}
+ */
+function $compose(middleware) {
+  return _compose(middleware)
+}
+
+module.exports.compose = $compose
+
+/**
  * @typedef {_idio.StaticOptions} StaticOptions
  * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
  *
