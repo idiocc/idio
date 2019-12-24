@@ -15,10 +15,13 @@ import idio from '../compile'
     },
   })
   app.use(router.routes())
-  router.post('/example', form.single('bio'), (ctx) => {
-    delete ctx.req.file.stream
-    ctx.body = ctx.req.file
-  })
+  router.post('/example',
+    form.single('bio'),
+    (ctx) => {
+      delete ctx.req.file.stream
+      ctx.body = ctx.req.file
+    }
+  )
   /* end example */
   const f = new Form()
   await f.addFile('example/bio.txt', 'bio')

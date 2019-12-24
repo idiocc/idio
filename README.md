@@ -316,7 +316,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Tue, 24 Dec 2019 13:24:58 GMT',
+  date: 'Tue, 24 Dec 2019 13:31:22 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -324,7 +324,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Tue, 24 Dec 2019 13:24:58 GMT',
+  date: 'Tue, 24 Dec 2019 13:31:22 GMT',
   connection: 'close' }
 ```
 </td>
@@ -380,9 +380,9 @@ const { url, app } = await idio({
 ### File Upload
 
 <a href="../../wiki/Form-Data"><img src="https://raw.github.com/idiocc/core/master/images/multer.svg?sanitize=true" align="left" height="100"></a>
-<kbd>🗜[Explore Form Data Middleware Configuration](../../wiki/Form-Data)</kbd>
+<kbd>🖼[Explore Form Data Middleware Configuration](../../wiki/Form-Data)</kbd>
 
-Browser will submit forms and send files using `multipart/form-data` type of the request. It will put all fields of the form together and stream them to the server, sending pairs of keys/values as well as files when they were attached. The _Form Data_ middleware is the **[Multer](https://github.com/expressjs/multer)** middleware specifically rewritten for Koa that can handle file uploads.
+Browser will submit forms and send files using `multipart/form-data` type of request. It will put all fields of the form together and stream them to the server, sending pairs of keys/values as well as files when they were attached. The _Form Data_ middleware is the **[Multer](https://github.com/expressjs/multer)** middleware specifically rewritten for Koa that can handle file uploads.
 
 <table>
 <tr><th><a href="example/upload.js">File Upload source</a></th><th>The Output</th></tr>
@@ -399,10 +399,13 @@ const { url, app, router, middleware: {
   },
 })
 app.use(router.routes())
-router.post('/example', form.single('bio'), (ctx) => {
-  delete ctx.req.file.stream
-  ctx.body = ctx.req.file
-})
+router.post('/example',
+  form.single('bio'),
+  (ctx) => {
+    delete ctx.req.file.stream
+    ctx.body = ctx.req.file
+  }
+)
 ```
 </td>
 <td>
@@ -413,8 +416,8 @@ router.post('/example', form.single('bio'), (ctx) => {
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'example/upload',
-  filename: '22aaa867e1738fde08e78d81ec8476e9',
-  path: 'example/upload/22aaa867e1738fde08e78d81ec8476e9',
+  filename: '088c6f16f3f380c9a5650607586cb046',
+  path: 'example/upload/088c6f16f3f380c9a5650607586cb046',
   size: 29 }
 ```
 </td>
