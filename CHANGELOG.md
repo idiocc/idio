@@ -1,5 +1,9 @@
 ## 24 December 2019
 
+### [0.4.0](https://github.com/idiocc/idio/compare/v0.3.0...v0.4.0)
+
+- [feature] Add file upload via `@multipart/form-data`.
+
 ### [0.3.0](https://github.com/idiocc/idio/compare/v0.2.1...v0.3.0)
 
 - [feature] Add the router.
