@@ -20,3 +20,5 @@ When the body of the response is set to a string (or JSON, but not a stream), th
 </tr>
 </table>
 <!-- %~ width="25"% -->
+
+%~ width="25"%

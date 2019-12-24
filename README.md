@@ -316,7 +316,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Tue, 24 Dec 2019 13:44:49 GMT',
+  date: 'Tue, 24 Dec 2019 13:48:03 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -324,7 +324,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Tue, 24 Dec 2019 13:44:49 GMT',
+  date: 'Tue, 24 Dec 2019 13:48:03 GMT',
   connection: 'close' }
 ```
 </td>
@@ -375,7 +375,9 @@ const { url, app } = await idio({
 </td>
 </tr>
 </table>
-
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/7.svg?sanitize=true" width="25">
+</a></p>
 
 ### File Upload
 
@@ -425,7 +427,7 @@ router.post('/example',
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/7.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/8.svg?sanitize=true">
 </a></p>
 
 ## Custom Middleware
@@ -518,7 +520,7 @@ When required to add any other middleware in the application not included in the
     ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/8.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/9.svg?sanitize=true">
 </a></p>
 
 ## Router Set-up
@@ -609,7 +611,7 @@ Page available at: http://localhost:5003
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/9.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/10.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License
