@@ -15,15 +15,15 @@ async function idio(middlewareConfig = {}, config = {}) {
   return _startApp(middlewareConfig, config)
 }
 
+/**
+ * @constructor {_goa.Keygrip}
+ */
+class Keygrip extends _Keygrip {}
+
 module.exports = idio
 module.exports.createApp = createApp
 module.exports.Router = IdioRouter
-
-/**
- * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
- * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => _goa.Keygrip}
- */
-module.exports.$Keygrip = _Keygrip
+module.exports.Keygrip = Keygrip
 
 /**
  * Compose a single middleware function for Goa out of many.
@@ -64,4 +64,16 @@ module.exports.compose = $compose
 
 /* typal types/middleware.xml namespace */
 
-/* typework */
+// typework
+/**
+ * @typedef {import('../types/goa/vendor/cookies').Cookies} Cookies
+ * @typedef {import('../types/goa/vendor/accepts').Accepts} Accepts
+ * @typedef {import('../types/goa/typedefs/application').Middleware} Middleware
+ * @typedef {import('../types/goa/typedefs/application').Application} Application
+ * @typedef {import('../types/goa/typedefs/application').ApplicationOptions} ApplicationOptions
+ * @typedef {import('../types/goa/typedefs/context').Context} Context
+ * @typedef {import('../types/goa/typedefs/request').Request} Request
+ * @typedef {import('../types/goa/typedefs/request').ContextDelegatedRequest} ContextDelegatedRequest
+ * @typedef {import('../types/goa/typedefs/response').Response} Response
+ * @typedef {import('../types/goa/typedefs/response').ContextDelegatedResponse} ContextDelegatedResponse
+ */

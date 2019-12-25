@@ -203,6 +203,9 @@ class $Router extends _Router {
   }
 }
 
+/**
+ * The router decorated with HTTP method properties.
+ */
 class IdioRouter extends $Router {
   /**
    * Constructor method.

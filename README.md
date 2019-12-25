@@ -48,7 +48,7 @@ npm install @idio/idio
 The package is available by importing its default function and named components:
 
 ```js
-import idio, { $Keygrip, Router } from '@idio/idio'
+import idio, { Keygrip, Router } from '@idio/idio'
 ```
 
 <p align="center"><a href="#table-of-contents">
@@ -302,17 +302,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTU0OS43IiwiX2V4cGlyZSI6MTU3NzM2NzUzMzI1NywiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTY4OC41IiwiX2V4cGlyZSI6MTU3NzM2ODAwNzc4MCwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Thu, 26 Dec 2019 13:38:53 GMT',
+    expires: 'Thu, 26 Dec 2019 13:46:47 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'gRg8pz_z9PMcsPHuwGS6Suvc1-IFvjzenszmClzfzOI00fwEMUnoGZ0yud8dTFR9dF-Tj_M3_WZEDjj9Bp2DFg',
+    value: 'M3tM58pnZ7p0MMCqOEQoM9fb83m3h3z8-bPXqblF1dyDlaetSfsJbgBjShNvu5fcfjQpO-4yCEOSvhdbLYupvg',
     path: '/',
-    expires: 'Thu, 26 Dec 2019 13:38:53 GMT',
+    expires: 'Thu, 26 Dec 2019 13:46:47 GMT',
     httponly: true } ]
 // GET /
-"welcome back u549.7"
+"welcome back u688.5"
 ```
 </td>
 </tr>
@@ -362,7 +362,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 13:43:01 GMT',
+  date: 'Wed, 25 Dec 2019 13:46:48 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -370,7 +370,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 13:43:01 GMT',
+  date: 'Wed, 25 Dec 2019 13:46:48 GMT',
   connection: 'close' }
 ```
 </td>
@@ -414,7 +414,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Wed, 25 Dec 2019 13:38:55 GMT',
+  date: 'Wed, 25 Dec 2019 13:46:49 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -466,8 +466,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '320ef',
-     path: 'example/upload/320ef',
+     filename: '400bf',
+     path: 'example/upload/400bf',
      size: 29 },
   body: { hello: 'world' } }
 ```

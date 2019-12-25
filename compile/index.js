@@ -36,15 +36,51 @@ async function idio(middlewareConfig = {}, config = {}) {
   return _startApp(middlewareConfig, config)
 }
 
+/**
+ * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
+ */
+class Keygrip extends _Keygrip {
+  /**
+   * Creates a new Keygrip instance. Default algorithm is `sha1` and default encoding is `base64`.
+   * @param {!Array<string>} keys The keys to use for signing.
+   * @param {string=} [algorithm] The algorithm. Default `sha1`.
+   * @param {string=} [encoding] The encoding. Default `base64`.
+   */
+  constructor(keys, algorithm, encoding) {
+    super(keys, algorithm, encoding)
+  }
+  /**
+   * This creates a SHA1 HMAC based on the _first_ key in the keylist, and outputs it as a 27-byte url-safe base64 digest (base64 without padding, replacing `+` with `-` and `/` with `_`).
+   * @param {*} data The value to sign.
+   * @return {string}
+   */
+  sign(data) {
+    return super.sign(data)
+  }
+  /**
+   * This loops through all of the keys currently in the keylist until the digest of the current key matches the given digest, at which point the current index is returned. If no key is matched, -1 is returned. The idea is that if the index returned is greater than `0`, the data should be re-signed to prevent premature credential invalidation, and enable better performance for subsequent challenges.
+   * @param {*} data The value to verify.
+   * @param {string} digest The digest to verify against.
+   * @return {number}
+   */
+  index(data, digest) {
+    return super.index(data, digest)
+  }
+  /**
+   * This uses `index` to return true if the digest matches any existing keys, and false otherwise.
+   * @param {*} data The value to verify.
+   * @param {string} digest The digest to verify against.
+   * @return {boolean}
+   */
+  verify(data, digest) {
+    return super.verify(data, digest)
+  }
+}
+
 module.exports = idio
 module.exports.createApp = createApp
 module.exports.Router = IdioRouter
-
-/**
- * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
- * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => _goa.Keygrip}
- */
-module.exports.$Keygrip = _Keygrip
+module.exports.Keygrip = Keygrip
 
 /**
  * Compose a single middleware function for Goa out of many.
@@ -166,9 +202,8 @@ module.exports.compose = $compose
  * @typedef {(app: !_goa.Application, config: !Object, options: !Object) => !_goa.Middleware|!_multipart.FormData} _idio.MiddlewareConstructor A function used to create middleware. It will generate a middleware function using the options and config.
  */
 
-/* typework */
+// typework
 /**
- * @typedef {import('../types/goa/vendor/cookies').Keygrip} Keygrip
  * @typedef {import('../types/goa/vendor/cookies').Cookies} Cookies
  * @typedef {import('../types/goa/vendor/accepts').Accepts} Accepts
  * @typedef {import('../types/goa/typedefs/application').Middleware} Middleware
