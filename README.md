@@ -318,7 +318,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 09:18:57 GMT',
+  date: 'Wed, 25 Dec 2019 09:23:08 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -326,7 +326,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 09:18:57 GMT',
+  date: 'Wed, 25 Dec 2019 09:23:08 GMT',
   connection: 'close' }
 ```
 </td>
@@ -469,7 +469,15 @@ class MyComp extends Component {
 render(MyComp, document.body)
 ```
 
-Will be served as:
+</td>
+</tr>
+<tr>
+<td>
+Using the simple configuration from above, and a JSX file, the browser will receive the following patched source code. The middleware will also look for requests that start with the `/node_modules` path, and serve them also. The pragma (`import { h } from 'preact'`) is also added automatically, but it can be configured.
+</td>
+</tr>
+<tr>
+<td>
 
 ```js
 import { h } from '/node_modules/preact/dist/preact.module.js'

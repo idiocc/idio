@@ -17,10 +17,18 @@ Web applications are always full stack and involve both back-end together with f
 
 %EXAMPLE: example/frontend/example, ../compile => @idio/idio%
 
-Will be served as:
+</td>
+<!-- <td>%FORKERR-fs example/session%</td> -->
+</tr>
+<tr>
+<td>
+Using the simple configuration from above, and a JSX file, the browser will receive the following patched source code. The middleware will also look for requests that start with the `/node_modules` path, and serve them also. The pragma (`import { h } from 'preact'`) is also added automatically, but it can be configured.
+</td>
+</tr>
+<tr>
+<td>
 
 <fork lang="js">example/frontend</fork>
 </td>
-<!-- <td>%FORKERR-fs example/session%</td> -->
 </tr>
 </table>
