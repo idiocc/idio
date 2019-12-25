@@ -12,7 +12,7 @@
   <method async name="createApp" return="{
     app: !_idio.Application,
     middleware: !Object<string, !_idio.Middleware>,
-    router: !_goa.Router
+    router: !_idio.Router
   }">
     <arg type="!_idio.MiddlewareConfig" name="middlewareConfig" opt>
       The middleware configuration for the `idio` server.

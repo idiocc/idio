@@ -37,7 +37,7 @@ _idio.Idio.prototype.app
 _idio.Idio.prototype.middleware
 /**
  * The router instance.
- * @type {!_goa.Router}
+ * @type {!_idio.Router}
  */
 _idio.Idio.prototype.router
 /**
@@ -123,12 +123,10 @@ _idio.MiddlewareConstructor
 _idio.idio
 /**
  * Just create a _Goa_ app without starting it.
- * @typedef {function(!_idio.MiddlewareConfig=,!_goa.RouterConfig=): !Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_goa.Router }>}
+ * @typedef {function(!_idio.MiddlewareConfig=,!_goa.RouterConfig=): !Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_idio.Router }>}
  */
 _idio.createApp
 
 // this we implemented manually
-/** @type {!Function} */
-_goa.Application.prototype.destroy
 /** @type {!Function} */
 http.Server.prototype.destroy

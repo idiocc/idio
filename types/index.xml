@@ -26,7 +26,7 @@
     <prop type="!_idio.ConfiguredMiddleware" name="middleware">
       An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`.
     </prop>
-    <prop type="!_goa.Router" name="router">
+    <prop type="!_idio.Router" name="router">
       The router instance.
     </prop>
   </record>

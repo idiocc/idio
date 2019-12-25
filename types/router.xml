@@ -1,0 +1,367 @@
+<types namespace="_idio">
+  <interface name="Router" extends="_goa.Router">
+    <fn name="acl" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `ACL` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.acl(name, path, ...middleware)
+      router.acl(path, ...middleware)
+      router.acl(...middleware)
+      ```
+    </fn>
+    <fn name="bind" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `BIND` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.bind(name, path, ...middleware)
+      router.bind(path, ...middleware)
+      router.bind(...middleware)
+      ```
+    </fn>
+    <fn name="checkout" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `CHECKOUT` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.checkout(name, path, ...middleware)
+      router.checkout(path, ...middleware)
+      router.checkout(...middleware)
+      ```
+    </fn>
+    <fn name="connect" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `CONNECT` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.connect(name, path, ...middleware)
+      router.connect(path, ...middleware)
+      router.connect(...middleware)
+      ```
+    </fn>
+    <fn name="copy" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `COPY` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.copy(name, path, ...middleware)
+      router.copy(path, ...middleware)
+      router.copy(...middleware)
+      ```
+    </fn>
+    <fn name="delete" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `DELETE` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.delete(name, path, ...middleware)
+      router.delete(path, ...middleware)
+      router.delete(...middleware)
+      ```
+    </fn>
+    <fn name="get" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `GET` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.get(name, path, ...middleware)
+      router.get(path, ...middleware)
+      router.get(...middleware)
+      ```
+    </fn>
+    <fn name="head" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `HEAD` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.head(name, path, ...middleware)
+      router.head(path, ...middleware)
+      router.head(...middleware)
+      ```
+    </fn>
+    <fn name="link" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `LINK` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.link(name, path, ...middleware)
+      router.link(path, ...middleware)
+      router.link(...middleware)
+      ```
+    </fn>
+    <fn name="lock" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `LOCK` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.lock(name, path, ...middleware)
+      router.lock(path, ...middleware)
+      router.lock(...middleware)
+      ```
+    </fn>
+    <fn name="merge" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `MERGE` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.merge(name, path, ...middleware)
+      router.merge(path, ...middleware)
+      router.merge(...middleware)
+      ```
+    </fn>
+    <fn name="mkactivity" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `MKACTIVITY` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.mkactivity(name, path, ...middleware)
+      router.mkactivity(path, ...middleware)
+      router.mkactivity(...middleware)
+      ```
+    </fn>
+    <fn name="mkcalendar" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `MKCALENDAR` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.mkcalendar(name, path, ...middleware)
+      router.mkcalendar(path, ...middleware)
+      router.mkcalendar(...middleware)
+      ```
+    </fn>
+    <fn name="mkcol" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `MKCOL` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.mkcol(name, path, ...middleware)
+      router.mkcol(path, ...middleware)
+      router.mkcol(...middleware)
+      ```
+    </fn>
+    <fn name="move" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `MOVE` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.move(name, path, ...middleware)
+      router.move(path, ...middleware)
+      router.move(...middleware)
+      ```
+    </fn>
+    <fn name="notify" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `NOTIFY` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.notify(name, path, ...middleware)
+      router.notify(path, ...middleware)
+      router.notify(...middleware)
+      ```
+    </fn>
+    <fn name="options" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `OPTIONS` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.options(name, path, ...middleware)
+      router.options(path, ...middleware)
+      router.options(...middleware)
+      ```
+    </fn>
+    <fn name="patch" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `PATCH` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.patch(name, path, ...middleware)
+      router.patch(path, ...middleware)
+      router.patch(...middleware)
+      ```
+    </fn>
+    <fn name="post" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `POST` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.post(name, path, ...middleware)
+      router.post(path, ...middleware)
+      router.post(...middleware)
+      ```
+    </fn>
+    <fn name="propfind" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `PROPFIND` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.propfind(name, path, ...middleware)
+      router.propfind(path, ...middleware)
+      router.propfind(...middleware)
+      ```
+    </fn>
+    <fn name="proppatch" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `PROPPATCH` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.proppatch(name, path, ...middleware)
+      router.proppatch(path, ...middleware)
+      router.proppatch(...middleware)
+      ```
+    </fn>
+    <fn name="purge" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `PURGE` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.purge(name, path, ...middleware)
+      router.purge(path, ...middleware)
+      router.purge(...middleware)
+      ```
+    </fn>
+    <fn name="put" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `PUT` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.put(name, path, ...middleware)
+      router.put(path, ...middleware)
+      router.put(...middleware)
+      ```
+    </fn>
+    <fn name="rebind" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `REBIND` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.rebind(name, path, ...middleware)
+      router.rebind(path, ...middleware)
+      router.rebind(...middleware)
+      ```
+    </fn>
+    <fn name="report" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `REPORT` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.report(name, path, ...middleware)
+      router.report(path, ...middleware)
+      router.report(...middleware)
+      ```
+    </fn>
+    <fn name="search" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `SEARCH` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.search(name, path, ...middleware)
+      router.search(path, ...middleware)
+      router.search(...middleware)
+      ```
+    </fn>
+    <fn name="source" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `SOURCE` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.source(name, path, ...middleware)
+      router.source(path, ...middleware)
+      router.source(...middleware)
+      ```
+    </fn>
+    <fn name="subscribe" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `SUBSCRIBE` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.subscribe(name, path, ...middleware)
+      router.subscribe(path, ...middleware)
+      router.subscribe(...middleware)
+      ```
+    </fn>
+    <fn name="trace" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `TRACE` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.trace(name, path, ...middleware)
+      router.trace(path, ...middleware)
+      router.trace(...middleware)
+      ```
+    </fn>
+    <fn name="unbind" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `UNBIND` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.unbind(name, path, ...middleware)
+      router.unbind(path, ...middleware)
+      router.unbind(...middleware)
+      ```
+    </fn>
+    <fn name="unlink" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `UNLINK` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.unlink(name, path, ...middleware)
+      router.unlink(path, ...middleware)
+      router.unlink(...middleware)
+      ```
+    </fn>
+    <fn name="unlock" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `UNLOCK` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.unlock(name, path, ...middleware)
+      router.unlock(path, ...middleware)
+      router.unlock(...middleware)
+      ```
+    </fn>
+    <fn name="unsubscribe" return="!_idio.Router">
+      <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
+        The arguments.
+      </arg>
+      Handle `UNSUBSCRIBE` requests. The signature accepts 3 possible ways of assigning a route:
+      ```js
+      router.unsubscribe(name, path, ...middleware)
+      router.unsubscribe(path, ...middleware)
+      router.unsubscribe(...middleware)
+      ```
+    </fn>
+  </interface>
+</types>

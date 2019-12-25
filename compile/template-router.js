@@ -1,4 +1,22 @@
-export {}
+const { _Router } = require('./idio')
+
+/**
+ * @constructor {_goa.Router}
+ */
+class $Router extends _Router {}
+
+/**
+ * @constructor {_idio.Router}
+ */
+class IdioRouter extends $Router {}
+
+module.exports = IdioRouter
+
+/**
+ * @typedef {import('.').Middleware} _idio.Middleware
+ * @typedef {import('../types/goa/typedefs/application').Middleware} _goa.Middleware
+ */
+
 
 /* typal node_modules/@goa/router/types/index.xml ignore:_goa.LayerConfig,_goa.Middleware namespace */
 /**
@@ -7,7 +25,7 @@ export {}
  * @prop {!Array<{ name: string }>} paramNames Parameter names stored in this layer. Default `[]`.
  */
 
-/* typal node_modules/@goa/router/types/router.xml ignore:_goa.Middleware namespace */
+/* typal node_modules/@goa/router/types/router.xml ignore:_goa.Middleware,_goa.Router namespace */
 /**
  * @typedef {_goa.Router} Router `＠interface` Router For Goa Apps.
  * @typedef {Object} _goa.Router `＠interface` Router For Goa Apps.
@@ -109,7 +127,3 @@ export {}
  * @prop {string} [prefix] Prefix router paths.
  * @prop {string} [routerPath] Custom routing path.
  */
-
-/**
-  * @typedef {import('../../').Middleware} _goa.Middleware
-  */

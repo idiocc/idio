@@ -1,4 +1,5 @@
-const { _createApp, _startApp, _compose, _Keygrip, _Router } = require('./idio')
+const { _createApp, _startApp, _compose, _Keygrip } = require('./idio')
+const IdioRouter = require('./router')
 
 /**
  * Just create a _Goa_ app without starting it.
@@ -10,7 +11,7 @@ const { _createApp, _startApp, _compose, _Keygrip, _Router } = require('./idio')
  * @param {!_idio.FormDataOptions} [middlewareConfig.form] _Form Data_ middleware options for receiving file uploads and form submissions.
  * @param {!_idio.FrontEndOptions} [middlewareConfig.frontend] _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.
  * @param {!_goa.RouterConfig=} [routerConfig] The optional configuration for the router.
- * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_goa.Router }>}
+ * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_idio.Router }>}
  */
 async function createApp(middlewareConfig) {
   return _createApp(middlewareConfig)
@@ -37,210 +38,13 @@ async function idio(middlewareConfig = {}, config = {}) {
 
 module.exports = idio
 module.exports.createApp = createApp
+module.exports.Router = IdioRouter
 
 /**
  * Signing and verifying data (such as cookies or URLs) through a rotating credential system.
  * @type {new (keys: !Array<string>, algorithm?: string, encoding?: string) => _goa.Keygrip}
  */
 module.exports.$Keygrip = _Keygrip
-
-/**
- * Router For Goa Apps.
- */
-class Router extends _Router {
-  /**
-   * Create a new router.
-   * @param {!_goa.RouterConfig=} [opts] The options for the router.
-   * @example
-   * ```js
-   * import Goa from '＠goa/koa'
-   * import Router from '＠goa/router'
-   *
-   * const app = new Goa()
-   * const router = new Router()
-   *
-   * router.get('/', (ctx, next) => {
-   *   // ctx.router available
-   * })
-   *
-   * app
-   *   .use(router.routes())
-   *   .use(router.allowedMethods())
-   * ```
-   */
-  constructor(opts) {
-    super(opts)
-  }
-  /**
-   * Generate URL from url pattern and given `params`.
-   * @param {string} path The URL pattern.
-   * @param {...!Object} params The URL parameters.
-   * @return {string}
-   * @example
-   * ```js
-   * const url = Router.url('/users/:id', { id: 1 })
-   * // => "/users/1"
-   * ```
-   */
-  static url(path, ...params) {
-    return _Router.url(path, ...params)
-  }
-  /**
-   * Returns separate middleware for responding to `OPTIONS` requests with
-   * an `Allow` header containing the allowed methods, as well as responding
-   * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
-   * @param {!_goa.AllowedMethodsOptions} options The options.
-   * @return {!_goa.Middleware}
-   * @example
-   * ```js
-   * import Goa from '＠goa/koa'
-   * import Router from '＠goa/router'
-   *
-   * const app = new Goa()
-   * const router = new Router()
-   *
-   * app.use(router.routes())
-   * app.use(router.allowedMethods())
-   * ```
-   */
-  allowedMethods(options) {
-    return super.allowedMethods(options)
-  }
-  /**
-   * Run middleware for named route parameters. Useful for auto-loading or validation.
-   * @param {string} param The name of the param.
-   * @param {!_goa.Middleware} middleware The middleware.
-   * @example
-   * ```js
-   * router
-   *   .param('user', (id, ctx, next) => {
-   *     ctx.user = users[id]
-   *     if (!ctx.user) return ctx.status = 404
-   *     return next()
-   *   })
-   *   .get('/users/:user', ctx => {
-   *     ctx.body = ctx.user
-   *   })
-   *   .get('/users/:user/friends', async ctx => {
-   *     ctx.body = await ctx.user.getFriends()
-   *   })
-   * ```
-   */
-  param(param, middleware) {
-    return super.param(param, middleware)
-  }
-  /**
-   * Redirect `source` to `destination` URL with optional 30x status `code`.
-   * Both `source` and `destination` can be route names.
-   * @param {string} source URL or route name.
-   * @param {string} destination URL or route name.
-   * @param {number=} [code] The HTTP status code. Default `301`.
-   */
-  redirect(source, destination, code) {
-    return super.redirect(source, destination, code)
-  }
-  /**
-   * Lookup route with given `name`. If the route is not found, returns `null`.
-   * @param {string} name The route name.
-   * @return {_goa.Layer}
-   */
-  route(name) {
-    return super.route(name)
-  }
-  /**
-   * Generate URL for route. Takes a route name and map of named `params`. If the route is not found, returns an error. The last argument can be an object with the `query` property.
-   * @param {string} name The route name.
-   * @param {...!Object} params The URL parameters and options.
-   * @return {(string|!Error)}
-   * @example
-   * ```js
-   * // To use urls, a named route should be created:
-   * router.get('user', '/users/:id', (ctx, next) => {
-   *   // ...
-   * })
-   * ```
-   * Get the URL by passing a **simple** parameter
-   * ```js
-   * router.url('user', 3)
-   * // => "/users/3"
-   * ```
-   * Get the URL by passing parameters in an **object**
-   * ```js
-   * router.url('user', { id: 3 })
-   * // => "/users/3"
-   * ```
-   * Use the url method for **redirects** to named routes:
-   * ```js
-   * router.use((ctx) => {
-   *   ctx.redirect(ctx.router.url('sign-in'))
-   * })
-   * ```
-   * Pass an **object query**:
-   * ```js
-   * router.url('user', { id: 3 }, { query: { limit: 1 } })
-   * // => "/users/3?limit=1"
-   * ```
-   * Pass an already **serialised query**:
-   * ```js
-   * router.url('user', { id: 3 }, { query: 'limit=1' })
-   * // => "/users/3?limit=1"
-   * ```
-   */
-  url(name, ...params) {
-    return super.url(name, ...params)
-  }
-  /**
-   * Use given middleware.
-   * Middleware run in the order they are defined by `.use()`. They are invoked
-   * sequentially, requests start at the first middleware and work their way
-   * "down" the middleware stack.
-   * @param {(string|!Array<string>|!_goa.Middleware)} path The path or an array of paths. Pass middleware without path to apply to `*`.
-   * @param {...!_goa.Middleware} middleware The middleware to use.
-   * @example
-   * ```js
-   * // session middleware will run before authorize
-   * router
-   *   .use(session())
-   *   .use(authorize())
-   * // use middleware only with given path
-   * router.use('/users', userAuth())
-   * // or with an array of paths
-   * router.use(['/users', '/admin'], userAuth())
-   * app.use(router.routes())
-   * ```
-   */
-  use(path, ...middleware) {
-    return super.use(path, ...middleware)
-  }
-  /**
-   * Set the path prefix for a Router instance that was already initialized.
-   * @param {string} prefix The prefix to set.
-   * @example
-   * ```js
-   * router.prefix('/things/:thing_id')
-   * ```
-   */
-  prefix(prefix) {
-    return super.prefix(prefix)
-  }
-  /**
-   * Returns router middleware which dispatches a route matching the request.
-   * @return {!_goa.Middleware}
-   */
-  middleware() {
-    return super.middleware()
-  }
-  /**
-   * Returns router middleware which dispatches a route matching the request.
-   * @return {!_goa.Middleware}
-   * @alias middleware An alias for **middleware**.
-   */
-  routes() {
-    return super.middleware()
-  }
-}
-
-module.exports.Router = Router
 
 /**
  * Compose a single middleware function for Goa out of many.
@@ -254,6 +58,7 @@ function $compose(middleware) {
 module.exports.compose = $compose
 
 /**
+ * @typedef {IdioRouter} _idio.Router
  * @typedef {_idio.StaticOptions} StaticOptions
  * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
  *
@@ -269,6 +74,8 @@ module.exports.compose = $compose
  * @typedef {import('../types/goa/typedefs/application').Application} _goa.Application
  * @typedef {import('../types/goa/typedefs/application').Middleware} _goa.Middleware
  * @typedef {import('../types/goa/typedefs/context').Context} _goa.Context
+ *
+ * @typedef {import('./router').RouterConfig} _goa.RouterConfig
  */
 
 /* typal types/idio.xml namespace ignore:_goa.Application,_goa.Context */
@@ -308,7 +115,7 @@ module.exports.compose = $compose
  * @prop {!http.Server} server The server instance.
  * @prop {!_idio.Application} app The Goa application instance (with additional `.destroy` method).
  * @prop {!_idio.ConfiguredMiddleware} middleware An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`.
- * @prop {!_goa.Router} router The router instance.
+ * @prop {!_idio.Router} router The router instance.
  * @typedef {_idio.MiddlewareObject} MiddlewareObject The object with all configured middleware after the server has been configured.
  * @typedef {!Object<string, !_idio.Middleware>} _idio.MiddlewareObject The object with all configured middleware after the server has been configured.
  * @typedef {_idio.ConfiguredMiddleware} ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
@@ -332,10 +139,6 @@ module.exports.compose = $compose
  * @typedef {import('../types/options').FormDataOptions} _idio.FormDataOptions
  * @typedef {import('../types/modules/form-data').FormDataConfig} _multipart.FormDataConfig
  * @typedef {import('../types/modules/form-data').FormData} _multipart.FormData
- * @typedef {import('../types/modules/router').Layer} _goa.Layer
- * @typedef {import('../types/modules/router').Router} _goa.Router
- * @typedef {import('../types/modules/router').RouterConfig} _goa.RouterConfig
- * @typedef {import('../types/modules/router').AllowedMethodsOptions} _goa.AllowedMethodsOptions
  * @typedef {import('../types/options').FrontEndOptions} _idio.FrontEndOptions
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {_idio.FnMiddlewareConfig & _idio.$MiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.

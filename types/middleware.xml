@@ -17,11 +17,6 @@
   <import from="../types/modules/form-data" ns="_multipart" name="FormDataConfig" />
   <import from="../types/modules/form-data" ns="_multipart" name="FormData" />
 
-  <import from="../types/modules/router" ns="_goa" name="Layer" />
-  <import from="../types/modules/router" ns="_goa" name="Router" />
-  <import from="../types/modules/router" ns="_goa" name="RouterConfig" />
-  <import from="../types/modules/router" ns="_goa" name="AllowedMethodsOptions" />
-
   <import from="../types/options" ns="_idio" name="FrontEndOptions" />
 
   <record name="MiddlewareConfig"
