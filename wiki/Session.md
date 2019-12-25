@@ -2,6 +2,9 @@
 
 Session handles the cookies to implement state persistance with the browser. It's recommended to not use session for all routes by default, but extract it via the _Idio_ return and install it manually for each route that requires it.
 
+<include-typedefs>@goa/session</include-typedefs>
+<include-typedefs>@goa/cookies</include-typedefs>
+
 ---
 
 ## On This Page
@@ -18,13 +21,11 @@ The example below configures session middleware, but does not use it (since `use
 
 %~%
 
-The options for _Idio_ contain the `keys` property which must be set.
+The options for _Idio_ session allow to pass the `keys` property to set on the app, a manually created _Keygrip_ instance, or to specify an algorithm with which _Keygrip_ should be created.
 
 <typedef level="2" narrow>types/options/session.xml</typedef>
 
-%~%
-
-Session configuration is from the <link external type="SessionConfig">`@goa/session`</link> package.
+Options extend session configuration from the <link external type="SessionConfig">`@goa/session`</link> package.
 
 <typedef level="2" slimFunctions name="SessionConfig" narrow>node_modules/@goa/session/types/index.xml</typedef>
 

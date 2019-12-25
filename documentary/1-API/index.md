@@ -3,7 +3,7 @@
 The package is available by importing its default function and named components:
 
 ```js
-import idio, { Keygrip, Router } from '@idio/idio'
+import idio, { $Keygrip, Router } from '@idio/idio'
 ```
 
 %~%

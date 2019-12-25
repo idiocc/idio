@@ -1,5 +1,5 @@
 import aqt from '@rqt/aqt'
-import idio, { $Keygrip } from '../compile'
+import idio from '../compile'
 
 (async () => {
   /* start example */
@@ -7,10 +7,9 @@ import idio, { $Keygrip } from '../compile'
     // Idio's bundled middleware.
     session: {
       use: true,
-      keys: new $Keygrip(['hello', 'world'], 'sha512'),
-      config: {
-        prefix: 'example-',
-      },
+      algorithm: 'sha512',
+      keys: ['hello', 'world'],
+      prefix: 'example-',
     },
 
     // Any middleware function to be installed.
@@ -23,5 +22,5 @@ import idio, { $Keygrip } from '../compile'
   console.log(url)
   const { body } = await aqt(url)
   console.log(body)
-  app.destroy()
+  await app.destroy()
 })()

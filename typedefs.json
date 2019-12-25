@@ -17,7 +17,7 @@
   },
   "_idio.SessionOptions": {
     "link": "https://github.com/idiocc/idio/wiki/Session#type-sessionoptions",
-    "description": "Options for the session."
+    "description": "Options for the session that extend the session config."
   },
   "_idio.Context": {
     "link": "https://github.com/idiocc/idio/wiki/Home#type-context",

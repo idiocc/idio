@@ -48,7 +48,7 @@ npm install @idio/idio
 The package is available by importing its default function and named components:
 
 ```js
-import idio, { Keygrip, Router } from '@idio/idio'
+import idio, { $Keygrip, Router } from '@idio/idio'
 ```
 
 <p align="center"><a href="#table-of-contents">
@@ -73,7 +73,7 @@ __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareCon
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">!StaticOptions</a></em>      | _Static_ middleware options.                                                              |
 | compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                             | _Compression_ middleware options.                                                         |
-| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">!SessionOptions</a></em>                                       | _Session_ middleware options.                                                             |
+| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>        | _Session_ middleware options.                                                             |
 | cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                            | _CORS_ middleware options.                                                                |
 | form     | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em> | _Form Data_ middleware options for receiving file uploads and form submissions.           |
 | frontend | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                  | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX. |
@@ -125,10 +125,9 @@ const { url, app } = await idio({
   // Idio's bundled middleware.
   session: {
     use: true,
-    keys: new $Keygrip(['hello', 'world'], 'sha512'),
-    config: {
-      prefix: 'example-',
-    },
+    algorithm: 'sha512',
+    keys: ['hello', 'world'],
+    prefix: 'example-',
   },
 
   // Any middleware function to be installed.
@@ -273,17 +272,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTgxMi40IiwiX2V4cGlyZSI6MTU3NzM1NzQyODM5NiwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTkuOSIsIl9leHBpcmUiOjE1NzczNTkzMjkyODgsIl9tYXhBZ2UiOjg2NDAwMDAwfQ==',
     path: '/',
-    expires: 'Thu, 26 Dec 2019 10:50:28 GMT',
+    expires: 'Thu, 26 Dec 2019 11:22:09 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'oKd5vxGrAdRm8Jjd6ExFQXm7kto',
+    value: 'mtqDlVab71MgB-edSIG-IuWiU_dfJg1eZ1ztu2SrJeZAxa2fHurTFaP6XKIscqPNVaeXIljWr1L7WYbjzQeA3w',
     path: '/',
-    expires: 'Thu, 26 Dec 2019 10:50:28 GMT',
+    expires: 'Thu, 26 Dec 2019 11:22:09 GMT',
     httponly: true } ]
 // GET /
-"welcome back u812.4"
+"welcome back u9.9"
 ```
 </td>
 </tr>
@@ -333,7 +332,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 11:00:47 GMT',
+  date: 'Wed, 25 Dec 2019 11:22:10 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -341,7 +340,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 11:00:47 GMT',
+  date: 'Wed, 25 Dec 2019 11:22:10 GMT',
   connection: 'close' }
 ```
 </td>
@@ -385,7 +384,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Wed, 25 Dec 2019 10:50:32 GMT',
+  date: 'Wed, 25 Dec 2019 11:22:11 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -435,8 +434,8 @@ router.post('/example',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'example/upload',
-  filename: 'ac142',
-  path: 'example/upload/ac142',
+  filename: '23da0',
+  path: 'example/upload/23da0',
   size: 29 }
 ```
 </td>
@@ -452,7 +451,7 @@ router.post('/example',
 <a href="../../wiki/Front-End"><img src="https://raw.github.com/idiocc/core/master/images/frontend.svg?sanitize=true" align="right" height="100"></a>
 <kbd>🌐[Explore Front End Middleware Configuration](../../wiki/Front-End)</kbd>
 
-Web applications are always full stack and involve both back-end together with front-end. Whereas all previously described middleware was for the server only, the front-end middleware facilitates browser development, as it allows to serve source code from `node_modules` directory and transpile JSX. Modern browsers support modules, but JavaScript needs to be patched to rename imports like
+Web applications are always full stack and involve both back-end together with front-end. Whereas all previously described middleware was for the server only, the front-end middleware facilitates browser development, as it allows to serve source code from the `node_modules` directory and transpile JSX. Modern browsers support modules, but JavaScript needs to be patched to rename imports like
 ```js
 // was
 import X from 'package-name'

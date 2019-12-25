@@ -58,7 +58,7 @@ const map = {
   /**
    * The session middleware.
    * @param {!_goa.Application} app
-   * @param {!_idio.SessionConfig} conf
+   * @param {!Object} _
    * @param {!_idio.SessionOptions} options
    */
   'session'(app, _, options) {
