@@ -9,7 +9,9 @@
   <import from="../types/modules" ns="_goa" name="CompressConfig" />
 
   <import from="../types/options" ns="_idio" name="SessionOptions" />
-  <import from="../types/modules/session" ns="_idio" name="SessionConfig" />
+  <!-- for ctx.sessionOptions -->
+  <import from="../types/options" ns="_idio" name="SessionConfig" />
+  <import from="../types/modules/session" ns="_idio" name="Session" />
 
   <import from="../types/options" ns="_idio" name="FormDataOptions" />
   <import from="../types/modules/form-data" ns="_multipart" name="FormDataConfig" />

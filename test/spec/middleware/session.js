@@ -2,6 +2,18 @@ import Context from '../../context'
 import { throws } from '@zoroaster/assert'
 import { Keygrip } from '../../../src'
 
+function test(ctx) {
+  if (ctx.path == '/set') {
+    ctx.session.test = 'hello'
+    ctx.status = 204
+  } else if (ctx.path == '/exit') {
+    ctx.session = null
+    ctx.status = 204
+  } else {
+    ctx.body = ctx.session.test || 'no cookie'
+  }
+}
+
 /** @type {Object.<string, (c: Context)>} */
 const T = {
   context: Context,
@@ -11,17 +23,7 @@ const T = {
         use: true,
         keys: ['a'],
       },
-      test(ctx) {
-        if (ctx.path == '/set') {
-          ctx.session.test = 'hello'
-          ctx.status = 204
-        } else if (ctx.path == '/exit') {
-          ctx.session = null
-          ctx.status = 204
-        } else {
-          ctx.body = ctx.session.test || 'no cookie'
-        }
-      },
+      test,
     })
     await startApp()
       .session()
@@ -34,19 +36,9 @@ const T = {
     await createApp({
       session: {
         use: true,
-        keys: new Keygrip(['a']),
+        keygrip: new Keygrip(['a']),
       },
-      test(ctx) {
-        if (ctx.path == '/set') {
-          ctx.session.test = 'hello'
-          ctx.status = 204
-        } else if (ctx.path == '/exit') {
-          ctx.session = null
-          ctx.status = 204
-        } else {
-          ctx.body = ctx.session.test || 'no cookie'
-        }
-      },
+      test,
     })
     await startApp()
       .session()
@@ -55,7 +47,23 @@ const T = {
       .get('/exit').assert(204)
       .get('/').assert(200, 'no cookie')
   },
-  async 'throws when keys are not passed'({ createApp }) {
+  async 'accepts keygrip algorithm'({ createApp, startApp }) {
+    await createApp({
+      session: {
+        use: true,
+        keys: ['test'],
+        algorithm: 'sha512',
+      },
+      test,
+    })
+    await startApp()
+      .session()
+      .get('/set').assert(204)
+      .get('/').assert(200, 'hello')
+      .get('/exit').assert(204)
+      .get('/').assert(200, 'no cookie')
+  },
+  async 'throws when keys are not an array'({ createApp }) {
     await throws({
       fn: createApp,
       args: [{
@@ -64,8 +72,23 @@ const T = {
           keys: 123,
         },
       }],
-      message: /Keys must be an array or an instance of Keygrip \/ child classes/,
+      message: /Keys must be an array/,
     })
+  },
+  async 'works without keys on non-signed'({ createApp, startApp }) {
+    await createApp({
+      session: {
+        use: true,
+        signed: false,
+      },
+      test,
+    })
+    await startApp()
+      .session()
+      .get('/set').assert(204)
+      .get('/').assert(200, 'hello')
+      .get('/exit').assert(204)
+      .get('/').assert(200, 'no cookie')
   },
 }
 

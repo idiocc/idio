@@ -3,6 +3,8 @@
  * @externs
  */
 /* typal types/options/static.xml externs */
+/** @const */
+var _idio = {}
 /**
  * The top-level options when setting up the static middleware.
  * @record
@@ -52,29 +54,28 @@ _idio.CompressOptions.prototype.config
 
 /* typal types/options/session.xml externs */
 /**
- * Options for the session.
+ * Options for the session that extend the session config.
+ * @extends {_idio.SessionConfig}
  * @record
  */
 _idio.SessionOptions
 /**
- * A set of keys to be installed in `app.keys`.
- * @type {!Array<string>}
+ * A set of keys to be installed in `app.keys`, if signing cookies. Required by default, but can be omitted when setting the `signed` config option to `false`.
+ * @type {(!Array<string>)|undefined}
  */
 _idio.SessionOptions.prototype.keys
 /**
- * Use this middleware for every request. Default `false`.
- * @type {boolean|undefined}
+ * Optional algorithm for _Keygrip_, e.g., `sha512` (default is `sha1`).
+ * @type {string|undefined}
  */
-_idio.SessionOptions.prototype.use
+_idio.SessionOptions.prototype.algorithm
 /**
- * The `koa-session` configuration.
- * @type {_idio.SessionConfig|undefined}
+ * A custom `Keygrip` instance.
+ * @type {(!_goa.Keygrip)|undefined}
  */
-_idio.SessionOptions.prototype.config
+_idio.SessionOptions.prototype.keygrip
 
 /* typal types/options/cors.xml externs */
-/** @const */
-var _idio = {}
 /**
  * @record
  */
@@ -100,6 +101,7 @@ _idio.CorsOptions.prototype.config
 
 /* typal types/options/form-data.xml externs */
 /**
+ * Options for Form Data (and file uploads) streams handling.
  * @typedef {{ config: (_multipart.FormDataConfig|undefined) }}
  */
 _idio.FormDataOptions

@@ -1,6 +1,6 @@
 <img src="https://raw.github.com/idiocc/core/master/images/frontend.svg?sanitize=true" align="left" height="100">
 
-Modern browsers support pretty much all JavaScript features that are used to write modern code. Therefore, if a front-end package publishes its source code, it's possible to just execute it in the browser, without compiling or transpiling it. The only problem is that browser won't be able to handle `import packageName from 'package-name'`, since modules must be imported by path. Therefore, the frontend middleware will patch the source code to update those cases.
+Latest browsers support pretty much all JavaScript features that are used to write modern code. Therefore, if a front-end package publishes its source code, it's possible to just execute it in the browser, without compiling or transpiling it. The only problem is that browser won't be able to handle `import packageName from 'package-name'`, since modules must be imported by path. Therefore, the frontend middleware will patch the source code to update those cases.
 
 This middleware also allows to serve JSX files by transpiling them on-the-fly using a sinple JSX parser (no proper ASTs). Although there are some [limitations](#todo--jsx-limitations), the parser works great
 
@@ -37,6 +37,7 @@ The paths used to serve front-end files will have to contain the path to the fro
 ## TODO & JSX Limitations
 
 1. Front-end development isn't fully efficient without reloading modules as they are updated, therefore the next version will include hot-module reload.
+1. We could also transpile `require` statements into `import`s so that the browser can serve them properly, without having to polyfill the `require` method.
 1. JSX does not support comments like that right now
     ```jsx
     render(<div>

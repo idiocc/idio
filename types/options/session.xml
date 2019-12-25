@@ -1,13 +1,14 @@
 <types namespace="_idio">
-  <record name="SessionOptions" desc="Options for the session.">
-    <prop type="!Array<string>" name="keys">
-      A set of keys to be installed in `app.keys`.
+  <record extends="_idio.SessionConfig" name="SessionOptions"
+    desc="Options for the session that extend the session config.">
+    <prop type="!Array<string>" name="keys" opt>
+      A set of keys to be installed in `app.keys`, if signing cookies. Required by default, but can be omitted when setting the `signed` config option to `false`.
     </prop>
-    <prop boolean name="use" default="false">
-      Use this middleware for every request.
+    <prop string name="algorithm" opt>
+      Optional algorithm for _Keygrip_, e.g., `sha512` (default is `sha1`).
     </prop>
-    <prop opt type="_idio.SessionConfig" name="config">
-      The `koa-session` configuration.
+    <prop type="!_goa.Keygrip" name="keygrip" opt>
+      A custom `Keygrip` instance.
     </prop>
   </record>
 </types>

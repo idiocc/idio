@@ -260,9 +260,6 @@ module.exports.compose = $compose
  * @typedef {_idio.CompressOptions} CompressOptions
  * @typedef {_goa.CompressConfig} CompressConfig
  *
- * @typedef {_idio.SessionOptions} SessionOptions
- * @typedef {_idio.SessionConfig} SessionConfig
- *
  * @typedef {_idio.CorsOptions} CorsOptions
  * @typedef {_goa.CorsConfig} CorsConfig
  *
@@ -330,7 +327,8 @@ module.exports.compose = $compose
  * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
  * @typedef {import('../types/modules').CompressConfig} _goa.CompressConfig
  * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
- * @typedef {import('../types/modules/session').SessionConfig} _idio.SessionConfig
+ * @typedef {import('../types/options').SessionConfig} _idio.SessionConfig
+ * @typedef {import('../types/modules/session').Session} _idio.Session
  * @typedef {import('../types/options').FormDataOptions} _idio.FormDataOptions
  * @typedef {import('../types/modules/form-data').FormDataConfig} _multipart.FormDataConfig
  * @typedef {import('../types/modules/form-data').FormData} _multipart.FormData

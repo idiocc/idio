@@ -239,22 +239,20 @@ Connection: close
 Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
 
 <table>
-<tr><th><a href="example/session.js">Session source</a></th><th>The Output</th></tr>
+<tr><th><a href="example/session.js">Session Config</a></th></tr>
 <tr><td>
 
 ```js
 const { url, app } = await idio({
   session: { use: true, keys:
-    ['hello', 'world'], config: {
-    signed: false,
-  } },
+    ['hello', 'world'], algorithm: 'sha512' },
   async middleware(ctx, next) {
     if (ctx.session.user)
       ctx.body = 'welcome back '
         + ctx.session.user
     else {
       ctx.session.user = 'u'
-        +( Math.random() * 1000).toFixed(1)
+        + (Math.random() * 1000).toFixed(1)
       ctx.body = 'hello new user'
     }
     await next()
@@ -262,13 +260,31 @@ const { url, app } = await idio({
 })
 ```
 </td>
+</tr>
+<tr><td>
+
+The session data is encrypted with `base64` and signed by default, unless the `.signed` option is set to false. Signing means that the signature will contain the hash which will be validated server-side, to ensure that the session data was not modified by the client. The default algorithm for signing is `sha1`, but it can be easily changed to a more secure `sha512`.
+</td>
+</tr>
+<tr>
 <td>
 
-```
-http://localhost:5000 
-
-/ hello new user
-/ welcome back u567.8
+```js
+// GET /
+"hello new user"
+/* set-cookie */
+[ { name: 'koa:sess',
+    value: 'eyJ1c2VyIjoidTgxMi40IiwiX2V4cGlyZSI6MTU3NzM1NzQyODM5NiwiX21heEFnZSI6ODY0MDAwMDB9',
+    path: '/',
+    expires: 'Thu, 26 Dec 2019 10:50:28 GMT',
+    httponly: true },
+  { name: 'koa:sess.sig',
+    value: 'oKd5vxGrAdRm8Jjd6ExFQXm7kto',
+    path: '/',
+    expires: 'Thu, 26 Dec 2019 10:50:28 GMT',
+    httponly: true } ]
+// GET /
+"welcome back u812.4"
 ```
 </td>
 </tr>
@@ -318,7 +334,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 09:36:22 GMT',
+  date: 'Wed, 25 Dec 2019 10:51:11 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -326,7 +342,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 09:36:22 GMT',
+  date: 'Wed, 25 Dec 2019 10:51:11 GMT',
   connection: 'close' }
 ```
 </td>
@@ -370,7 +386,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Wed, 25 Dec 2019 08:59:44 GMT',
+  date: 'Wed, 25 Dec 2019 10:50:32 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -420,8 +436,8 @@ router.post('/example',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'example/upload',
-  filename: 'd14d3',
-  path: 'example/upload/d14d3',
+  filename: 'ac142',
+  path: 'example/upload/ac142',
   size: 29 }
 ```
 </td>
