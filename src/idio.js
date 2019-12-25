@@ -14,5 +14,9 @@ export default class IdioContext extends Context {
     this._matchedRouteName = null
     this.params = null
     this.router = null
+
+    // form-data
+    this.file = null
+    this.files = null
   }
 }

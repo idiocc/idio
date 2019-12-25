@@ -31,6 +31,13 @@
       A flag that can be added to explicitly set whether the response should be compressed by the `compress` middleware.
     </prop>
 
+    <prop type="!Array<_multipart.FormDataFile>|!Object<string, !Array<_multipart.FormDataFile>>|_multipart.FormDataFile" name="files" initial="null">
+      Files extracted from the request's form data.
+    </prop>
+    <prop type="_multipart.FormDataFile" name="file" initial="null">
+      A single file extracted from the request's form data.
+    </prop>
+
     <!-- ROUTER -->
     <prop type="?string" name="_matchedRoute" initial="null">
       When middleware was invoked by the router, this will set the url, e.g., `user/:id`.
@@ -41,7 +48,7 @@
     <prop type="?Object" name="params" initial="null">
       The parameters extracted from the router.
     </prop>
-    <prop type="?_goa.Router" name="router" initial="null">
+    <prop type="?_idio.Router" name="router" initial="null">
       An instance of the router if the middleware was invoked via it.
     </prop>
   </interface>

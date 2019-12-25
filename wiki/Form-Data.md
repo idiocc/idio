@@ -20,3 +20,9 @@ The actual middleware functions can be generated using `.any`, `.single`, _etc_ 
 The configuration is from the <link external type="_multipart.FormDataConfig">`@multipart/form-data`</link> package.
 
 <typedef level="2" name="FormDataConfig" narrow>node_modules/@multipart/form-data/types/index.xml</typedef>
+
+%~%
+
+If files, or file, were extracted from the request, they will be assigned to `ctx` on `.file` or `.files` property. The type of this variable depends on the way the middleware was setup (`.fields`/`.files`/`.file`).
+
+<typedef slimFunctions level="2" name="FormDataFile" narrow>node_modules/@multipart/form-data/types/file.xml</typedef>

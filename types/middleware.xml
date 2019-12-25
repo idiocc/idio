@@ -16,6 +16,7 @@
   <import from="../types/options" ns="_idio" name="FormDataOptions" />
   <import from="../types/modules/form-data" ns="_multipart" name="FormDataConfig" />
   <import from="../types/modules/form-data" ns="_multipart" name="FormData" />
+  <import from="../types/modules/form-data" ns="_multipart" name="FormDataFile" />
 
   <import from="../types/options" ns="_idio" name="FrontEndOptions" />
 

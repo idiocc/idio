@@ -57,6 +57,16 @@ _idio.Context.prototype.sessionOptions
  */
 _idio.Context.prototype.compress
 /**
+ * Files extracted from the request's form data. Default `null`.
+ * @type {!Array<_multipart.FormDataFile>|!Object<string, !Array<_multipart.FormDataFile>>|_multipart.FormDataFile}
+ */
+_idio.Context.prototype.files
+/**
+ * A single file extracted from the request's form data. Default `null`.
+ * @type {_multipart.FormDataFile}
+ */
+_idio.Context.prototype.file
+/**
  * When middleware was invoked by the router, this will set the url, e.g., `user/:id`. Default `null`.
  * @type {?string}
  */
@@ -73,7 +83,7 @@ _idio.Context.prototype._matchedRouteName
 _idio.Context.prototype.params
 /**
  * An instance of the router if the middleware was invoked via it. Default `null`.
- * @type {?_goa.Router}
+ * @type {?_idio.Router}
  */
 _idio.Context.prototype.router
 /**
@@ -81,3 +91,10 @@ _idio.Context.prototype.router
  * @typedef {function(!_idio.Context,!Function=): (!Promise|void)}
  */
 _idio.Middleware
+
+/**
+ * Just manually add the router.
+ * @extends {_goa.Router}
+ * @interface
+ */
+_idio.Router = function() {}
