@@ -234,7 +234,7 @@ Connection: close
 
 ### Session
 
-<img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="right" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
+<img src="./doc/session.svg?sanitize=true" align="right" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
 
 Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
 
@@ -333,7 +333,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 10:58:39 GMT',
+  date: 'Wed, 25 Dec 2019 11:00:47 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -341,7 +341,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 10:58:39 GMT',
+  date: 'Wed, 25 Dec 2019 11:00:47 GMT',
   connection: 'close' }
 ```
 </td>
