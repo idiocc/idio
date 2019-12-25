@@ -20,6 +20,8 @@
   <import from="../types/modules/router" ns="_goa" name="RouterConfig" />
   <import from="../types/modules/router" ns="_goa" name="AllowedMethodsOptions" />
 
+  <import from="../types/options" ns="_idio" name="FrontEndOptions" />
+
   <record name="MiddlewareConfig"
     desc="Middleware configuration for the `idio` server."
     extends="_idio.FnMiddlewareConfig">
@@ -37,6 +39,9 @@
     </prop>
     <prop opt type="!_idio.FormDataOptions" name="form">
       _Form Data_ middleware options for receiving file uploads and form submissions.
+    </prop>
+    <prop opt type="!_idio.FrontEndOptions" name="frontend">
+      _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.
     </prop>
   </record>
 

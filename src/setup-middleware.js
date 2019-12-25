@@ -2,6 +2,7 @@ import compose from '@goa/compose'
 import session from '@goa/session'
 import Keygrip from '@goa/cookies/src/Keygrip'
 import cors from '@goa/cors'
+import frontend from '@idio/frontend'
 import FormData from '@multipart/form-data'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
@@ -94,7 +95,16 @@ const map = {
     const f = new FormData(config)
     return f
   },
-  // frontend: setupFrontend,
+  /**
+   * The Front End middleware.
+   * @param {!_goa.Application} app
+   * @param {!Object} config
+   * @param {_idio.FrontEndOptions} options
+   */
+  'frontend'(app, config, options) {
+    const f = frontend(options)
+    return f
+  },
 }
 
 /**
@@ -221,4 +231,8 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').ConfiguredMiddleware} _idio.ConfiguredMiddleware
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types/options').FrontEndOptions} _idio.FrontEndOptions
  */

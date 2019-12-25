@@ -1,0 +1,7 @@
+<types namespace="_idio">
+  <record extends="_idio.FrontEndConfig" name="FrontEndOptions" desc="Options for the frontend.">
+    <prop boolean name="use" default="false">
+      Use this middleware for every request.
+    </prop>
+  </record>
+</types>

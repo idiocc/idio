@@ -95,6 +95,11 @@ _idio.MiddlewareConfig.prototype.cors
  */
 _idio.MiddlewareConfig.prototype.form
 /**
+ * _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.
+ * @type {(!_idio.FrontEndOptions)|undefined}
+ */
+_idio.MiddlewareConfig.prototype.frontend
+/**
  * Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>}
  */
