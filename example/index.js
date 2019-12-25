@@ -45,7 +45,7 @@ import idio from '../compile'
     //  file: ctx.req.file.path,
     // })
     ctx.body = 'Thanks for the upload. Link: ' +
-      url + ctx.file.path
+      `${url}/${ctx.file.filename}`
   })
   /* end example */
   console.log(url)

@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <interface name="Router" extends="_goa.Router">
+  <interface name="Router" extends="_goa.Router" desc="The router decorated with HTTP method properties.">
     <fn name="acl" return="!_idio.Router">
       <arg type="string|!RegExp|!_idio.Middleware" name="...nameOrPathOrMiddleware">
         The arguments.

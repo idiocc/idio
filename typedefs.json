@@ -94,5 +94,17 @@
   "_idio.FrontEndConfig": {
     "link": "https://github.com/idiocc/idio/wiki/Front-End#type-frontendconfig",
     "description": "Options for the middleware."
+  },
+  "_multipart.FormDataFile": {
+    "link": "https://github.com/idiocc/idio/wiki/Form-Data#type-formdatafile",
+    "description": "The information about each file."
+  },
+  "_idio.Request": {
+    "link": "https://github.com/idiocc/idio/wiki/Home#type-request",
+    "description": "The Goa request with additional properties."
+  },
+  "_idio.Router": {
+    "link": "https://github.com/idiocc/idio/wiki/Router#type-router",
+    "description": "The router decorated with HTTP method properties."
   }
 }

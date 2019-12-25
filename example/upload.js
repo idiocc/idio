@@ -18,23 +18,25 @@ import idio from '../compile'
   router.post('/example',
     form.single('bio'),
     (ctx) => {
-      delete ctx.req.file.stream
-      ctx.body = ctx.req.file
+      delete ctx.file.stream
+      ctx.body = { file: ctx.file,
+        body: ctx.request.body }
     }
   )
   /* end example */
   const f = new Form()
   await f.addFile('example/bio.txt', 'bio')
+  f.addSection('hello', 'world')
   // console.log(url, '\n')
   let { body } = await aqt(`${url}/example`, {
     data: f.data,
     type: `multipart/form-data; boundary=${f.boundary}`,
   })
-  const path = body.path.replace(/upload\/(.{5}).+/, 'upload/$1')
-  const filename = body.filename.replace(/(.{5}).+/, '$1')
-  console.log({ ...body, path, filename })
   try {
-    await rm(body.path)
+    await rm(body.file.path)
+    body.file.path = body.file.path.replace(/upload\/(.{5}).+/, 'upload/$1')
+    body.file.filename = body.file.filename.replace(/(.{5}).+/, '$1')
+    console.log(body)
   } finally {
     await app.destroy()
   }

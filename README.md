@@ -100,7 +100,7 @@ __<a name="type-idio">`Idio`</a>__: The return type of the idio.
 | __server*__     | <em><a href="https://nodejs.org/api/http.html#http_class_http_server" title="An HTTP server that extends net.Server to handle network requests."><img src=".documentary/type-icons/node-even.png" alt="Node.JS Docs">!http.Server</a></em> | The server instance.                                                                                                                                                                                                               |
 | __app*__        | <em><a href="https://github.com/idiocc/idio/wiki/Home#type-application" title="The application with some additions.">!Application</a></em>                                                                                                 | The Goa application instance (with additional `.destroy` method).                                                                                                                                                                  |
 | __middleware*__ | <em><a href="#type-configuredmiddleware" title="Idio-specific properties of the middleware object.">!ConfiguredMiddleware</a></em>                                                                                                         | An object with configured middleware functions, which can be installed manually using `app.use`, or `router.use`. The context will be a standard Goa context with certain properties set by bundled middleware such as `.session`. |
-| __router*__     | <em><a href="https://github.com/idiocc/goa-router/wiki/Home#type-router" title="Router For Goa Apps.">!_goa.Router</a></em>                                                                                                                | The router instance.                                                                                                                                                                                                               |
+| __router*__     | <em><a href="https://github.com/idiocc/idio/wiki/Router#type-router" title="The router decorated with HTTP method properties.">!Router</a></em>                                                                                            | The router instance.                                                                                                                                                                                                               |
 
 All middleware can be accessed from the `middleware` property, so that it can be installed on individual basis on specific routes, if it's not used app-wise.
 
@@ -121,20 +121,49 @@ The example below starts a simple server with session and custom middleware, whi
 <td>
 
 ```js
-const { url, app } = await idio({
+const { url, app,
+  middleware: { session, form },
+  router,
+} = await idio({
   // Idio's bundled middleware.
   session: {
-    use: true,
     algorithm: 'sha512',
     keys: ['hello', 'world'],
     prefix: 'example-',
   },
-
-  // Any middleware function to be installed.
+  static: {
+    use: true,
+    root: 'upload',
+  },
+  form: {
+    config: {
+      dest: 'upload',
+    },
+  },
+  // Any middleware function to be use app-wise.
   async middleware(ctx, next) {
-    ctx.body = 'hello world'
+    console.log('//', ctx.method, ctx.path)
     await next()
   },
+})
+app.use(router.routes())
+router.get('/', session, (ctx) => {
+  ctx.body = 'hello world'
+})
+router.post('/upload', session, async (ctx, next) => {
+  if (!ctx.session.user) {
+    ctx.status = 403
+    ctx.body = 'you must sign in to upload'
+    return
+  }
+  await next()
+}, form.single('/upload'), (ctx) => {
+  // db.create({
+  //  user: ctx.session.id,
+  //  file: ctx.req.file.path,
+  // })
+  ctx.body = 'Thanks for the upload. Link: ' +
+    `${url}/${ctx.file.filename}`
 })
 ```
 </td>
@@ -142,6 +171,7 @@ const { url, app } = await idio({
 
 ```
 http://localhost:5000
+// GET /
 hello world
 ```
 </td></tr>
@@ -272,17 +302,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTkuOSIsIl9leHBpcmUiOjE1NzczNTkzMjkyODgsIl9tYXhBZ2UiOjg2NDAwMDAwfQ==',
+    value: 'eyJ1c2VyIjoidTU0OS43IiwiX2V4cGlyZSI6MTU3NzM2NzUzMzI1NywiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Thu, 26 Dec 2019 11:22:09 GMT',
+    expires: 'Thu, 26 Dec 2019 13:38:53 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'mtqDlVab71MgB-edSIG-IuWiU_dfJg1eZ1ztu2SrJeZAxa2fHurTFaP6XKIscqPNVaeXIljWr1L7WYbjzQeA3w',
+    value: 'gRg8pz_z9PMcsPHuwGS6Suvc1-IFvjzenszmClzfzOI00fwEMUnoGZ0yud8dTFR9dF-Tj_M3_WZEDjj9Bp2DFg',
     path: '/',
-    expires: 'Thu, 26 Dec 2019 11:22:09 GMT',
+    expires: 'Thu, 26 Dec 2019 13:38:53 GMT',
     httponly: true } ]
 // GET /
-"welcome back u9.9"
+"welcome back u549.7"
 ```
 </td>
 </tr>
@@ -332,7 +362,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 11:22:10 GMT',
+  date: 'Wed, 25 Dec 2019 13:43:01 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -340,7 +370,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 11:22:10 GMT',
+  date: 'Wed, 25 Dec 2019 13:43:01 GMT',
   connection: 'close' }
 ```
 </td>
@@ -384,7 +414,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Wed, 25 Dec 2019 11:22:11 GMT',
+  date: 'Wed, 25 Dec 2019 13:38:55 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -420,8 +450,9 @@ app.use(router.routes())
 router.post('/example',
   form.single('bio'),
   (ctx) => {
-    delete ctx.req.file.stream
-    ctx.body = ctx.req.file
+    delete ctx.file.stream
+    ctx.body = { file: ctx.file,
+      body: ctx.request.body }
   }
 )
 ```
@@ -429,14 +460,16 @@ router.post('/example',
 <td>
 
 ```js
-{ fieldname: 'bio',
-  originalname: 'bio.txt',
-  encoding: '7bit',
-  mimetype: 'application/octet-stream',
-  destination: 'example/upload',
-  filename: '23da0',
-  path: 'example/upload/23da0',
-  size: 29 }
+{ file: 
+   { fieldname: 'bio',
+     originalname: 'bio.txt',
+     encoding: '7bit',
+     mimetype: 'application/octet-stream',
+     destination: 'example/upload',
+     filename: '320ef',
+     path: 'example/upload/320ef',
+     size: 29 },
+  body: { hello: 'world' } }
 ```
 </td>
 </tr>

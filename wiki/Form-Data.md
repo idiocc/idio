@@ -26,3 +26,5 @@ The configuration is from the <link external type="_multipart.FormDataConfig">`@
 If files, or file, were extracted from the request, they will be assigned to `ctx` on `.file` or `.files` property. The type of this variable depends on the way the middleware was setup (`.fields`/`.files`/`.file`).
 
 <typedef slimFunctions level="2" name="FormDataFile" narrow>node_modules/@multipart/form-data/types/file.xml</typedef>
+
+The request object on the context will also be assigned the `.body` property with parsed key-value pairs.
