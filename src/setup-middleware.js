@@ -12,6 +12,17 @@ import { Z_SYNC_FLUSH } from 'zlib'
 
 const debug = Debug('idio')
 
+const proxyFD = (original) => {
+  /** @type {!_idio.Middleware} */
+  async function middleware(ctx, next) {
+    if (ctx.req.file) ctx.file = ctx.req.file
+    if (ctx.req.files) ctx.files = ctx.req.files
+    if (ctx.req.body) ctx.request.body = ctx.req.body
+    await next()
+  }
+  return compose([original, middleware])
+}
+
 const map = {
   // multer: setupMulter,
   // csrf: setupCsrf,
@@ -109,7 +120,24 @@ const map = {
    */
   'form'(app, config, options) {
     // todo check options to return middleware
-    const f = new FormData(config)
+    class FD extends FormData {
+      any() {
+        return proxyFD(super.any())
+      }
+      array(...args) {
+        return proxyFD(super.array(...args))
+      }
+      fields(...args) {
+        return proxyFD(super.fields(...args))
+      }
+      none(...args) {
+        return proxyFD(super.none(...args))
+      }
+      single(...args) {
+        return proxyFD(super.single(...args))
+      }
+    }
+    const f = new FD(config)
     return f
   },
   /**
@@ -192,6 +220,10 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('@typedefs/goa').Middleware} _goa.Middleware
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').Middleware} _idio.Middleware
  */
 /**
  * @suppress {nonStandardJsDocs}

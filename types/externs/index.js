@@ -35,12 +35,29 @@ _idio.Application.prototype.destroy = function() {}
  */
 _idio.Application.prototype.use = function(middleware) {}
 /**
+ * The Goa request with additional properties.
+ * Constructor method.
+ * @extends {_goa.Request}
+ * @interface
+ */
+_idio.Request = function() {}
+/**
+ * Parsed body of the request, extract using _Form Data_ middleware. Default `null`.
+ * @type {Object}
+ */
+_idio.Request.prototype.body
+/**
  * The extension to the standard Goa context with properties set by middleware.
  * Constructor method.
  * @extends {_goa.Context}
  * @interface
  */
 _idio.Context = function() {}
+/**
+ * The request instance specific to _Idio_.
+ * @type {!_idio.Request}
+ */
+_idio.Context.prototype.request
 /**
  * The session object for updating, if `session` was installed. Set the `ctx.session` to null to destroy the session.
  * @type {!_idio.Session|undefined}

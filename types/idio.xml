@@ -18,7 +18,16 @@
     </fn>
   </interface>
 
+  <interface name="Request" extends="_goa.Request" desc="The Goa request with additional properties.">
+    <prop type="Object" name="body" initial="null">
+      Parsed body of the request, extract using _Form Data_ middleware.
+    </prop>
+  </interface>
+
   <interface name="Context" extends="_goa.Context" desc="The extension to the standard Goa context with properties set by middleware.">
+    <prop name="request" type="!_idio.Request">
+      The request instance specific to _Idio_.
+    </prop>
     <!-- SESSION -->
     <prop name="session" type="!_idio.Session|undefined">
       The session object for updating, if `session` was installed. Set the `ctx.session` to null to destroy the session.
@@ -31,6 +40,7 @@
       A flag that can be added to explicitly set whether the response should be compressed by the `compress` middleware.
     </prop>
 
+    <!-- FORM-DATA -->
     <prop type="!Array<_multipart.FormDataFile>|!Object<string, !Array<_multipart.FormDataFile>>|_multipart.FormDataFile" name="files" initial="null">
       Files extracted from the request's form data.
     </prop>

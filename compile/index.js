@@ -74,6 +74,7 @@ module.exports.compose = $compose
  * @typedef {import('../types/goa/typedefs/application').Application} _goa.Application
  * @typedef {import('../types/goa/typedefs/application').Middleware} _goa.Middleware
  * @typedef {import('../types/goa/typedefs/context').Context} _goa.Context
+ * @typedef {import('../types/goa/typedefs/request').Request} _goa.Request
  *
  * @typedef {import('./router').RouterConfig} _goa.RouterConfig
  */
@@ -87,9 +88,14 @@ module.exports.compose = $compose
  * @prop {!Array<!_idio.Middleware>} middleware The array with middleware used on the server. Default `[]`.
  * @prop {() => !Promise} destroy Terminate all active connections and close the server.
  * @prop {(middleware: !_idio.Middleware) => !_idio.Application} use Use the given middleware `fn`. Old-style middleware will be converted.
+ * @typedef {_idio.Request} Request `＠interface` The Goa request with additional properties.
+ * @typedef {_goa.Request & _idio.$Request} _idio.Request `＠interface` The Goa request with additional properties.
+ * @typedef {Object} _idio.$Request `＠interface` The Goa request with additional properties.
+ * @prop {Object} body Parsed body of the request, extract using _Form Data_ middleware. Default `null`.
  * @typedef {_idio.Context} Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @typedef {_goa.Context & _idio.$Context} _idio.Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @typedef {Object} _idio.$Context `＠interface` The extension to the standard Goa context with properties set by middleware.
+ * @prop {!_idio.Request} request The request instance specific to _Idio_.
  * @prop {!_idio.Session|undefined} session The session object for updating, if `session` was installed. Set the `ctx.session` to null to destroy the session.
  * @prop {!_idio.SessionConfig|undefined} sessionOptions The options used to create the session middleware. Deep cloned for each request.
  * @prop {?boolean} compress A flag that can be added to explicitly set whether the response should be compressed by the `compress` middleware. Default `null`.

@@ -53,6 +53,7 @@ module.exports.compose = $compose
  * @typedef {import('../types/goa/typedefs/application').Application} _goa.Application
  * @typedef {import('../types/goa/typedefs/application').Middleware} _goa.Middleware
  * @typedef {import('../types/goa/typedefs/context').Context} _goa.Context
+ * @typedef {import('../types/goa/typedefs/request').Request} _goa.Request
  *
  * @typedef {import('./router').RouterConfig} _goa.RouterConfig
  */
