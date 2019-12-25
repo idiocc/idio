@@ -1,6 +1,6 @@
 ### Session
 
-<img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="left" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
+<img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="right" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
 
 Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
 
@@ -13,8 +13,7 @@ Allows to store data in the `.session` property of the context. The session is s
 </td>
 </tr>
 <tr><td>
-
-The session data is encrypted with `base64` and signed by default, unless the `.signed` option is set to false. Signing means that the signature will contain the hash which will be validated server-side, to ensure that the session data was not modified by the client. The default algorithm for signing is `sha1`, but it can be easily changed to a more secure `sha512`.
+<md2html>The session data is encrypted with `base64` and signed by default, unless the `.signed` option is set to false. Signing means that the signature will contain the hash which will be validated server-side, to ensure that the session data was not modified by the client. The default algorithm for signing is `sha1`, but it can be easily changed to a more secure `sha512`.</md2html>
 </td>
 </tr>
 <tr>

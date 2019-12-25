@@ -1,6 +1,6 @@
 ### Front End
 
-<a href="../../wiki/Front-End"><img src="https://raw.github.com/idiocc/core/master/images/frontend.svg?sanitize=true" align="left" height="100"></a>
+<a href="../../wiki/Front-End"><img src="https://raw.github.com/idiocc/core/master/images/frontend.svg?sanitize=true" align="right" height="100"></a>
 <kbd>🌐[Explore Front End Middleware Configuration](../../wiki/Front-End)</kbd>
 
 Web applications are always full stack and involve both back-end together with front-end. Whereas all previously described middleware was for the server only, the front-end middleware facilitates browser development, as it allows to serve source code from `node_modules` directory and transpile JSX. Modern browsers support modules, but JavaScript needs to be patched to rename imports like

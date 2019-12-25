@@ -234,7 +234,7 @@ Connection: close
 
 ### Session
 
-<img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="left" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
+<img src="https://raw.github.com/idiocc/core/master/images/session.svg?sanitize=true" align="right" height="100"><kbd>👳‍♂️[Explore Session Middleware Configuration](../../wiki/Session)</kbd>
 
 Allows to store data in the `.session` property of the context. The session is serialised and placed in cookies. When the request contains the cookie, the session will be restored and validated (if signed) against the key.
 
@@ -262,8 +262,7 @@ const { url, app } = await idio({
 </td>
 </tr>
 <tr><td>
-
-The session data is encrypted with `base64` and signed by default, unless the `.signed` option is set to false. Signing means that the signature will contain the hash which will be validated server-side, to ensure that the session data was not modified by the client. The default algorithm for signing is `sha1`, but it can be easily changed to a more secure `sha512`.
+The session data is encrypted with <code>base64</code> and signed by default, unless the <code>.signed</code> option is set to false. Signing means that the signature will contain the hash which will be validated server-side, to ensure that the session data was not modified by the client. The default algorithm for signing is <code>sha1</code>, but it can be easily changed to a more secure <code>sha512</code>.
 </td>
 </tr>
 <tr>
@@ -334,7 +333,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 10:51:11 GMT',
+  date: 'Wed, 25 Dec 2019 10:58:39 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -342,7 +341,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 10:51:11 GMT',
+  date: 'Wed, 25 Dec 2019 10:58:39 GMT',
   connection: 'close' }
 ```
 </td>
@@ -355,10 +354,10 @@ const { url, app } = await idio({
 
 ### Compression
 
-<a href="../../wiki/cors"><img src="https://raw.github.com/idiocc/core/master/images/compress.svg?sanitize=true" align="left" height="100"></a>
+<a href="../../wiki/compression"><img src="https://raw.github.com/idiocc/core/master/images/compress.svg?sanitize=true" align="right" height="100"></a>
 <kbd>🗜[Explore Compression Middleware Configuration](../../wiki/Compression)</kbd>
 
-When the body of the response is set to a string (or JSON, but not a stream), the response can be compressed using gzip compression. This allows to save data transmitted over the network. Compression with streams is only possible when there's no threshold, or if the stream contains the `.length` property.
+When the body of the response is non-empty, it can be compressed using `gzip` algorithm. This allows to save data transmitted over the network. The default threshold is `1024` bytes, since below that the benefits of compression are lost as the compressed response might end up being even larger.
 
 <table>
 <tr><th><a href="example/compression.js">Compression source</a></th><th>The Output</th></tr>
@@ -450,7 +449,7 @@ router.post('/example',
 
 ### Front End
 
-<a href="../../wiki/Front-End"><img src="https://raw.github.com/idiocc/core/master/images/frontend.svg?sanitize=true" align="left" height="100"></a>
+<a href="../../wiki/Front-End"><img src="https://raw.github.com/idiocc/core/master/images/frontend.svg?sanitize=true" align="right" height="100"></a>
 <kbd>🌐[Explore Front End Middleware Configuration](../../wiki/Front-End)</kbd>
 
 Web applications are always full stack and involve both back-end together with front-end. Whereas all previously described middleware was for the server only, the front-end middleware facilitates browser development, as it allows to serve source code from `node_modules` directory and transpile JSX. Modern browsers support modules, but JavaScript needs to be patched to rename imports like
