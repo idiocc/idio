@@ -33,6 +33,7 @@ npm install @idio/idio
   * [CORS](#cors)
   * [Compression](#compression)
   * [File Upload](#file-upload)
+  * [Front End](#front-end)
 - [Custom Middleware](#custom-middleware)
 - [Router Set-up](#router-set-up)
 - [Copyright & License](#copyright--license)
@@ -68,13 +69,14 @@ There are multiple items for middleware configuration:
 __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareConfig__: Middleware configuration for the `idio` server.
 
 
-|   Name   |                                                                                   Type                                                                                   |                                   Description                                   |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">!StaticOptions</a></em> | _Static_ middleware options.                                                    |
-| compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                        | _Compression_ middleware options.                                               |
-| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">!SessionOptions</a></em>                                  | _Session_ middleware options.                                                   |
-| cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                       | _CORS_ middleware options.                                                      |
-| form     | <em>[!FormDataOptions](https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions)</em>                                                                          | _Form Data_ middleware options for receiving file uploads and form submissions. |
+|   Name   |                                                                                     Type                                                                                      |                                        Description                                        |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">!StaticOptions</a></em>      | _Static_ middleware options.                                                              |
+| compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                             | _Compression_ middleware options.                                                         |
+| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session.">!SessionOptions</a></em>                                       | _Session_ middleware options.                                                             |
+| cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                            | _CORS_ middleware options.                                                                |
+| form     | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em> | _Form Data_ middleware options for receiving file uploads and form submissions.           |
+| frontend | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                  | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX. |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -188,7 +190,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:58363/app.css */ 
+/** http://localhost:62290/app.css */ 
 
 body {
   font-size: larger;
@@ -209,7 +211,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Tue, 24 Dec 2019 13:20:06 GMT
+Date: Wed, 25 Dec 2019 08:59:40 GMT
 Connection: close
 ```
 
@@ -218,7 +220,7 @@ Connection: close
 ```http
 Content-Type: text/plain; charset=utf-8
 Content-Length: 9
-Date: Tue, 24 Dec 2019 13:20:06 GMT
+Date: Wed, 25 Dec 2019 08:59:41 GMT
 Connection: close
 ```
 </details>
@@ -266,7 +268,7 @@ const { url, app } = await idio({
 http://localhost:5000 
 
 / hello new user
-/ welcome back u624.3
+/ welcome back u567.8
 ```
 </td>
 </tr>
@@ -316,7 +318,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Tue, 24 Dec 2019 14:15:02 GMT',
+  date: 'Wed, 25 Dec 2019 09:18:57 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -324,7 +326,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Tue, 24 Dec 2019 14:15:02 GMT',
+  date: 'Wed, 25 Dec 2019 09:18:57 GMT',
   connection: 'close' }
 ```
 </td>
@@ -368,7 +370,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Tue, 24 Dec 2019 13:44:08 GMT',
+  date: 'Wed, 25 Dec 2019 08:59:44 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -418,8 +420,8 @@ router.post('/example',
   encoding: '7bit',
   mimetype: 'application/octet-stream',
   destination: 'example/upload',
-  filename: 'e2d22',
-  path: 'example/upload/e2d22',
+  filename: 'd14d3',
+  path: 'example/upload/d14d3',
   size: 29 }
 ```
 </td>
@@ -428,6 +430,67 @@ router.post('/example',
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/8.svg?sanitize=true">
+</a></p>
+
+### Front End
+
+<a href="../../wiki/Form-Data"><img src="https://raw.github.com/idiocc/core/master/images/frontend.svg?sanitize=true" align="left" height="100"></a>
+<kbd>🖼[Explore Front End Middleware Configuration](../../wiki/Form-Data)</kbd>
+
+Web applications are always full stack and involve both back-end together with front-end. Whereas all previously described middleware was for the server only, the front-end middleware facilitates browser development, as it allows to serve source code from `node_modules` directory and transpile JSX. Modern browsers support modules, but JavaScript needs to be patched to rename imports like `import X from 'package-name'` into `import X from '/node_modules/package-name/src/index.mjs'`.
+
+<table>
+<tr><th><a href="example/frontend/index.js">Front End source</a></th><th>The Output</th></tr>
+<tr><td>
+
+```js
+const { url, app } = await idio({
+  frontend: {
+    use: true,
+    directory: 'example/frontend',
+  },
+})
+```
+
+</td>
+<td>
+
+```jsx
+import { render, Component } from 'preact'
+
+class MyComp extends Component {
+  render() {
+    return (<div className="example">
+      Hello World!
+    </div>)
+  }
+}
+
+render(MyComp, document.body)
+```
+
+Will be served as:
+
+```js
+import { h } from '/node_modules/preact/dist/preact.module.js'
+import { render, Component } from '/node_modules/preact/dist/preact.module.js'
+
+class MyComp extends Component {
+  render() {
+    return (h('div',{className:"example"},
+      `Hello World!`
+    ))
+  }
+}
+
+render(MyComp, document.body)
+```
+</td>
+</tr>
+</table>
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/9.svg?sanitize=true">
 </a></p>
 
 ## Custom Middleware
@@ -520,7 +583,7 @@ When required to add any other middleware in the application not included in the
     ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/9.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/10.svg?sanitize=true">
 </a></p>
 
 ## Router Set-up
@@ -611,7 +674,7 @@ Page available at: http://localhost:5003
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/10.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/11.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License

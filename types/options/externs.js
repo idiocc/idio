@@ -3,8 +3,6 @@
  * @externs
  */
 /* typal types/options/static.xml externs */
-/** @const */
-var _idio = {}
 /**
  * The top-level options when setting up the static middleware.
  * @record
@@ -75,6 +73,8 @@ _idio.SessionOptions.prototype.use
 _idio.SessionOptions.prototype.config
 
 /* typal types/options/cors.xml externs */
+/** @const */
+var _idio = {}
 /**
  * @record
  */
@@ -103,3 +103,16 @@ _idio.CorsOptions.prototype.config
  * @typedef {{ config: (_multipart.FormDataConfig|undefined) }}
  */
 _idio.FormDataOptions
+
+/* typal types/options/index.xml externs */
+/**
+ * Options for the frontend.
+ * @extends {_idio.FrontEndConfig}
+ * @record
+ */
+_idio.FrontEndOptions
+/**
+ * Use this middleware for every request. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.FrontEndOptions.prototype.use

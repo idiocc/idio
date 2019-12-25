@@ -73,7 +73,7 @@
   },
   "_idio.FormDataOptions": {
     "link": "https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions",
-    "description": null
+    "description": "Options for Form Data (and file uploads) streams handling."
   },
   "_idio.ConfiguredMiddleware": {
     "link": "https://github.com/idiocc/idio#type-configuredmiddleware",
@@ -86,5 +86,13 @@
   "_multipart.FormDataConfig": {
     "link": "https://github.com/idiocc/idio/wiki/Form-Data#type-formdataconfig",
     "description": "The configuration for the instance."
+  },
+  "_idio.FrontEndOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions",
+    "description": "Options for the frontend."
+  },
+  "_idio.FrontEndConfig": {
+    "link": "https://github.com/idiocc/idio/wiki/Front-End#type-frontendconfig",
+    "description": "Options for the middleware."
   }
 }

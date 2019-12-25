@@ -10,7 +10,7 @@ import idio from '../../compile'
     },
   })
   /* end example */
-  let { body } = await aqt(`${url}/example`)
+  let { body } = await aqt(`${url}/example/frontend/example`)
   console.log(body)
 
   await app.destroy()

@@ -98,11 +98,12 @@ const map = {
   /**
    * The Front End middleware.
    * @param {!_goa.Application} app
-   * @param {!Object} config
+   * @param {!Object} _
    * @param {_idio.FrontEndOptions} options
    */
-  'frontend'(app, config, options) {
-    const f = frontend(options)
+  'frontend'(app, _, options) {
+    const config = /** @type {_idio.FrontEndConfig} */ (options)
+    const f = frontend(config)
     return f
   },
 }
@@ -235,4 +236,8 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../types/options').FrontEndOptions} _idio.FrontEndOptions
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types/options').FrontEndConfig} _idio.FrontEndConfig
  */
