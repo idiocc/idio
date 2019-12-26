@@ -1,6 +1,7 @@
 import aqt from '@rqt/aqt'
+import { parse } from 'path'
 import idio from '../../compile'
-import { readFileSync } from 'fs'
+import { readFileSync, createReadStream } from 'fs'
 import { join } from 'path'
 
 (async () => {
@@ -8,10 +9,6 @@ import { join } from 'path'
   const { url, app, router } = await idio({
     compress: {
       use: true,
-      config: {
-        // default threashold
-        threshold: 1024,
-      },
     },
   }, { port: null })
   router.use(async (ctx, next) => {
@@ -21,14 +18,17 @@ import { join } from 'path'
   app.use(router.routes())
 
   router.get('/file/:filename', (ctx) => {
-    ctx.body = readFileSync(join(
-      'example/wiki', ctx.params.filename), 'utf8')
+    const { filename } = ctx.params
+    ctx.type = parse(filename).ext
+    ctx.body = createReadStream(join(
+      'example/wiki', filename))
   })
   router.get('/raw/:filename', (ctx) => {
+    const { filename } = ctx.params
     // disable compression manually
     ctx.compress = false
     ctx.body = readFileSync(join(
-      'example/wiki', ctx.params.filename))
+      'example/wiki', filename))
   })
   /* end example */
   try {

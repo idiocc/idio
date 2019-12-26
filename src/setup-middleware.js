@@ -6,7 +6,7 @@ import frontend from '@idio/frontend'
 import FormData from '@multipart/form-data'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
-import compress from '@goa/compress/src'
+import compress from '@goa/compress'
 import Debug from '@idio/debug'
 import { constants } from 'zlib'
 

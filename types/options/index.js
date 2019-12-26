@@ -2,7 +2,7 @@ export {}
 /* typal types/options/compress.xml namespace */
 /**
  * @typedef {_idio.CompressOptions} CompressOptions `＠record`
- * @typedef {_goa.CompressConfig & _idio.$CompressOptions} _idio.CompressOptions `＠record`
+ * @typedef {_idio.$CompressOptions & _goa.CompressConfig} _idio.CompressOptions `＠record`
  * @typedef {Object} _idio.$CompressOptions `＠record`
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  * @prop {number} [flush=Z_SYNC_FLUSH] Deflate flush method for [zlib options](https://nodejs.org/api/zlib.html#zlib_class_options).
@@ -18,7 +18,7 @@ export {}
 /**
  * @typedef {import('zlib').ZlibOptions} zlib.ZlibOptions
  * @typedef {_goa.CompressConfig} CompressConfig `＠record`
- * @typedef {zlib.ZlibOptions & _goa.$CompressConfig} _goa.CompressConfig `＠record`
+ * @typedef {_goa.$CompressConfig & zlib.ZlibOptions} _goa.CompressConfig `＠record`
  * @typedef {Object} _goa.$CompressConfig `＠record`
  * @prop {number} [threshold=1024] Minimum response size in bytes to compress. Default `1024`.
  * @prop {(type?: string) => boolean} [filter] An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
@@ -38,7 +38,7 @@ export {}
 /* typal types/options/session.xml namespace */
 /**
  * @typedef {_idio.SessionOptions} SessionOptions `＠record` Options for the session that extend the session config.
- * @typedef {_idio.SessionConfig & _idio.$SessionOptions} _idio.SessionOptions `＠record` Options for the session that extend the session config.
+ * @typedef {_idio.$SessionOptions & _idio.SessionConfig} _idio.SessionOptions `＠record` Options for the session that extend the session config.
  * @typedef {Object} _idio.$SessionOptions `＠record` Options for the session that extend the session config.
  * @prop {!Array<string>} [keys] A set of keys to be installed in `app.keys`, if signing cookies. Required by default, but can be omitted when setting the `signed` config option to `false`.
  * @prop {string} [algorithm] Optional algorithm for _Keygrip_, e.g., `sha512` (default is `sha1`).
@@ -95,7 +95,7 @@ export {}
 /* typal types/options/index.xml namespace */
 /**
  * @typedef {_idio.FrontEndOptions} FrontEndOptions `＠record` Options for the frontend.
- * @typedef {_idio.FrontEndConfig & _idio.$FrontEndOptions} _idio.FrontEndOptions `＠record` Options for the frontend.
+ * @typedef {_idio.$FrontEndOptions & _idio.FrontEndConfig} _idio.FrontEndOptions `＠record` Options for the frontend.
  * @typedef {Object} _idio.$FrontEndOptions `＠record` Options for the frontend.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  */

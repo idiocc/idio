@@ -414,9 +414,9 @@ text-decoding@^1.0.0:
   integrity sha512-/0TJD42KDnVwKmDK6jj3xP7E2MG7SHAOG4tyTgyUCRPdHwvkquYNLEQltmdMa3owq3TkddCVcTsoctJI8VQNKA==
 
 typal@^1.24.19:
-  version "1.24.19"
-  resolved "https://registry.yarnpkg.com/typal/-/typal-1.24.19.tgz#b77d62a25cf65bfbb13808d3939a571c8a65a8f4"
-  integrity sha512-LAdurZ+1RxVKXkxGR9qr+CM7b5DfQ+HB7zk1dBd2YVL3mcCS+s0K5k/5plxM3NMPcmjQi12nz2woWxoQp9nnbQ==
+  version "1.24.20"
+  resolved "https://registry.yarnpkg.com/typal/-/typal-1.24.20.tgz#f530f810c138787cddd417ec959faae42df3f089"
+  integrity sha512-/0ocJ/c5YBdYUT2Dh6l+/dCXHqifKF3QujYCgKLBBh9OC/6UzP2hcmiksGW68XPrjke8q0yhJfc7Jm+Kmpboaw==
 
 typework@^0.1.1:
   version "0.1.1"

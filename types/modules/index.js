@@ -1,15 +1,5 @@
 export {}
 
-/* typal node_modules/@goa/compress/types/index.xml namespace */
-/**
- * @typedef {import('zlib').ZlibOptions} zlib.ZlibOptions
- * @typedef {_goa.CompressConfig} CompressConfig `＠record`
- * @typedef {zlib.ZlibOptions & _goa.$CompressConfig} _goa.CompressConfig `＠record`
- * @typedef {Object} _goa.$CompressConfig `＠record`
- * @prop {number} [threshold=1024] Minimum response size in bytes to compress. Default `1024`.
- * @prop {(type?: string) => boolean} [filter] An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
- */
-
 /* typal types/modules/set-headers.xml namespace */
 /**
  * @typedef {import('http').ServerResponse} http.ServerResponse

@@ -115,18 +115,18 @@ module.exports.compose = $compose
 /* typal types/idio.xml namespace ignore:_goa.Application,_goa.Context */
 /**
  * @typedef {_idio.Application} Application `＠interface` The application with some additions.
- * @typedef {_goa.Application & _idio.$Application} _idio.Application `＠interface` The application with some additions.
+ * @typedef {_idio.$Application & _goa.Application} _idio.Application `＠interface` The application with some additions.
  * @typedef {Object} _idio.$Application `＠interface` The application with some additions.
  * @prop {!_idio.Context} context The context object for each request.
  * @prop {!Array<!_idio.Middleware>} middleware The array with middleware used on the server. Default `[]`.
  * @prop {() => !Promise} destroy Terminate all active connections and close the server.
  * @prop {(middleware: !_idio.Middleware) => !_idio.Application} use Use the given middleware `fn`. Old-style middleware will be converted.
  * @typedef {_idio.Request} Request `＠interface` The Goa request with additional properties.
- * @typedef {_goa.Request & _idio.$Request} _idio.Request `＠interface` The Goa request with additional properties.
+ * @typedef {_idio.$Request & _goa.Request} _idio.Request `＠interface` The Goa request with additional properties.
  * @typedef {Object} _idio.$Request `＠interface` The Goa request with additional properties.
  * @prop {Object} body Parsed body of the request, extract using _Form Data_ middleware. Default `null`.
  * @typedef {_idio.Context} Context `＠interface` The extension to the standard Goa context with properties set by middleware.
- * @typedef {_goa.Context & _idio.$Context} _idio.Context `＠interface` The extension to the standard Goa context with properties set by middleware.
+ * @typedef {_idio.$Context & _goa.Context} _idio.Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @typedef {Object} _idio.$Context `＠interface` The extension to the standard Goa context with properties set by middleware.
  * @prop {!_idio.Request} request The request instance specific to _Idio_.
  * @prop {!_idio.Session|undefined} session The session object for updating, if `session` was installed. Set the `ctx.session` to null to destroy the session.
@@ -160,7 +160,7 @@ module.exports.compose = $compose
  * @typedef {_idio.MiddlewareObject} MiddlewareObject The object with all configured middleware after the server has been configured.
  * @typedef {!Object<string, !_idio.Middleware>} _idio.MiddlewareObject The object with all configured middleware after the server has been configured.
  * @typedef {_idio.ConfiguredMiddleware} ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
- * @typedef {_idio.MiddlewareObject & _idio.$ConfiguredMiddleware} _idio.ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
+ * @typedef {_idio.$ConfiguredMiddleware & _idio.MiddlewareObject} _idio.ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
  * @typedef {Object} _idio.$ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
  * @prop {!_multipart.FormData} [form] An instance of the form data class that can be used to create middleware.
  * @prop {!_idio.Middleware} [session] The session middleware to be installed on individual routes.
@@ -183,7 +183,7 @@ module.exports.compose = $compose
  * @typedef {import('../types/modules/form-data').FormDataFile} _multipart.FormDataFile
  * @typedef {import('../types/options').FrontEndOptions} _idio.FrontEndOptions
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
- * @typedef {_idio.FnMiddlewareConfig & _idio.$MiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
+ * @typedef {_idio.$MiddlewareConfig & _idio.FnMiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {Object} _idio.$MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @prop {!_idio.StaticOptions} [static] _Static_ middleware options.
  * @prop {!_idio.CompressOptions} [compress] _Compression_ middleware options.

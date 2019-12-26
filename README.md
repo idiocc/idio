@@ -302,17 +302,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTY4OC41IiwiX2V4cGlyZSI6MTU3NzM2ODAwNzc4MCwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTMzNS41IiwiX2V4cGlyZSI6MTU3NzQ0NTA5NDk4OCwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Thu, 26 Dec 2019 13:46:47 GMT',
+    expires: 'Fri, 27 Dec 2019 11:11:34 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'M3tM58pnZ7p0MMCqOEQoM9fb83m3h3z8-bPXqblF1dyDlaetSfsJbgBjShNvu5fcfjQpO-4yCEOSvhdbLYupvg',
+    value: 'njlLRlG5VMuefCz_mD_nCx4YmkNa4x-GvWCr_ubiSQShEH9y-HL2TmPW-SA-8J5__tZ8tXJRR-9u36VbIOGQdg',
     path: '/',
-    expires: 'Thu, 26 Dec 2019 13:46:47 GMT',
+    expires: 'Fri, 27 Dec 2019 11:11:34 GMT',
     httponly: true } ]
 // GET /
-"welcome back u688.5"
+"welcome back u335.5"
 ```
 </td>
 </tr>
@@ -362,7 +362,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 13:46:48 GMT',
+  date: 'Thu, 26 Dec 2019 11:11:35 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
@@ -370,7 +370,7 @@ const { url, app } = await idio({
   'content-length': '11',
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 25 Dec 2019 13:46:48 GMT',
+  date: 'Thu, 26 Dec 2019 11:11:35 GMT',
   connection: 'close' }
 ```
 </td>
@@ -414,7 +414,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Wed, 25 Dec 2019 13:46:49 GMT',
+  date: 'Thu, 26 Dec 2019 11:11:36 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -466,8 +466,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '400bf',
-     path: 'example/upload/400bf',
+     filename: 'ff718',
+     path: 'example/upload/ff718',
      size: 29 },
   body: { hello: 'world' } }
 ```
@@ -534,8 +534,8 @@ Using the simple configuration from above, and a JSX file, the browser will rece
 <td colspan="2">
 
 ```js
-import { h } from '/node_modules/preact/dist/preact.module.js'
-import { render, Component } from '/node_modules/preact/dist/preact.module.js'
+import { h } from '/node_modules/preact/dist/preact.mjs'
+import { render, Component } from '/node_modules/preact/dist/preact.mjs'
 
 class MyComp extends Component {
   render() {
