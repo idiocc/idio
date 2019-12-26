@@ -6,9 +6,9 @@ import frontend from '@idio/frontend'
 import FormData from '@multipart/form-data'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
-import compress from '@goa/compress'
+import compress from '@goa/compress/src'
 import Debug from '@idio/debug'
-import { Z_SYNC_FLUSH } from 'zlib'
+import { constants } from 'zlib'
 
 const debug = Debug('idio')
 
@@ -53,16 +53,13 @@ const map = {
   },
   /**
    * @param {!_goa.Application} app
-   * @param {_goa.CompressConfig} config
-   * @param {_idio.CompressOptions} options
+   * @param {!Object} _
+   * @param {!_idio.CompressOptions} options
    */
-  'compress'(app, config, {
-    threshold = 1024,
-  }) {
+  'compress'(app, _, options) {
     const fn = compress({
-      threshold,
-      flush: Z_SYNC_FLUSH,
-      ...config,
+      flush: constants.Z_SYNC_FLUSH,
+      ...options,
     })
     return fn
   },
@@ -231,7 +228,7 @@ export default async function setupMiddleware(middlewareConfig, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').CompressOptions} _idio.CompressOptions
+ * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
  */
 
 /**

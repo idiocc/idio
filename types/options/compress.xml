@@ -1,12 +1,15 @@
 <types namespace="_idio">
-  <import from="@goa/compress" ns="_goa" name="CompressConfig" />
-
-  <record name="CompressOptions" noToc>
+  <record name="CompressOptions" extends="_goa.CompressConfig">
     <prop boolean name="use" default="false">
       Use this middleware for every request.
     </prop>
-    <prop opt type="!_goa.CompressConfig" name="config">
-      The `compress` configuration.
+    <prop number name="flush" default="Z_SYNC_FLUSH">
+      Deflate flush method for [zlib options](https://nodejs.org/api/zlib.html#zlib_class_options).
+      Must be one of the constants, e.g.,
+      ```js
+      import { constants } from 'zlib'
+      idio({ compress: { flush: constants.Z_FULL_FLUSH } })
+      ```
     </prop>
   </record>
 </types>

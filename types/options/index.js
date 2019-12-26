@@ -1,11 +1,27 @@
 export {}
 /* typal types/options/compress.xml namespace */
 /**
- * @typedef {import('@goa/compress').CompressConfig} _goa.CompressConfig
  * @typedef {_idio.CompressOptions} CompressOptions `＠record`
- * @typedef {Object} _idio.CompressOptions `＠record`
+ * @typedef {_goa.CompressConfig & _idio.$CompressOptions} _idio.CompressOptions `＠record`
+ * @typedef {Object} _idio.$CompressOptions `＠record`
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
- * @prop {!_goa.CompressConfig} [config] The `compress` configuration.
+ * @prop {number} [flush=Z_SYNC_FLUSH] Deflate flush method for [zlib options](https://nodejs.org/api/zlib.html#zlib_class_options).
+ * Must be one of the constants, e.g.,
+ * ```js
+ * import { constants } from 'zlib'
+ * idio({ compress: { flush: constants.Z_FULL_FLUSH } })
+ * ```
+ * Default `Z_SYNC_FLUSH`.
+ */
+
+/* typal node_modules/@goa/compress/types/index.xml namespace */
+/**
+ * @typedef {import('zlib').ZlibOptions} zlib.ZlibOptions
+ * @typedef {_goa.CompressConfig} CompressConfig `＠record`
+ * @typedef {zlib.ZlibOptions & _goa.$CompressConfig} _goa.CompressConfig `＠record`
+ * @typedef {Object} _goa.$CompressConfig `＠record`
+ * @prop {number} [threshold=1024] Minimum response size in bytes to compress. Default `1024`.
+ * @prop {(type?: string) => boolean} [filter] An optional function that checks the response content type to decide whether to compress. By default, it uses `compressible`.
  */
 
 /* typal types/options/static.xml namespace */
@@ -97,7 +113,6 @@ export {}
 
 /**
  * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
- * @typedef {import('../..').KoaCompressConfig} _idio.KoaCompressConfig
  * @typedef {import('../..').CorsConfig} _goa.CorsConfig
  * @typedef {import('../..').FormDataConfig} _multipart.FormDataConfig
  * @typedef {import('../..').Keygrip} _goa.Keygrip

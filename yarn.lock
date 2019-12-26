@@ -72,10 +72,10 @@
   resolved "https://registry.yarnpkg.com/@goa/compose/-/compose-1.0.0.tgz#3672a32269bec4bf061c8dd50a7ab22872c156c3"
   integrity sha512-NdFS/ijCZ4e1WSHZLsQq5CbUHvkK6a20tx2wfNJS2hw55o8iYpmFDGTSgDnQwj09/Lxy5Kj8R5TNq9+leK41xA==
 
-"@goa/compress@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@goa/compress/-/compress-1.0.0.tgz#e61fbeff2e17091b236883b97ae90c6ccc6db638"
-  integrity sha512-2BoLMP7K3hGc4pAS+2UU6z4u10ORjzAfJgtqYGEhqmfs2GZRnWSpLd0r/MTsFHfZv+UEioBKd6S6WV4rEMIaPQ==
+"@goa/compress@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@goa/compress/-/compress-1.1.0.tgz#58679f4cb9a8b1be1b8be0675aafa67a4377ee0e"
+  integrity sha512-XQArSn9t4Pl1aG8FVPrJtPDz0HqMuGP616oLpwP56JxS+OXXj40fFT4tSIISRxr0DKY9p2Pw+LyjSP1ctJGuKg==
   dependencies:
     mime-db "^1.42.0"
 
@@ -312,10 +312,10 @@ differently@^1.0.0:
   dependencies:
     erte "^1.2.0"
 
-documentary@^1.35.8:
-  version "1.35.8"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.8.tgz#17e86eeecdca6daa0c8058484e6ced78ce5e3199"
-  integrity sha512-/V3Qs4oru12RFl0zif4TPmTcJ0whCnaWZxOsblpkzyFx7wZkWK9QTMGMz1C2Qv2aYVswMjV2BKQuE5UBHAsa6Q==
+documentary@^1.35.9:
+  version "1.35.9"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.9.tgz#f0003b04c4a54325198e1189f81ba88aad87e21a"
+  integrity sha512-NnZvzx+429RfwgehvpSNvTXFEOR3bnrPW09TZpPxwa2QnPOdRybxoKDrluP6QoGDQslOKXrWkzSXO/lesqPsWw==
   dependencies:
     alamode "^3.3.0"
     preact "8.5.3"
@@ -369,15 +369,10 @@ pedantry@^2.3.1:
   resolved "https://registry.yarnpkg.com/pedantry/-/pedantry-2.5.0.tgz#02b2689ef64e87a1f36c731a400d305e80e96a54"
   integrity sha512-LU0IjJV+gayov2HTguIv5izijEZFB01Beq9+wwzHuFqSkLRMMg9pG7PfHzssZV1oJIfaZqWMitGwTDo8kuRHKg==
 
-preact@8.5.3:
+preact@8.5.3, preact@^8.5.3:
   version "8.5.3"
   resolved "https://registry.yarnpkg.com/preact/-/preact-8.5.3.tgz#78c2a5562fcecb1fed1d0055fa4ac1e27bde17c1"
   integrity sha512-O3kKP+1YdgqHOFsZF2a9JVdtqD+RPzCQc3rP+Ualf7V6rmRDchZ9MJbiGTT7LuyqFKZqlHSOyO/oMFmI2lVTsw==
-
-preact@^10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.1.1.tgz#1fd12e3ed6b74993ed8805f68e9d953cc914889a"
-  integrity sha512-mKW7Cdn68XMhdes0FjyIbA8+IVPsj3aIuAEQlZVkj9E2VhujWcXZEfwirBoXK6qZYfj1djaTBDCFKjAu1sK93w==
 
 resolve-dependency@^1.0.3:
   version "1.0.3"

@@ -38,6 +38,7 @@ _idio.StaticOptions.prototype.config
 
 /* typal types/options/compress.xml externs */
 /**
+ * @extends {_goa.CompressConfig}
  * @record
  */
 _idio.CompressOptions
@@ -47,10 +48,16 @@ _idio.CompressOptions
  */
 _idio.CompressOptions.prototype.use
 /**
- * The `compress` configuration.
- * @type {(!_goa.CompressConfig)|undefined}
+ * Deflate flush method for [zlib options](https://nodejs.org/api/zlib.html#zlib_class_options).
+ * Must be one of the constants, e.g.,
+ * ```js
+ * import { constants } from 'zlib'
+ * idio({ compress: { flush: constants.Z_FULL_FLUSH } })
+ * ```
+ * Default `Z_SYNC_FLUSH`.
+ * @type {number|undefined}
  */
-_idio.CompressOptions.prototype.config
+_idio.CompressOptions.prototype.flush
 
 /* typal types/options/session.xml externs */
 /**

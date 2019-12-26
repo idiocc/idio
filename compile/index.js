@@ -98,9 +98,6 @@ module.exports.compose = $compose
  * @typedef {_idio.StaticOptions} StaticOptions
  * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
  *
- * @typedef {_idio.CompressOptions} CompressOptions
- * @typedef {_goa.CompressConfig} CompressConfig
- *
  * @typedef {_idio.CorsOptions} CorsOptions
  * @typedef {_goa.CorsConfig} CorsConfig
  *

@@ -2,6 +2,7 @@ import { equal } from '@zoroaster/assert'
 import { gunzipSync } from 'zlib'
 import { request } from 'http'
 import Catchment from 'catchment'
+import { createReadStream, readFileSync } from 'fs'
 import { parse } from 'url'
 import Context from '../../context'
 
@@ -32,6 +33,21 @@ const T = {
     })
     const actual = gunzipSync(res).toString()
     equal(actual, body)
+  },
+  async 'uses compression on streams'({ createApp, startApp }) {
+    const { app, router } = await createApp({ compress: { use: true } })
+    app.use(router.routes())
+    router.get('/dracula.txt', async (ctx, next) => {
+      ctx.type = 'text/plain'
+      ctx.body = createReadStream('test/fixture/medium.txt', {
+        highWaterMark: 1024 * 32,
+      })
+      await next()
+    })
+    await startApp()
+      .get('/dracula.txt')
+      .assert(200, readFileSync('test/fixture/medium.txt', 'utf8'))
+      .assert('content-encoding', 'gzip')
   },
   async 'passes threshold to the constructor'({ createApp, startApp, readFixture, assignRoute }) {
     const body = await readFixture()
