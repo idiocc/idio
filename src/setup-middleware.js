@@ -94,18 +94,21 @@ const map = {
   /**
    * The CORS middleware.
    * @param {!_goa.Application} app
-   * @param {_goa.CorsConfig} config
-   * @param {_idio.CorsOptions} options
+   * @param {!Object} _
+   * @param {!_idio.CorsOptions} options
    */
-  'cors'(app, config, { origin }) {
+  'cors'(app, _, options) {
+    const { origin, ...rest } = options
+
     const o = Array.isArray(origin) ? (ctx) => {
       const oh = ctx.get('Origin')
       const found = origin.find(a => a == oh)
       return found
     } : origin
+
     const fn = cors({
       origin: o,
-      ...config,
+      ...rest,
     })
     return fn
   },
@@ -241,19 +244,11 @@ export default async function setupMiddleware(middlewareConfig, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').CorsOptions} _idio.CorsOptions
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('..').CorsConfig} _goa.CorsConfig
+ * @typedef {import('../types/options').CorsOptions} _idio.CorsOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').KoaStaticConfig} _idio.KoaStaticConfig
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('..').CompressConfig} _goa.CompressConfig
  */
 /**
  * @suppress {nonStandardJsDocs}

@@ -84,6 +84,7 @@ _idio.SessionOptions.prototype.keygrip
 
 /* typal types/options/cors.xml externs */
 /**
+ * @extends {_goa.CorsConfig}
  * @record
  */
 _idio.CorsOptions
@@ -100,11 +101,6 @@ _idio.CorsOptions.prototype.origin
  * @type {boolean|undefined}
  */
 _idio.CorsOptions.prototype.use
-/**
- * The CORS configuration.
- * @type {(!_goa.CorsConfig)|undefined}
- */
-_idio.CorsOptions.prototype.config
 
 /* typal types/options/form-data.xml externs */
 /**

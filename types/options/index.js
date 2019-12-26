@@ -76,13 +76,26 @@ export {}
 /* typal types/options/cors.xml ignore:_goa.Context namespace */
 /**
  * @typedef {_idio.CorsOptions} CorsOptions `＠record`
- * @typedef {Object} _idio.CorsOptions `＠record`
+ * @typedef {_idio.$CorsOptions & _goa.CorsConfig} _idio.CorsOptions `＠record`
+ * @typedef {Object} _idio.$CorsOptions `＠record`
  * @prop {string|Array<string>|(function(!_goa.Context): string)} [origin] The origin or an array of origins to accept as valid.
  * - In case of an array, the origin from the request headers will be searched in the array, and if found, it will be returned (since browsers only support a single `Access-Control-Allow-Origin` header).
  * - If a function is passed, it should return the string with the origin to set.
  * - If not passed, the request origin is returned, allowing any origin to access the resource (use with caution).
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
- * @prop {!_goa.CorsConfig} [config] The CORS configuration.
+ */
+
+/* typal node_modules/@goa/cors/types/index.xml ignore:_goa.Context namespace  */
+/**
+ * @typedef {_goa.CorsConfig} CorsConfig `＠record` Options for the program.
+ * @typedef {Object} _goa.CorsConfig `＠record` Options for the program.
+ * @prop {string|function(!_goa.Context)} [origin] `Access-Control-Allow-Origin` header, default is taken from the `Origin` request header.
+ * @prop {string|!Array<string>} [allowMethods="GET,HEAD,PUT,POST,DELETE,PATCH"] `Access-Control-Allow-Methods` header. Default `GET,HEAD,PUT,POST,DELETE,PATCH`.
+ * @prop {string|!Array<string>} [exposeHeaders] `Access-Control-Expose-Headers` header.
+ * @prop {string|!Array<string>} [allowHeaders] `Access-Control-Allow-Headers` header.
+ * @prop {string|number} [maxAge] `Access-Control-Max-Age` header in seconds.
+ * @prop {boolean} [credentials=false] `Access-Control-Max-Age` header in seconds. Default `false`.
+ * @prop {boolean} [keepHeadersOnError=true] Add set headers to `err.header` if an error is thrown. Default `true`.
  */
 
 /* typal types/options/form-data.xml namespace ignore:_multipart.FormDataConfig */
@@ -113,7 +126,6 @@ export {}
 
 /**
  * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
- * @typedef {import('../..').CorsConfig} _goa.CorsConfig
  * @typedef {import('../..').FormDataConfig} _multipart.FormDataConfig
  * @typedef {import('../..').Keygrip} _goa.Keygrip
  *

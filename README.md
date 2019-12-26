@@ -302,17 +302,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTMzNS41IiwiX2V4cGlyZSI6MTU3NzQ0NTA5NDk4OCwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTkwOS40IiwiX2V4cGlyZSI6MTU3NzQ0NjM0NTk2MiwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Fri, 27 Dec 2019 11:11:34 GMT',
+    expires: 'Fri, 27 Dec 2019 11:32:25 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'njlLRlG5VMuefCz_mD_nCx4YmkNa4x-GvWCr_ubiSQShEH9y-HL2TmPW-SA-8J5__tZ8tXJRR-9u36VbIOGQdg',
+    value: 'c8eMEC88pHns8qq1sxUfK4o4jHaQLA2xKNKBhLKSiyOTiV1gF5qrI8bnSYFNldsklMzzgxq6qHTDEEDb78ojAA',
     path: '/',
-    expires: 'Fri, 27 Dec 2019 11:11:34 GMT',
+    expires: 'Fri, 27 Dec 2019 11:32:25 GMT',
     httponly: true } ]
 // GET /
-"welcome back u335.5"
+"welcome back u909.4"
 ```
 </td>
 </tr>
@@ -347,9 +347,7 @@ const { url, app } = await idio({
     use: true,
     origin: NODE_ENV == 'production' ?
       'http://prod.com' : null,
-    config: {
-      allowMethods: ['GET', 'POST'],
-    },
+    allowMethods: ['GET', 'POST'],
   },
 })
 ```
@@ -358,19 +356,22 @@ const { url, app } = await idio({
 
 ```js
 // GET / from https://3rd.party
-{ 'content-type': 'text/plain; charset=utf-8',
-  'content-length': '11',
-  vary: 'Origin',
+{ vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 26 Dec 2019 11:11:35 GMT',
+  date: 'Thu, 26 Dec 2019 11:32:27 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
-{ 'content-type': 'text/plain; charset=utf-8',
-  'content-length': '11',
-  vary: 'Origin',
+{ vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 26 Dec 2019 11:11:35 GMT',
+  date: 'Thu, 26 Dec 2019 11:32:27 GMT',
+  connection: 'close' }
+
+// OPTIONS / from http://prod.com
+{ vary: 'Origin',
+  'access-control-allow-origin': 'http://prod.com',
+  'access-control-allow-methods': 'GET,POST',
+  date: 'Thu, 26 Dec 2019 11:32:27 GMT',
   connection: 'close' }
 ```
 </td>
@@ -414,7 +415,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Thu, 26 Dec 2019 11:11:36 GMT',
+  date: 'Thu, 26 Dec 2019 11:32:28 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -466,8 +467,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: 'ff718',
-     path: 'example/upload/ff718',
+     filename: '621e8',
+     path: 'example/upload/621e8',
      size: 29 },
   body: { hello: 'world' } }
 ```

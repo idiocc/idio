@@ -1,5 +1,5 @@
-import { h } from '/node_modules/preact/dist/preact.module.js'
-import { render, Component } from '/node_modules/preact/dist/preact.module.js'
+import { h } from '/node_modules/preact/dist/preact.mjs'
+import { render, Component } from '/node_modules/preact/dist/preact.mjs'
 
 class MyComp extends Component {
   render() {

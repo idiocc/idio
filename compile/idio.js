@@ -2984,12 +2984,13 @@ function me(a = {}) {
   e ? ne("session: Setting a Keygrip instance on the app") : d ? ne("session: Setting an array of keys of length %s on the app", d.length) : ne("session: the cookies won't be signed as no keys are provided.");
   a.keys = e || d;
   return Xa(g);
-}, ["cors"](a, b, {origin:c}) {
-  a = Array.isArray(c) ? d => {
-    const e = d.get("Origin");
-    return c.find(f => f == e);
-  } : c;
-  return cb({origin:a, ...b});
+}, ["cors"](a, b, c) {
+  const {origin:d, ...e} = c;
+  a = Array.isArray(d) ? f => {
+    const g = f.get("Origin");
+    return d.find(h => h == g);
+  } : d;
+  return cb({origin:a, ...e});
 }, ["form"](a, b) {
   class c extends Ud {
     any() {

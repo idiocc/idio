@@ -1,5 +1,7 @@
 <a href="https://github.com/idiocc/idio"><img src="https://raw.github.com/idiocc/core/master/images/cors.svg?sanitize=true" align="left" height="100"></a> When making dynamic requests using JavaScript, such as _Ajax_ or _fetch_, browsers will check if they are allowed by sending an OPTION request first, to receive `CORS` headers. This middleware allows to respond to such requests with allowed security settings.
 
+<include-typedefs>@goa/cors</include-typedefs>
+
 ---
 
 ## On This Page
@@ -24,12 +26,8 @@ When deploying to a production server, the `NODE_ENV` will be read and only appl
 
 %~%
 
-CORS options extend the original package's config by allowing to set multiple origins as an array.
+CORS options extend the session configuration from the <link external type="_goa.CorsConfig">`@goa/cors`</link> package by allowing to set multiple origins as an array.
 
 <typedef level="2" narrow>types/options/cors.xml</typedef>
-
-%~%
-
-Session configuration is from the <link external type="_goa.CorsConfig">`@goa/cors`</link> package.
 
 <typedef level="2" name="CorsConfig" narrow>node_modules/@goa/cors/types/index.xml</typedef>

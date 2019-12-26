@@ -52,7 +52,7 @@ const T = {
   async 'passes threshold to the constructor'({ createApp, startApp, readFixture, assignRoute }) {
     const body = await readFixture()
     await createApp({
-      compress: { use: true, config: { threshold: body.length + 1 } },
+      compress: { use: true, threshold: body.length + 1 },
     })
     await startApp()
     const fullUrl = assignRoute('/dracula.txt', body)

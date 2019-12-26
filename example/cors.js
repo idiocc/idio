@@ -17,17 +17,18 @@ import idio from '../compile'
       use: true,
       origin: NODE_ENV == 'production' ?
         'http://prod.com' : null,
-      config: {
-        allowMethods: ['GET', 'POST'],
-      },
+      allowMethods: ['GET', 'POST'],
     },
   })
   /* end example */
   let { headers } = await aqt(url, {
     headers: {
+      'Access-Control-Request-Method': 'GET',
       origin: 'https://3rd.party',
     },
   })
+  delete headers['content-type']
+  delete headers['content-length']
   console.log(headers)
   console.log()
 
@@ -36,6 +37,20 @@ import idio from '../compile'
       origin: 'http://prod.com',
     },
   }))
+  delete headers['content-type']
+  delete headers['content-length']
+  console.log(headers)
+  console.log()
+
+  ;({ headers } = await aqt(url, {
+    method: 'OPTIONS',
+    headers: {
+      origin: 'http://prod.com',
+      'Access-Control-Request-Method': 'GET',
+    },
+  }))
+  delete headers['content-type']
+  delete headers['content-length']
   console.log(headers)
   await app.destroy()
 })()
