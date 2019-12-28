@@ -82,7 +82,7 @@
     "@idio/frontend": "^2.0.1",
     "@multipart/append-field": "^1.0.1",
     "@multipart/form": "^2.0.0",
-    "@multipart/form-data": "^1.0.0",
+    "@multipart/form-data": "^1.0.1",
     "@typedefs/goa": "^0.1.5",
     "@wrote/read": "^1.0.4",
     "@wrote/rm": "^1.1.5",

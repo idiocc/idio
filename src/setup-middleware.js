@@ -10,6 +10,24 @@ import compress from '@goa/compress'
 import Debug from '@idio/debug'
 import { constants } from 'zlib'
 
+class FD extends FormData {
+  any() {
+    return proxyFD(super.any())
+  }
+  array(...args) {
+    return proxyFD(super.array(...args))
+  }
+  fields(...args) {
+    return proxyFD(super.fields(...args))
+  }
+  none(...args) {
+    return proxyFD(super.none(...args))
+  }
+  single(...args) {
+    return proxyFD(super.single(...args))
+  }
+}
+
 const debug = Debug('idio')
 
 const proxyFD = (original) => {
@@ -117,27 +135,31 @@ const map = {
   /**
    * The Form Data middleware.
    * @param {!_goa.Application} app
-   * @param {_multipart.FormDataConfig} config
-   * @param {_idio.FormDataOptions} options
+   * @param {!Object} _
+   * @param {!_idio.FormDataOptions} options
    */
-  'form'(app, config, options) {
-    // todo check options to return middleware
-    class FD extends FormData {
-      any() {
-        return proxyFD(super.any())
-      }
-      array(...args) {
-        return proxyFD(super.array(...args))
-      }
-      fields(...args) {
-        return proxyFD(super.fields(...args))
-      }
-      none(...args) {
-        return proxyFD(super.none(...args))
-      }
-      single(...args) {
-        return proxyFD(super.single(...args))
-      }
+  'form'(app, _, options) {
+    const { any, array, none, fields, single, ...rest } = options
+    const config = /** @type {!_multipart.FormDataConfig} */ (rest)
+    if (any) {
+      const f = new FD(config)
+      return f.any()
+    }
+    if (array) {
+      const f = new FD(config)
+      return f.array(array.name, array.maxFiles)
+    }
+    if (none) {
+      const f = new FD(config)
+      return f.none()
+    }
+    if (fields) {
+      const f = new FD(config)
+      return f.fields(fields)
+    }
+    if (single) {
+      const f = new FD(config)
+      return f.single(single)
     }
     const f = new FD(config)
     return f
@@ -279,4 +301,8 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../types/options').FrontEndConfig} _idio.FrontEndConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').FormDataOptions} _idio.FrontEndConfig
  */

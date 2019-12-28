@@ -10,9 +10,7 @@ const T = {
     const s = join(staticDir, 'small.txt')
     const { middleware: { form }, app, router } = await createApp({
       form: {
-        config: {
-          dest: TEMP,
-        },
+        dest: TEMP,
       },
     })
     app.use(router.routes())
@@ -40,13 +38,44 @@ const T = {
     const st = await snapshot()
     return st.replace(/# .+/, '# file')
   },
+  async 'handles any file upload via config'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
+    const s = join(staticDir, 'small.txt')
+    const { middleware: { form }, app, router } = await createApp({
+      form: {
+        any: true,
+        dest: TEMP,
+      },
+    })
+    app.use(router.routes())
+    router.post('/test', form, (ctx) => {
+      ok(ctx.req.files[0])
+      ok(ctx.files[0])
+      ok(ctx.files[0] === ctx.req.files[0])
+      delete ctx.req.files[0].stream
+      delete ctx.req.files[0].filename
+      delete ctx.req.files[0].path
+      ctx.body = ctx.req.files
+    })
+    await startApp()
+      .postForm('/test', async (f) => {
+        await f.addFile(s, 'upload')
+      })
+      .assert(200, [{
+        fieldname: 'upload',
+        originalname: 'small.txt',
+        encoding: '7bit',
+        mimetype: 'application/octet-stream',
+        destination: 'test/temp',
+        size: 12,
+      }])
+    const st = await snapshot()
+    return st.replace(/# .+/, '# file')
+  },
   async 'handles fields file upload'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
     const s = join(staticDir, 'small.txt')
     const { middleware: { form }, app, router } = await createApp({
       form: {
-        config: {
-          dest: TEMP,
-        },
+        dest: TEMP,
       },
     })
     app.use(router.routes())

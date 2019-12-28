@@ -9,9 +9,7 @@ import idio from '../compile'
     form,
   } } = await idio({
     form: {
-      config: {
-        dest: 'example/upload',
-      },
+      dest: 'example/upload',
     },
   })
   app.use(router.routes())

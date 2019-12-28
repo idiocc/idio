@@ -1,10 +1,22 @@
 <types namespace="_idio">
   <!-- <import1 from="@multipart/form-data" ns="_multipart" name="FormDataConfig" /> -->
 
-  <type name="FormDataOptions" desc="Options for Form Data (and file uploads) streams handling.">
+  <type extends="_multipart.FormDataConfig" name="FormDataOptions" desc="Options for Form Data (and file uploads) streams handling.">
     <!-- todo: any, single, array, all -->
-    <prop opt type="_multipart.FormDataConfig" name="config">
-      The configuration object configuration.
+    <prop opt boolean name="any">
+      Create middleware function for any type of upload.
+    </prop>
+    <prop opt type="{ name: string, maxFiles: number }" name="array">
+      Accept multiple files given the field name and the maximum number of uploaded files.
+    </prop>
+    <prop opt type="!Array<_multipart.FormDataField>" name="fields">
+      Accept uploads according to the configuration.
+    </prop>
+    <prop opt boolean name="none">
+      Don't accept any file uploads.
+    </prop>
+    <prop opt string name="single">
+      Accept a single file at the given fieldname.
     </prop>
   </type>
 </types>

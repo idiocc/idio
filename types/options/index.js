@@ -100,8 +100,13 @@ export {}
 /* typal types/options/form-data.xml namespace ignore:_multipart.FormDataConfig */
 /**
  * @typedef {_idio.FormDataOptions} FormDataOptions Options for Form Data (and file uploads) streams handling.
- * @typedef {Object} _idio.FormDataOptions Options for Form Data (and file uploads) streams handling.
- * @prop {_multipart.FormDataConfig} [config] The configuration object configuration.
+ * @typedef {_idio.$FormDataOptions & _multipart.FormDataConfig} _idio.FormDataOptions Options for Form Data (and file uploads) streams handling.
+ * @typedef {Object} _idio.$FormDataOptions Options for Form Data (and file uploads) streams handling.
+ * @prop {boolean} [any] Create middleware function for any type of upload.
+ * @prop {{ name: string, maxFiles: number }} [array] Accept multiple files given the field name and the maximum number of uploaded files.
+ * @prop {!Array<_multipart.FormDataField>} [fields] Accept uploads according to the configuration.
+ * @prop {boolean} [none] Don't accept any file uploads.
+ * @prop {string} [single] Accept a single file at the given fieldname.
  */
 
 /* typal types/options/index.xml namespace */
@@ -126,6 +131,7 @@ export {}
 /**
  * @typedef {import('../..').StaticConfig} _idio.StaticConfig
  * @typedef {import('../..').FormDataConfig} _multipart.FormDataConfig
+ * @typedef {import('../..').FormDataField} _multipart.FormDataField
  * @typedef {import('../..').Keygrip} _goa.Keygrip
  *
  * @typedef {import('../..').Context} _goa.Context

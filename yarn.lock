@@ -195,10 +195,10 @@
   resolved "https://registry.yarnpkg.com/@multipart/append-field/-/append-field-1.0.1.tgz#75e018bb986aaf8dd186c98520d584a0f7d1d4cb"
   integrity sha512-VKFpXy/6SdUrWpU2iHBvung//7kb0hak/gnasstJQhLVWFnrq4bYvQNvrlK/gQpIwJzw4KbeytbcoEh+MgsaVg==
 
-"@multipart/form-data@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@multipart/form-data/-/form-data-1.0.0.tgz#1e455c573d543ea6f5975957d86581211ae58255"
-  integrity sha512-e0y8njQPqpQERVp9EXlxJ+ekXbk57l+q1uFNTIjcmu8AJiN6gGc/DCMtY6ei5GgH+a2NIBOSsGPqqJWZzbUFNg==
+"@multipart/form-data@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@multipart/form-data/-/form-data-1.0.1.tgz#580f979517b1b7adbf46e5bdf73edf18fb884b7f"
+  integrity sha512-hL8hMfdGwUCbnh7zGRumu+eGpC8XzkYVp+dPbRqQ0b4/+Kc8SBNt6jCuuCfI8+cgLVpLh1VjtmhUSdH9SDB1Dw==
   dependencies:
     text-decoding "^1.0.0"
 

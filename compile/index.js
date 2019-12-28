@@ -100,6 +100,7 @@ module.exports.compose = $compose
  *
  * @typedef {_idio.FormDataOptions} FormDataOptions
  * @typedef {_multipart.FormDataConfig} FormDataConfig
+ * @typedef {_multipart.FormDataField} FormDataField
  *
  * @typedef {import('../types/goa/typedefs/application').Application} _goa.Application
  * @typedef {import('../types/goa/typedefs/application').Middleware} _goa.Middleware
@@ -178,6 +179,7 @@ module.exports.compose = $compose
  * @typedef {import('../types/modules/form-data').FormDataConfig} _multipart.FormDataConfig
  * @typedef {import('../types/modules/form-data').FormData} _multipart.FormData
  * @typedef {import('../types/modules/form-data').FormDataFile} _multipart.FormDataFile
+ * @typedef {import('../types/modules/form-data').FormDataField} _multipart.FormDataField
  * @typedef {import('../types/options').FrontEndOptions} _idio.FrontEndOptions
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {_idio.$MiddlewareConfig & _idio.FnMiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.

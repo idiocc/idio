@@ -96,7 +96,7 @@ _idio.CorsOptions.prototype.use
 /* typal types/options/form-data.xml externs */
 /**
  * Options for Form Data (and file uploads) streams handling.
- * @typedef {{ config: (_multipart.FormDataConfig|undefined) }}
+ * @typedef {{ any: (boolean|undefined), array: (({ name: string, maxFiles: number })|undefined), fields: ((!Array<_multipart.FormDataField>)|undefined), none: (boolean|undefined), single: (string|undefined) }}
  */
 _idio.FormDataOptions
 

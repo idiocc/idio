@@ -43,6 +43,7 @@ module.exports.compose = $compose
  *
  * @typedef {_idio.FormDataOptions} FormDataOptions
  * @typedef {_multipart.FormDataConfig} FormDataConfig
+ * @typedef {_multipart.FormDataField} FormDataField
  *
  * @typedef {import('../types/goa/typedefs/application').Application} _goa.Application
  * @typedef {import('../types/goa/typedefs/application').Middleware} _goa.Middleware
