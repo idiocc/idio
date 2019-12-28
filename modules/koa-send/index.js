@@ -72,11 +72,11 @@ export default async function send(ctx, path, opts = {}) {
   }
 
   if (extensions && !/\.[^/]*$/.exec(path)) {
-    const list = [].concat(extensions)
+    const list = [...extensions]
     for (let i = 0; i < list.length; i++) {
       let ext = list[i]
       if (typeof ext != 'string') {
-        throw new TypeError('option extensions must be array of strings or false')
+        throw new TypeError('Option extensions must be an array of strings.')
       }
       if (!/^\./.exec(ext)) ext = '.' + ext
       if (await exists(path + ext)) {

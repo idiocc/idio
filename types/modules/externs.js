@@ -20,7 +20,7 @@ _idio.KoaSendConfig
 
 /* typal types/modules/koa-static.xml externs */
 /**
- * The configuration that is passed to koa-session.
- * @typedef {{ maxage: (number|undefined), hidden: (boolean|undefined), index: ((string|boolean)|undefined), defer: (boolean|undefined), gzip: (boolean|undefined), br: (boolean|undefined), setHeaders: (_idio.SetHeaders|undefined), extensions: (boolean|undefined) }}
+ * The configuration for serving static files.
+ * @typedef {{ maxage: (number|undefined), hidden: (boolean|undefined), index: ((string|boolean)|undefined), defer: (boolean|undefined), gzip: (boolean|undefined), br: (boolean|undefined), setHeaders: (_idio.SetHeaders|undefined), extensions: ((!Array<string>)|undefined) }}
  */
 _idio.StaticConfig

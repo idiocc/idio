@@ -21,7 +21,7 @@
     <prop opt type="_idio.SetHeaders" name="setHeaders">
       Function to set custom headers on response.
     </prop>
-    <prop boolean name="extensions" default="false">
+    <prop type="!Array<string>" name="extensions" opt>
       Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served.
     </prop>
   </type>

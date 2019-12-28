@@ -251,7 +251,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Sat, 28 Dec 2019 18:08:57 GMT
+Date: Sat, 28 Dec 2019 18:32:11 GMT
 Connection: close
 ```
 </details>
@@ -304,17 +304,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTQ3NC41IiwiX2V4cGlyZSI6MTU3NzY0MjkzOTgxMywiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTM4NS41IiwiX2V4cGlyZSI6MTU3NzY0NDMzMTg2MSwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Sun, 29 Dec 2019 18:08:59 GMT',
+    expires: 'Sun, 29 Dec 2019 18:32:11 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'AIELtSaWoXjJ5y7_Cr9OG100y4_Z83Z03Y5ObdKsWe80hcN1zUsE7sdP3f-qhopHBhOM54qmqSRhwumkr-QFiw',
+    value: 'S52n8cWcIuX0C2XZ_kbPZcCTjyKSm6mwuQhRC3ScpyR41LM8SwvAxPIvx4ravXSB1FCrL2m_6qCg4rCf50MYFQ',
     path: '/',
-    expires: 'Sun, 29 Dec 2019 18:08:59 GMT',
+    expires: 'Sun, 29 Dec 2019 18:32:11 GMT',
     httponly: true } ]
 // GET /
-"welcome back u474.5"
+"welcome back u385.5"
 ```
 </td>
 </tr>
@@ -360,20 +360,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Sat, 28 Dec 2019 18:13:41 GMT',
+  date: 'Sat, 28 Dec 2019 18:32:12 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Sat, 28 Dec 2019 18:13:41 GMT',
+  date: 'Sat, 28 Dec 2019 18:32:12 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Sat, 28 Dec 2019 18:13:41 GMT',
+  date: 'Sat, 28 Dec 2019 18:32:12 GMT',
   connection: 'close' }
 ```
 </td>
@@ -417,7 +417,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Sat, 28 Dec 2019 18:09:03 GMT',
+  date: 'Sat, 28 Dec 2019 18:32:13 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -469,8 +469,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: 'd4bf8',
-     path: 'example/upload/d4bf8',
+     filename: '96b77',
+     path: 'example/upload/96b77',
      size: 29 },
   body: { hello: 'world' } }
 ```

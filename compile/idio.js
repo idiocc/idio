@@ -2777,10 +2777,10 @@ async function $d(a, b, c = {}) {
     d = "";
     "br" == a.acceptsEncodings("br", "identity") && p && await Xd(b + ".br") ? (b += ".br", a.set("Content-Encoding", "br"), a.res.removeHeader("Content-Length"), d = ".br") : "gzip" == a.acceptsEncodings("gzip", "identity") && n && await Xd(b + ".gz") && (b += ".gz", a.set("Content-Encoding", "gzip"), a.res.removeHeader("Content-Length"), d = ".gz");
     if (m && !/\.[^/]*$/.exec(b)) {
-      for (m = [].concat(m), p = 0; p < m.length; p++) {
+      for (m = [...m], p = 0; p < m.length; p++) {
         n = m[p];
         if ("string" != typeof n) {
-          throw new TypeError("option extensions must be array of strings or false");
+          throw new TypeError("Option extensions must be an array of strings.");
         }
         /^\./.exec(n) || (n = "." + n);
         if (await Xd(b + n)) {

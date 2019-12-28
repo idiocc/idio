@@ -26,14 +26,14 @@ export {}
 
 /* typal types/modules/koa-static.xml namespace */
 /**
- * @typedef {_idio.StaticConfig} StaticConfig The configuration that is passed to koa-session.
- * @typedef {Object} _idio.StaticConfig The configuration that is passed to koa-session.
+ * @typedef {_idio.StaticConfig} StaticConfig The configuration for serving static files.
+ * @typedef {Object} _idio.StaticConfig The configuration for serving static files.
  * @prop {number} [maxage=0] Browser cache max-age in milliseconds. Default `0`.
  * @prop {boolean} [hidden=false] Allow transfer of hidden files. Default `false`.
- * @prop {string|boolean} [index="index.html"] Default file name. Pass `false` to not have default name. Default `index.html`.
+ * @prop {string|boolean} [index="index.html"] Default file name when serving directories. Pass `false` to not have default name. Default `index.html`.
  * @prop {boolean} [defer=false] If `true`, serves after return next(), allowing any downstream middleware to respond first. Default `false`.
  * @prop {boolean} [gzip=true] Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with `.gz` extension exists. Default `true`.
  * @prop {boolean} [br=true] Try to serve the brotli version of a file automatically when brotli is supported by a client and if the requested file with `.br` extension exists (note, that brotli is only accepted over https). Default `true`.
  * @prop {_idio.SetHeaders} [setHeaders] Function to set custom headers on response.
- * @prop {boolean} [extensions=false] Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served. Default `false`.
+ * @prop {!Array<string>} [extensions] Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served.
  */
