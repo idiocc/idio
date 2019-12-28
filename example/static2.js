@@ -1,5 +1,5 @@
 import aqt from '@rqt/aqt'
-import idio from '..'
+import idio from '../compile'
 import printHeaders from './headers'
 
 (async () => {
@@ -9,7 +9,7 @@ import printHeaders from './headers'
     static: [{
       root: ['example'], use: true,
     }, {
-      root: ['d'], use: true,
+      root: ['wiki'], use: true,
     }],
   }, { port: null })
   /* end example */

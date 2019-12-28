@@ -1,5 +1,5 @@
 import aqt from '@rqt/aqt'
-import _idio from '..'
+import _idio from '../compile'
 import printHeaders from './headers'
 
 /**
@@ -15,7 +15,7 @@ const idio = (opts) => {
     static: [{
       root: 'example', use: true,
     }, {
-      root: 'd', use: true,
+      root: 'wiki', use: true,
       mount: '/mount',
     }, {
       root: ['src', 'test'], use: true,

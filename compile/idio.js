@@ -858,7 +858,7 @@ function bb(a) {
     }
   };
 }
-;const fb = fs.ReadStream, gb = fs.createReadStream, hb = fs.createWriteStream, ib = fs.exists, jb = fs.existsSync, kb = fs.lstat, lb = fs.mkdirSync, mb = fs.readdir, nb = fs.rmdir, ob = fs.stat, pb = fs.unlink;
+;const db = fs.ReadStream, gb = fs.createReadStream, hb = fs.createWriteStream, ib = fs.exists, jb = fs.existsSync, kb = fs.lstat, lb = fs.mkdirSync, mb = fs.readdir, nb = fs.rmdir, ob = fs.stat, pb = fs.unlink;
 var qb = stream;
 const rb = stream.Readable, sb = stream.Transform, tb = stream.Writable;
 const ub = (a, b = 0, c = !1) => {
@@ -2024,7 +2024,7 @@ class gd {
         x.removeAllListeners("end");
       }
       v.on("header", x => {
-        let ca = "text/plain", L = "7bit", db;
+        let ca = "text/plain", L = "7bit", eb;
         let za = 0;
         if (x["content-type"]) {
           var H = Vc(x["content-type"][0]);
@@ -2041,7 +2041,7 @@ class gd {
           h = 0;
           for (k = H.length; h < k; ++h) {
             if (fd.test(H[h][0])) {
-              db = H[h][1];
+              eb = H[h][1];
             } else {
               if (ed.test(H[h][0])) {
                 var W = H[h][1];
@@ -2082,7 +2082,7 @@ class gd {
               I();
             }
           };
-          a.emit("file", db, G, W, L, ca, v);
+          a.emit("file", eb, G, W, L, ca, v);
           x = I => {
             if ((za += I.length) > p) {
               const M = p - (za - I.length);
@@ -2108,19 +2108,19 @@ class gd {
           let I = !1;
           E = v;
           x = M => {
-            let eb = M;
+            let fb = M;
             za += M.length;
-            za > q && (eb = Buffer.from(M, 0, q).slice(0, q), I = !0, v.removeAllListeners("data"));
-            G.push(eb);
+            za > q && (fb = Buffer.from(M, 0, q).slice(0, q), I = !0, v.removeAllListeners("data"));
+            G.push(fb);
           };
           W = () => {
             E = void 0;
             var M = Buffer.concat(G);
             try {
               M = (new Sc(void 0)).decode(M);
-            } catch (eb) {
+            } catch (fb) {
             }
-            a.emit("field", db, M, !1, I, L, ca);
+            a.emit("field", eb, M, !1, I, L, ca);
             --z;
             g();
           };
@@ -2779,7 +2779,7 @@ async function $d(a, b, c = {}) {
     if (m && !/\.[^/]*$/.exec(b)) {
       for (m = [].concat(m), p = 0; p < m.length; p++) {
         n = m[p];
-        if ("string" !== typeof n) {
+        if ("string" != typeof n) {
           throw new TypeError("option extensions must be array of strings or false");
         }
         /^\./.exec(n) || (n = "." + n);
@@ -2960,8 +2960,12 @@ function me(a = {}) {
   b.req.files && (b.files = b.req.files);
   b.req.body && (b.request.body = b.req.body);
   await c();
-}]), pe = {["static"](a, b, {root:c = [], maxage:d, mount:e}) {
-  a = (Array.isArray(c) ? c : [c]).map(f => be(f, {maxage:d, ...b}));
+}]), pe = {["static"](a, b, c) {
+  const {root:d = [], mount:e, ...f} = c;
+  if (!Array.isArray(d)) {
+    return a = be(d, f), e ? Fa(e, a) : a;
+  }
+  a = d.map(g => be(g, {...f}));
   a = w(a);
   return e ? Fa(e, a) : a;
 }, ["compress"](a, b, c) {
@@ -3156,7 +3160,7 @@ function Ge(a) {
  https://npmjs.org/destroy
 */
 function Ie(a) {
-  if (a instanceof fb) {
+  if (a instanceof db) {
     a.destroy();
     if ("function" == typeof a.close) {
       a.on("open", Je);

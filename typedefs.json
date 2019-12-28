@@ -1,11 +1,7 @@
 {
   "_idio.StaticOptions": {
     "link": "https://github.com/idiocc/idio/wiki/Static#type-staticoptions",
-    "description": "The top-level options when setting up the static middleware."
-  },
-  "_idio.KoaStaticConfig": {
-    "link": "https://github.com/idiocc/idio/wiki/Static#type-koastaticconfig",
-    "description": "The configuration that is passed to koa-session."
+    "description": "Top-level options when setting up static middleware."
   },
   "_idio.SetHeaders": {
     "link": "https://github.com/idiocc/idio/wiki/Static#setheadersres-httpserverresponsepath-stringstats-fsstats-void",
@@ -106,5 +102,9 @@
   "_idio.Router": {
     "link": "https://github.com/idiocc/idio/wiki/Router#type-router",
     "description": "The router decorated with HTTP method properties."
+  },
+  "_idio.StaticConfig": {
+    "link": "https://github.com/idiocc/idio/wiki/Static#type-staticconfig",
+    "description": "The configuration for serving static files."
   }
 }

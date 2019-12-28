@@ -4,7 +4,7 @@ const IdioRouter = require('./router')
 /**
  * Just create a _Goa_ app without starting it.
  * @param {!_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` server.
- * @param {!_idio.StaticOptions} [middlewareConfig.static] _Static_ middleware options.
+ * @param {!_idio.StaticOptions|!Array<!_idio.StaticOptions>} [middlewareConfig.static] _Static_ middleware options.
  * @param {!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
  * @param {!_idio.SessionOptions} [middlewareConfig.session] _Session_ middleware options.
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
@@ -20,7 +20,7 @@ async function createApp(middlewareConfig) {
 /**
  * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
  * @param {!_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` server.
- * @param {!_idio.StaticOptions} [middlewareConfig.static] _Static_ middleware options.
+ * @param {!_idio.StaticOptions|!Array<!_idio.StaticOptions>} [middlewareConfig.static] _Static_ middleware options.
  * @param {!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
  * @param {!_idio.SessionOptions} [middlewareConfig.session] _Session_ middleware options.
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
@@ -182,7 +182,7 @@ module.exports.compose = $compose
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {_idio.$MiddlewareConfig & _idio.FnMiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {Object} _idio.$MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
- * @prop {!_idio.StaticOptions} [static] _Static_ middleware options.
+ * @prop {!_idio.StaticOptions|!Array<!_idio.StaticOptions>} [static] _Static_ middleware options.
  * @prop {!_idio.CompressOptions} [compress] _Compression_ middleware options.
  * @prop {!_idio.SessionOptions} [session] _Session_ middleware options.
  * @prop {!_idio.CorsOptions} [cors] _CORS_ middleware options.

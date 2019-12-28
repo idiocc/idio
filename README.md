@@ -69,14 +69,14 @@ There are multiple items for middleware configuration:
 __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareConfig__: Middleware configuration for the `idio` server.
 
 
-|   Name   |                                                                                     Type                                                                                      |                                        Description                                        |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| static   | <em><a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="The top-level options when setting up the static middleware.">!StaticOptions</a></em>      | _Static_ middleware options.                                                              |
-| compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                             | _Compression_ middleware options.                                                         |
-| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>        | _Session_ middleware options.                                                             |
-| cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                            | _CORS_ middleware options.                                                                |
-| form     | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em> | _Form Data_ middleware options for receiving file uploads and form submissions.           |
-| frontend | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                  | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX. |
+|   Name   |                                                                                                                                                                    Type                                                                                                                                                                     |                                        Description                                        |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| static   | <em>(<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a>&gt;)</em> | _Static_ middleware options.                                                              |
+| compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                                                                                                                                                                                           | _Compression_ middleware options.                                                         |
+| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>                                                                                                                                                                      | _Session_ middleware options.                                                             |
+| cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                                                                                                                                                                                          | _CORS_ middleware options.                                                                |
+| form     | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em>                                                                                                                                                               | _Form Data_ middleware options for receiving file uploads and form submissions.           |
+| frontend | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                                                                                                                                                                                | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX. |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -211,7 +211,7 @@ const { url, app } = await idio({
   static: [{
     root: ['example'], use: true,
   }, {
-    root: ['d'], use: true,
+    root: ['wiki'], use: true,
   }],
 }, { port: null })
 ```
@@ -219,7 +219,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:62290/app.css */ 
+/** http://localhost:55798/app.css */ 
 
 body {
   font-size: larger;
@@ -240,16 +240,18 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Wed, 25 Dec 2019 08:59:40 GMT
+Date: Sat, 28 Dec 2019 18:08:55 GMT
 Connection: close
 ```
 
 
 
 ```http
-Content-Type: text/plain; charset=utf-8
-Content-Length: 9
-Date: Wed, 25 Dec 2019 08:59:41 GMT
+Content-Length: 114
+Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
+Cache-Control: max-age=0
+Content-Type: image/svg+xml
+Date: Sat, 28 Dec 2019 18:08:57 GMT
 Connection: close
 ```
 </details>
@@ -302,17 +304,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTkwOS40IiwiX2V4cGlyZSI6MTU3NzQ0NjM0NTk2MiwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTQ3NC41IiwiX2V4cGlyZSI6MTU3NzY0MjkzOTgxMywiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Fri, 27 Dec 2019 11:32:25 GMT',
+    expires: 'Sun, 29 Dec 2019 18:08:59 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'c8eMEC88pHns8qq1sxUfK4o4jHaQLA2xKNKBhLKSiyOTiV1gF5qrI8bnSYFNldsklMzzgxq6qHTDEEDb78ojAA',
+    value: 'AIELtSaWoXjJ5y7_Cr9OG100y4_Z83Z03Y5ObdKsWe80hcN1zUsE7sdP3f-qhopHBhOM54qmqSRhwumkr-QFiw',
     path: '/',
-    expires: 'Fri, 27 Dec 2019 11:32:25 GMT',
+    expires: 'Sun, 29 Dec 2019 18:08:59 GMT',
     httponly: true } ]
 // GET /
-"welcome back u909.4"
+"welcome back u474.5"
 ```
 </td>
 </tr>
@@ -358,20 +360,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 26 Dec 2019 11:32:27 GMT',
+  date: 'Sat, 28 Dec 2019 18:13:41 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 26 Dec 2019 11:32:27 GMT',
+  date: 'Sat, 28 Dec 2019 18:13:41 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Thu, 26 Dec 2019 11:32:27 GMT',
+  date: 'Sat, 28 Dec 2019 18:13:41 GMT',
   connection: 'close' }
 ```
 </td>
@@ -415,7 +417,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Thu, 26 Dec 2019 11:32:28 GMT',
+  date: 'Sat, 28 Dec 2019 18:09:03 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -467,8 +469,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '621e8',
-     path: 'example/upload/621e8',
+     filename: 'd4bf8',
+     path: 'example/upload/d4bf8',
      size: 29 },
   body: { hello: 'world' } }
 ```

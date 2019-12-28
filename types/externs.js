@@ -71,7 +71,7 @@ _idio.ConfiguredMiddleware.prototype.session
 _idio.MiddlewareConfig
 /**
  * _Static_ middleware options.
- * @type {(!_idio.StaticOptions)|undefined}
+ * @type {(!_idio.StaticOptions|!Array<!_idio.StaticOptions>)|undefined}
  */
 _idio.MiddlewareConfig.prototype.static
 /**

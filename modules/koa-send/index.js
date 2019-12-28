@@ -17,7 +17,7 @@ const debug = Debug('koa-send')
 
 /**
  * Send file at `path` with the given `options` to the koa `ctx`.
- * @param {_goa.Context} ctx
+ * @param {!_goa.Context} ctx
  * @param {string} path
  * @param {_idio.KoaSendConfig} [opts]
  */
@@ -75,7 +75,7 @@ export default async function send(ctx, path, opts = {}) {
     const list = [].concat(extensions)
     for (let i = 0; i < list.length; i++) {
       let ext = list[i]
-      if (typeof ext !== 'string') {
+      if (typeof ext != 'string') {
         throw new TypeError('option extensions must be array of strings or false')
       }
       if (!/^\./.exec(ext)) ext = '.' + ext

@@ -32,9 +32,9 @@ const map = {
   /**
    * @param {!_goa.Application} app
    * @param {!Object} _
-   * @param {_idio.StaticOptions} options
+   * @param {!_idio.StaticOptions} options
    */
-  'static'(app, _, options = {}) {
+  'static'(app, _, options) {
     const {
       root = [],
       mount,

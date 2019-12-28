@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <type name="StaticConfig" desc="The configuration that is passed to koa-session.">
+  <type name="StaticConfig" desc="The configuration for serving static files.">
     <prop number name="maxage" default="0">
       Browser cache max-age in milliseconds.
     </prop>
@@ -7,7 +7,7 @@
       Allow transfer of hidden files.
     </prop>
     <prop type="string|boolean" name="index" default="index.html">
-      Default file name. Pass `false` to not have default name.
+      Default file name when serving directories. Pass `false` to not have default name.
     </prop>
     <prop boolean name="defer" default="false">
       If `true`, serves after return next(), allowing any downstream middleware to respond first.
