@@ -6,7 +6,8 @@
 /** @const */
 var _idio = {}
 /**
- * The top-level options when setting up the static middleware.
+ * Top-level options when setting up static middleware.
+ * @extends {_idio.StaticConfig}
  * @record
  */
 _idio.StaticOptions
@@ -25,16 +26,6 @@ _idio.StaticOptions.prototype.use
  * @type {string|undefined}
  */
 _idio.StaticOptions.prototype.mount
-/**
- * How long to cache files for. Default `0`.
- * @type {number|undefined}
- */
-_idio.StaticOptions.prototype.maxage
-/**
- * `koa-static` configuration.
- * @type {_idio.KoaStaticConfig|undefined}
- */
-_idio.StaticOptions.prototype.config
 
 /* typal types/options/compress.xml externs */
 /**

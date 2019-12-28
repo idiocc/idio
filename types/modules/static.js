@@ -26,8 +26,8 @@ export {}
 
 /* typal types/modules/koa-static.xml namespace */
 /**
- * @typedef {_idio.KoaStaticConfig} KoaStaticConfig The configuration that is passed to koa-session.
- * @typedef {Object} _idio.KoaStaticConfig The configuration that is passed to koa-session.
+ * @typedef {_idio.StaticConfig} StaticConfig The configuration that is passed to koa-session.
+ * @typedef {Object} _idio.StaticConfig The configuration that is passed to koa-session.
  * @prop {number} [maxage=0] Browser cache max-age in milliseconds. Default `0`.
  * @prop {boolean} [hidden=false] Allow transfer of hidden files. Default `false`.
  * @prop {string|boolean} [index="index.html"] Default file name. Pass `false` to not have default name. Default `index.html`.

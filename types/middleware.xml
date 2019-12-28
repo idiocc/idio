@@ -3,7 +3,7 @@
   <import from="../types/modules/cors" ns="_goa" name="CorsConfig" />
 
   <import from="../types/options" ns="_idio" name="StaticOptions" />
-  <import from="../types/modules" ns="_idio" name="KoaStaticConfig" />
+  <import from="../types/modules/static" ns="_idio" name="StaticConfig" />
 
   <import from="../types/options" ns="_idio" name="CompressOptions" />
   <import from="../types/modules" ns="_goa" name="CompressConfig" />

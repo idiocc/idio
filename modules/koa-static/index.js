@@ -8,7 +8,7 @@ const debug = Debug('koa-static')
 /**
  * Serve static files from `root`.
  * @param {string} root
- * @param {_idio.KoaStaticConfig} [opts]
+ * @param {_idio.StaticConfig} [opts]
  */
 export default (root, opts = {}) => {
   assert(root, 'root directory is required to serve files')
@@ -61,7 +61,7 @@ export default (root, opts = {}) => {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../..').KoaStaticConfig} _idio.KoaStaticConfig
+ * @typedef {import('../..').StaticConfig} _idio.StaticConfig
  */
 /**
  * @suppress {nonStandardJsDocs}

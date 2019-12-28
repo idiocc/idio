@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <record name="StaticOptions" desc="The top-level options when setting up the static middleware.">
+  <record name="StaticOptions" extends="_idio.StaticConfig" desc="Top-level options when setting up static middleware.">
     <prop type="string|!Array<string>" name="root">
       Root or multiple roots from which to serve files.
     </prop>
@@ -8,12 +8,6 @@
     </prop>
     <prop string name="mount" default="/">
       Path from which to serve files.
-    </prop>
-    <prop number name="maxage" default="0">
-      How long to cache files for.
-    </prop>
-    <prop opt type="_idio.KoaStaticConfig" name="config">
-      `koa-static` configuration.
     </prop>
   </record>
 </types>

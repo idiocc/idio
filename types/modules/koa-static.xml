@@ -1,5 +1,5 @@
 <types namespace="_idio">
-  <type name="KoaStaticConfig" desc="The configuration that is passed to koa-session." link="https://github.com/koajs/session/#example">
+  <type name="StaticConfig" desc="The configuration that is passed to koa-session.">
     <prop number name="maxage" default="0">
       Browser cache max-age in milliseconds.
     </prop>

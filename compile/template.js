@@ -39,7 +39,7 @@ module.exports.compose = $compose
 /**
  * @typedef {IdioRouter} _idio.Router
  * @typedef {_idio.StaticOptions} StaticOptions
- * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
+ * @typedef {_idio.StaticConfig} StaticConfig
  *
  * @typedef {_idio.FormDataOptions} FormDataOptions
  * @typedef {_multipart.FormDataConfig} FormDataConfig

@@ -96,7 +96,7 @@ module.exports.compose = $compose
 /**
  * @typedef {IdioRouter} _idio.Router
  * @typedef {_idio.StaticOptions} StaticOptions
- * @typedef {_idio.KoaStaticConfig} KoaStaticConfig
+ * @typedef {_idio.StaticConfig} StaticConfig
  *
  * @typedef {_idio.FormDataOptions} FormDataOptions
  * @typedef {_multipart.FormDataConfig} FormDataConfig
@@ -168,7 +168,7 @@ module.exports.compose = $compose
  * @typedef {import('../types/options').CorsOptions} _idio.CorsOptions
  * @typedef {import('../types/modules/cors').CorsConfig} _goa.CorsConfig
  * @typedef {import('../types/options').StaticOptions} _idio.StaticOptions
- * @typedef {import('../types/modules').KoaStaticConfig} _idio.KoaStaticConfig
+ * @typedef {import('../types/modules/static').StaticConfig} _idio.StaticConfig
  * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
  * @typedef {import('../types/modules').CompressConfig} _goa.CompressConfig
  * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions

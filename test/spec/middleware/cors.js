@@ -3,7 +3,7 @@ import Context from '../../context'
 /** @type {Object.<string, (c: Context, { origin: string })>} */
 const T = {
   context: [Context, { origin: 'http://test.page' }],
-  async '!returns Access-Control-Allow-Methods headers'({ createApp, startApp }, { origin }) {
+  async'returns Access-Control-Allow-Methods headers'({ createApp, startApp }, { origin }) {
     await createApp({
       cors: {
         use: true,
@@ -16,7 +16,7 @@ const T = {
       .options('/')
       .assert('access-control-allow-methods', 'GET,POST')
   },
-  async 'returns CORS headers with a function'({ createApp, startApp }, { origin }) {
+  async'returns CORS headers with a function'({ createApp, startApp }, { origin }) {
     await createApp({
       cors: {
         use: true,
@@ -28,7 +28,7 @@ const T = {
       .get('/')
       .assert('access-control-allow-origin', origin)
   },
-  async 'returns CORS headers with a string'({ createApp, startApp }, { origin }) {
+  async'returns CORS headers with a string'({ createApp, startApp }, { origin }) {
     await createApp({
       cors: {
         use: true,
@@ -40,7 +40,7 @@ const T = {
       .get('/')
       .assert('access-control-allow-origin', origin)
   },
-  async 'returns CORS headers with an array'({ createApp, startApp }, { origin }) {
+  async'returns CORS headers with an array'({ createApp, startApp }, { origin }) {
     await createApp({
       cors: {
         use: true,

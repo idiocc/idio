@@ -31,20 +31,22 @@ const map = {
   // logger: setupLogger,
   /**
    * @param {!_goa.Application} app
-   * @param {_idio.KoaStaticConfig} config
+   * @param {!Object} _
    * @param {_idio.StaticOptions} options
    */
-  'static'(app, config, {
-    root = [],
-    maxage,
-    mount,
-  }) {
-    const roots = Array.isArray(root) ? root : [root]
-    const m = roots.map((r) => {
-      const fn = serve(r, {
-        maxage,
-        ...config,
-      })
+  'static'(app, _, options = {}) {
+    const {
+      root = [],
+      mount,
+      ...rest
+    } = options
+    if (!Array.isArray(root)) {
+      const fn = serve(root, /** @type {_idio.StaticConfig} */ (rest))
+      if (mount) return Mount(mount, fn)
+      else return fn
+    }
+    const m = root.map((r) => {
+      const fn = serve(r, /** @type {_idio.StaticConfig} */ ({ ...rest }))
       return fn
     })
     const c = compose(m)
@@ -245,10 +247,6 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../types/options').CorsOptions} _idio.CorsOptions
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('..').KoaStaticConfig} _idio.KoaStaticConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
