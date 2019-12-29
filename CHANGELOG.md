@@ -1,5 +1,9 @@
 ## 29 December 2019
 
+### [1.0.1](https://github.com/idiocc/idio/compare/v1.0.0...v1.0.1)
+
+- [package] Add types.js files.
+
 ### [1.0.0](https://github.com/idiocc/idio/compare/v0.4.0...v1.0.0)
 
 - [feature] Update middleware signatures to extend configs.

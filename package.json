@@ -31,9 +31,10 @@
   "files": [
     "compile",
     "types/goa",
-    "types/modules/index.js",
-    "types/modules/session.js",
     "types/modules/cors.js",
+    "types/modules/form-data.js",
+    "types/modules/session.js",
+    "types/modules/static.js",
     "types/options/index.js"
   ],
   "alamode": true,
