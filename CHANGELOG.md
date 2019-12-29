@@ -1,3 +1,9 @@
+## 29 December 2019
+
+### [1.0.0](https://github.com/idiocc/idio/compare/v0.4.0...v1.0.0)
+
+- [feature] Update middleware signatures to extend configs.
+
 ## 24 December 2019
 
 ### [0.4.0](https://github.com/idiocc/idio/compare/v0.3.0...v0.4.0)
