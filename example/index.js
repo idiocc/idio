@@ -1,5 +1,6 @@
 import aqt from '@rqt/aqt'
-import idio from '../compile'
+// import test from '../test'
+import idio from '../src'
 
 (async () => {
   /* start example */
@@ -7,6 +8,11 @@ import idio from '../compile'
     middleware: { session, form },
     router,
   } = await idio({
+    // Developers' payment scheme neoluddite.dev
+    neoluddite: {
+      env: process.env.NODE_ENV,
+      key: '0799b7f0-d2c7-4903-a541-00c8092c2911',
+    },
     // Idio's bundled middleware.
     session: {
       algorithm: 'sha512',

@@ -112,3 +112,23 @@ _idio.FrontEndOptions
  * @type {boolean|undefined}
  */
 _idio.FrontEndOptions.prototype.use
+/**
+ * Options for the neoluddite.dev client.
+ * @record
+ */
+_idio.NeoLudditeOptions
+/**
+ * The API key received from the app.
+ * @type {string}
+ */
+_idio.NeoLudditeOptions.prototype.key
+/**
+ * The environment (e.g., `dev`/`staging`). The production env must be indicated as `prod` which is billed.
+ * @type {string|undefined}
+ */
+_idio.NeoLudditeOptions.prototype.env
+/**
+ * The hostname of the server. Default `https://neoluddite.dev`.
+ * @type {string|undefined}
+ */
+_idio.NeoLudditeOptions.prototype.host

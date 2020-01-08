@@ -100,6 +100,11 @@ _idio.MiddlewareConfig.prototype.form
  */
 _idio.MiddlewareConfig.prototype.frontend
 /**
+ * Records the usage of middleware to compensate their developers' intellectual work.
+ * @type {(!_idio.NeoLudditeOptions)|undefined}
+ */
+_idio.MiddlewareConfig.prototype.neoluddite
+/**
  * Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>}
  */

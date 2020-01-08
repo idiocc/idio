@@ -115,6 +115,11 @@ export {}
  * @typedef {_idio.$FrontEndOptions & _idio.FrontEndConfig} _idio.FrontEndOptions `＠record` Options for the frontend.
  * @typedef {Object} _idio.$FrontEndOptions `＠record` Options for the frontend.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
+ * @typedef {_idio.NeoLudditeOptions} NeoLudditeOptions `＠record` Options for the neoluddite.dev client.
+ * @typedef {Object} _idio.NeoLudditeOptions `＠record` Options for the neoluddite.dev client.
+ * @prop {string} key The API key received from the app.
+ * @prop {string} [env] The environment (e.g., `dev`/`staging`). The production env must be indicated as `prod` which is billed.
+ * @prop {string} [host="https://neoluddite.dev"] The hostname of the server. Default `https://neoluddite.dev`.
  */
 
 /* typal node_modules/@idio/frontend/types/index.xml namespace */

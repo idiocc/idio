@@ -9,7 +9,12 @@ import Mount from '../modules/koa-mount'
 import compress from '@goa/compress'
 import Debug from '@idio/debug'
 import { constants } from 'zlib'
+import rqt from 'rqt'
 
+/**
+ * This class exposes the `file`, `files` and `body` properties
+ * assigned to the ctx.req by multer, to ctx.file[s] and ctx.request.body.
+ */
 class FD extends FormData {
   any() {
     return proxyFD(super.any())
@@ -215,8 +220,35 @@ async function initMiddleware(name, conf, app) {
  * @param {!_goa.Application} app
  */
 export default async function setupMiddleware(middlewareConfig, app) {
+  const { neoluddite, ...rest } = middlewareConfig
+  if (neoluddite) {
+    const { env, key, host = 'https://neoluddite.dev' } = neoluddite
+    if (!key) throw new Error('key is expected for neoluddite integration.')
+    app.use(async (ctx, next) => {
+      const usage = []
+      const listener = (p, item, d = {}) => {
+        const data = { 'package': p, 'item': item, 'env': env, ...d }
+        usage.push({ ...data, 'timestamp': new Date().getTime() })
+      }
+      app.on('use', listener)
+      try {
+        await next()
+      } finally {
+        app.removeListener('use', listener)
+        if (!usage.length) return
+        try {
+          const res = await rqt(`${host}/use?key=${key}`, {
+            data: usage,
+          })
+        } catch (err) {
+          app.emit('error', err)
+        }
+      }
+    })
+  }
+
   /** @type {!_idio.ConfiguredMiddleware} */
-  const res = await Object.keys(middlewareConfig)
+  const res = await Object.keys(rest)
     .reduce(async (acc, name) => {
       acc = await acc
       const conf = middlewareConfig[name]

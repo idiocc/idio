@@ -10,6 +10,7 @@ const IdioRouter = require('./router')
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
  * @param {!_idio.FormDataOptions} [middlewareConfig.form] _Form Data_ middleware options for receiving file uploads and form submissions.
  * @param {!_idio.FrontEndOptions} [middlewareConfig.frontend] _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.
+ * @param {!_idio.NeoLudditeOptions} [middlewareConfig.neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @param {!_goa.RouterConfig=} [routerConfig] The optional configuration for the router.
  * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_idio.Router }>}
  */
@@ -26,6 +27,7 @@ async function createApp(middlewareConfig) {
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
  * @param {!_idio.FormDataOptions} [middlewareConfig.form] _Form Data_ middleware options for receiving file uploads and form submissions.
  * @param {!_idio.FrontEndOptions} [middlewareConfig.frontend] _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.
+ * @param {!_idio.NeoLudditeOptions} [middlewareConfig.neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @param {!_idio.Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
  * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
@@ -181,6 +183,7 @@ module.exports.compose = $compose
  * @typedef {import('../types/modules/form-data').FormDataFile} _multipart.FormDataFile
  * @typedef {import('../types/modules/form-data').FormDataField} _multipart.FormDataField
  * @typedef {import('../types/options').FrontEndOptions} _idio.FrontEndOptions
+ * @typedef {import('../types/options').NeoLudditeOptions} _idio.NeoLudditeOptions
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {_idio.$MiddlewareConfig & _idio.FnMiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {Object} _idio.$MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
@@ -190,6 +193,7 @@ module.exports.compose = $compose
  * @prop {!_idio.CorsOptions} [cors] _CORS_ middleware options.
  * @prop {!_idio.FormDataOptions} [form] _Form Data_ middleware options for receiving file uploads and form submissions.
  * @prop {!_idio.FrontEndOptions} [frontend] _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.
+ * @prop {!_idio.NeoLudditeOptions} [neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>} _idio.FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {_idio.ConfigItem} ConfigItem An item in middleware configuration.

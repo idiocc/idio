@@ -124,6 +124,7 @@ export default async function send(ctx, path, opts = {}) {
     ctx.set('Cache-Control', directives.join(','))
   }
   if (!ctx.type) ctx.type = type(path, encodingExt)
+  ctx.app.emit('use', 'koa-send', 'stream')
   ctx.body = createReadStream(path)
 
   return path

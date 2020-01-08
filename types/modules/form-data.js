@@ -45,7 +45,7 @@ export {}
  * @typedef {_multipart.FormData} FormData `＠interface` An instance to create middleware.
  * @typedef {Object} _multipart.FormData `＠interface` An instance to create middleware.
  * @prop {(name: string) => !_goa.Middleware} single Accept a single file.
- * @prop {(name: string, maxFiles: string) => !_goa.Middleware} array Accept multiple files.
+ * @prop {(name: string, maxFiles: number) => !_goa.Middleware} array Accept multiple files.
  * @prop {(fields: !Array<_multipart.FormDataField>) => !_goa.Middleware} fields Accept files according to the configured fields.
  * @prop {() => !_goa.Middleware} none Do not accept files, only fields.
  * @prop {() => !_goa.Middleware} any Accept any fields and files.

@@ -20,6 +20,7 @@
   <import from="../types/modules/form-data" ns="_multipart" name="FormDataField" />
 
   <import from="../types/options" ns="_idio" name="FrontEndOptions" />
+  <import from="../types/options" ns="_idio" name="NeoLudditeOptions" />
 
   <record name="MiddlewareConfig"
     desc="Middleware configuration for the `idio` server."
@@ -41,6 +42,9 @@
     </prop>
     <prop opt type="!_idio.FrontEndOptions" name="frontend">
       _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.
+    </prop>
+    <prop opt type="!_idio.NeoLudditeOptions" name="neoluddite">
+      Records the usage of middleware to compensate their developers' intellectual work.
     </prop>
   </record>
 
