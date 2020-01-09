@@ -29,7 +29,7 @@ export default class IdioContext extends Context {
    * @param {string} item The billed item name.
    * @param {!Object} [d] Any additional options.
    */
-  use(p, item, d = {}) {
+  neoluddite(p, item, d = {}) {
     if (!this._usage) return
     this._usage.push({
       'package': p,

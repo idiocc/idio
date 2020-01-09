@@ -68,7 +68,7 @@
     </prop>
 
     <!-- NeoLuddite -->
-    <fn name="use">
+    <fn name="neoluddite" void>
       <arg string name="package">The package name.</arg>
       <arg string name="item">The usage item.</arg>
       <arg type="!Object" name="props">Additional properties to add.</arg>

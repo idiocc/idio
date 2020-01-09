@@ -43,7 +43,7 @@ export default function mount(prefix, app) {
     ctx.path = /** @type {string} */ (newPath)
     debug('enter %s -> %s', prev, ctx.path)
 
-    ctx.app.emit('use', 'koa-mount', 'mount')
+    if (ctx.neoluddite) ctx.neoluddite('koa-mount', 'mount')
     await downstream(ctx, async () => {
       ctx.path = prev
       await upstream()

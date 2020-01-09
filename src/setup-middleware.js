@@ -42,9 +42,9 @@ const proxyFD = (original) => {
     if (ctx.req.files) ctx.files = ctx.req.files
     if (ctx.req.body) ctx.request.body = ctx.req.body
     if (ctx.file || ctx.files) {
-      ctx.use('@multipart/form-data', 'file')
+      ctx.neoluddite('@multipart/form-data', 'file')
     } else if (ctx.request.body) {
-      ctx.use('@multipart/form-data', 'body')
+      ctx.neoluddite('@multipart/form-data', 'body')
     }
     await next()
   }

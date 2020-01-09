@@ -119,7 +119,7 @@ _idio.Context.prototype._usage
  * @param {string} item The usage item.
  * @param {!Object} props Additional properties to add.
  */
-_idio.Context.prototype.use = function(package, item, props) {}
+_idio.Context.prototype.neoluddite = function(package, item, props) {}
 /**
  * The function to handle requests which can be installed with the `.use` method.
  * @typedef {function(!_idio.Context,!Function=): (!Promise|void)}

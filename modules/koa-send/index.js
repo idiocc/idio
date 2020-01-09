@@ -17,7 +17,7 @@ const debug = Debug('koa-send')
 
 /**
  * Send file at `path` with the given `options` to the koa `ctx`.
- * @param {!_goa.Context} ctx
+ * @param {!_idio.Context} ctx
  * @param {string} path
  * @param {_idio.KoaSendConfig} [opts]
  */
@@ -124,7 +124,7 @@ export default async function send(ctx, path, opts = {}) {
     ctx.set('Cache-Control', directives.join(','))
   }
   if (!ctx.type) ctx.type = type(path, encodingExt)
-  ctx.app.emit('use', 'koa-send', 'stream')
+  if (ctx.neoluddite) ctx.neoluddite('koa-send', 'stream')
   ctx.body = createReadStream(path)
 
   return path
@@ -164,7 +164,7 @@ function decode (path) {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('@goa/goa').Context} _goa.Context
+ * @typedef {import('../../').Context} _idio.Context
  */
 /**
  * @suppress {nonStandardJsDocs}
