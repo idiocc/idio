@@ -1,6 +1,6 @@
 import aqt from '@rqt/aqt'
 // import test from '../test'
-import idio from '../src'
+import idio from '../compile'
 
 (async () => {
   /* start example */

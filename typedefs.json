@@ -106,5 +106,9 @@
   "_idio.StaticConfig": {
     "link": "https://github.com/idiocc/idio/wiki/Static#type-staticconfig",
     "description": "The configuration for serving static files."
+  },
+  "_idio.NeoLudditeOptions": {
+    "link": "https://github.com/idiocc/idio#type-neoludditeoptions",
+    "description": "Options for the neoluddite.dev client."
   }
 }

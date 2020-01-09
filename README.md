@@ -36,6 +36,8 @@ npm install @idio/idio
   * [Front End](#front-end)
 - [Custom Middleware](#custom-middleware)
 - [Router Set-up](#router-set-up)
+- [NeoLuddite.Dev](#neoludditedev)
+  * [`NeoLudditeOptions`](#type-neoludditeoptions)
 - [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
@@ -69,14 +71,15 @@ There are multiple items for middleware configuration:
 __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareConfig__: Middleware configuration for the `idio` server.
 
 
-|   Name   |                                                                                                                                                                    Type                                                                                                                                                                     |                                        Description                                        |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| static   | <em>(<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a>&gt;)</em> | _Static_ middleware options.                                                              |
-| compress | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                                                                                                                                                                                           | _Compression_ middleware options.                                                         |
-| session  | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>                                                                                                                                                                      | _Session_ middleware options.                                                             |
-| cors     | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                                                                                                                                                                                          | _CORS_ middleware options.                                                                |
-| form     | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em>                                                                                                                                                               | _Form Data_ middleware options for receiving file uploads and form submissions.           |
-| frontend | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                                                                                                                                                                                | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX. |
+|    Name    |                                                                                                                                                                    Type                                                                                                                                                                     |                                        Description                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| static     | <em>(<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a>&gt;)</em> | _Static_ middleware options.                                                              |
+| compress   | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                                                                                                                                                                                           | _Compression_ middleware options.                                                         |
+| session    | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>                                                                                                                                                                      | _Session_ middleware options.                                                             |
+| cors       | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                                                                                                                                                                                          | _CORS_ middleware options.                                                                |
+| form       | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em>                                                                                                                                                               | _Form Data_ middleware options for receiving file uploads and form submissions.           |
+| frontend   | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                                                                                                                                                                                | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX. |
+| neoluddite | <em><a href="#type-neoludditeoptions" title="Options for the neoluddite.dev client.">!NeoLudditeOptions</a></em>                                                                                                                                                                                                                            | Records the usage of middleware to compensate their developers' intellectual work.        |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -125,6 +128,12 @@ const { url, app,
   middleware: { session, form },
   router,
 } = await idio({
+  // Developers' payment scheme neoluddite.dev
+  neoluddite: {
+    env: process.env.NODE_ENV,
+    key: '0799b7f0-d2c7-4903-a541-00c8092c2911',
+    app: 'idio.example',
+  },
   // Idio's bundled middleware.
   session: {
     algorithm: 'sha512',
@@ -219,7 +228,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:59407/app.css */ 
+/** http://localhost:50489/app.css */ 
 
 body {
   font-size: larger;
@@ -240,7 +249,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Sat, 28 Dec 2019 19:56:43 GMT
+Date: Thu, 09 Jan 2020 00:29:42 GMT
 Connection: close
 ```
 
@@ -251,7 +260,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Sat, 28 Dec 2019 19:56:44 GMT
+Date: Thu, 09 Jan 2020 00:29:42 GMT
 Connection: close
 ```
 </details>
@@ -304,17 +313,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTk5My4wIiwiX2V4cGlyZSI6MTU3NzY0OTQwNjMyMCwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTc1MC4zIiwiX2V4cGlyZSI6MTU3ODYxNjE4MzY3MCwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Sun, 29 Dec 2019 19:56:46 GMT',
+    expires: 'Fri, 10 Jan 2020 00:29:43 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: '8IXefLnwt1KVS3JESXkGAIWgyh2_yob-bp3JZJ2wFHvkc7PccHbXFKTAY-DaknHk0lNsd1xe1333jTY_gtJLuA',
+    value: 'z-2_tqAz0BsVZbzl7CJRIEKbfU6Sp-SPbt5cas5fAu3v2bQwjaZNCOO5nnL37vZ7jgkymZWNvUHaB8ikgd1agw',
     path: '/',
-    expires: 'Sun, 29 Dec 2019 19:56:46 GMT',
+    expires: 'Fri, 10 Jan 2020 00:29:43 GMT',
     httponly: true } ]
 // GET /
-"welcome back u993.0"
+"welcome back u750.3"
 ```
 </td>
 </tr>
@@ -360,20 +369,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Sat, 28 Dec 2019 19:56:47 GMT',
+  date: 'Thu, 09 Jan 2020 00:29:44 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Sat, 28 Dec 2019 19:56:47 GMT',
+  date: 'Thu, 09 Jan 2020 00:29:44 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Sat, 28 Dec 2019 19:56:47 GMT',
+  date: 'Thu, 09 Jan 2020 00:29:44 GMT',
   connection: 'close' }
 ```
 </td>
@@ -417,7 +426,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Sat, 28 Dec 2019 19:56:48 GMT',
+  date: 'Thu, 09 Jan 2020 00:29:45 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -467,8 +476,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '62bf2',
-     path: 'example/upload/62bf2',
+     filename: '0d3d0',
+     path: 'example/upload/0d3d0',
      size: 29 },
   body: { hello: 'world' } }
 ```
@@ -742,11 +751,54 @@ Page available at: http://localhost:5003
   <img src="/.documentary/section-breaks/11.svg?sanitize=true">
 </a></p>
 
+## NeoLuddite.Dev
+
+This web server integrates with [NeoLuddite](https://neoluddite.dev): the package monetary reward scheme. To use the server online (not intranet), you must sign up for the API key to be able to compensate middleware owners their invested time. The key is then specified in the middleware config:
+
+```js
+const { url, app,
+  middleware: { session, form },
+  router,
+} = await idio({
+  // Developers' payment scheme neoluddite.dev
+  neoluddite: {
+    env: process.env.NODE_ENV,
+    key: '0799b7f0-d2c7-4903-a541-10d8092c2911',
+    app: 'idio.example',
+  },
+  // ...
+}
+```
+
+The usage will be billed for apps running in production mode, therefore the `env` variable is needed. Setting the `app` has no effect but allows to break down statistics by web application on the portal. See the license section for more info.
+
+<a href="https://neoluddite.dev"><img src="doc/ludds.png"></a>
+
+__<a name="type-neoludditeoptions">`NeoLudditeOptions`</a>__: Options for the neoluddite.dev client.
+
+
+|   Name   |      Type       |                                               Description                                                |         Default          |
+| -------- | --------------- | -------------------------------------------------------------------------------------------------------- | ------------------------ |
+| __key*__ | <em>string</em> | The API key received from the app.                                                                       | -                        |
+| env      | <em>string</em> | The environment (e.g., `dev`/`staging`). The production env must be indicated as `prod` which is billed. | -                        |
+| host     | <em>string</em> | The hostname of the server.                                                                              | `https://neoluddite.dev` |
+| app      | <em>string</em> | The name of the application.                                                                             | -                        |
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/12.svg?sanitize=true">
+</a></p>
+
 ## Copyright & License
 
 GNU Affero General Public License v3.0
 
-All original work on middleware and Koa are under MIT license.
+Affero GPL means that you're not allowed to use this web server on the web unless you release the source code for your application. This is a restrictive license which has the purpose of defending Open Source work and its creators.
+
+To be able to use the server fully without disclosing the source code, under the same license but without the need to release the source code, you have to join [neoluddite.dev](https://neoluddite.dev) _Open Source_ package reward scheme, and obtain an API key required for production use. Every time you invoke a certain functionality in a package somebody has written (e.g., `koa-static` for static files, `koa-session` for creation of session), via _Idio_, your usage will counted and your balance in _Ludds_ on the neoluddite server will transferred to the software engineer as a reward for his intellectual work. Contact license@neoluddite.dev for any requests.
+
+> At the moment, `NeoLuddite.Dev` is in demo, and you only need to register with the service to start tracking usage. You receive 1m _Ludds_ each month and an ability to track middleware usage by multiple web applications. In future, neo luddites will assign the reward they want for their usage events.
+
+All original work on middleware and Koa are under MIT license. See [Goa Page](https://github.com/idiocc/goa/) for the list of packages and modules used in compilation of the Goa server, and the [`package.json`](/package.json) file for dependencies of this project (todo: create wiki page w/ licenses table).
 
 <table>
   <tr>
@@ -756,7 +808,7 @@ All original work on middleware and Koa are under MIT license.
           alt="Art Deco">
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a> 2019</th>
+    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a> 2020</th>
     <th>
       <a href="https://idio.cc">
         <img src="https://avatars3.githubusercontent.com/u/40834161?s=100" width="100" alt="Idio">

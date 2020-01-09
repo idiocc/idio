@@ -105,7 +105,7 @@
     "zoroaster": "^4.1.2"
   },
   "dependencies": {
-    "mime-db": "^1.42.0",
+    "mime-db": "^1.43.0",
     "text-decoding": "^1.0.0"
   }
 }
