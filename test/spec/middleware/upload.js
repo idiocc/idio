@@ -3,20 +3,25 @@ import { join } from 'path'
 import { ok, deepEqual } from '@zoroaster/assert'
 import TempContext from 'temp-context'
 
-/** @type {Object.<string, (c: Context, t: TempContext)>} */
+/** @type {Object.<string, (c: Context, t: TempContext, e: Context)>} */
 const T = {
-  context: [Context, TempContext],
+  context: [Context, TempContext, Context],
   async'handles any file upload'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
     const s = join(staticDir, 'small.txt')
+    let usage
     const { middleware: { form }, app, router } = await createApp({
+      async usage(ctx, next) {
+        ctx._usage = []
+        await next()
+        usage = ctx._usage.map((a) => {
+          delete a.timestamp
+          delete a.env
+          return a
+        })
+      },
       form: {
         dest: TEMP,
       },
-    })
-    const p = new Promise((r) => {
-      app.on('use', (pck, item) => {
-        r({ package: pck, item })
-      })
     })
     app.use(router.routes())
     router.post('/test', form.any(), (ctx) => {
@@ -41,8 +46,7 @@ const T = {
         size: 12,
       }])
     const st = await snapshot()
-    const usage = await p
-    deepEqual(usage, { package: '@multipart/form-data', item: 'file' })
+    deepEqual(usage, [{ package: '@multipart/form-data', item: 'file' }])
     return st.replace(/# .+/, '# file')
   },
   async'handles any file upload via config'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
@@ -114,15 +118,20 @@ const T = {
     return st.replace(/# .+/, '# file')
   },
   async'handles just body'({ createApp, startApp }) {
+    let usage
     const { middleware: { form }, app, router } = await createApp({
+      async usage(ctx, next) {
+        ctx._usage = []
+        await next()
+        usage = ctx._usage.map((a) => {
+          delete a.timestamp
+          delete a.env
+          return a
+        })
+      },
       form: {},
     })
     app.use(router.routes())
-    const p = new Promise((r) => {
-      app.on('use', (pck, item) => {
-        r({ package: pck, item })
-      })
-    })
     router.post('/test', form.none(), (ctx) => {
       ctx.body = ctx.request.body
     })
@@ -132,8 +141,7 @@ const T = {
         f.addSection('hello', 'world')
       })
       .assert(200, { test: 'data', hello: 'world' })
-    const usage = await p
-    deepEqual(usage, { package: '@multipart/form-data', item: 'body' })
+    deepEqual(usage, [{ package: '@multipart/form-data', item: 'body' }])
   },
 }
 

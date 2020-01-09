@@ -66,6 +66,17 @@
     <prop type="?string" name="mountPath" initial="null">
       When serving files through `mount`, this property will be set to the mount prefix.
     </prop>
+
+    <!-- NeoLuddite -->
+    <fn name="use">
+      <arg string name="package">The package name.</arg>
+      <arg string name="item">The usage item.</arg>
+      <arg type="!Object" name="props">Additional properties to add.</arg>
+      Records the item for usage via `neoluddite.dev`.
+    </fn>
+    <prop type="Array" name="_usage" initial="null">
+      An array with accumulated usage events.
+    </prop>
   </interface>
 
   <method name="Middleware" return="(!Promise|void)">

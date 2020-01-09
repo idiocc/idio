@@ -42,9 +42,9 @@ const proxyFD = (original) => {
     if (ctx.req.files) ctx.files = ctx.req.files
     if (ctx.req.body) ctx.request.body = ctx.req.body
     if (ctx.file || ctx.files) {
-      ctx.app.emit('use', '@multipart/form-data', 'file')
+      ctx.use('@multipart/form-data', 'file')
     } else if (ctx.request.body) {
-      ctx.app.emit('use', '@multipart/form-data', 'body')
+      ctx.use('@multipart/form-data', 'body')
     }
     await next()
   }
@@ -249,7 +249,7 @@ async function initMiddleware(name, conf, app) {
 
 /**
  * @param {!_idio.MiddlewareConfig} middlewareConfig
- * @param {!_goa.Application} app
+ * @param {!_idio.Application} app
  */
 export default async function setupMiddleware(middlewareConfig, app) {
   const { neoluddite, ...rest } = middlewareConfig
@@ -257,18 +257,15 @@ export default async function setupMiddleware(middlewareConfig, app) {
     const { app: a, env, key, host = 'https://neoluddite.dev' } = neoluddite
     if (!key) throw new Error('key is expected for neoluddite integration.')
     app.use(async (ctx, next) => {
-      const usage = []
-      const listener = (p, item, d = {}) => {
-        const data = { 'package': p, 'item': item, 'env': env, ...d }
-        if (a) data['app'] = a
-        usage.push({ ...data, 'timestamp': new Date().getTime() })
-      }
-      app.on('use', listener)
+      ctx._usage = []
       try {
         await next()
       } finally {
-        app.removeListener('use', listener)
-        if (!usage.length) return
+        if (!ctx._usage.length) return
+        const usage = ctx._usage.map((u) => {
+          if (a) u['app'] = a
+          if (env) u['env'] = env
+        })
         try {
           const res = await rqt(`${host}/use?key=${key}`, {
             data: usage,
@@ -305,6 +302,10 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('@typedefs/goa').Application} _goa.Application
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').Application} _idio.Application
  */
 /**
  * @suppress {nonStandardJsDocs}

@@ -19,5 +19,23 @@ export default class IdioContext extends Context {
     // form-data
     this.file = null
     this.files = null
+
+    // usage
+    this._usage = null
+  }
+  /**
+   * Records a billed item for neoluddite.dev
+   * @param {string} p The package name.
+   * @param {string} item The billed item name.
+   * @param {!Object} [d] Any additional options.
+   */
+  use(p, item, d = {}) {
+    if (!this._usage) return
+    this._usage.push({
+      'package': p,
+      'item': item,
+      'timestamp': new Date().getTime(),
+      ...d,
+    })
   }
 }

@@ -109,6 +109,18 @@ _idio.Context.prototype.router
  */
 _idio.Context.prototype.mountPath
 /**
+ * An array with accumulated usage events. Default `null`.
+ * @type {Array}
+ */
+_idio.Context.prototype._usage
+/**
+ * Records the item for usage via `neoluddite.dev`.
+ * @param {string} package The package name.
+ * @param {string} item The usage item.
+ * @param {!Object} props Additional properties to add.
+ */
+_idio.Context.prototype.use = function(package, item, props) {}
+/**
  * The function to handle requests which can be installed with the `.use` method.
  * @typedef {function(!_idio.Context,!Function=): (!Promise|void)}
  */
