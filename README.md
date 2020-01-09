@@ -79,7 +79,7 @@ __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareCon
 | cors       | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                                                                                                                                                                                          | _CORS_ middleware options.                                                                |
 | form       | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em>                                                                                                                                                               | _Form Data_ middleware options for receiving file uploads and form submissions.           |
 | frontend   | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                                                                                                                                                                                | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX. |
-| neoluddite | <em><a href="#type-neoludditeoptions" title="Options for the neoluddite.dev client.">!NeoLudditeOptions</a></em>                                                                                                                                                                                                                            | Records the usage of middleware to compensate their developers' intellectual work.        |
+| neoluddite | <em><a href="https://github.com/idiocc/idio#type-neoludditeoptions" title="Options for the neoluddite.dev client.">!NeoLudditeOptions</a></em>                                                                                                                                                                                              | Records the usage of middleware to compensate their developers' intellectual work.        |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -260,7 +260,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 09 Jan 2020 00:29:42 GMT
+Date: Thu, 09 Jan 2020 00:34:58 GMT
 Connection: close
 ```
 </details>
@@ -313,17 +313,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTc1MC4zIiwiX2V4cGlyZSI6MTU3ODYxNjE4MzY3MCwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTMzMS41IiwiX2V4cGlyZSI6MTU3ODYxNjQ5OTE1NCwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Fri, 10 Jan 2020 00:29:43 GMT',
+    expires: 'Fri, 10 Jan 2020 00:34:59 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'z-2_tqAz0BsVZbzl7CJRIEKbfU6Sp-SPbt5cas5fAu3v2bQwjaZNCOO5nnL37vZ7jgkymZWNvUHaB8ikgd1agw',
+    value: 'FazRSNQX2mLbDOYmKVcSDOj4eb4wAhtU49kNxRxhRJjz1w6rEfrHfwXbxHSW_ao9BVJZUtJebzcL9dn0nGws6A',
     path: '/',
-    expires: 'Fri, 10 Jan 2020 00:29:43 GMT',
+    expires: 'Fri, 10 Jan 2020 00:34:59 GMT',
     httponly: true } ]
 // GET /
-"welcome back u750.3"
+"welcome back u331.5"
 ```
 </td>
 </tr>
@@ -369,20 +369,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 09 Jan 2020 00:29:44 GMT',
+  date: 'Thu, 09 Jan 2020 00:34:59 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 09 Jan 2020 00:29:44 GMT',
+  date: 'Thu, 09 Jan 2020 00:34:59 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Thu, 09 Jan 2020 00:29:44 GMT',
+  date: 'Thu, 09 Jan 2020 00:34:59 GMT',
   connection: 'close' }
 ```
 </td>
@@ -426,7 +426,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Thu, 09 Jan 2020 00:29:45 GMT',
+  date: 'Thu, 09 Jan 2020 00:35:00 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -476,8 +476,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '0d3d0',
-     path: 'example/upload/0d3d0',
+     filename: '45193',
+     path: 'example/upload/45193',
      size: 29 },
   body: { hello: 'world' } }
 ```
@@ -794,9 +794,9 @@ GNU Affero General Public License v3.0
 
 Affero GPL means that you're not allowed to use this web server on the web unless you release the source code for your application. This is a restrictive license which has the purpose of defending Open Source work and its creators.
 
-To be able to use the server fully without disclosing the source code, under the same license but without the need to release the source code, you have to join [neoluddite.dev](https://neoluddite.dev) _Open Source_ package reward scheme, and obtain an API key required for production use. Every time you invoke a certain functionality in a package somebody has written (e.g., `koa-static` for static files, `koa-session` for creation of session), via _Idio_, your usage will counted and your balance in _Ludds_ on the neoluddite server will transferred to the software engineer as a reward for his intellectual work. Contact license@neoluddite.dev for any requests.
+To be able to use the server fully without disclosing the source code, under the same license but without the need to release the source code, you have to join [neoluddite.dev](https://neoluddite.dev): an _Open Source_ package reward scheme, and obtain an API key required for production use. Every time you invoke certain functionality in a package somebody has written (e.g., `koa-static` for static files, `koa-session` for creation of session), via _Idio_, your usage will be counted and your balance in _Ludds_ on the neoluddite server will be transferred to the software engineer as a reward for his/her intellectual work. Contact license@neoluddite.dev for any requests.
 
-> At the moment, `NeoLuddite.Dev` is in demo, and you only need to register with the service to start tracking usage. You receive 1m _Ludds_ each month and an ability to track middleware usage by multiple web applications. In future, neo luddites will assign the reward they want for their usage events.
+> At the moment, `NeoLuddite.Dev` is in demo, and you only need to register with the service to start tracking usage. You receive 1m _Ludds_ each month and an ability to track middleware usage by multiple web applications. In future, neo luddites will assign the reward they want for usage events of their packages.
 
 All original work on middleware and Koa are under MIT license. See [Goa Page](https://github.com/idiocc/goa/) for the list of packages and modules used in compilation of the Goa server, and the [`package.json`](/package.json) file for dependencies of this project (todo: create wiki page w/ licenses table).
 
