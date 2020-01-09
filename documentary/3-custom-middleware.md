@@ -1,3 +1,11 @@
+## Additional Middleware
+
+There are some small bits of middleware that can be used in server as well, but which are not essential to its functioning. They are listed in <kbd>📖 [Wiki](../../wiki/Additional_Middleware)</kbd>.
+
+- `csrfCheck`: ensures that the `csrf` token from session matches one in the request.
+
+%~%
+
 ## Custom Middleware
 
 When required to add any other middleware in the application not included in the _Idio_ bundle, it can be done in several ways.

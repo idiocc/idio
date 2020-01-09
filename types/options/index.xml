@@ -28,7 +28,7 @@
       Check for the presence of token in `ctx.request.body` (requires prior Form-Data middleware). Used in POST requests.
     </prop>
     <prop boolean name="query" default="true">
-      Check for the presence of token in `ctx.query` (requires prior Form-Data middleware). Can be used in GET requests.
+      Check for the presence of token in `ctx.query`. Can be used in GET requests.
     </prop>
   </record>
 

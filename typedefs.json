@@ -110,5 +110,9 @@
   "_idio.NeoLudditeOptions": {
     "link": "https://github.com/idiocc/idio#type-neoludditeoptions",
     "description": "Options for the neoluddite.dev client."
+  },
+  "_idio.CsrfCheckOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-csrfcheckoptions",
+    "description": "Options for validating a csrf token."
   }
 }

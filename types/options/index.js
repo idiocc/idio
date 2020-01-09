@@ -125,7 +125,7 @@ export {}
  * @typedef {Object} _idio.CsrfCheckOptions `＠record` Options for validating a csrf token.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  * @prop {boolean} [body=true] Check for the presence of token in `ctx.request.body` (requires prior Form-Data middleware). Used in POST requests. Default `true`.
- * @prop {boolean} [query=true] Check for the presence of token in `ctx.query` (requires prior Form-Data middleware). Can be used in GET requests. Default `true`.
+ * @prop {boolean} [query=true] Check for the presence of token in `ctx.query`. Can be used in GET requests. Default `true`.
  */
 
 /* typal node_modules/@idio/frontend/types/index.xml namespace */

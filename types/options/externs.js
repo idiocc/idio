@@ -153,7 +153,7 @@ _idio.CsrfCheckOptions.prototype.use
  */
 _idio.CsrfCheckOptions.prototype.body
 /**
- * Check for the presence of token in `ctx.query` (requires prior Form-Data middleware). Can be used in GET requests. Default `true`.
+ * Check for the presence of token in `ctx.query`. Can be used in GET requests. Default `true`.
  * @type {boolean|undefined}
  */
 _idio.CsrfCheckOptions.prototype.query

@@ -11,7 +11,7 @@ import idio from '../compile'
     // Developers' payment scheme neoluddite.dev
     neoluddite: {
       env: process.env.NODE_ENV,
-      key: '0799b7f0-d2c7-4903-a541-00c8092c2911',
+      key: '0799b7f0-d2c7-4903-a531-00c8092c2911',
       app: 'idio.example',
     },
     // Idio's bundled middleware.

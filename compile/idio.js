@@ -3107,6 +3107,18 @@ const He = E("idio"), Ge = a => aa([a, async function(b, c) {
   return d ? (new Fe(k)).any() : e ? (new Fe(k)).array(e.name, e.maxFiles) : f ? (new Fe(k)).none() : g ? (new Fe(k)).fields(g) : h ? (new Fe(k)).single(h) : new Fe(k);
 }, ["frontend"](a, b, c) {
   return Ac(c);
+}, ["csrfCheck"](a, b, c) {
+  return function(d, e) {
+    const {body:f = !0, query:g = !0} = c;
+    var h = d.session;
+    h || d.throw(401, "Session does not exist.");
+    (h = h.csrf) || d.throw(500, "CSRF is missing from session.");
+    let k, l;
+    f && (k = (d.request.body || {}).csrf);
+    g && (l = d.query.csrf);
+    h != (k || l) && d.throw(403, "Invalid CSRF token");
+    return e();
+  };
 }};
 async function Je(a, b, c) {
   if ("function" == typeof b) {

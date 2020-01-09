@@ -10,7 +10,7 @@
       "name": "Launch Zoroaster",
       "program": "${workspaceFolder}/node_modules/.bin/zoroaster",
       "env": {
-        "ALAMODE_ENV": "test-dev",
+        "ALAMODE_ENV": "test-compile",
         "NODE_DEBUG": "@idio/idio",
       },
       "console": "integratedTerminal",
