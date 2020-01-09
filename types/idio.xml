@@ -61,6 +61,11 @@
     <prop type="?_idio.Router" name="router" initial="null">
       An instance of the router if the middleware was invoked via it.
     </prop>
+
+    <!-- Mount -->
+    <prop type="?string" name="mountPath" initial="null">
+      When serving files through `mount`, this property will be set to the mount prefix.
+    </prop>
   </interface>
 
   <method name="Middleware" return="(!Promise|void)">

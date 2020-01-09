@@ -132,3 +132,8 @@ _idio.NeoLudditeOptions.prototype.env
  * @type {string|undefined}
  */
 _idio.NeoLudditeOptions.prototype.host
+/**
+ * The name of the application.
+ * @type {string|undefined}
+ */
+_idio.NeoLudditeOptions.prototype.app

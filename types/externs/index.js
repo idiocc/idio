@@ -104,6 +104,11 @@ _idio.Context.prototype.params
  */
 _idio.Context.prototype.router
 /**
+ * When serving files through `mount`, this property will be set to the mount prefix. Default `null`.
+ * @type {?string}
+ */
+_idio.Context.prototype.mountPath
+/**
  * The function to handle requests which can be installed with the `.use` method.
  * @typedef {function(!_idio.Context,!Function=): (!Promise|void)}
  */

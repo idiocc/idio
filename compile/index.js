@@ -138,6 +138,7 @@ module.exports.compose = $compose
  * @prop {?string} _matchedRouteName When middleware was invoked by the router, this will set the route name if the route was created with a name. Default `null`.
  * @prop {?Object} params The parameters extracted from the router. Default `null`.
  * @prop {?_idio.Router} router An instance of the router if the middleware was invoked via it. Default `null`.
+ * @prop {?string} mountPath When serving files through `mount`, this property will be set to the mount prefix. Default `null`.
  * @typedef {_idio.Middleware} Middleware The function to handle requests which can be installed with the `.use` method.
  * @typedef {(ctx: !_idio.Context, next?: !Function) => (!Promise|void)} _idio.Middleware The function to handle requests which can be installed with the `.use` method.
  */

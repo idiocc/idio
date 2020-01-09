@@ -15,5 +15,8 @@
     <prop string name="host" default="https://neoluddite.dev">
       The hostname of the server.
     </prop>
+    <prop string name="app" opt>
+      The name of the application.
+    </prop>
   </record>
 </types>

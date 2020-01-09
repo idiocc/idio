@@ -120,6 +120,7 @@ export {}
  * @prop {string} key The API key received from the app.
  * @prop {string} [env] The environment (e.g., `dev`/`staging`). The production env must be indicated as `prod` which is billed.
  * @prop {string} [host="https://neoluddite.dev"] The hostname of the server. Default `https://neoluddite.dev`.
+ * @prop {string} [app] The name of the application.
  */
 
 /* typal node_modules/@idio/frontend/types/index.xml namespace */

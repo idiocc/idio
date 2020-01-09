@@ -31,7 +31,7 @@ export default function mount(prefix, app) {
   debug('mount %s %s', prefix, name)
 
   /**
-   * @type {!_goa.Middleware}
+   * @type {!_idio.Middleware}
    */
   async function middleware(ctx, upstream) {
     const prev = ctx.path
@@ -39,10 +39,11 @@ export default function mount(prefix, app) {
     debug('mount %s %s -> %s', prefix, name, newPath)
     if (!newPath) return await upstream()
 
-    ctx['mountPath'] = prefix
+    ctx.mountPath = prefix
     ctx.path = /** @type {string} */ (newPath)
     debug('enter %s -> %s', prev, ctx.path)
 
+    ctx.app.emit('use', 'koa-mount', 'mount')
     await downstream(ctx, async () => {
       ctx.path = prev
       await upstream()
@@ -77,7 +78,7 @@ export default function mount(prefix, app) {
     if (newPath[0] != '/') return false
     return newPath
   }
-  return middleware
+  return /** @type {!_goa.Middleware} */ (middleware)
 }
 
 /**
@@ -87,4 +88,8 @@ export default function mount(prefix, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('@goa/goa').Middleware} _goa.Middleware
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../').Middleware} _idio.Middleware
  */

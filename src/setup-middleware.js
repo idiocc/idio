@@ -222,12 +222,13 @@ async function initMiddleware(name, conf, app) {
 export default async function setupMiddleware(middlewareConfig, app) {
   const { neoluddite, ...rest } = middlewareConfig
   if (neoluddite) {
-    const { env, key, host = 'https://neoluddite.dev' } = neoluddite
+    const { app: a, env, key, host = 'https://neoluddite.dev' } = neoluddite
     if (!key) throw new Error('key is expected for neoluddite integration.')
     app.use(async (ctx, next) => {
       const usage = []
       const listener = (p, item, d = {}) => {
         const data = { 'package': p, 'item': item, 'env': env, ...d }
+        if (a) data['app'] = a
         usage.push({ ...data, 'timestamp': new Date().getTime() })
       }
       app.on('use', listener)
