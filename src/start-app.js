@@ -52,7 +52,7 @@ export const createApp = async (middlewareConfig = {}, routerConfig = {}) => {
     Context: IdioContext,
   })
 
-  const middleware = await setupMiddleware(middlewareConfig, app)
+  const middleware = await setupMiddleware(middlewareConfig, /** @type {!_idio.Application} */ (app))
 
   if (app.env == 'production') {
     app.proxy = true

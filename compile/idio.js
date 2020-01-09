@@ -464,7 +464,7 @@ function Ha(a, b) {
     g.mountPath = a;
     g.path = l;
     Ga("enter %s -> %s", k, g.path);
-    g.app.emit("use", "koa-mount", "mount");
+    g.neoluddite && g.neoluddite("koa-mount", "mount");
     await d(g, async() => {
       g.path = k;
       await h();
@@ -707,7 +707,10 @@ class Wa {
     const {opts:{key:b, rolling:c = !1, encode:d, externalKey:e}, externalKey:f} = this;
     let {opts:{maxAge:g = 864E5}} = this, h = this.session.toJSON();
     "session" == g ? (this.opts.maxAge = void 0, h._session = !0) : (h._expire = g + Date.now(), h._maxAge = g);
-    f ? (L("save %j to external key %s", h, f), "number" == typeof g && (g += 10000), await this.store.set(f, h, g, {changed:a, rolling:c}), this.ctx.app.emit("use", "@goa/session", "save-external"), e ? e.set(this.ctx, f) : this.ctx.cookies.set(b, f, this.opts)) : (L("save %j to cookie", h), h = d(h), L("save %s", h), this.ctx.app.emit("use", "@goa/session", "save"), this.ctx.cookies.set(b, h, this.opts));
+    f ? (L("save %j to external key %s", h, f), "number" == typeof g && (g += 10000), await this.store.set(f, h, g, {changed:a, rolling:c}), this.use("save-external"), e ? e.set(this.ctx, f) : this.ctx.cookies.set(b, f, this.opts)) : (L("save %j to cookie", h), h = d(h), L("save %s", h), this.use("save"), this.ctx.cookies.set(b, h, this.opts));
+  }
+  use(a) {
+    this.ctx.neoluddite && this.ctx.neoluddite("@goa/session", a);
   }
 }
 ;/*
@@ -838,7 +841,7 @@ function db(a) {
       m["Access-Control-Allow-Origin"] = p;
       f && (k.set("Access-Control-Allow-Credentials", "true"), m["Access-Control-Allow-Credentials"] = "true");
       c && (p = c, k.set("Access-Control-Expose-Headers", p), m["Access-Control-Expose-Headers"] = p);
-      k.app.emit("use", "@goa/cors", "headers");
+      k.neoluddite && k.neoluddite("@goa/cors", "headers");
       if (!g) {
         return await l();
       }
@@ -851,7 +854,7 @@ function db(a) {
       if (!k.get("Access-Control-Request-Method")) {
         return await l();
       }
-      k.app.emit("use", "@goa/cors", "options");
+      k.neoluddite && k.neoluddite("@goa/cors", "options");
       k.set("Access-Control-Allow-Origin", p);
       f && k.set("Access-Control-Allow-Credentials", "true");
       e && k.set("Access-Control-Max-Age", e);
@@ -2814,7 +2817,7 @@ async function ae(a, b, c = {}) {
     a.response.get("Last-Modified") || a.set("Last-Modified", q.mtime.toUTCString());
     a.response.get("Cache-Control") || (f = ["max-age=" + (g / 1000 | 0)], h && f.push("immutable"), a.set("Cache-Control", f.join(",")));
     a.type || (h = b, h = "" !== d ? oc(mc(h, d)) : oc(h), a.type = h);
-    a.app.emit("use", "koa-send", "stream");
+    a.neoluddite && a.neoluddite("koa-send", "stream");
     a.body = ib(b);
     return b;
   }
@@ -2955,7 +2958,7 @@ function oe(a = {}) {
         d.set("Content-Encoding", f);
         d.res.removeHeader("Content-Length");
         f = d.body = ne[f](a);
-        e instanceof sb ? (d.app.emit("use", "@goa/compress", "stream"), e.pipe(f)) : (d.app.emit("use", "@goa/compress", "data"), f.end(e));
+        e instanceof sb ? (d.neoluddite && d.neoluddite("@goa/compress", "stream"), e.pipe(f)) : (d.neoluddite && d.neoluddite("@goa/compress", "data"), f.end(e));
       }
     }
   };
@@ -3065,7 +3068,7 @@ const He = E("idio"), Ge = a => aa([a, async function(b, c) {
   b.req.file && (b.file = b.req.file);
   b.req.files && (b.files = b.req.files);
   b.req.body && (b.request.body = b.req.body);
-  b.file || b.files ? b.app.emit("use", "@multipart/form-data", "file") : b.request.body && b.app.emit("use", "@multipart/form-data", "body");
+  b.file || b.files ? b.neoluddite("@multipart/form-data", "file") : b.request.body && b.neoluddite("@multipart/form-data", "body");
   await c();
 }]), Ie = {["static"](a, b, c) {
   const {root:d = [], mount:e, ...f} = c;
@@ -3148,24 +3151,21 @@ async function Ke(a, b) {
       throw Error("key is expected for neoluddite integration.");
     }
     b.use(async(k, l) => {
-      const m = [];
-      k = (p, n, q = {}) => {
-        p = {"package":p, item:n, env:f, ...q};
-        e && (p.app = e);
-        m.push({...p, timestamp:(new Date).getTime()});
-      };
-      b.on("use", k);
+      k._usage = [];
       try {
         await l();
       } finally {
-        b.removeListener("use", k);
-        if (!m.length) {
+        if (!k._usage.length) {
           return;
         }
+        k = k._usage.map(m => {
+          e && (m.app = e);
+          f && (m.env = f);
+        });
         try {
-          await Ee(`${h}/use?key=${g}`, {data:m});
-        } catch (p) {
-          b.emit("error", p);
+          await Ee(`${h}/use?key=${g}`, {data:k});
+        } catch (m) {
+          b.emit("error", m);
         }
       }
     });
@@ -5325,7 +5325,10 @@ class bh extends Hg {
   constructor() {
     super();
     this.sessionOptions = this.session = void 0;
-    this.files = this.file = this.mountPath = this.router = this.params = this._matchedRouteName = this._matchedRoute = this.compress = null;
+    this._usage = this.files = this.file = this.mountPath = this.router = this.params = this._matchedRouteName = this._matchedRoute = this.compress = null;
+  }
+  neoluddite(a, b, c = {}) {
+    this._usage && this._usage.push({"package":a, item:b, timestamp:(new Date).getTime(), ...c});
   }
 }
 ;const ch = a => {

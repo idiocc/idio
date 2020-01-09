@@ -142,7 +142,7 @@ module.exports.compose = $compose
  * @prop {?_idio.Router} router An instance of the router if the middleware was invoked via it. Default `null`.
  * @prop {?string} mountPath When serving files through `mount`, this property will be set to the mount prefix. Default `null`.
  * @prop {Array} _usage An array with accumulated usage events. Default `null`.
- * @prop {(package: string, item: string, props: !Object) => ?} neoluddite Records the item for usage via `neoluddite.dev`.
+ * @prop {(pckg: string, item: string, props?: !Object) => void} neoluddite Records the item for usage via `neoluddite.dev`.
  * @typedef {_idio.Middleware} Middleware The function to handle requests which can be installed with the `.use` method.
  * @typedef {(ctx: !_idio.Context, next?: !Function) => (!Promise|void)} _idio.Middleware The function to handle requests which can be installed with the `.use` method.
  */

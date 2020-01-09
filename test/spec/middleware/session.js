@@ -1,5 +1,5 @@
 import Context from '../../context'
-import { throws, equal } from '@zoroaster/assert'
+import { throws } from '@zoroaster/assert'
 import { Keygrip } from '../../../src'
 
 function test(ctx) {
@@ -89,6 +89,29 @@ const T = {
       .get('/').assert(200, 'hello')
       .get('/exit').assert(204)
       .get('/').assert(200, 'no cookie')
+  },
+  async 'records usage'({ createApp, startApp }) {
+    let usage
+    await createApp({
+      async usage(ctx, next) {
+        ctx._usage = []
+        await next()
+        usage = ctx._usage.map((a) => {
+          delete a.timestamp
+          delete a.env
+          return a
+        })
+      },
+      session: {
+        use: true,
+        signed: false,
+      },
+      test,
+    })
+    await startApp()
+      .session()
+      .get('/set').assert(204)
+    return usage
   },
 }
 

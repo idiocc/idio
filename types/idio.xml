@@ -69,9 +69,9 @@
 
     <!-- NeoLuddite -->
     <fn name="neoluddite" void>
-      <arg string name="package">The package name.</arg>
+      <arg string name="pckg">The package name.</arg>
       <arg string name="item">The usage item.</arg>
-      <arg type="!Object" name="props">Additional properties to add.</arg>
+      <arg opt type="!Object" name="props">Additional properties to add.</arg>
       Records the item for usage via `neoluddite.dev`.
     </fn>
     <prop type="Array" name="_usage" initial="null">

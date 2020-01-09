@@ -1,11 +1,11 @@
-import Context from '../../context'
 import { join } from 'path'
 import { ok, deepEqual } from '@zoroaster/assert'
 import TempContext from 'temp-context'
+import Context from '../../context'
 
-/** @type {Object.<string, (c: Context, t: TempContext, e: Context)>} */
+/** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
-  context: [Context, TempContext, Context],
+  context: [Context, TempContext],
   async'handles any file upload'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
     const s = join(staticDir, 'small.txt')
     let usage

@@ -115,11 +115,11 @@ _idio.Context.prototype.mountPath
 _idio.Context.prototype._usage
 /**
  * Records the item for usage via `neoluddite.dev`.
- * @param {string} package The package name.
+ * @param {string} pckg The package name.
  * @param {string} item The usage item.
- * @param {!Object} props Additional properties to add.
+ * @param {!Object=} [props] Additional properties to add.
  */
-_idio.Context.prototype.neoluddite = function(package, item, props) {}
+_idio.Context.prototype.neoluddite = function(pckg, item, props) {}
 /**
  * The function to handle requests which can be installed with the `.use` method.
  * @typedef {function(!_idio.Context,!Function=): (!Promise|void)}
