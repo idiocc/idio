@@ -1,5 +1,10 @@
 ## 9 January 2020
 
+### [1.1.2](https://github.com/idiocc/idio/compare/v1.1.1...v1.1.2)
+
+- [fix] Fix usage.
+- [doc] Add example apps.
+
 ### [1.1.1](https://github.com/idiocc/idio/compare/v1.1.0...v1.1.1)
 
 - [fix] Record usage via context.
