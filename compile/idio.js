@@ -707,7 +707,7 @@ class Wa {
     const {opts:{key:b, rolling:c = !1, encode:d, externalKey:e}, externalKey:f} = this;
     let {opts:{maxAge:g = 864E5}} = this, h = this.session.toJSON();
     "session" == g ? (this.opts.maxAge = void 0, h._session = !0) : (h._expire = g + Date.now(), h._maxAge = g);
-    f ? (L("save %j to external key %s", h, f), "number" == typeof g && (g += 10000), await this.store.set(f, h, g, {changed:a, rolling:c}), e ? e.set(this.ctx, f) : this.ctx.cookies.set(b, f, this.opts)) : (L("save %j to cookie", h), h = d(h), L("save %s", h), this.ctx.cookies.set(b, h, this.opts));
+    f ? (L("save %j to external key %s", h, f), "number" == typeof g && (g += 10000), await this.store.set(f, h, g, {changed:a, rolling:c}), this.ctx.app.emit("use", "@goa/session", "save-external"), e ? e.set(this.ctx, f) : this.ctx.cookies.set(b, f, this.opts)) : (L("save %j to cookie", h), h = d(h), L("save %s", h), this.ctx.app.emit("use", "@goa/session", "save"), this.ctx.cookies.set(b, h, this.opts));
   }
 }
 ;/*
@@ -823,7 +823,7 @@ function db(a) {
     if (!m) {
       return await l();
     }
-    if ("function" === typeof h) {
+    if ("function" == typeof h) {
       var p = h(k);
       p instanceof Promise && (p = await p);
       if (!p) {
@@ -838,6 +838,7 @@ function db(a) {
       m["Access-Control-Allow-Origin"] = p;
       f && (k.set("Access-Control-Allow-Credentials", "true"), m["Access-Control-Allow-Credentials"] = "true");
       c && (p = c, k.set("Access-Control-Expose-Headers", p), m["Access-Control-Expose-Headers"] = p);
+      k.app.emit("use", "@goa/cors", "headers");
       if (!g) {
         return await l();
       }
@@ -850,6 +851,7 @@ function db(a) {
       if (!k.get("Access-Control-Request-Method")) {
         return await l();
       }
+      k.app.emit("use", "@goa/cors", "options");
       k.set("Access-Control-Allow-Origin", p);
       f && k.set("Access-Control-Allow-Credentials", "true");
       e && k.set("Access-Control-Max-Age", e);
@@ -2862,7 +2864,7 @@ function ge(a) {
   }
   a = (a = fe.exec(a)) && a[1].toLowerCase();
   const b = de[a];
-  return b && void 0 !== b.compressible ? b.compressible : ee.test(a) || null;
+  return b && "compressible" in b ? b.compressible : ee.test(a) || null;
 }
 ;/*
  MIT
@@ -2952,8 +2954,8 @@ function oe(a = {}) {
         }
         d.set("Content-Encoding", f);
         d.res.removeHeader("Content-Length");
-        d = d.body = ne[f](a);
-        e instanceof sb ? e.pipe(d) : d.end(e);
+        f = d.body = ne[f](a);
+        e instanceof sb ? (d.app.emit("use", "@goa/compress", "stream"), e.pipe(f)) : (d.app.emit("use", "@goa/compress", "data"), f.end(e));
       }
     }
   };
@@ -3063,6 +3065,7 @@ const He = E("idio"), Ge = a => aa([a, async function(b, c) {
   b.req.file && (b.file = b.req.file);
   b.req.files && (b.files = b.req.files);
   b.req.body && (b.request.body = b.req.body);
+  b.file || b.files ? b.app.emit("use", "@multipart/form-data", "file") : b.request.body && b.app.emit("use", "@multipart/form-data", "body");
   await c();
 }]), Ie = {["static"](a, b, c) {
   const {root:d = [], mount:e, ...f} = c;
