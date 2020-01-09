@@ -72,12 +72,12 @@
   resolved "https://registry.yarnpkg.com/@goa/compose/-/compose-1.0.0.tgz#3672a32269bec4bf061c8dd50a7ab22872c156c3"
   integrity sha512-NdFS/ijCZ4e1WSHZLsQq5CbUHvkK6a20tx2wfNJS2hw55o8iYpmFDGTSgDnQwj09/Lxy5Kj8R5TNq9+leK41xA==
 
-"@goa/compress@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@goa/compress/-/compress-1.1.0.tgz#58679f4cb9a8b1be1b8be0675aafa67a4377ee0e"
-  integrity sha512-XQArSn9t4Pl1aG8FVPrJtPDz0HqMuGP616oLpwP56JxS+OXXj40fFT4tSIISRxr0DKY9p2Pw+LyjSP1ctJGuKg==
+"@goa/compress@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@goa/compress/-/compress-1.2.0.tgz#fe273ed888c4847ae5ecef94153d009a08d47c44"
+  integrity sha512-dMk1gTDMJ74KTnweaSZTNvx8kJMHQ+cFzjAG5sMdKv1vlXLq4wrSIEUB3WFc0oZFBzi3qxNGiLoP1M5WgcNqvQ==
   dependencies:
-    mime-db "^1.42.0"
+    mime-db "^1.43.0"
 
 "@goa/content-type@^1.0.1":
   version "1.0.1"
@@ -89,10 +89,12 @@
   resolved "https://registry.yarnpkg.com/@goa/cookies/-/cookies-2.0.1.tgz#aad46842c8576032e8343070dd593d44391e6181"
   integrity sha512-nQWDDhwqIlR41RDH1nG4/UQE8yyIWPWTp14PFb8NTHkAT4HDa8BEvkITiLxwd8dp/7yr99+G8/2fTf/ItQbW9Q==
 
-"@goa/cors@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@goa/cors/-/cors-1.1.0.tgz#4aaf14d1faf60dca6aa2eb1eb5826caa2eb26a53"
-  integrity sha512-V+zAXYBqE7dW2z+DuR9i2TngbOqcjeSSPyh0eqrkulWV3K9tcXxM0vNsvVyTZfnqf6RVubaXwC63eKD/I+UPOQ==
+"@goa/cors@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@goa/cors/-/cors-1.2.0.tgz#839019ddaf472c6f93f5e2a031ba78bbd0e46856"
+  integrity sha512-E9G/0DvKs0LbPagTFodriqQRFx2gsif5jEAEctyedVFnviVL8p4F5iAwILFiG1XrnEKWWOK+DInj8fC9olam4w==
+  dependencies:
+    "@contexts/http" "^1.6.2"
 
 "@goa/goa@^1.6.1":
   version "1.6.1"
@@ -148,10 +150,10 @@
   resolved "https://registry.yarnpkg.com/@goa/router/-/router-1.2.0.tgz#ec054eeddf8fd14c5064c2e5c264be9e1a5a2499"
   integrity sha512-w+sawURKn30pADD/nZK7psf0UBR3M7/I3vB6F8YH2qFp6nNHRxqVgW/3Aly6IOcx7Q23Buz6x74vHAx5GhiJmw==
 
-"@goa/session@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@goa/session/-/session-3.0.0.tgz#2f0ac4eb833921ba6a7a5ad24eeb97945d564e87"
-  integrity sha512-DGN363VOxi4QGKZhh7XaFXssMK3EYo3OR8G37dEJg2UIiRrA2eJDugk7tO+ee5vuiDZoVIkvgPWZ+G+x119wdg==
+"@goa/session@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@goa/session/-/session-3.1.0.tgz#1349fd8afaa48ca8e15bb64360342db00de123a0"
+  integrity sha512-OkdfpH43IVztmgMX8U6e2I+le+Qh1eEHMuc2SYMTfBCzZ0tNH2sMWyb6hHxeg5B7035dQLNOaTFG6dzaT7vZCw==
 
 "@goa/statuses@^1.0.1":
   version "1.0.1"

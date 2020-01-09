@@ -1,17 +1,22 @@
 import Context from '../../context'
 import { join } from 'path'
-import { ok } from '@zoroaster/assert'
+import { ok, deepEqual } from '@zoroaster/assert'
 import TempContext from 'temp-context'
 
 /** @type {Object.<string, (c: Context, t: TempContext)>} */
 const T = {
   context: [Context, TempContext],
-  async 'handles any file upload'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
+  async'handles any file upload'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
     const s = join(staticDir, 'small.txt')
     const { middleware: { form }, app, router } = await createApp({
       form: {
         dest: TEMP,
       },
+    })
+    const p = new Promise((r) => {
+      app.on('use', (pck, item) => {
+        r({ package: pck, item })
+      })
     })
     app.use(router.routes())
     router.post('/test', form.any(), (ctx) => {
@@ -36,9 +41,11 @@ const T = {
         size: 12,
       }])
     const st = await snapshot()
+    const usage = await p
+    deepEqual(usage, { package: '@multipart/form-data', item: 'file' })
     return st.replace(/# .+/, '# file')
   },
-  async 'handles any file upload via config'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
+  async'handles any file upload via config'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
     const s = join(staticDir, 'small.txt')
     const { middleware: { form }, app, router } = await createApp({
       form: {
@@ -71,7 +78,7 @@ const T = {
     const st = await snapshot()
     return st.replace(/# .+/, '# file')
   },
-  async 'handles fields file upload'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
+  async'handles fields file upload'({ createApp, startApp, staticDir }, { TEMP, snapshot }) {
     const s = join(staticDir, 'small.txt')
     const { middleware: { form }, app, router } = await createApp({
       form: {
@@ -105,6 +112,28 @@ const T = {
       }, body: { test: 'data' } })
     const st = await snapshot()
     return st.replace(/# .+/, '# file')
+  },
+  async'handles just body'({ createApp, startApp }) {
+    const { middleware: { form }, app, router } = await createApp({
+      form: {},
+    })
+    app.use(router.routes())
+    const p = new Promise((r) => {
+      app.on('use', (pck, item) => {
+        r({ package: pck, item })
+      })
+    })
+    router.post('/test', form.none(), (ctx) => {
+      ctx.body = ctx.request.body
+    })
+    await startApp()
+      .postForm('/test', async (f) => {
+        f.addSection('test', 'data')
+        f.addSection('hello', 'world')
+      })
+      .assert(200, { test: 'data', hello: 'world' })
+    const usage = await p
+    deepEqual(usage, { package: '@multipart/form-data', item: 'body' })
   },
 }
 

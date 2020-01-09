@@ -41,6 +41,11 @@ const proxyFD = (original) => {
     if (ctx.req.file) ctx.file = ctx.req.file
     if (ctx.req.files) ctx.files = ctx.req.files
     if (ctx.req.body) ctx.request.body = ctx.req.body
+    if (ctx.file || ctx.files) {
+      ctx.app.emit('use', '@multipart/form-data', 'file')
+    } else if (ctx.request.body) {
+      ctx.app.emit('use', '@multipart/form-data', 'body')
+    }
     await next()
   }
   return compose([original, middleware])
