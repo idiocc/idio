@@ -137,3 +137,23 @@ _idio.NeoLudditeOptions.prototype.host
  * @type {string|undefined}
  */
 _idio.NeoLudditeOptions.prototype.app
+/**
+ * Options for validating a csrf token.
+ * @record
+ */
+_idio.CsrfCheckOptions
+/**
+ * Use this middleware for every request. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.CsrfCheckOptions.prototype.use
+/**
+ * Check for the presence of token in `ctx.request.body` (requires prior Form-Data middleware). Used in POST requests. Default `true`.
+ * @type {boolean|undefined}
+ */
+_idio.CsrfCheckOptions.prototype.body
+/**
+ * Check for the presence of token in `ctx.query` (requires prior Form-Data middleware). Can be used in GET requests. Default `true`.
+ * @type {boolean|undefined}
+ */
+_idio.CsrfCheckOptions.prototype.query

@@ -185,6 +185,33 @@ const map = {
     const f = frontend(config)
     return f
   },
+  /**
+   * CSRF check.
+   * @param {!_goa.Application} app
+   * @param {!Object} _
+   * @param {_idio.CsrfCheckOptions} options
+   */
+  'csrfCheck'(app, _, options) {
+    /**
+     * @type {_idio.Middleware}
+     */
+    function csrfCheck(ctx, next) {
+      const { body = true, query = true } = options
+      const { session: ses } = ctx
+      if (!ses) ctx.throw(401, 'Session does not exist.')
+
+      const { 'csrf': csrf } = ses
+      if (!csrf) ctx.throw(500, 'CSRF is missing from session.')
+
+      let c1, c2
+      if (body) ({ 'csrf': c1 } = ctx.request.body || {})
+      if (query) ({ 'csrf': c2 } = ctx.query)
+      const c = c1 || c2
+      if (csrf != c) ctx.throw(403, 'Invalid CSRF token')
+      return next()
+    }
+    return csrfCheck
+  },
 }
 
 /**
@@ -343,4 +370,8 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('..').FormDataOptions} _idio.FrontEndConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types/options').CsrfCheckOptions} _idio.CsrfCheckOptions
  */

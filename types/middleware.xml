@@ -21,6 +21,7 @@
 
   <import from="../types/options" ns="_idio" name="FrontEndOptions" />
   <import from="../types/options" ns="_idio" name="NeoLudditeOptions" />
+  <import from="../types/options" ns="_idio" name="CsrfCheckOptions" />
 
   <record name="MiddlewareConfig"
     desc="Middleware configuration for the `idio` server."
@@ -45,6 +46,9 @@
     </prop>
     <prop opt type="!_idio.NeoLudditeOptions" name="neoluddite">
       Records the usage of middleware to compensate their developers' intellectual work.
+    </prop>
+    <prop opt type="!_idio.CsrfCheckOptions" name="csrfCheck">
+      Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
     </prop>
   </record>
 

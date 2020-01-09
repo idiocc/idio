@@ -61,6 +61,11 @@ _idio.ConfiguredMiddleware.prototype.form
  * @type {(!_idio.Middleware)|undefined}
  */
 _idio.ConfiguredMiddleware.prototype.session
+/**
+ * Configured CSRF check middleware.
+ * @type {(!_idio.Middleware)|undefined}
+ */
+_idio.ConfiguredMiddleware.prototype.csrfCheck
 
 /* typal types/middleware.xml externs */
 /**
@@ -104,6 +109,11 @@ _idio.MiddlewareConfig.prototype.frontend
  * @type {(!_idio.NeoLudditeOptions)|undefined}
  */
 _idio.MiddlewareConfig.prototype.neoluddite
+/**
+ * Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
+ * @type {(!_idio.CsrfCheckOptions)|undefined}
+ */
+_idio.MiddlewareConfig.prototype.csrfCheck
 /**
  * Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>}

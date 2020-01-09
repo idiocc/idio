@@ -1,3 +1,10 @@
+## 9 January 2020
+
+### [1.1.0](https://github.com/idiocc/idio/compare/v1.0.1...v1.1.0)
+
+- [feature] Implement middleware usage events for basic plugins.
+- [feature] CSRF check plugin.
+
 ## 29 December 2019
 
 ### [1.0.1](https://github.com/idiocc/idio/compare/v1.0.0...v1.0.1)
