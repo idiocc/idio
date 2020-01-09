@@ -1,5 +1,9 @@
 ## 9 January 2020
 
+### [1.1.1](https://github.com/idiocc/idio/compare/v1.1.0...v1.1.1)
+
+- [fix] Record usage via context.
+
 ### [1.1.0](https://github.com/idiocc/idio/compare/v1.0.1...v1.1.0)
 
 - [feature] Implement middleware usage events for basic plugins.
