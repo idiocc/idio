@@ -265,6 +265,7 @@ export default async function setupMiddleware(middlewareConfig, app) {
         const usage = ctx._usage.map((u) => {
           if (a) u['app'] = a
           if (env) u['env'] = env
+          return u
         })
         try {
           const res = await rqt(`${host}/use?key=${key}`, {

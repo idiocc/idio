@@ -13,13 +13,29 @@ This is a production-ready server that puts all components together for the ease
 </p>
 
 
-```sh
+```console
+idio~:$ \
 yarn add @idio/idio
 npm install @idio/idio
 ```
 
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
+
+## Example Apps
+
+There are some example apps that you can look at.
+
+1. [File Upload](https://github.com/art-deco/file-upload.artdeco.app): a front-end + back-end application for uploading photos. [Demo](https://file-upload.artdeco.app/) requires GitHub authorisation without any scope permissions to enable session middleware showcase.
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/1.svg?sanitize=true">
+</a></p>
+
 ## Table Of Contents
 
+- [Example Apps](#example-apps)
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
 - [`async idio(middlewareConfig=, config=): !Idio`](#async-idiomiddlewareconfig-middlewareconfigconfig-config-idio)
@@ -42,7 +58,7 @@ npm install @idio/idio
 - [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/2.svg?sanitize=true">
 </a></p>
 
 
@@ -55,7 +71,7 @@ import idio, { Keygrip, Router } from '@idio/idio'
 ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/1.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
 </a></p>
 
 ## <code>async <ins>idio</ins>(</code><sub><br/>&nbsp;&nbsp;`middlewareConfig=: !MiddlewareConfig,`<br/>&nbsp;&nbsp;`config=: !Config,`<br/></sub><code>): <i>!Idio</i></code>
@@ -190,7 +206,7 @@ hello world
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/2.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
 </a></p>
 
 ## Middleware
@@ -198,7 +214,7 @@ hello world
 Idio's advantage is that is has the essential middleware, that was compiled together with the server, so that the packages are reused and memory footprint is low.
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/3.svg?sanitize=true" width="25">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true" width="25">
 </a></p>
 
 ### Static
@@ -231,7 +247,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:57988/app.css */ 
+/** http://localhost:65210/app.css */ 
 
 body {
   font-size: larger;
@@ -252,7 +268,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Thu, 09 Jan 2020 03:10:32 GMT
+Date: Thu, 09 Jan 2020 15:11:43 GMT
 Connection: close
 ```
 
@@ -263,7 +279,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 09 Jan 2020 03:11:08 GMT
+Date: Thu, 09 Jan 2020 15:11:45 GMT
 Connection: close
 ```
 </details>
@@ -272,7 +288,7 @@ Connection: close
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/4.svg?sanitize=true" width="25">
+  <img src="/.documentary/section-breaks/6.svg?sanitize=true" width="25">
 </a></p>
 
 ### Session
@@ -316,24 +332,24 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTE4Ny43IiwiX2V4cGlyZSI6MTU3ODYyNTg2OTQ3NywiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTU4My45IiwiX2V4cGlyZSI6MTU3ODY2OTEwODYyMSwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Fri, 10 Jan 2020 03:11:09 GMT',
+    expires: 'Fri, 10 Jan 2020 15:11:48 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: '_UNXVqRZ3ogvlMVqmmajSn18KNA_RoiwabmZiv36XCvuKrrMzLuk2Kry1DS25evsurwV_WgFfub3PRQLSuAw4Q',
+    value: '6AO-wE0_X1ofO2ScBiPbSIvGfY9lAi1DDB5GSH9uG9Hrdjn-6k8aptg3s50Rk2ajJ39-NPtTWxnIonLmAo8fuA',
     path: '/',
-    expires: 'Fri, 10 Jan 2020 03:11:09 GMT',
+    expires: 'Fri, 10 Jan 2020 15:11:48 GMT',
     httponly: true } ]
 // GET /
-"welcome back u187.7"
+"welcome back u583.9"
 ```
 </td>
 </tr>
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/5.svg?sanitize=true" width="25">
+  <img src="/.documentary/section-breaks/7.svg?sanitize=true" width="25">
 </a></p>
 
 ### CORS
@@ -372,20 +388,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 09 Jan 2020 03:11:10 GMT',
+  date: 'Thu, 09 Jan 2020 15:11:51 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 09 Jan 2020 03:11:10 GMT',
+  date: 'Thu, 09 Jan 2020 15:11:51 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Thu, 09 Jan 2020 03:11:10 GMT',
+  date: 'Thu, 09 Jan 2020 15:11:51 GMT',
   connection: 'close' }
 ```
 </td>
@@ -393,7 +409,7 @@ const { url, app } = await idio({
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/6.svg?sanitize=true" width="25">
+  <img src="/.documentary/section-breaks/8.svg?sanitize=true" width="25">
 </a></p>
 
 ### Compression
@@ -429,7 +445,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Thu, 09 Jan 2020 03:11:10 GMT',
+  date: 'Thu, 09 Jan 2020 15:11:53 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -437,7 +453,7 @@ const { url, app } = await idio({
 </tr>
 </table>
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/7.svg?sanitize=true" width="25">
+  <img src="/.documentary/section-breaks/9.svg?sanitize=true" width="25">
 </a></p>
 
 ### File Upload
@@ -479,8 +495,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '76c40',
-     path: 'example/upload/76c40',
+     filename: 'cdd0a',
+     path: 'example/upload/cdd0a',
      size: 29 },
   body: { hello: 'world' } }
 ```
@@ -489,7 +505,7 @@ router.post('/example',
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/8.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/10.svg?sanitize=true">
 </a></p>
 
 ### Front End
@@ -567,7 +583,7 @@ render(MyComp, document.body)
 The idea here is to provide a basic mechanism to serve front-end JavaScript code, without inventing any module systems, adapting to _CommonJS_, or transpiling old features. We simply want to execute our modern code and browsers are more than capable to do that, without us having to run complex build systems on the development code. Our simple JSX parser is not rocket science either and works perfectly well without building ASTs (but check for minor limitations in Wiki).
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/9.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/11.svg?sanitize=true">
 </a></p>
 
 ## Additional Middleware
@@ -577,7 +593,7 @@ There are some small bits of middleware that can be used in server as well, but 
 - `csrfCheck`: ensures that the `csrf` token from session matches one in the request.
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/10.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/12.svg?sanitize=true">
 </a></p>
 
 ## Custom Middleware
@@ -670,7 +686,7 @@ When required to add any other middleware in the application not included in the
     ```
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/11.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/13.svg?sanitize=true">
 </a></p>
 
 ## Router Set-up
@@ -761,7 +777,7 @@ Page available at: http://localhost:5003
 </table>
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/12.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/14.svg?sanitize=true">
 </a></p>
 
 ## NeoLuddite.Dev
@@ -798,7 +814,7 @@ __<a name="type-neoludditeoptions">`NeoLudditeOptions`</a>__: Options for the ne
 | app      | <em>string</em> | The name of the application.                                                                             | -                        |
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/13.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/15.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License

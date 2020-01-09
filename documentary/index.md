@@ -13,10 +13,21 @@ This is a production-ready server that puts all components together for the ease
 </p>
 
 
-```sh
+```console
+idio~:$ \
 yarn add @idio/idio
 npm install @idio/idio
 ```
+
+%~%
+
+## Example Apps
+
+There are some example apps that you can look at.
+
+1. [File Upload](https://github.com/art-deco/file-upload.artdeco.app): a front-end + back-end application for uploading photos. [Demo](https://file-upload.artdeco.app/) requires GitHub authorisation without any scope permissions to enable session middleware showcase.
+
+%~%
 
 ## Table Of Contents
 
