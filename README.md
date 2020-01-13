@@ -247,7 +247,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:65210/app.css */ 
+/** http://localhost:63370/app.css */ 
 
 body {
   font-size: larger;
@@ -268,7 +268,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Thu, 09 Jan 2020 15:11:43 GMT
+Date: Mon, 13 Jan 2020 03:50:12 GMT
 Connection: close
 ```
 
@@ -279,7 +279,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 09 Jan 2020 15:11:45 GMT
+Date: Mon, 13 Jan 2020 03:50:13 GMT
 Connection: close
 ```
 </details>
@@ -332,17 +332,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTU4My45IiwiX2V4cGlyZSI6MTU3ODY2OTEwODYyMSwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTQ5LjkiLCJfZXhwaXJlIjoxNTc4OTczODEzOTg5LCJfbWF4QWdlIjo4NjQwMDAwMH0=',
     path: '/',
-    expires: 'Fri, 10 Jan 2020 15:11:48 GMT',
+    expires: 'Tue, 14 Jan 2020 03:50:13 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: '6AO-wE0_X1ofO2ScBiPbSIvGfY9lAi1DDB5GSH9uG9Hrdjn-6k8aptg3s50Rk2ajJ39-NPtTWxnIonLmAo8fuA',
+    value: 'BCLnN0OgPWOZO5mi5vFOGt6bRFOjKK9OvChZYRRo-MgLAAguF-XgvuZ3vEasXM5aXkB1xvNEdHZJKfscpGVnbA',
     path: '/',
-    expires: 'Fri, 10 Jan 2020 15:11:48 GMT',
+    expires: 'Tue, 14 Jan 2020 03:50:13 GMT',
     httponly: true } ]
 // GET /
-"welcome back u583.9"
+"welcome back u49.9"
 ```
 </td>
 </tr>
@@ -388,20 +388,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 09 Jan 2020 15:11:51 GMT',
+  date: 'Mon, 13 Jan 2020 03:50:14 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 09 Jan 2020 15:11:51 GMT',
+  date: 'Mon, 13 Jan 2020 03:50:14 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Thu, 09 Jan 2020 15:11:51 GMT',
+  date: 'Mon, 13 Jan 2020 03:50:15 GMT',
   connection: 'close' }
 ```
 </td>
@@ -445,7 +445,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Thu, 09 Jan 2020 15:11:53 GMT',
+  date: 'Mon, 13 Jan 2020 03:50:15 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -495,8 +495,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: 'cdd0a',
-     path: 'example/upload/cdd0a',
+     filename: '01bee',
+     path: 'example/upload/01bee',
      size: 29 },
   body: { hello: 'world' } }
 ```
@@ -827,7 +827,9 @@ To be able to use the server fully without disclosing the source code, under the
 
 > At the moment, `NeoLuddite.Dev` is in demo, and you only need to register with the service to start tracking usage. You receive 1m _Ludds_ each month and an ability to track middleware usage by multiple web applications. In future, neo luddites will assign the reward they want for usage events of their packages.
 
-All original work on middleware and Koa are under MIT license. See [Goa Page](https://github.com/idiocc/goa/) for the list of packages and modules used in compilation of the Goa server, and the [`package.json`](/package.json) file for dependencies of this project (todo: create wiki page w/ licenses table).
+Alternatively, just set up a monthly payment on [Open Collective](https://opencollective.com/nodetools).
+
+All original work on middleware and _Koa_ are under MIT license. See [Goa Page](https://github.com/idiocc/goa/) for the list of packages and modules used in compilation of the Goa server, and the [`package.json`](/package.json) file for dependencies of this project (todo: create wiki page w/ licenses table).
 
 <table>
   <tr>

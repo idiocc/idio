@@ -12,7 +12,9 @@ To be able to use the server fully without disclosing the source code, under the
 
 > At the moment, `NeoLuddite.Dev` is in demo, and you only need to register with the service to start tracking usage. You receive 1m _Ludds_ each month and an ability to track middleware usage by multiple web applications. In future, neo luddites will assign the reward they want for usage events of their packages.
 
-All original work on middleware and Koa are under MIT license. See [Goa Page](https://github.com/idiocc/goa/) for the list of packages and modules used in compilation of the Goa server, and the [`package.json`](/package.json) file for dependencies of this project (todo: create wiki page w/ licenses table).
+Alternatively, just set up a monthly payment on [Open Collective](https://opencollective.com/nodetools).
+
+All original work on middleware and _Koa_ are under MIT license. See [Goa Page](https://github.com/idiocc/goa/) for the list of packages and modules used in compilation of the Goa server, and the [`package.json`](/package.json) file for dependencies of this project (todo: create wiki page w/ licenses table).
 
 <idio-footer />
 
