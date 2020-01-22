@@ -1,3 +1,9 @@
+## 22 January 2020
+
+### [1.2.0](https://github.com/idiocc/idio/compare/v1.1.2...v1.2.0)
+
+- [middleware] Add _GitHub_ OAuth middleware.
+
 ## 9 January 2020
 
 ### [1.1.2](https://github.com/idiocc/idio/compare/v1.1.1...v1.1.2)
