@@ -22,7 +22,7 @@
     "dm": "typal types/modules/*.js -u",
     "do": "typal types/options/*.js -u",
     "d1": "typal types/api.js compile/router.js compile/index.js -u -t types",
-    "externs": "typal types/externs/index.js types/externs.js",
+    "externs": "typal types/externs/index.js types/externs.js types/externs/github-user.js",
     "build": "yarn-s d b doc",
     "up": "yarn-up -e preact",
     "typework": "typework types/config.json",
@@ -31,6 +31,7 @@
   "files": [
     "compile",
     "types/goa",
+    "types/externs/github-user.js",
     "types/modules/cors.js",
     "types/modules/form-data.js",
     "types/modules/session.js",

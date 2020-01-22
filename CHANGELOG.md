@@ -1,5 +1,9 @@
 ## 22 January 2020
 
+### [1.2.1](https://github.com/idiocc/idio/compare/v1.2.0...v1.2.1)
+
+- [externs] Add github-user externs.
+
 ### [1.2.0](https://github.com/idiocc/idio/compare/v1.1.2...v1.2.0)
 
 - [middleware] Add _GitHub_ OAuth middleware.
