@@ -1,4 +1,5 @@
 <types namespace="_idio">
+  <embed path="node_modules/@idio/frontend/types/index.xml" namespace />
   <record extends="_idio.FrontEndConfig" name="FrontEndOptions" desc="Options for the frontend.">
     <prop boolean name="use" default="false">
       Use this middleware for every request.
@@ -32,7 +33,9 @@
     </prop>
   </record>
 
-  <!-- todo typal: embed instead of import -->
+  <embed path="node_modules/@idio/github/types/index.xml"
+    ignore="_goa.Middleware,_idio.Context" namespace />
+  <embed path="node_modules/@idio/github/types/user.xml" namespace />
   <record name="GitHubOptions" extends="_idio.GithubOAuthConfig" desc="Options for GitHub OAuth.">
     <prop boolean name="session" opt>
       `PRIVATE` do not set this property! You'll need to configure `session` above `github` in the middleware config.

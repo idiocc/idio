@@ -13,8 +13,7 @@ export {}
  * ```
  * Default `Z_SYNC_FLUSH`.
  */
-
-/* typal node_modules/@goa/compress/types/index.xml namespace */
+/* typal-embed node_modules/@goa/compress/types/index.xml namespace */
 /**
  * @typedef {import('zlib').ZlibOptions} zlib.ZlibOptions
  * @typedef {_goa.CompressConfig} CompressConfig `＠record`
@@ -43,8 +42,7 @@ export {}
  * @prop {string} [algorithm] Optional algorithm for _Keygrip_, e.g., `sha512` (default is `sha1`).
  * @prop {!_goa.Keygrip} [keygrip] A custom `Keygrip` instance.
  */
-
-/* typal node_modules/@goa/session/types/index.xml ignore:_idio.KoaContextSession,_goa.Context namespace */
+/* typal-embed node_modules/@goa/session/types/index.xml ignore:_idio.KoaContextSession,_goa.Context namespace */
 /**
  * @typedef {_idio.ExternalStore} ExternalStore `＠interface` By implementing this class, the session can be recorded and retrieved from an external store (e.g., a database), instead of cookies.
  * @typedef {Object} _idio.ExternalStore `＠interface` By implementing this class, the session can be recorded and retrieved from an external store (e.g., a database), instead of cookies.
@@ -83,8 +81,7 @@ export {}
  * - If not passed, the request origin is returned, allowing any origin to access the resource (use with caution).
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  */
-
-/* typal node_modules/@goa/cors/types/index.xml ignore:_goa.Context namespace  */
+/* typal-embed node_modules/@goa/cors/types/index.xml ignore:_goa.Context namespace */
 /**
  * @typedef {_goa.CorsConfig} CorsConfig `＠record` Options for the program.
  * @typedef {Object} _goa.CorsConfig `＠record` Options for the program.
@@ -131,8 +128,7 @@ export {}
  * @typedef {Object} _idio.$GitHubOptions `＠record` Options for GitHub OAuth.
  * @prop {boolean} [session] `PRIVATE` do not set this property! You'll need to configure `session` above `github` in the middleware config.
  */
-
-/* typal node_modules/@idio/frontend/types/index.xml namespace */
+/* typal-embed node_modules/@idio/frontend/types/index.xml namespace */
 /**
  * @typedef {_idio.FrontEndConfig} FrontEndConfig Options for the middleware.
  * @typedef {Object} _idio.FrontEndConfig Options for the middleware.
@@ -142,8 +138,7 @@ export {}
  * @prop {string} [pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  * @prop {boolean|!Function} [log=false] Log to console when source files were patched. Default `false`.
  */
-
-/* typal node_modules/@idio/github/types/index.xml namespace ignore:_goa.Middleware,_idio.Context */
+/* typal-embed node_modules/@idio/github/types/index.xml ignore:_goa.Middleware,_idio.Context namespace */
 /**
  * @typedef {_idio.GithubOAuthConfig} GithubOAuthConfig `＠record` Options for the program.
  * @typedef {Object} _idio.GithubOAuthConfig `＠record` Options for the program.
@@ -156,8 +151,7 @@ export {}
  * @prop {(ctx: _idio.Context, token: string, scope: string, user: !_idio.GithubUser, next: function()) => !Promise} [finish="setSession; redirect;"] The function to complete the authentication that receives the token and the data about the user, such as name and id. The default function redirects to `/`. Default `setSession; redirect;`.
  * @prop {(ctx: !_idio.Context, error: string, description: string, next: function()) => !Promise} [error="throw;"] The function to be called in case of error. If not specified, the middleware will throw an internal server error. Default `throw;`.
  */
-
-/* typal node_modules/@idio/github/types/user.xml namespace */
+/* typal-embed node_modules/@idio/github/types/user.xml namespace */
 /**
  * @typedef {_idio.GithubEmail} GithubEmail `＠record`
  * @typedef {Object} _idio.GithubEmail `＠record`

@@ -1,4 +1,5 @@
 <types namespace="_idio">
+  <embed path="node_modules/@goa/compress/types/index.xml" namespace />
   <record name="CompressOptions" extends="_goa.CompressConfig">
     <prop boolean name="use" default="false">
       Use this middleware for every request.

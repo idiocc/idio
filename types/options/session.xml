@@ -1,4 +1,5 @@
 <types namespace="_idio">
+  <embed path="node_modules/@goa/session/types/index.xml" namespace ignore="_idio.KoaContextSession,_goa.Context" />
   <record extends="_idio.SessionConfig" name="SessionOptions"
     desc="Options for the session that extend the session config.">
     <prop type="!Array<string>" name="keys" opt>
