@@ -1,5 +1,9 @@
 ## 22 January 2020
 
+### [1.2.2](https://github.com/idiocc/idio/compare/v1.2.1...v1.2.2)
+
+- [externs] Fix github-user externs.
+
 ### [1.2.1](https://github.com/idiocc/idio/compare/v1.2.0...v1.2.1)
 
 - [externs] Add github-user externs.
