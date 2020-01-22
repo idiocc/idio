@@ -22,7 +22,7 @@
     "dm": "typal types/modules/*.js -u",
     "do": "typal types/options/*.js -u",
     "d1": "typal types/api.js compile/router.js compile/index.js -u -t types",
-    "externs": "typal types/externs/index.js types/externs.js types/externs/github-user.js",
+    "externs": "typal types/externs/index.js types/externs.js types/externs/github-user.js -e",
     "build": "yarn-s d b doc",
     "up": "yarn-up -e preact",
     "typework": "typework types/config.json",

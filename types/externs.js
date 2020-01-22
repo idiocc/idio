@@ -3,6 +3,8 @@
  * @externs
  */
 /* typal types/index.xml externs */
+/** @const */
+var _idio = {}
 /**
  * Server configuration object.
  * @typedef {{ port: (number|undefined), host: (string|undefined), router: ((!_goa.RouterConfig)|undefined) }}
@@ -134,8 +136,6 @@ _idio.ConfigItem
 _idio.MiddlewareConstructor
 
 /* typal types/api.xml externs */
-/** @const */
-var _idio = {}
 /**
  * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
  * @typedef {function(!_idio.MiddlewareConfig=,!_idio.Config=): !Promise<!_idio.Idio>}
