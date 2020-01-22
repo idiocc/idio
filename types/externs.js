@@ -115,6 +115,11 @@ _idio.MiddlewareConfig.prototype.neoluddite
  */
 _idio.MiddlewareConfig.prototype.csrfCheck
 /**
+ * Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
+ * @type {(!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>)|undefined}
+ */
+_idio.MiddlewareConfig.prototype.github
+/**
  * Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>}
  */

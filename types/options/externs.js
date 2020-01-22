@@ -157,3 +157,14 @@ _idio.CsrfCheckOptions.prototype.body
  * @type {boolean|undefined}
  */
 _idio.CsrfCheckOptions.prototype.query
+/**
+ * Options for GitHub OAuth.
+ * @extends {_idio.GithubOAuthConfig}
+ * @record
+ */
+_idio.GitHubOptions
+/**
+ * `PRIVATE` do not set this property! You'll need to configure `session` above `github` in the middleware config.
+ * @type {boolean|undefined}
+ */
+_idio.GitHubOptions.prototype.session

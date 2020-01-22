@@ -88,16 +88,17 @@ There are multiple items for middleware configuration:
 __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareConfig__: Middleware configuration for the `idio` server.
 
 
-|    Name    |                                                                                                                                                                    Type                                                                                                                                                                     |                                                                     Description                                                                     |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| static     | <em>(<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a>&gt;)</em> | _Static_ middleware options.                                                                                                                        |
-| compress   | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                                                                                                                                                                                           | _Compression_ middleware options.                                                                                                                   |
-| session    | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>                                                                                                                                                                      | _Session_ middleware options.                                                                                                                       |
-| cors       | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                                                                                                                                                                                          | _CORS_ middleware options.                                                                                                                          |
-| form       | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em>                                                                                                                                                               | _Form Data_ middleware options for receiving file uploads and form submissions.                                                                     |
-| frontend   | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                                                                                                                                                                                | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.                                                           |
-| neoluddite | <em><a href="https://github.com/idiocc/idio#type-neoludditeoptions" title="Options for the neoluddite.dev client.">!NeoLudditeOptions</a></em>                                                                                                                                                                                              | Records the usage of middleware to compensate their developers' intellectual work.                                                                  |
-| csrfCheck  | <em><a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-csrfcheckoptions" title="Options for validating a csrf token.">!CsrfCheckOptions</a></em>                                                                                                                                                                       | Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`. |
+|    Name    |                                                                                                                                                                    Type                                                                                                                                                                     |                                                                             Description                                                                              |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| static     | <em>(<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a>&gt;)</em> | _Static_ middleware options.                                                                                                                                         |
+| compress   | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                                                                                                                                                                                           | _Compression_ middleware options.                                                                                                                                    |
+| session    | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>                                                                                                                                                                      | _Session_ middleware options.                                                                                                                                        |
+| cors       | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                                                                                                                                                                                          | _CORS_ middleware options.                                                                                                                                           |
+| form       | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em>                                                                                                                                                               | _Form Data_ middleware options for receiving file uploads and form submissions.                                                                                      |
+| frontend   | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                                                                                                                                                                                | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.                                                                            |
+| neoluddite | <em><a href="https://github.com/idiocc/idio#type-neoludditeoptions" title="Options for the neoluddite.dev client.">!NeoLudditeOptions</a></em>                                                                                                                                                                                              | Records the usage of middleware to compensate their developers' intellectual work.                                                                                   |
+| csrfCheck  | <em><a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-csrfcheckoptions" title="Options for validating a csrf token.">!CsrfCheckOptions</a></em>                                                                                                                                                                       | Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.                  |
+| github     | <em>(<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions" title="Options for GitHub OAuth.">!GitHubOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions" title="Options for GitHub OAuth.">!GitHubOptions</a>&gt;)</em>                         | Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router. |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -279,7 +280,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Mon, 13 Jan 2020 03:50:13 GMT
+Date: Wed, 22 Jan 2020 16:16:28 GMT
 Connection: close
 ```
 </details>
@@ -332,17 +333,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTQ5LjkiLCJfZXhwaXJlIjoxNTc4OTczODEzOTg5LCJfbWF4QWdlIjo4NjQwMDAwMH0=',
+    value: 'eyJ1c2VyIjoidTQyNy42IiwiX2V4cGlyZSI6MTU3OTc5NjE4OTcyMSwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Tue, 14 Jan 2020 03:50:13 GMT',
+    expires: 'Thu, 23 Jan 2020 16:16:29 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'BCLnN0OgPWOZO5mi5vFOGt6bRFOjKK9OvChZYRRo-MgLAAguF-XgvuZ3vEasXM5aXkB1xvNEdHZJKfscpGVnbA',
+    value: 'TSzCpJTXMTCY4XPfqKvbwFuNEgo-FxXkqSnWGNBh8mDVejlX9lkzPg8xVeRwMPPlm2ymnB_kavI1ij8ha0pQQA',
     path: '/',
-    expires: 'Tue, 14 Jan 2020 03:50:13 GMT',
+    expires: 'Thu, 23 Jan 2020 16:16:29 GMT',
     httponly: true } ]
 // GET /
-"welcome back u49.9"
+"welcome back u427.6"
 ```
 </td>
 </tr>
@@ -388,20 +389,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 13 Jan 2020 03:50:14 GMT',
+  date: 'Wed, 22 Jan 2020 16:16:30 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 13 Jan 2020 03:50:14 GMT',
+  date: 'Wed, 22 Jan 2020 16:16:30 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Mon, 13 Jan 2020 03:50:15 GMT',
+  date: 'Wed, 22 Jan 2020 16:16:30 GMT',
   connection: 'close' }
 ```
 </td>
@@ -445,7 +446,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Mon, 13 Jan 2020 03:50:15 GMT',
+  date: 'Wed, 22 Jan 2020 16:16:31 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -495,8 +496,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '01bee',
-     path: 'example/upload/01bee',
+     filename: '1de83',
+     path: 'example/upload/1de83',
      size: 29 },
   body: { hello: 'world' } }
 ```

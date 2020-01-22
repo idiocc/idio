@@ -32,5 +32,11 @@
     </prop>
   </record>
 
+  <!-- todo typal: embed instead of import -->
+  <record name="GitHubOptions" extends="_idio.GithubOAuthConfig" desc="Options for GitHub OAuth.">
+    <prop boolean name="session" opt>
+      `PRIVATE` do not set this property! You'll need to configure `session` above `github` in the middleware config.
+    </prop>
+  </record>
 
 </types>

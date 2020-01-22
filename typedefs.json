@@ -114,5 +114,9 @@
   "_idio.CsrfCheckOptions": {
     "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-csrfcheckoptions",
     "description": "Options for validating a csrf token."
+  },
+  "_idio.GitHubOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions",
+    "description": "Options for GitHub OAuth."
   }
 }

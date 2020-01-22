@@ -65,6 +65,7 @@
   "devDependencies": {
     "@a-la/jsx": "^1.6.0",
     "@contexts/http": "^1.6.2",
+    "@demimonde/dotenv": "^1.1.0",
     "@depack/split": "^1.0.0",
     "@externs/goa": "^1.0.1",
     "@goa/busboy": "^1.2.3",
@@ -81,6 +82,7 @@
     "@idio/debug": "^1.2.3",
     "@idio/dicer": "^1.1.0",
     "@idio/frontend": "^2.0.1",
+    "@idio/github": "^1.3.0",
     "@multipart/append-field": "^1.0.1",
     "@multipart/form": "^2.0.0",
     "@multipart/form-data": "^1.0.1",

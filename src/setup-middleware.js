@@ -7,6 +7,7 @@ import FormData from '@multipart/form-data'
 import serve from '../modules/koa-static'
 import Mount from '../modules/koa-mount'
 import compress from '@goa/compress'
+import github from '@idio/github'
 import Debug from '@idio/debug'
 import { constants } from 'zlib'
 import rqt from 'rqt'
@@ -212,6 +213,20 @@ const map = {
     }
     return csrfCheck
   },
+  /**
+   * GitHub OAuth.
+   * @param {!_goa.Application} app
+   * @param {!Object} _
+   * @param {_idio.GitHubOptions} options
+   * @param {!_idio.ConfiguredMiddleware} acc
+   */
+  'github'(app, _, options, acc) {
+    if (!acc) throw new Error('You need to configure session before GitHub middleware.')
+    github(app, {
+      session: acc.session,
+      ...options,
+    })
+  },
 }
 
 /**
@@ -219,8 +234,9 @@ const map = {
  * @param {string} name The name of the middleware.
  * @param {!_idio.ConfigItem} conf The item from the middleware config.
  * @param {!_goa.Application} app The application instance.
+ * @param {!_idio.ConfiguredMiddleware} acc Currently configured middleware.
  */
-async function initMiddleware(name, conf, app) {
+async function initMiddleware(name, conf, app, acc) {
   if (typeof conf == 'function') {
     const c = conf
     app.use(c)
@@ -241,7 +257,7 @@ async function initMiddleware(name, conf, app) {
   } else {
     throw new Error(`Unknown middleware config item "${name}". Either specify one from the idio bundle, or pass the "middlewareConstructor" property.`)
   }
-  const res = await fn(app, config, options)
+  const res = await fn(app, config, options, acc)
 
   if (use) app.use(res)
   return res
@@ -286,11 +302,11 @@ export default async function setupMiddleware(middlewareConfig, app) {
       let installed
       if (Array.isArray(conf)) {
         const p = conf.map(async (c) => {
-          await initMiddleware(name, c, app)
+          await initMiddleware(name, c, app, acc)
         })
         installed = await Promise.all(p)
       } else {
-        installed = await initMiddleware(name, conf, app)
+        installed = await initMiddleware(name, conf, app, acc)
       }
       return {
         ...acc,
@@ -376,4 +392,8 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../types/options').CsrfCheckOptions} _idio.CsrfCheckOptions
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types/options').GitHubOptions} _idio.GitHubOptions
  */
