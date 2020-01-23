@@ -1,3 +1,10 @@
+## 23 January 2020
+
+### [1.2.3](https://github.com/idiocc/idio/compare/v1.2.2...v1.2.3)
+
+- [feature] Accept multiple GitHub paths.
+- [doc] Upgrade _Typal_ to use `<embed>` in typedefs.
+
 ## 22 January 2020
 
 ### [1.2.2](https://github.com/idiocc/idio/compare/v1.2.1...v1.2.2)
