@@ -35,9 +35,8 @@
         "NODE_ENV": "prod",
       },
       "args": [
-        "example"
+        "example/github"
       ],
-      "sourceMaps": false,
       "skipFiles": [
         "<node_internals>/**/*.js"
       ]

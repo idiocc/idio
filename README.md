@@ -248,7 +248,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:63370/app.css */ 
+/** http://localhost:61704/app.css */ 
 
 body {
   font-size: larger;
@@ -269,7 +269,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Mon, 13 Jan 2020 03:50:12 GMT
+Date: Thu, 23 Jan 2020 12:47:11 GMT
 Connection: close
 ```
 
@@ -280,7 +280,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Wed, 22 Jan 2020 16:16:28 GMT
+Date: Thu, 23 Jan 2020 12:47:13 GMT
 Connection: close
 ```
 </details>
@@ -333,17 +333,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTQyNy42IiwiX2V4cGlyZSI6MTU3OTc5NjE4OTcyMSwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTMzOS42IiwiX2V4cGlyZSI6MTU3OTg3MDAzNDAzNCwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Thu, 23 Jan 2020 16:16:29 GMT',
+    expires: 'Fri, 24 Jan 2020 12:47:14 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'TSzCpJTXMTCY4XPfqKvbwFuNEgo-FxXkqSnWGNBh8mDVejlX9lkzPg8xVeRwMPPlm2ymnB_kavI1ij8ha0pQQA',
+    value: 'ExO0gfJuNWeFyxtD6_DS61iVp0K8lBOoA2rAw0RTUeagPSnHS0WuFYiNiJ_efO5J43QkF45v7eJKK9NCPbQGpQ',
     path: '/',
-    expires: 'Thu, 23 Jan 2020 16:16:29 GMT',
+    expires: 'Fri, 24 Jan 2020 12:47:14 GMT',
     httponly: true } ]
 // GET /
-"welcome back u427.6"
+"welcome back u339.6"
 ```
 </td>
 </tr>
@@ -389,20 +389,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 22 Jan 2020 16:16:30 GMT',
+  date: 'Thu, 23 Jan 2020 12:47:14 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 22 Jan 2020 16:16:30 GMT',
+  date: 'Thu, 23 Jan 2020 12:47:14 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Wed, 22 Jan 2020 16:16:30 GMT',
+  date: 'Thu, 23 Jan 2020 12:47:14 GMT',
   connection: 'close' }
 ```
 </td>
@@ -446,7 +446,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Wed, 22 Jan 2020 16:16:31 GMT',
+  date: 'Thu, 23 Jan 2020 12:47:15 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -496,8 +496,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '1de83',
-     path: 'example/upload/1de83',
+     filename: '628bf',
+     path: 'example/upload/628bf',
      size: 29 },
   body: { hello: 'world' } }
 ```

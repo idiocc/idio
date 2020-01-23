@@ -2,6 +2,7 @@ import alamode from 'alamode'
 
 alamode({
   matcher(path) {
+    if (/@idio\/github/.test(path)) return true
     if (/@goa\/goa\/modules/.test(path)) return true
     if (/@goa\/session/.test(path)) return true
     if (/test\/(spec|context|mask)/.test(path)) return true

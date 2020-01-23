@@ -6,7 +6,7 @@ This is useful to assert on the existence of session, and that its `csrf` proper
 
 %EXAMPLE: test/spec/middleware/csrf-check%
 
-<typedef name="GitHubOptions">types/options/index.xml</typedef>
+<typedef narrow name="GitHubOptions">types/options/index.xml</typedef>
 
 GitHub middleware allows to authorise users with GitHub OAuth protocol. You need to make sure that the session middleware is setup first (even without `use: true` property) so that the security code can be set in cookies to prevent man-in-the-middle attack.
 

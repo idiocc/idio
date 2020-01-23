@@ -126,6 +126,14 @@ export {}
  * @typedef {_idio.GitHubOptions} GitHubOptions `＠record` Options for GitHub OAuth.
  * @typedef {_idio.$GitHubOptions & _idio.GithubOAuthConfig} _idio.GitHubOptions `＠record` Options for GitHub OAuth.
  * @typedef {Object} _idio.$GitHubOptions `＠record` Options for GitHub OAuth.
+ * @prop {!Object<string, ?string>} paths Instead of passing one path, multiple paths with different scopes could also be specified, e.g.,
+ * ```
+ * paths: {
+ *   '/github': null,
+ *   '/github-email': 'user:email',
+ * },
+ * ```
+ * In this case, giving `redirectPath` is required as it will have to be the same one because _GitHub_ only allows one redirect path per `client_id`.
  * @prop {boolean} [session] `PRIVATE` do not set this property! You'll need to configure `session` above `github` in the middleware config.
  */
 /* typal-embed node_modules/@idio/frontend/types/index.xml namespace */

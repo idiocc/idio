@@ -37,6 +37,16 @@
     ignore="_goa.Middleware,_idio.Context" namespace />
   <embed path="node_modules/@idio/github/types/user.xml" namespace />
   <record name="GitHubOptions" extends="_idio.GithubOAuthConfig" desc="Options for GitHub OAuth.">
+    <prop type="!Object<string, ?string>" name="paths">
+      Instead of passing one path, multiple paths with different scopes could also be specified, e.g.,
+      ```
+      paths: {
+        '/github': null,
+        '/github-email': 'user:email',
+      },
+      ```
+      In this case, giving `redirectPath` is required as it will have to be the same one because _GitHub_ only allows one redirect path per `client_id`.
+    </prop>
     <prop boolean name="session" opt>
       `PRIVATE` do not set this property! You'll need to configure `session` above `github` in the middleware config.
     </prop>

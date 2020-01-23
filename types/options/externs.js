@@ -27,7 +27,7 @@ _idio.StaticOptions.prototype.use
  */
 _idio.StaticOptions.prototype.mount
 
-/* typal types/options/compress.xml externs */
+/* typal types/options/compress.xml externs no-embed */
 /**
  * @extends {_goa.CompressConfig}
  * @record
@@ -50,7 +50,7 @@ _idio.CompressOptions.prototype.use
  */
 _idio.CompressOptions.prototype.flush
 
-/* typal types/options/session.xml externs */
+/* typal types/options/session.xml externs no-embed */
 /**
  * Options for the session that extend the session config.
  * @extends {_idio.SessionConfig}
@@ -73,7 +73,7 @@ _idio.SessionOptions.prototype.algorithm
  */
 _idio.SessionOptions.prototype.keygrip
 
-/* typal types/options/cors.xml externs */
+/* typal types/options/cors.xml externs no-embed */
 /**
  * @extends {_goa.CorsConfig}
  * @record
@@ -100,7 +100,7 @@ _idio.CorsOptions.prototype.use
  */
 _idio.FormDataOptions
 
-/* typal types/options/index.xml externs */
+/* typal types/options/index.xml externs no-embed */
 /**
  * Options for the frontend.
  * @extends {_idio.FrontEndConfig}
@@ -163,6 +163,18 @@ _idio.CsrfCheckOptions.prototype.query
  * @record
  */
 _idio.GitHubOptions
+/**
+ * Instead of passing one path, multiple paths with different scopes could also be specified, e.g.,
+ * ```
+ * paths: {
+ *   '/github': null,
+ *   '/github-email': 'user:email',
+ * },
+ * ```
+ * In this case, giving `redirectPath` is required as it will have to be the same one because _GitHub_ only allows one redirect path per `client_id`.
+ * @type {!Object<string, ?string>}
+ */
+_idio.GitHubOptions.prototype.paths
 /**
  * `PRIVATE` do not set this property! You'll need to configure `session` above `github` in the middleware config.
  * @type {boolean|undefined}

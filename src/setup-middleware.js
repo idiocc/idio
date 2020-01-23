@@ -187,7 +187,7 @@ const map = {
     return f
   },
   /**
-   * CSRF check.
+   * CSRF check. todo: add header validation
    * @param {!_goa.Application} app
    * @param {!Object} _
    * @param {_idio.CsrfCheckOptions} options
@@ -221,10 +221,18 @@ const map = {
    * @param {!_idio.ConfiguredMiddleware} acc
    */
   'github'(app, _, options, acc) {
-    if (!acc) throw new Error('You need to configure session before GitHub middleware.')
-    github(app, {
-      session: acc.session,
-      ...options,
+    if (!acc.session) throw new Error('You need to configure session before GitHub middleware.')
+    let { path, paths, redirectPath, scope, ...rest } = options
+    if (paths && !redirectPath) throw new Error('When giving multiple paths, the redirect path is also required.')
+    if (!paths) paths = { [path]: scope }
+    Object.entries(paths).forEach(([p, s]) => {
+      github(app, {
+        path: p,
+        scope: s,
+        redirectPath,
+        ...rest,
+        session: acc.session,
+      })
     })
   },
 }
@@ -263,6 +271,29 @@ async function initMiddleware(name, conf, app, acc) {
   return res
 }
 
+const makeNeoluddite = (app, env, host, key) => {
+  return async (ctx, next) => {
+    ctx._usage = []
+    try {
+      await next()
+    } finally {
+      if (!ctx._usage.length) return
+      const usage = ctx._usage.map((u) => {
+        if (app) u['app'] = app
+        if (env) u['env'] = env
+        return u
+      })
+      try {
+        const res = await rqt(`${host}/use?key=${key}`, {
+          data: usage,
+        })
+      } catch (err) {
+        app.emit('error', err)
+      }
+    }
+  }
+}
+
 /**
  * @param {!_idio.MiddlewareConfig} middlewareConfig
  * @param {!_idio.Application} app
@@ -272,26 +303,7 @@ export default async function setupMiddleware(middlewareConfig, app) {
   if (neoluddite) {
     const { app: a, env, key, host = 'https://neoluddite.dev' } = neoluddite
     if (!key) throw new Error('key is expected for neoluddite integration.')
-    app.use(async (ctx, next) => {
-      ctx._usage = []
-      try {
-        await next()
-      } finally {
-        if (!ctx._usage.length) return
-        const usage = ctx._usage.map((u) => {
-          if (a) u['app'] = a
-          if (env) u['env'] = env
-          return u
-        })
-        try {
-          const res = await rqt(`${host}/use?key=${key}`, {
-            data: usage,
-          })
-        } catch (err) {
-          app.emit('error', err)
-        }
-      }
-    })
+    app.use(makeNeoluddite(a, env, host, key))
   }
 
   /** @type {!_idio.ConfiguredMiddleware} */
