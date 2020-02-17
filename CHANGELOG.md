@@ -1,3 +1,9 @@
+## 17 February 2020
+
+### [1.2.4](https://github.com/idiocc/idio/compare/v1.2.3...v1.2.4)
+
+- [license] Disable neoluddite for now.
+
 ## 23 January 2020
 
 ### [1.2.3](https://github.com/idiocc/idio/compare/v1.2.2...v1.2.3)
