@@ -248,7 +248,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:61704/app.css */ 
+/** http://localhost:62164/app.css */ 
 
 body {
   font-size: larger;
@@ -269,7 +269,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Thu, 23 Jan 2020 12:47:11 GMT
+Date: Mon, 17 Feb 2020 04:47:45 GMT
 Connection: close
 ```
 
@@ -280,7 +280,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 23 Jan 2020 12:47:13 GMT
+Date: Mon, 17 Feb 2020 04:49:07 GMT
 Connection: close
 ```
 </details>
@@ -333,17 +333,17 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 "hello new user"
 /* set-cookie */
 [ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTMzOS42IiwiX2V4cGlyZSI6MTU3OTg3MDAzNDAzNCwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTkyMS44IiwiX2V4cGlyZSI6MTU4MjAwMTM0ODMzNywiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Fri, 24 Jan 2020 12:47:14 GMT',
+    expires: 'Tue, 18 Feb 2020 04:49:08 GMT',
     httponly: true },
   { name: 'koa:sess.sig',
-    value: 'ExO0gfJuNWeFyxtD6_DS61iVp0K8lBOoA2rAw0RTUeagPSnHS0WuFYiNiJ_efO5J43QkF45v7eJKK9NCPbQGpQ',
+    value: 'n7GXt6Tp5YVer-Wsb0ktJzJHxLO-2V9ThOQCMhk5bpH8zBp_1F7tYctuYNMjCgxS3iVyfUVJV-wVBAMxleY5iw',
     path: '/',
-    expires: 'Fri, 24 Jan 2020 12:47:14 GMT',
+    expires: 'Tue, 18 Feb 2020 04:49:08 GMT',
     httponly: true } ]
 // GET /
-"welcome back u339.6"
+"welcome back u921.8"
 ```
 </td>
 </tr>
@@ -389,20 +389,20 @@ const { url, app } = await idio({
 // GET / from https://3rd.party
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 23 Jan 2020 12:47:14 GMT',
+  date: 'Mon, 17 Feb 2020 04:49:09 GMT',
   connection: 'close' }
 
 // GET / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 23 Jan 2020 12:47:14 GMT',
+  date: 'Mon, 17 Feb 2020 04:49:09 GMT',
   connection: 'close' }
 
 // OPTIONS / from http://prod.com
 { vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Thu, 23 Jan 2020 12:47:14 GMT',
+  date: 'Mon, 17 Feb 2020 04:49:09 GMT',
   connection: 'close' }
 ```
 </td>
@@ -446,7 +446,7 @@ const { url, app } = await idio({
 { 'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Thu, 23 Jan 2020 12:47:15 GMT',
+  date: 'Mon, 17 Feb 2020 04:49:09 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked' }
 ```
@@ -496,8 +496,8 @@ router.post('/example',
      encoding: '7bit',
      mimetype: 'application/octet-stream',
      destination: 'example/upload',
-     filename: '628bf',
-     path: 'example/upload/628bf',
+     filename: '34736',
+     path: 'example/upload/34736',
      size: 29 },
   body: { hello: 'world' } }
 ```
@@ -783,7 +783,9 @@ Page available at: http://localhost:5003
 
 ## NeoLuddite.Dev
 
-This web server integrates with [NeoLuddite](https://neoluddite.dev): the package monetary reward scheme. To use the server online (not intranet), you must sign up for the API key to be able to compensate middleware owners their invested time. The key is then specified in the middleware config:
+This web server integrates with [NeoLuddite](https://neoluddite.dev): the package monetary reward scheme. It's currently in beta, and this section will be relevant when it's open to the public.
+
+Every time you invoke certain functionality in a package somebody has written (e.g., `koa-static` for static files, `koa-session` for creation of session), via _Idio_, your usage will be counted and your balance in _Ludds_ on the neoluddite server will be transferred to the software engineer as a reward for his/her intellectual work. Contact license@neoluddite.dev for any requests.
 
 ```js
 const { url, app,
@@ -824,35 +826,24 @@ GNU Affero General Public License v3.0
 
 Affero GPL means that you're not allowed to use this web server on the web unless you release the source code for your application. This is a restrictive license which has the purpose of defending Open Source work and its creators.
 
-To be able to use the server fully without disclosing the source code, under the same license but without the need to release the source code, you have to join [neoluddite.dev](https://neoluddite.dev): an _Open Source_ package reward scheme, and obtain an API key required for production use. Every time you invoke certain functionality in a package somebody has written (e.g., `koa-static` for static files, `koa-session` for creation of session), via _Idio_, your usage will be counted and your balance in _Ludds_ on the neoluddite server will be transferred to the software engineer as a reward for his/her intellectual work. Contact license@neoluddite.dev for any requests.
-
-> At the moment, `NeoLuddite.Dev` is in demo, and you only need to register with the service to start tracking usage. You receive 1m _Ludds_ each month and an ability to track middleware usage by multiple web applications. In future, neo luddites will assign the reward they want for usage events of their packages.
-
-Alternatively, just set up a monthly payment on [Open Collective](https://opencollective.com/nodetools).
+To be able to use the server, just set up a monthly payment on [Open Collective](https://opencollective.com/nodetools) for any amount of your choice.
 
 All original work on middleware and _Koa_ are under MIT license. See [Goa Page](https://github.com/idiocc/goa/) for the list of packages and modules used in compilation of the Goa server, and the [`package.json`](/package.json) file for dependencies of this project (todo: create wiki page w/ licenses table).
 
 <table>
   <tr>
     <th>
-      <a href="https://artd.eco">
+      <a href="https://www.artd.eco">
         <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
           alt="Art Deco">
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a> 2020</th>
+    <th>© <a href="https://www.artd.eco">Art Deco™</a> for <a href="https://idio.cc">Idio</a> 2020</th>
     <th>
       <a href="https://idio.cc">
         <img src="https://avatars3.githubusercontent.com/u/40834161?s=100" width="100" alt="Idio">
       </a>
     </th>
-    <th>
-      <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
-          alt="Tech Nation Visa">
-      </a>
-    </th>
-    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
   </tr>
 </table>
 
