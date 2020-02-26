@@ -29,6 +29,7 @@ npm install @idio/idio
 There are some example apps that you can look at.
 
 1. [File Upload](https://github.com/art-deco/file-upload.artdeco.app): a front-end + back-end application for uploading photos. [Demo](https://file-upload.artdeco.app/) requires GitHub authorisation without any scope permissions to enable session middleware showcase.
+1. [Akashic.Page](https://github.com/art-deco/akashic.page): a service for managing email and web-push subscriptions, with JS widgets and Mongo database connection.
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/1.svg?sanitize=true">
@@ -282,7 +283,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Wed, 26 Feb 2020 19:20:51 GMT
+Date: Wed, 26 Feb 2020 19:22:42 GMT
 Connection: close
 ```
 </details>
@@ -337,21 +338,21 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 [
   {
     name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTM3LjIiLCJfZXhwaXJlIjoxNTgyODMxMjUyNTMwLCJfbWF4QWdlIjo4NjQwMDAwMH0=',
+    value: 'eyJ1c2VyIjoidTEzNC45IiwiX2V4cGlyZSI6MTU4MjgzMTM2MzE4MSwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Thu, 27 Feb 2020 19:20:52 GMT',
+    expires: 'Thu, 27 Feb 2020 19:22:43 GMT',
     httponly: true
   },
   {
     name: 'koa:sess.sig',
-    value: 'gwozqF3HB9Qo1Gu4bda5ZqpFk5RiUQPPX7fsBHY7Lp-HfbVZvyEnJ4ZGpLmCaLd5IVcwvBVIhuzHF3Bb9f1yQQ',
+    value: 'v790zbt-uZQW2uR_-dGW3EfH1TyCLhhnEsKi_8sVnWqMG9klJfCzfy84LBUY0HfgwzS-sMKzDKCVsyH5lzozWA',
     path: '/',
-    expires: 'Thu, 27 Feb 2020 19:20:52 GMT',
+    expires: 'Thu, 27 Feb 2020 19:22:43 GMT',
     httponly: true
   }
 ]
 // GET /
-"welcome back u37.2"
+"welcome back u134.9"
 ```
 </td>
 </tr>
@@ -398,7 +399,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 26 Feb 2020 19:20:53 GMT',
+  date: 'Wed, 26 Feb 2020 19:22:43 GMT',
   connection: 'close'
 }
 
@@ -406,7 +407,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 26 Feb 2020 19:20:53 GMT',
+  date: 'Wed, 26 Feb 2020 19:22:43 GMT',
   connection: 'close'
 }
 
@@ -415,7 +416,7 @@ const { url, app } = await idio({
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Wed, 26 Feb 2020 19:20:53 GMT',
+  date: 'Wed, 26 Feb 2020 19:22:43 GMT',
   connection: 'close'
 }
 ```
@@ -461,7 +462,7 @@ const { url, app } = await idio({
   'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Wed, 26 Feb 2020 19:20:53 GMT',
+  date: 'Wed, 26 Feb 2020 19:22:44 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked'
 }
@@ -513,8 +514,8 @@ router.post('/example',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'example/upload',
-    filename: '848a5',
-    path: 'example/upload/848a5',
+    filename: '77ffe',
+    path: 'example/upload/77ffe',
     size: 29
   },
   body: { hello: 'world' }

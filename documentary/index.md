@@ -27,6 +27,7 @@ npm install @idio/idio
 There are some example apps that you can look at.
 
 1. [File Upload](https://github.com/art-deco/file-upload.artdeco.app): a front-end + back-end application for uploading photos. [Demo](https://file-upload.artdeco.app/) requires GitHub authorisation without any scope permissions to enable session middleware showcase.
+1. [Akashic.Page](https://github.com/art-deco/akashic.page): a service for managing email and web-push subscriptions, with JS widgets and Mongo database connection.
 
 %~%
 
