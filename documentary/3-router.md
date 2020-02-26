@@ -17,4 +17,13 @@ After the _Application_ and _Router_ instances are obtained after starting the s
 </td></tr>
 </table>
 
+Also checkout the [_Router_ package](https://github.com/idiocc/router) that allows to automatically initialise routes from a given directory, and watch for changes in them during development. This means you don't have to refresh the server manually after a change to a route.
+
+```js
+const w = await initRoutes(router, 'routes', {
+  middleware,
+})
+if (process.env.NODE_ENV == 'prod') watchRoutes(w)
+```
+
 %~%

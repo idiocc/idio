@@ -53,6 +53,7 @@ There are some example apps that you can look at.
 - [Additional Middleware](#additional-middleware)
 - [Custom Middleware](#custom-middleware)
 - [Router Set-up](#router-set-up)
+- [SSR](#ssr)
 - [NeoLuddite.Dev](#neoludditedev)
   * [`NeoLudditeOptions`](#type-neoludditeoptions)
 - [Copyright & License](#copyright--license)
@@ -248,7 +249,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:62164/app.css */ 
+/** http://localhost:59878/app.css */ 
 
 body {
   font-size: larger;
@@ -269,7 +270,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Mon, 17 Feb 2020 04:47:45 GMT
+Date: Wed, 26 Feb 2020 19:17:42 GMT
 Connection: close
 ```
 
@@ -280,7 +281,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Mon, 17 Feb 2020 04:49:07 GMT
+Date: Wed, 26 Feb 2020 19:18:44 GMT
 Connection: close
 ```
 </details>
@@ -332,18 +333,24 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 // GET /
 "hello new user"
 /* set-cookie */
-[ { name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTkyMS44IiwiX2V4cGlyZSI6MTU4MjAwMTM0ODMzNywiX21heEFnZSI6ODY0MDAwMDB9',
+[
+  {
+    name: 'koa:sess',
+    value: 'eyJ1c2VyIjoidTM5Mi43IiwiX2V4cGlyZSI6MTU4MjgzMTEyNTYyOCwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Tue, 18 Feb 2020 04:49:08 GMT',
-    httponly: true },
-  { name: 'koa:sess.sig',
-    value: 'n7GXt6Tp5YVer-Wsb0ktJzJHxLO-2V9ThOQCMhk5bpH8zBp_1F7tYctuYNMjCgxS3iVyfUVJV-wVBAMxleY5iw',
+    expires: 'Thu, 27 Feb 2020 19:18:45 GMT',
+    httponly: true
+  },
+  {
+    name: 'koa:sess.sig',
+    value: 'hM7QQxJh-ObOLpLWqZJ9QhoZ13rAUjFuEmo4k6zqMlnDCiMdNdxy5L0oFFxurqKrVsBrB54l10k9ZQB9_kM99A',
     path: '/',
-    expires: 'Tue, 18 Feb 2020 04:49:08 GMT',
-    httponly: true } ]
+    expires: 'Thu, 27 Feb 2020 19:18:45 GMT',
+    httponly: true
+  }
+]
 // GET /
-"welcome back u921.8"
+"welcome back u392.7"
 ```
 </td>
 </tr>
@@ -387,23 +394,29 @@ const { url, app } = await idio({
 
 ```js
 // GET / from https://3rd.party
-{ vary: 'Origin',
+{
+  vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 17 Feb 2020 04:49:09 GMT',
-  connection: 'close' }
+  date: 'Wed, 26 Feb 2020 19:18:46 GMT',
+  connection: 'close'
+}
 
 // GET / from http://prod.com
-{ vary: 'Origin',
+{
+  vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 17 Feb 2020 04:49:09 GMT',
-  connection: 'close' }
+  date: 'Wed, 26 Feb 2020 19:18:46 GMT',
+  connection: 'close'
+}
 
 // OPTIONS / from http://prod.com
-{ vary: 'Origin',
+{
+  vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Mon, 17 Feb 2020 04:49:09 GMT',
-  connection: 'close' }
+  date: 'Wed, 26 Feb 2020 19:18:46 GMT',
+  connection: 'close'
+}
 ```
 </td>
 </tr>
@@ -443,12 +456,14 @@ const { url, app } = await idio({
 
 ```js
 // GET /
-{ 'content-type': 'application/json; charset=utf-8',
+{
+  'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Mon, 17 Feb 2020 04:49:09 GMT',
+  date: 'Wed, 26 Feb 2020 19:18:46 GMT',
   connection: 'close',
-  'transfer-encoding': 'chunked' }
+  'transfer-encoding': 'chunked'
+}
 ```
 </td>
 </tr>
@@ -490,16 +505,19 @@ router.post('/example',
 <td>
 
 ```js
-{ file: 
-   { fieldname: 'bio',
-     originalname: 'bio.txt',
-     encoding: '7bit',
-     mimetype: 'application/octet-stream',
-     destination: 'example/upload',
-     filename: '34736',
-     path: 'example/upload/34736',
-     size: 29 },
-  body: { hello: 'world' } }
+{
+  file: {
+    fieldname: 'bio',
+    originalname: 'bio.txt',
+    encoding: '7bit',
+    mimetype: 'application/octet-stream',
+    destination: 'example/upload',
+    filename: '7d40e',
+    path: 'example/upload/7d40e',
+    size: 29
+  },
+  body: { hello: 'world' }
+}
 ```
 </td>
 </tr>
@@ -777,8 +795,53 @@ Page available at: http://localhost:5003
 </td></tr>
 </table>
 
+Also checkout the [_Router_ package](https://github.com/idiocc/router) that allows to automatically initialise routes from a given directory, and watch for changes in them during development. This means you don't have to refresh the server manually after a change to a route.
+
+```js
+const w = await initRoutes(router, 'routes', {
+  middleware,
+})
+if (process.env.NODE_ENV == 'prod') watchRoutes(w)
+```
+
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/14.svg?sanitize=true">
+</a></p>
+
+## SSR
+
+_Idio_ supports Server-Side rendering of JSX components ([same restrictions](https://github.com/idiocc/idio/wiki/Front-End#todo--jsx-limitations) apply as for front-end). You can easily mark up your back-end pages using full-scale HTML, or basic placeholders in which you can then render your front-end app.
+
+```jsx
+import idio, { render } from '@idio/idio'
+
+const { url, app, router } = await idio()
+router.get('/', (ctx) => {
+  ctx.body = render(<html>
+    <head>
+      <title>Example</title>
+    </head>
+    <body>
+      Hello World!
+    </body>
+  </html>, {
+    addDoctype: true,
+    pretty: true,
+  })
+})
+app.use(router.routes())
+```
+
+```html
+<!doctype html>
+<html>
+  <head><title>Example</title></head>
+  <body>Hello World!</body>
+</html>
+```
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/15.svg?sanitize=true">
 </a></p>
 
 ## NeoLuddite.Dev
@@ -817,7 +880,7 @@ __<a name="type-neoludditeoptions">`NeoLudditeOptions`</a>__: Options for the ne
 | app      | <em>string</em> | The name of the application.                                                                             | -                        |
 
 <p align="center"><a href="#table-of-contents">
-  <img src="/.documentary/section-breaks/15.svg?sanitize=true">
+  <img src="/.documentary/section-breaks/16.svg?sanitize=true">
 </a></p>
 
 ## Copyright & License
