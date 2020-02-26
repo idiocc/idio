@@ -865,7 +865,7 @@ function db(a) {
     }
   };
 }
-;const fb = fs.ReadStream, ib = fs.createReadStream, jb = fs.createWriteStream, kb = fs.exists, lb = fs.existsSync, mb = fs.lstat, nb = fs.mkdirSync, ob = fs.readdir, pb = fs.rmdir, qb = fs.stat, rb = fs.unlink;
+;const fb = fs.ReadStream, gb = fs.createReadStream, jb = fs.createWriteStream, kb = fs.exists, lb = fs.existsSync, mb = fs.lstat, nb = fs.mkdirSync, ob = fs.readdir, pb = fs.rmdir, qb = fs.stat, rb = fs.unlink;
 var sb = stream;
 const tb = stream.Readable, ub = stream.Transform, vb = stream.Writable;
 const wb = (a, b = 0, c = !1) => {
@@ -949,7 +949,7 @@ const Ib = async(a, b = {}) => {
   return await a;
 };
 async function Jb(a) {
-  a = ib(a);
+  a = gb(a);
   return await Ib(a);
 }
 ;const Kb = vm.Script;
@@ -965,7 +965,7 @@ const Mb = a => {
     new Kb(a);
   } catch (b) {
     const c = b.stack;
-    if ("Unexpected token <" != b.message) {
+    if (!/Unexpected token '?</.test(b.message)) {
       throw b;
     }
     return Lb(c, a);
@@ -1278,10 +1278,10 @@ class cc {
 }
 ;const ec = a => {
   let b = "", c = "";
-  a = a.replace(/^(\n\s*)([\s\S]+)?/, (d, e, f = "") => {
+  a = a.replace(/^(\r?\n\s*)([\s\S]+)?/, (d, e, f = "") => {
     b = e;
     return f;
-  }).replace(/([\s\S]+?)?(\n\s*)$/, (d, e = "", f = "") => {
+  }).replace(/([\s\S]+?)?(\r?\n\s*)$/, (d, e = "", f = "") => {
     c = f;
     return e;
   });
@@ -1367,51 +1367,43 @@ const jc = a => {
   a = ic(a, {});
   return P(a, [Sb(d), Sb(c), Sb(b), Sb(e), Sb(f), Sb(g)]);
 };
-function kc(a, b) {
-  if (b > a - 2) {
-    throw Error("Function does not accept that many arguments.");
-  }
-}
 async function S(a, b, c) {
   const d = M(!0);
-  if ("function" !== typeof a) {
+  if ("function" != typeof a) {
     throw Error("Function must be passed.");
   }
-  const e = a.length;
-  if (!e) {
-    throw Error("Function does not accept any arguments.");
+  if (!a.length) {
+    throw Error(`Function${a.name ? ` ${a.name}` : ""} does not accept any arguments.`);
   }
-  return await new Promise((f, g) => {
-    const h = (l, m) => l ? (l = d(l), g(l)) : f(c || m);
-    let k = [h];
-    Array.isArray(b) ? (b.forEach((l, m) => {
-      kc(e, m);
-    }), k = [...b, h]) : 1 < Array.from(arguments).length && (kc(e, 0), k = [b, h]);
-    a(...k);
+  return await new Promise((e, f) => {
+    const g = (k, l) => k ? (k = d(k), f(k)) : e(c || l);
+    let h = [g];
+    Array.isArray(b) ? h = [...b, g] : 1 < Array.from(arguments).length && (h = [b, g]);
+    a(...h);
   });
 }
-;const lc = async a => {
+;const kc = async a => {
   try {
     return await S(mb, a);
   } catch (b) {
     return null;
   }
 };
-const mc = path.basename, nc = path.dirname, oc = path.extname, pc = path.isAbsolute, T = path.join, qc = path.normalize, rc = path.parse, U = path.relative, sc = path.resolve, tc = path.sep;
-const vc = async a => {
-  var b = await lc(a);
+const lc = path.basename, mc = path.dirname, nc = path.extname, oc = path.isAbsolute, T = path.join, pc = path.normalize, qc = path.parse, U = path.relative, rc = path.resolve, sc = path.sep;
+const uc = async a => {
+  var b = await kc(a);
   let c = a, d = !1;
   if (!b) {
-    if (c = await uc(a), !c) {
+    if (c = await tc(a), !c) {
       throw Error(`${a}.js or ${a}.jsx is not found.`);
     }
   } else {
     if (b.isDirectory()) {
       b = !1;
       let e;
-      a.endsWith("/") || (e = c = await uc(a), b = !0);
+      a.endsWith("/") || (e = c = await tc(a), b = !0);
       if (!e) {
-        c = await uc(T(a, "index"));
+        c = await tc(T(a, "index"));
         if (!c) {
           throw Error(`${b ? `${a}.jsx? does not exist, and ` : ""}index.jsx? file is not found in ${a}`);
         }
@@ -1420,19 +1412,21 @@ const vc = async a => {
     }
   }
   return {path:a.startsWith(".") ? U("", c) : c, Ja:d};
-}, uc = async a => {
+}, tc = async a => {
   a = `${a}.js`;
-  let b = await lc(a);
+  let b = await kc(a);
   b || (a = `${a}x`);
-  if (b = await lc(a)) {
+  if (b = await kc(a)) {
     return a;
   }
 };
+let vc;
 const xc = async(a, b, c = {}) => {
+  vc || ({root:vc} = qc(process.cwd()));
   const {fields:d, soft:e = !1} = c;
   var f = T(a, "node_modules", b);
   f = T(f, "package.json");
-  const g = await lc(f);
+  const g = await kc(f);
   if (g) {
     a = await wc(f, d);
     if (void 0 === a) {
@@ -1444,10 +1438,10 @@ const xc = async(a, b, c = {}) => {
     const {entry:h, version:k, packageName:l, main:m, entryExists:p, ...n} = a;
     return {entry:U("", h), packageJson:U("", f), ...k ? {version:k} : {}, packageName:l, ...m ? {hasMain:!0} : {}, ...p ? {} : {entryExists:!1}, ...n};
   }
-  if ("/" == a && !g) {
+  if (a == vc && !g) {
     throw Error(`Package.json for module ${b} not found.`);
   }
-  return xc(T(sc(a), ".."), b, c);
+  return xc(T(rc(a), ".."), b, c);
 }, wc = async(a, b = []) => {
   const c = await Jb(a);
   let d, e, f, g, h;
@@ -1459,10 +1453,10 @@ const xc = async(a, b, c = {}) => {
   } catch (l) {
     throw Error(`Could not parse ${a}.`);
   }
-  a = nc(a);
+  a = mc(a);
   b = d || g;
   if (!b) {
-    if (!await lc(T(a, "index.js"))) {
+    if (!await kc(T(a, "index.js"))) {
       return;
     }
     b = g = "index.js";
@@ -1470,14 +1464,14 @@ const xc = async(a, b, c = {}) => {
   a = T(a, b);
   let k;
   try {
-    ({path:k} = await vc(a)), a = k;
+    ({path:k} = await uc(a)), a = k;
   } catch (l) {
   }
   return {entry:a, version:e, packageName:f, main:!d && g, entryExists:!!k, ...h};
 };
 const zc = async(a, b, {mount:c, override:d = {}}) => {
   var e = async(f, g, h) => {
-    var k = nc(a);
+    var k = mc(a);
     if (/^[/.]/.test(h)) {
       return f;
     }
@@ -1491,8 +1485,8 @@ const zc = async(a, b, {mount:c, override:d = {}}) => {
       return `${g}'${d[l]}'`;
     }
     ({packageJson:k} = await xc(k, l));
-    f = sc(k);
-    k = nc(f);
+    f = rc(k);
+    k = mc(f);
     if (m) {
       return yc(k, m, g, c);
     }
@@ -1525,7 +1519,7 @@ function Ac(a = {}) {
       return await k();
     }
     l = T(d, l);
-    const {path:m, Ja:p} = await vc(l);
+    const {path:m, Ja:p} = await uc(l);
     if (p && !l.endsWith("/")) {
       k = d ? U(d, m) : m, h.redirect(`/${k}`);
     } else {
@@ -2031,7 +2025,7 @@ class hd {
         x.removeAllListeners("end");
       }
       w.on("header", x => {
-        let Q = "text/plain", G = "7bit", gb;
+        let Q = "text/plain", G = "7bit", hb;
         let Aa = 0;
         if (x["content-type"]) {
           var J = Wc(x["content-type"][0]);
@@ -2048,7 +2042,7 @@ class hd {
           h = 0;
           for (k = J.length; h < k; ++h) {
             if (gd.test(J[h][0])) {
-              gb = J[h][1];
+              hb = J[h][1];
             } else {
               if (fd.test(J[h][0])) {
                 var Z = J[h][1];
@@ -2089,7 +2083,7 @@ class hd {
               K();
             }
           };
-          a.emit("file", gb, I, Z, G, Q, w);
+          a.emit("file", hb, I, Z, G, Q, w);
           x = K => {
             if ((Aa += K.length) > p) {
               const O = p - (Aa - K.length);
@@ -2115,19 +2109,19 @@ class hd {
           let K = !1;
           y = w;
           x = O => {
-            let hb = O;
+            let ib = O;
             Aa += O.length;
-            Aa > q && (hb = Buffer.from(O, 0, q).slice(0, q), K = !0, w.removeAllListeners("data"));
-            I.push(hb);
+            Aa > q && (ib = Buffer.from(O, 0, q).slice(0, q), K = !0, w.removeAllListeners("data"));
+            I.push(ib);
           };
           Z = () => {
             y = void 0;
             var O = Buffer.concat(I);
             try {
               O = (new Tc(void 0)).decode(O);
-            } catch (hb) {
+            } catch (ib) {
             }
-            a.emit("field", gb, O, !1, K, G, Q);
+            a.emit("field", hb, O, !1, K, G, Q);
             --v;
             g();
           };
@@ -2595,7 +2589,7 @@ async function Kd(a) {
   (await S(mb, a)).isDirectory() ? await Md(a) : await Ld(a);
 };
 function Od(a) {
-  a = nc(a);
+  a = mc(a);
   try {
     Pd(a);
   } catch (b) {
@@ -2609,7 +2603,7 @@ function Pd(a) {
     nb(a);
   } catch (b) {
     if ("ENOENT" == b.code) {
-      const c = nc(a);
+      const c = mc(a);
       Pd(c);
       Pd(a);
     } else {
@@ -2648,7 +2642,7 @@ class Rd {
     return {destination:c, filename:a, path:d, size:e.bytesWritten};
   }
   async _removeFile(a, b) {
-    a = b.path;
+    ({path:a} = b);
     delete b.destination;
     delete b.filename;
     delete b.path;
@@ -2734,21 +2728,21 @@ function Xd(a, b) {
   if (-1 !== c.indexOf("\x00")) {
     throw A(400, "Malicious Path");
   }
-  if (pc(c)) {
+  if (oc(c)) {
     throw A(400, "Malicious Path");
   }
-  if (Wd.test(qc("." + tc + c))) {
+  if (Wd.test(pc("." + sc + c))) {
     throw A(403);
   }
-  return qc(T(sc(d), c));
+  return pc(T(rc(d), c));
 }
 ;const Yd = async(...a) => await S(kb, ...a), Zd = async(...a) => await S(qb, ...a), $d = E("koa-send");
 async function ae(a, b, c = {}) {
   B(a, "koa context required");
   B(b, "pathname required");
   $d('send "%s" %j', b, c);
-  var d = c.root ? qc(sc(c.root)) : "", e = "/" == b[b.length - 1];
-  b = b.substr(rc(b).root.length);
+  var d = c.root ? pc(rc(c.root)) : "", e = "/" == b[b.length - 1];
+  b = b.substr(qc(b).root.length);
   var f = c.index;
   const g = c.maxage || c.maxAge || 0;
   var h = c.immutable || !1;
@@ -2769,7 +2763,7 @@ async function ae(a, b, c = {}) {
   b = Xd(d, b);
   if (!(e = k)) {
     a: {
-      d = b.substr(d.length).split(tc);
+      d = b.substr(d.length).split(sc);
       for (e = 0; e < d.length; e++) {
         if ("." == d[e][0]) {
           d = !0;
@@ -2816,9 +2810,9 @@ async function ae(a, b, c = {}) {
     a.set("Content-Length", q.size);
     a.response.get("Last-Modified") || a.set("Last-Modified", q.mtime.toUTCString());
     a.response.get("Cache-Control") || (f = ["max-age=" + (g / 1000 | 0)], h && f.push("immutable"), a.set("Cache-Control", f.join(",")));
-    a.type || (h = b, h = "" !== d ? oc(mc(h, d)) : oc(h), a.type = h);
+    a.type || (h = b, h = "" !== d ? nc(lc(h, d)) : nc(h), a.type = h);
     a.neoluddite && a.neoluddite("koa-send", "stream");
-    a.body = ib(b);
+    a.body = gb(b);
     return b;
   }
 }
@@ -2826,7 +2820,7 @@ async function ae(a, b, c = {}) {
 var ce = (a, b = {}) => {
   B(a, "root directory is required to serve files");
   be('static "%s" %j', a, b);
-  b.root = sc(a);
+  b.root = rc(a);
   !1 !== b.index && (b.index = b.index || "index.html");
   return b.defer ? async(c, d) => {
     await d();
@@ -3416,7 +3410,7 @@ function lf() {
 const mf = require("mime-db"), nf = /^\s*([^;\s]*)(?:;|\s|$)/, of = /^text\//i, pf = Object.create(null), qf = Object.create(null);
 rf();
 function sf(a) {
-  return a && "string" == typeof a ? (a = oc("x." + a).toLowerCase().substr(1)) ? qf[a] || !1 : !1 : !1;
+  return a && "string" == typeof a ? (a = nc("x." + a).toLowerCase().substr(1)) ? qf[a] || !1 : !1 : !1;
 }
 function rf() {
   const a = ["nginx", "apache", void 0, "iana"];
@@ -3581,9 +3575,9 @@ function Jf(a, b = !0) {
     if ("string" == typeof b && Ef.test(b)) {
       throw new TypeError("fallback must be ISO-8859-1 string");
     }
-    a = mc(a);
+    a = lc(a);
     var d = Gf.test(a);
-    b = "string" != typeof b ? b && String(a).replace(Ef, "?") : mc(b);
+    b = "string" != typeof b ? b && String(a).replace(Ef, "?") : lc(b);
     var e = "string" == typeof b && b != a;
     if (e || !d || Df.test(a)) {
       c["filename*"] = a;
@@ -4728,7 +4722,7 @@ class Sg {
     }
   }
   attachment(a, b) {
-    a && (this.type = oc(a));
+    a && (this.type = nc(a));
     this.set("Content-Disposition", If(a, b));
   }
   set type(a) {
@@ -5181,20 +5175,19 @@ class hh {
     return this.regexp.test(a);
   }
   params(a, b, c = {}) {
-    for (let f = b.length, g = 0; g < f; g++) {
-      if (this.paramNames[g]) {
-        var d = b[g];
-        a = this.paramNames[g].name;
-        if (d) {
+    for (let e = b.length, f = 0; f < e; f++) {
+      if (this.paramNames[f]) {
+        a = b[f];
+        if (a) {
           try {
-            var e = decodeURIComponent(d);
-          } catch (h) {
-            e = d;
+            var d = decodeURIComponent(a);
+          } catch (g) {
+            d = a;
           }
         } else {
-          e = d;
+          d = a;
         }
-        c[a] = e;
+        c[this.paramNames[f].name] = d;
       }
     }
     return c;
