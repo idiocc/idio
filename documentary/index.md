@@ -1,6 +1,7 @@
 # @idio/idio
 
 %NPM: @idio/idio%
+![Node.js CI](https://github.com/idiocc/idio/workflows/Node.js%20CI/badge.svg)
 
 <a href="https://github.com/idiocc/idio"><img src="https://raw.github.com/idiocc/core/master/images/logo.svg?sanitize=true" width="150" align="left"></a>
 

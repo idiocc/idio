@@ -1,6 +1,7 @@
 # @idio/idio
 
 [![npm version](https://badge.fury.io/js/%40idio%2Fidio.svg)](https://www.npmjs.com/package/@idio/idio)
+![Node.js CI](https://github.com/idiocc/idio/workflows/Node.js%20CI/badge.svg)
 
 <a href="https://github.com/idiocc/idio"><img src="https://raw.github.com/idiocc/core/master/images/logo.svg?sanitize=true" width="150" align="left"></a>
 
@@ -281,7 +282,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Wed, 26 Feb 2020 19:18:44 GMT
+Date: Wed, 26 Feb 2020 19:20:51 GMT
 Connection: close
 ```
 </details>
@@ -336,21 +337,21 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 [
   {
     name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTM5Mi43IiwiX2V4cGlyZSI6MTU4MjgzMTEyNTYyOCwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTM3LjIiLCJfZXhwaXJlIjoxNTgyODMxMjUyNTMwLCJfbWF4QWdlIjo4NjQwMDAwMH0=',
     path: '/',
-    expires: 'Thu, 27 Feb 2020 19:18:45 GMT',
+    expires: 'Thu, 27 Feb 2020 19:20:52 GMT',
     httponly: true
   },
   {
     name: 'koa:sess.sig',
-    value: 'hM7QQxJh-ObOLpLWqZJ9QhoZ13rAUjFuEmo4k6zqMlnDCiMdNdxy5L0oFFxurqKrVsBrB54l10k9ZQB9_kM99A',
+    value: 'gwozqF3HB9Qo1Gu4bda5ZqpFk5RiUQPPX7fsBHY7Lp-HfbVZvyEnJ4ZGpLmCaLd5IVcwvBVIhuzHF3Bb9f1yQQ',
     path: '/',
-    expires: 'Thu, 27 Feb 2020 19:18:45 GMT',
+    expires: 'Thu, 27 Feb 2020 19:20:52 GMT',
     httponly: true
   }
 ]
 // GET /
-"welcome back u392.7"
+"welcome back u37.2"
 ```
 </td>
 </tr>
@@ -397,7 +398,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 26 Feb 2020 19:18:46 GMT',
+  date: 'Wed, 26 Feb 2020 19:20:53 GMT',
   connection: 'close'
 }
 
@@ -405,7 +406,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Wed, 26 Feb 2020 19:18:46 GMT',
+  date: 'Wed, 26 Feb 2020 19:20:53 GMT',
   connection: 'close'
 }
 
@@ -414,7 +415,7 @@ const { url, app } = await idio({
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Wed, 26 Feb 2020 19:18:46 GMT',
+  date: 'Wed, 26 Feb 2020 19:20:53 GMT',
   connection: 'close'
 }
 ```
@@ -460,7 +461,7 @@ const { url, app } = await idio({
   'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Wed, 26 Feb 2020 19:18:46 GMT',
+  date: 'Wed, 26 Feb 2020 19:20:53 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked'
 }
@@ -512,8 +513,8 @@ router.post('/example',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'example/upload',
-    filename: '7d40e',
-    path: 'example/upload/7d40e',
+    filename: '848a5',
+    path: 'example/upload/848a5',
     size: 29
   },
   body: { hello: 'world' }
