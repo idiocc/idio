@@ -5,3 +5,4 @@ export { default as Keygrip } from '@goa/cookies/src/Keygrip'
 export { default, createApp } from './start-app'
 
 export { default as Router } from '@goa/router'
+export { default as render } from '@depack/render'

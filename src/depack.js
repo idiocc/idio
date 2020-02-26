@@ -2,7 +2,7 @@ import '../types/modules/externs'
 import '../types/options/externs'
 import '../types/externs'
 import '../types/externs/'
-import startApp, { Router, createApp, compose, httpErrors, mount, Keygrip } from './'
+import startApp, { Router, createApp, compose, httpErrors, mount, Keygrip, render } from './'
 
 
 /**
@@ -33,4 +33,5 @@ module.exports = {
   '_mount': mount,
   '_Keygrip': Keygrip,
   '_Router': Router,
+  '_render': render,
 }

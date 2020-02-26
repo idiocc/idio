@@ -1,4 +1,4 @@
-const { _createApp, _startApp, _compose, _Keygrip } = require('./idio')
+const { _createApp, _startApp, _compose, _Keygrip, _render } = require('./idio')
 const IdioRouter = require('./router')
 
 /**
@@ -40,6 +40,28 @@ async function createApp(middlewareConfig) {
  */
 async function idio(middlewareConfig = {}, config = {}) {
   return _startApp(middlewareConfig, config)
+}
+
+/**
+ * Renders the _VNode_ into the string.
+ * @param {preact.VNode} vnode The VNode to render. Can be written in JSX syntax in `.jsx` files.
+ * @param {!_depack.RenderConfig} [config] Rendering options.
+ * @param {boolean} [config.addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
+ * @param {boolean} [config.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
+ * @param {boolean} [config.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
+ * @param {boolean} [config.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
+ * @param {number} [config.lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
+ * @param {number} [config.initialPadding=0] The initial padding to apply to each line when pretty printing. Default `0`.
+ * @param {boolean} [config.closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
+ * @param {boolean} [config.renderRootComponent=false] When shallow rendering is on, will render root component. Default `false`.
+ * @param {boolean} [config.shallowHighOrder=false] When shallow rendering is on, will render root component. Default `false`.
+ * @param {boolean} [config.sortAttributes=false] Sort attributes' keys using the `.sort` method. Default `false`.
+ * @param {boolean} [config.allAttributes=false] Render all attributes, including `key` and `ref`. Default `false`.
+ * @param {*=} [context] The context for the node.
+ * @return {string}
+ */
+function render(vnode, config, context) {
+  return _render(vnode, config, context)
 }
 
 /**
@@ -87,6 +109,7 @@ module.exports = idio
 module.exports.createApp = createApp
 module.exports.Router = IdioRouter
 module.exports.Keygrip = Keygrip
+module.exports.render = render
 
 /**
  * Compose a single middleware function for Goa out of many.
@@ -212,6 +235,23 @@ module.exports.compose = $compose
  * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }} _idio.ConfigItem An item in middleware configuration.
  * @typedef {_idio.MiddlewareConstructor} MiddlewareConstructor A function used to create middleware. It will generate a middleware function using the options and config.
  * @typedef {(app: !_goa.Application, config: !Object, options: !Object) => !_goa.Middleware|!_multipart.FormData} _idio.MiddlewareConstructor A function used to create middleware. It will generate a middleware function using the options and config.
+ */
+
+/* typal node_modules/@depack/render/types/index.xml namespace */
+/**
+ * @typedef {_depack.RenderConfig} RenderConfig `＠record` Rendering options.
+ * @typedef {Object} _depack.RenderConfig `＠record` Rendering options.
+ * @prop {boolean} [addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
+ * @prop {boolean} [shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
+ * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
+ * @prop {boolean} [pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
+ * @prop {number} [lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
+ * @prop {number} [initialPadding=0] The initial padding to apply to each line when pretty printing. Default `0`.
+ * @prop {boolean} [closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
+ * @prop {boolean} [renderRootComponent=false] When shallow rendering is on, will render root component. Default `false`.
+ * @prop {boolean} [shallowHighOrder=false] When shallow rendering is on, will render root component. Default `false`.
+ * @prop {boolean} [sortAttributes=false] Sort attributes' keys using the `.sort` method. Default `false`.
+ * @prop {boolean} [allAttributes=false] Render all attributes, including `key` and `ref`. Default `false`.
  */
 
 // typework
