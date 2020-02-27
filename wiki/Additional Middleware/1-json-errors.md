@@ -7,3 +7,5 @@ There are 2 ways to throw client errors: either with `ctx.throw(4xx, 'client err
 %EXAMPLE: example/json-errors%
 
 <fork lang="js">example/json-errors</fork>
+
+%~%

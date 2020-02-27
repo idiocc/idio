@@ -202,10 +202,10 @@
   resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-2.0.2.tgz#5cba980def7dc48a011feddbb3ba09366f969378"
   integrity sha512-WqkYUnMi5Un8uFSUNVSZR2/alfhJaNFLHBGsXvhZpFot2P4RbxGJy0n+q0wRhEFkA+1DYxtiSt1U3gM7NDO1SA==
 
-"@idio/github@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@idio/github/-/github-1.4.0.tgz#8a2c80b18e3a16d5603cde62a63ab794c94fdc5c"
-  integrity sha512-opHPm8Ig0qz8MJavRWRvMIe0k64T2bWOE5eLzm2ZM2SDPzit0ItYe4lcO3B+hWeXpglWBstjs7DMsjMXRil9Ng==
+"@idio/github@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@idio/github/-/github-1.5.1.tgz#0ed953292f3057346f9a433a092bdd9d486bddbe"
+  integrity sha512-Rrd7epaTi7WPf7pKyQCAjr1ETQumte4g07WnEshyfBfuZeM5sO4OmQxg+LPfKlGUdqGbfLpDvaQdjdaECqj7HA==
 
 "@multipart/append-field@^1.0.1":
   version "1.0.1"

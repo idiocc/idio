@@ -285,7 +285,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 27 Feb 2020 13:22:58 GMT
+Date: Thu, 27 Feb 2020 13:32:06 GMT
 Connection: close
 ```
 </details>
@@ -340,21 +340,21 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 [
   {
     name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTM3NC41IiwiX2V4cGlyZSI6MTU4Mjg5NjE3OTM3MSwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTExNC44IiwiX2V4cGlyZSI6MTU4Mjg5NjcyNzA3MywiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Fri, 28 Feb 2020 13:22:59 GMT',
+    expires: 'Fri, 28 Feb 2020 13:32:07 GMT',
     httponly: true
   },
   {
     name: 'koa:sess.sig',
-    value: 'iWVA8noaKlsmlIYvjaS6AjMEy--_2L-mC9ti8YFcJ0Fa1dCMwKyf4kMfReo-jWpMxl35d6SH85j6CkZ4K3Bkhw',
+    value: 'ZUy8xyDgmf6JnJ-MZg6PpbyvIsgyWDHouJW2WPp7Nk4KKjWyugh_1b_Hb5kcvOrffcppmSBTPZWmKl1Qt0LUQQ',
     path: '/',
-    expires: 'Fri, 28 Feb 2020 13:22:59 GMT',
+    expires: 'Fri, 28 Feb 2020 13:32:07 GMT',
     httponly: true
   }
 ]
 // GET /
-"welcome back u374.5"
+"welcome back u114.8"
 ```
 </td>
 </tr>
@@ -401,7 +401,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 27 Feb 2020 13:23:00 GMT',
+  date: 'Thu, 27 Feb 2020 13:32:08 GMT',
   connection: 'close'
 }
 
@@ -409,7 +409,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 27 Feb 2020 13:23:00 GMT',
+  date: 'Thu, 27 Feb 2020 13:32:08 GMT',
   connection: 'close'
 }
 
@@ -418,7 +418,7 @@ const { url, app } = await idio({
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Thu, 27 Feb 2020 13:23:00 GMT',
+  date: 'Thu, 27 Feb 2020 13:32:08 GMT',
   connection: 'close'
 }
 ```
@@ -464,7 +464,7 @@ const { url, app } = await idio({
   'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Thu, 27 Feb 2020 13:23:01 GMT',
+  date: 'Thu, 27 Feb 2020 13:32:09 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked'
 }
@@ -516,8 +516,8 @@ router.post('/example',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'example/upload',
-    filename: 'e9066',
-    path: 'example/upload/e9066',
+    filename: 'be734',
+    path: 'example/upload/be734',
     size: 29
   },
   body: { hello: 'world' }
@@ -613,9 +613,9 @@ The idea here is to provide a basic mechanism to serve front-end JavaScript code
 
 There are some small bits of middleware that can be used in server as well, but which are not essential to its functioning. They are listed in <kbd>📖 [Wiki](../../wiki/Additional_Middleware)</kbd>.
 
-- `csrfCheck`: ensures that the `csrf` token from session matches one in the request.
+- `csrfCheck`: Ensures that the `csrf` token from session matches one in the request.
 - `jsonErrors`: Allows to serve errors as _JSON_, which is useful for APIs.
-- `github`: sets up GitHub OAuth routes.
+- `github`: Sets up GitHub OAuth routes.
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/12.svg?sanitize=true">

@@ -2,9 +2,9 @@
 
 There are some small bits of middleware that can be used in server as well, but which are not essential to its functioning. They are listed in <kbd>📖 [Wiki](../../wiki/Additional_Middleware)</kbd>.
 
-- `csrfCheck`: ensures that the `csrf` token from session matches one in the request.
+- `csrfCheck`: Ensures that the `csrf` token from session matches one in the request.
 - `jsonErrors`: Allows to serve errors as _JSON_, which is useful for APIs.
-- `github`: sets up GitHub OAuth routes.
+- `github`: Sets up GitHub OAuth routes.
 
 %~%
 
