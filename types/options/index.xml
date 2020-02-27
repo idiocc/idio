@@ -1,5 +1,6 @@
 <types namespace="_idio">
-  <embed path="node_modules/@idio/frontend/types/index.xml" namespace />
+  <embed path="node_modules/@idio/frontend/types/index.xml" namespace ignore="_alaJsx.Config" />
+  <embed path="node_modules/@a-la/jsx/types/index.xml" />
   <record extends="_idio.FrontEndConfig" name="FrontEndOptions" desc="Options for the frontend.">
     <prop boolean name="use" default="false">
       Use this middleware for every request.

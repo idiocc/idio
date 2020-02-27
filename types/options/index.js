@@ -142,7 +142,7 @@ export {}
  * In this case, giving `redirectPath` is required as it will have to be the same one because _GitHub_ only allows one redirect path per `client_id`.
  * @prop {boolean} [session] `PRIVATE` do not set this property! You'll need to configure `session` above `github` in the middleware config.
  */
-/* typal-embed node_modules/@idio/frontend/types/index.xml namespace */
+/* typal-embed node_modules/@idio/frontend/types/index.xml ignore:_alaJsx.Config namespace */
 /**
  * @typedef {_idio.FrontEndConfig} FrontEndConfig Options for the middleware.
  * @typedef {Object} _idio.FrontEndConfig Options for the middleware.
@@ -151,6 +151,18 @@ export {}
  * @prop {!Object<string, string>} [override] Instead of resolving the _package.json_ path for packages and looking up the module and main fields, paths can be passed manually in the override. E.g., `{ preact: '/node_modules/preact/src/preact.js' }` will serve the source code of _Preact_ instead of the resolved dist version.
  * @prop {string} [pragma="import { h } from 'preact'"] The pragma function to import. This enables to skip writing `h` at the beginning of each file. JSX will be transpiled to have `h` pragma, therefore to use React it's possible to do `import { createElement: h } from 'react'`. Default `import { h } from 'preact'`.
  * @prop {boolean|!Function} [log=false] Log to console when source files were patched. Default `false`.
+ * @prop {!_alaJsx.Config} [jsxOptions] Options for the transpiler.
+ * @prop {boolean} [exportClasses=true] When serving CSS, also export class names. Default `true`.
+ */
+/* typal-embed node_modules/@a-la/jsx/types/index.xml namespace */
+/**
+ * @typedef {_alaJsx.Config} Config Options for the program.
+ * @typedef {Object} _alaJsx.Config Options for the program.
+ * @prop {(boolean|string)} [quoteProps=false] Whether to surround property names with quotes. When the `dom` string is passed, it will only quote props for invoking html components, i.e., those that start with a lowercase letter (E.g., for the _Google Closure Compiler_). Default `false`.
+ * @prop {(...args: string[]) => ?} [warn] The function to receive warnings, e.g., when destructuring of properties is used on dom elements (for Closure Compiler).
+ * @prop {boolean} [prop2class=false] If a property name starts with a capital letter, the `className` of the _VNode_ will be updated. Default `false`.
+ * @prop {!Array<string>|!Object} [classNames] The list of properties to put into the `className` property.
+ * @prop {!Object<string, string>} [renameMap] How to rename classes (only applies to `prop2class` and `classNames`).
  */
 /* typal-embed node_modules/@idio/github/types/index.xml ignore:_goa.Middleware,_idio.Context namespace */
 /**

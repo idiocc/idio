@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@a-la/detect-jsx/-/detect-jsx-1.0.2.tgz#8bf79bb5f977a9b41581c37b4fc835cb3995f64c"
   integrity sha512-ud0BJXhJnI70hMksAa3e6HebyHuoa7YdP0W3kDXR326foLjiFSZVBwwY2YSqUKOL92Xek2R8sNtK4TPuTyNN4g==
 
-"@a-la/jsx@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.6.3.tgz#8c1049d254920bf6ba9d1b6c4f8d37e413983b22"
-  integrity sha512-ZT4M+gPck2XrSeikbVbUdw6fOykuJJ96DsbROP7cSI4klkkVsKMJfUCY4wbO9eKymokGe8sxTegRZjiXnwJ5WA==
+"@a-la/jsx@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.7.2.tgz#e60dab2811980259c6a9377db018b6de7c671fd4"
+  integrity sha512-Wr0jN+v91BOeYatPv6F0KMW6kNbnK4DvCwozWkhvGndUq/dzFOLY9am8lOLndalwXGxJtAMr+c9n6pYwiPhkkw==
   dependencies:
     "@a-la/detect-jsx" "^1.0.2"
     restream "^3.7.4"
@@ -197,10 +197,10 @@
   resolved "https://registry.yarnpkg.com/@idio/dicer/-/dicer-1.1.0.tgz#d58b177983935b22f72263c3e31145ea924c6a7d"
   integrity sha512-GWro5lIxHrQPWkNlUFi1IPBWR/bJT9HuJlhJTN5KA5oyRKgcDJRaB5Js9O1no1SDsAFxEVm6QT/pgOAgR03vRg==
 
-"@idio/frontend@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-2.0.2.tgz#5cba980def7dc48a011feddbb3ba09366f969378"
-  integrity sha512-WqkYUnMi5Un8uFSUNVSZR2/alfhJaNFLHBGsXvhZpFot2P4RbxGJy0n+q0wRhEFkA+1DYxtiSt1U3gM7NDO1SA==
+"@idio/frontend@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-2.1.0.tgz#6162baff42b20fffecb18a8619af4b890b8166f9"
+  integrity sha512-thYiQXo78bUKYnH4E+3siLSGiitcvLj8tBUKhDQJjbvyLtyX/8RbTMP+aEFvuGtjsFLPISXkJzkdwlqLEQQUWA==
 
 "@idio/github@^1.5.1":
   version "1.5.1"

@@ -5,6 +5,7 @@ Latest browsers support pretty much all JavaScript features that are used to wri
 This middleware also allows to serve JSX files by transpiling them on-the-fly using a sinple JSX parser (no proper ASTs). Although there are some [limitations](#todo--jsx-limitations), the parser works great
 
 <include-typedefs>@idio/frontend</include-typedefs>
+<include-typedefs>@a-la/jsx</include-typedefs>
 
 _Front End_ options just extend the _Front End_ <link external type="FrontEndConfig">configuration record</link>, providing the `.use` method.
 
