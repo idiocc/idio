@@ -33,6 +33,18 @@
     </prop>
   </record>
 
+  <record name="JSONErrorsOptions" desc="Options for serving errors via JSON.">
+    <prop boolean name="use" default="false">
+      Use this middleware for every request.
+    </prop>
+    <prop boolean name="exposeStack" default="false">
+      Whether to add the `stack` property to the returned object. Don't set to true unless on development environment.
+    </prop>
+    <prop boolean name="logClientErrors" default="true">
+      Whether to print client errors.
+    </prop>
+  </record>
+
   <embed path="node_modules/@idio/github/types/index.xml"
     ignore="_goa.Middleware,_idio.Context" namespace />
   <embed path="node_modules/@idio/github/types/user.xml" namespace />

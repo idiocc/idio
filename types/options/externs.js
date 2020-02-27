@@ -158,6 +158,26 @@ _idio.CsrfCheckOptions.prototype.body
  */
 _idio.CsrfCheckOptions.prototype.query
 /**
+ * Options for serving errors via JSON.
+ * @record
+ */
+_idio.JSONErrorsOptions
+/**
+ * Use this middleware for every request. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.JSONErrorsOptions.prototype.use
+/**
+ * Whether to add the `stack` property to the returned object. Don't set to true unless on development environment. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.JSONErrorsOptions.prototype.exposeStack
+/**
+ * Whether to print client errors. Default `true`.
+ * @type {boolean|undefined}
+ */
+_idio.JSONErrorsOptions.prototype.logClientErrors
+/**
  * Options for GitHub OAuth.
  * @extends {_idio.GithubOAuthConfig}
  * @record

@@ -123,6 +123,11 @@ export {}
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  * @prop {boolean} [body=true] Check for the presence of token in `ctx.request.body` (requires prior Form-Data middleware). Used in POST requests. Default `true`.
  * @prop {boolean} [query=true] Check for the presence of token in `ctx.query`. Can be used in GET requests. Default `true`.
+ * @typedef {_idio.JSONErrorsOptions} JSONErrorsOptions `＠record` Options for serving errors via JSON.
+ * @typedef {Object} _idio.JSONErrorsOptions `＠record` Options for serving errors via JSON.
+ * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
+ * @prop {boolean} [exposeStack=false] Whether to add the `stack` property to the returned object. Don't set to true unless on development environment. Default `false`.
+ * @prop {boolean} [logClientErrors=true] Whether to print client errors. Default `true`.
  * @typedef {_idio.GitHubOptions} GitHubOptions `＠record` Options for GitHub OAuth.
  * @typedef {_idio.$GitHubOptions & _idio.GithubOAuthConfig} _idio.GitHubOptions `＠record` Options for GitHub OAuth.
  * @typedef {Object} _idio.$GitHubOptions `＠record` Options for GitHub OAuth.

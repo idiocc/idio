@@ -10,6 +10,7 @@ import compress from '@goa/compress'
 import github from '@idio/github'
 import Debug from '@idio/debug'
 import { constants } from 'zlib'
+import cleanStack from '@artdeco/clean-stack'
 import rqt from 'rqt'
 
 /**
@@ -214,6 +215,42 @@ const map = {
     return csrfCheck
   },
   /**
+   * CSRF check. todo: add header validation
+   * @param {!_goa.Application} app
+   * @param {!Object} _
+   * @param {_idio.JSONErrorsOptions} options
+   */
+  'jsonErrors'(app, _, options) {
+    const { logClientErrors = true, exposeStack = false } = options
+    /**
+     * @type {_idio.Middleware}
+     */
+    async function jsonErrors(ctx, next) {
+      try {
+        await next()
+      } catch (err) {
+        if (err.statusCode && err.statusCode >= 400 && err.statusCode < 500) {
+          err.message = err.message.replace(/^([^!])/, '!$1')
+        }
+        err.stack = cleanStack(err.stack)
+        if (err.message.startsWith('!')) {
+          ctx.body = {
+            error: err.message.replace('!', ''),
+            stack: exposeStack ? err.stack : undefined,
+          }
+          if (logClientErrors) console.log(err.message)
+        } else {
+          ctx.body = {
+            error: 'internal server error',
+            stack: exposeStack ? err.stack : undefined,
+          }
+          app.emit('error', err)
+        }
+      }
+    }
+    return jsonErrors
+  },
+  /**
    * GitHub OAuth.
    * @param {!_goa.Application} app
    * @param {!Object} _
@@ -408,4 +445,8 @@ export default async function setupMiddleware(middlewareConfig, app) {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../types/options').GitHubOptions} _idio.GitHubOptions
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types/options').JSONErrorsOptions} _idio.JSONErrorsOptions
  */

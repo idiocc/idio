@@ -120,6 +120,11 @@ _idio.MiddlewareConfig.prototype.csrfCheck
  */
 _idio.MiddlewareConfig.prototype.github
 /**
+ * Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
+ * @type {(!_idio.JSONErrorsOptions)|undefined}
+ */
+_idio.MiddlewareConfig.prototype.jsonErrors
+/**
  * Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>}
  */
