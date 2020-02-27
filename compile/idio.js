@@ -3202,6 +3202,15 @@ const Se = M("idio"), Re = a => aa([a, async function(b, c) {
     h != (k || l) && d.throw(403, "Invalid CSRF token");
     return e();
   };
+}, ["jsonErrors"](a, b, c) {
+  const {logClientErrors:d = !0, exposeStack:e = !1} = c;
+  return async function(f, g) {
+    try {
+      await g();
+    } catch (h) {
+      h.statusCode && 400 <= h.statusCode && 500 > h.statusCode && (h.message = h.message.replace(/^([^!])/, "!$1")), h.stack = Cb(h.stack), h.message.startsWith("!") ? (f.body = {error:h.message.replace("!", ""), stack:e ? h.stack : void 0}, d && console.log(h.message)) : (f.body = {error:"internal server error", stack:e ? h.stack : void 0}, a.emit("error", h));
+    }
+  };
 }, ["github"](a, b, c, d) {
   if (!d.session) {
     throw Error("You need to configure session before GitHub middleware.");
