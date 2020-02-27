@@ -1,6 +1,6 @@
 {
   "name": "@idio/idio",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "2-Dependency Koa Web Server Compiled With Closure Compiler And Bundled With Essential Middleware: Static, Compress, Session, Cors, File Upload, Router And JSX Front End.",
   "main": "compile/index.js",
   "scripts": {
