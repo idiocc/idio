@@ -43,6 +43,9 @@
     <prop boolean name="logClientErrors" default="true">
       Whether to print client errors.
     </prop>
+    <prop boolean name="clearIdio" default="true">
+      Removes `@idio/idio` lines from the error stack.
+    </prop>
   </record>
 
   <embed path="node_modules/@idio/github/types/index.xml"

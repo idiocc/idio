@@ -13,7 +13,7 @@ const IdioRouter = require('./router')
  * @param {!_idio.NeoLudditeOptions} [middlewareConfig.neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @param {!_idio.CsrfCheckOptions} [middlewareConfig.csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @param {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [middlewareConfig.github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
- * @param {!_idio.JSONErrorsOptions} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
+ * @param {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
  * @param {!_goa.RouterConfig=} [routerConfig] The optional configuration for the router.
  * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_idio.Router }>}
  */
@@ -33,7 +33,7 @@ async function createApp(middlewareConfig) {
  * @param {!_idio.NeoLudditeOptions} [middlewareConfig.neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @param {!_idio.CsrfCheckOptions} [middlewareConfig.csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @param {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [middlewareConfig.github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
- * @param {!_idio.JSONErrorsOptions} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
+ * @param {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
  * @param {!_idio.Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
  * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
@@ -197,6 +197,7 @@ module.exports.compose = $compose
  * @prop {!_multipart.FormData} [form] An instance of the form data class that can be used to create middleware.
  * @prop {!_idio.Middleware} [session] The session middleware to be installed on individual routes.
  * @prop {!_idio.Middleware} [csrfCheck] Configured CSRF check middleware.
+ * @prop {!_idio.Middleware|!Array<!_idio.Middleware>} [jsonErrors] Configured CSRF check middleware.
  */
 
 /* typal types/middleware.xml namespace */
@@ -232,7 +233,7 @@ module.exports.compose = $compose
  * @prop {!_idio.NeoLudditeOptions} [neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @prop {!_idio.CsrfCheckOptions} [csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @prop {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
- * @prop {!_idio.JSONErrorsOptions} [jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
+ * @prop {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
  * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>} _idio.FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {_idio.ConfigItem} ConfigItem An item in middleware configuration.

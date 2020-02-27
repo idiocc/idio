@@ -879,8 +879,10 @@ const ub = (a, b = 0, c = !1) => {
   return a;
 };
 const xb = os.homedir, yb = os.tmpdir;
-const zb = /\s+at.*(?:\(|\s)(.*)\)?/, Ab = /^(?:(?:(?:node|(?:internal\/[\w/]*|.*node_modules\/(?:IGNORED_MODULES)\/.*)?\w+)\.js:\d+:\d+)|native)/, Bb = xb(), Cb = a => {
-  const {pretty:b = !1, ignoredModules:c = ["pirates"]} = {}, d = c.join("|"), e = new RegExp(Ab.source.replace("IGNORED_MODULES", d));
+const zb = /\s+at.*(?:\(|\s)(.*)\)?/, Ab = /^(?:(?:(?:node|(?:internal\/[\w/]*|.*node_modules\/(?:IGNORED_MODULES)\/.*)?\w+)\.js:\d+:\d+)|native)/, Bb = xb(), Cb = (a, b) => {
+  const {pretty:c = !1, ignoredModules:d = ["pirates"]} = b || {};
+  b = d.join("|");
+  const e = new RegExp(Ab.source.replace("IGNORED_MODULES", b));
   return a.replace(/\\/g, "/").split("\n").filter(f => {
     f = f.match(zb);
     if (null === f || !f[1]) {
@@ -888,7 +890,7 @@ const zb = /\s+at.*(?:\(|\s)(.*)\)?/, Ab = /^(?:(?:(?:node|(?:internal\/[\w/]*|.
     }
     f = f[1];
     return f.includes(".app/Contents/Resources/electron.asar") || f.includes(".app/Contents/Resources/default_app.asar") ? !1 : !e.test(f);
-  }).filter(f => f.trim()).map(f => b ? f.replace(zb, (g, h) => g.replace(h, h.replace(Bb, "~"))) : f).join("\n");
+  }).filter(f => f.trim()).map(f => c ? f.replace(zb, (g, h) => g.replace(h, h.replace(Bb, "~"))) : f).join("\n");
 };
 function Db(a, b, c = !1) {
   return function(d) {
@@ -3203,12 +3205,12 @@ const Se = M("idio"), Re = a => aa([a, async function(b, c) {
     return e();
   };
 }, ["jsonErrors"](a, b, c) {
-  const {logClientErrors:d = !0, exposeStack:e = !1} = c;
-  return async function(f, g) {
+  const {logClientErrors:d = !0, exposeStack:e = !1, clearIdio:f = !0} = c;
+  return async function(g, h) {
     try {
-      await g();
-    } catch (h) {
-      h.statusCode && 400 <= h.statusCode && 500 > h.statusCode && (h.message = h.message.replace(/^([^!])/, "!$1")), h.stack = Cb(h.stack), h.message.startsWith("!") ? (f.body = {error:h.message.replace("!", ""), stack:e ? h.stack : void 0}, d && console.log(h.message)) : (f.body = {error:"internal server error", stack:e ? h.stack : void 0}, a.emit("error", h));
+      await h();
+    } catch (k) {
+      k.statusCode && 400 <= k.statusCode && 500 > k.statusCode && (k.message = k.message.replace(/^([^!])/, "!$1")), k.stack = Cb(k.stack, f ? {ignoredModules:["@idio/idio"]} : void 0), k.message.startsWith("!") ? (g.body = {error:k.message.replace("!", ""), stack:e ? k.stack : void 0}, d && console.log(k.message)) : (g.body = {error:"internal server error", stack:e ? k.stack : void 0}, a.emit("error", k));
     }
   };
 }, ["github"](a, b, c, d) {
@@ -3276,9 +3278,7 @@ async function We(a, b) {
   return await Object.keys(d).reduce(async(e, f) => {
     e = await e;
     var g = a[f];
-    Array.isArray(g) ? (g = g.map(async h => {
-      await Ue(f, h, b, e);
-    }), g = await Promise.all(g)) : g = await Ue(f, g, b, e);
+    Array.isArray(g) ? (g = g.map(async h => await Ue(f, h, b, e)), g = await Promise.all(g)) : g = await Ue(f, g, b, e);
     return {...e, [f]:g};
   }, {});
 }

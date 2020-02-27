@@ -128,6 +128,7 @@ export {}
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  * @prop {boolean} [exposeStack=false] Whether to add the `stack` property to the returned object. Don't set to true unless on development environment. Default `false`.
  * @prop {boolean} [logClientErrors=true] Whether to print client errors. Default `true`.
+ * @prop {boolean} [clearIdio=true] Removes `@idio/idio` lines from the error stack. Default `true`.
  * @typedef {_idio.GitHubOptions} GitHubOptions `＠record` Options for GitHub OAuth.
  * @typedef {_idio.$GitHubOptions & _idio.GithubOAuthConfig} _idio.GitHubOptions `＠record` Options for GitHub OAuth.
  * @typedef {Object} _idio.$GitHubOptions `＠record` Options for GitHub OAuth.

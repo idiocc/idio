@@ -221,7 +221,7 @@ const map = {
    * @param {_idio.JSONErrorsOptions} options
    */
   'jsonErrors'(app, _, options) {
-    const { logClientErrors = true, exposeStack = false } = options
+    const { logClientErrors = true, exposeStack = false, clearIdio = true } = options
     /**
      * @type {_idio.Middleware}
      */
@@ -232,7 +232,9 @@ const map = {
         if (err.statusCode && err.statusCode >= 400 && err.statusCode < 500) {
           err.message = err.message.replace(/^([^!])/, '!$1')
         }
-        err.stack = cleanStack(err.stack)
+        err.stack = cleanStack(err.stack, clearIdio ? {
+          ignoredModules: ['@idio/idio'],
+        } : undefined)
         if (err.message.startsWith('!')) {
           ctx.body = {
             error: err.message.replace('!', ''),
@@ -351,7 +353,7 @@ export default async function setupMiddleware(middlewareConfig, app) {
       let installed
       if (Array.isArray(conf)) {
         const p = conf.map(async (c) => {
-          await initMiddleware(name, c, app, acc)
+          return await initMiddleware(name, c, app, acc)
         })
         installed = await Promise.all(p)
       } else {

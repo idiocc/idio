@@ -118,5 +118,9 @@
   "_idio.GitHubOptions": {
     "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions",
     "description": "Options for GitHub OAuth."
+  },
+  "_idio.JSONErrorsOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonerrorsoptions",
+    "description": "Options for serving errors via JSON."
   }
 }

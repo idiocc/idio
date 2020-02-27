@@ -43,5 +43,8 @@
     <prop type="!_idio.Middleware" name="csrfCheck" opt>
       Configured CSRF check middleware.
     </prop>
+    <prop type="!_idio.Middleware|!Array<!_idio.Middleware>" name="jsonErrors" opt>
+      Configured CSRF check middleware.
+    </prop>
   </record>
 </types>

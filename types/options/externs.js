@@ -178,6 +178,11 @@ _idio.JSONErrorsOptions.prototype.exposeStack
  */
 _idio.JSONErrorsOptions.prototype.logClientErrors
 /**
+ * Removes `@idio/idio` lines from the error stack. Default `true`.
+ * @type {boolean|undefined}
+ */
+_idio.JSONErrorsOptions.prototype.clearIdio
+/**
  * Options for GitHub OAuth.
  * @extends {_idio.GithubOAuthConfig}
  * @record
