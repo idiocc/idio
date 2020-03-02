@@ -1385,7 +1385,7 @@ const uc = async(a, b, {mount:c, override:d = {}}) => {
 };
 function vc(a = "") {
   let b;
-  window.FRONTEND_STYLE_ID ? (b = window.FRONTEND_STYLE_ID, b.innerText = "") : (b = document.createElement("style"), b.id = "FRONTEND_STYLE_ID", document.head.appendChild(b));
+  window["FRONTEND-STYLE-ID"] ? (b = window["FRONTEND-STYLE-ID"], b.innerText = "") : (b = document.createElement("style"), b.id = "FRONTEND-STYLE-ID", document.head.appendChild(b));
   b.type = "text/css";
   b.styleSheet ? b.styleSheet.cssText = a : b.appendChild(document.createTextNode(a));
 }
@@ -1494,7 +1494,7 @@ const Cc = async(a, b, c, d) => {
   var d = [];
   b && (d = a.split(/\r?\n/).filter(e => /^\S/.test(e)).join(P), d = mc(/\.([\w\d_-]+)/g, d, ["className"]).map(({className:e}) => e).filter((e, f, g) => g.indexOf(e) == f));
   c = c.replace(/\.css$/, "").replace(/[/\\]/g, "-").replace(/[^\w\d_-]/g, "");
-  return `(${vc.toString().replace(/FRONTEND_STYLE_ID/g, c)})(\`${a}\`)
+  return `(${vc.toString().replace(/FRONTEND-STYLE-ID/g, c)})(\`${a}\`)
 ${d.map(e => `export const $${e} = '${e}'`).join(P)}`.replace(/\r?\n/g, P).trim();
 };
 /*

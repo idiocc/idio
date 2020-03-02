@@ -3,6 +3,7 @@
 ### [1.5.0](https://github.com/idiocc/idio/compare/v1.4.1...v1.5.0)
 
 - [feature] Implement `jsonBody` middleware.
+- [feature] Add Hot Reload via _Front End_.
 - [feature] Export websocket method.
 
 ## 28 February 2020
