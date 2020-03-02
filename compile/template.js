@@ -79,6 +79,8 @@ module.exports.compose = $compose
 
 /* typal node_modules/@idio/websocket/types/index.xml namespace */
 
+/* typal node_modules/@idio/websocket/types/api.xml namespace ignore:_idio.websocket */
+
 // typework
 /**
  * @typedef {import('../types/goa/vendor/cookies').Cookies} Cookies

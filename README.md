@@ -58,6 +58,7 @@ There are some example apps that you can look at.
 - [SSR](#ssr)
 - [NeoLuddite.Dev](#neoludditedev)
   * [`NeoLudditeOptions`](#type-neoludditeoptions)
+- [WebSocket](#websocket)
 - [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
@@ -286,7 +287,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Mon, 02 Mar 2020 02:30:52 GMT
+Date: Mon, 02 Mar 2020 02:39:25 GMT
 Connection: close
 ```
 </details>
@@ -341,21 +342,21 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 [
   {
     name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTYzMi4yIiwiX2V4cGlyZSI6MTU4MzIwMjY1MzgyNywiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTYyNi4yIiwiX2V4cGlyZSI6MTU4MzIwMzE2Nzc4MiwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Tue, 03 Mar 2020 02:30:53 GMT',
+    expires: 'Tue, 03 Mar 2020 02:39:27 GMT',
     httponly: true
   },
   {
     name: 'koa:sess.sig',
-    value: '9N6gl4s1rFtp9tBzbcG6oToDPxS6zeHvWCJSx4r0oiIcgTOWXm9kuriliwAim3QdhxuvE1sw0zzCeZFzvIfOIA',
+    value: 'oHLs06aMTeXYjsgNe1RUsp8i4ONS93whdvRExly3zK77T1SU2qrtPmcUWMQGH1B76JwByjtaPJ5LIA-Kmu61wg',
     path: '/',
-    expires: 'Tue, 03 Mar 2020 02:30:53 GMT',
+    expires: 'Tue, 03 Mar 2020 02:39:27 GMT',
     httponly: true
   }
 ]
 // GET /
-"welcome back u632.2"
+"welcome back u626.2"
 ```
 </td>
 </tr>
@@ -402,7 +403,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 02 Mar 2020 02:30:55 GMT',
+  date: 'Mon, 02 Mar 2020 02:39:28 GMT',
   connection: 'close'
 }
 
@@ -410,7 +411,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 02 Mar 2020 02:30:55 GMT',
+  date: 'Mon, 02 Mar 2020 02:39:28 GMT',
   connection: 'close'
 }
 
@@ -419,7 +420,7 @@ const { url, app } = await idio({
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Mon, 02 Mar 2020 02:30:55 GMT',
+  date: 'Mon, 02 Mar 2020 02:39:28 GMT',
   connection: 'close'
 }
 ```
@@ -465,7 +466,7 @@ const { url, app } = await idio({
   'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Mon, 02 Mar 2020 02:30:57 GMT',
+  date: 'Mon, 02 Mar 2020 02:39:29 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked'
 }
@@ -517,8 +518,8 @@ router.post('/example',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'example/upload',
-    filename: '01e2a',
-    path: 'example/upload/01e2a',
+    filename: 'b7a80',
+    path: 'example/upload/b7a80',
     size: 29
   },
   body: { hello: 'world' }
@@ -890,6 +891,29 @@ __<a name="type-neoludditeoptions">`NeoLudditeOptions`</a>__: Options for the ne
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/16.svg?sanitize=true">
 </a></p>
+
+## WebSocket
+
+We've implemented a library to upgrade requests into _WebSocket_ connections. You can read more at the actual [package page](https://github.com/idiocc/websocket). _Idio_ simply exports this method via its API. You need to configure it yourself.
+
+```js
+import idio, { websocket } from '@idio/idio'
+
+const { url, app, server } = await idio()
+// clients stores current connections against ID
+const clients = websocket(server, {
+  onConnect(clientId) {
+    // the value is a function to send messages
+    clients[clientId]('intro-event', 'Hello Client!')
+  },
+})
+```
+
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/17.svg?sanitize=true">
+</a></p>
+
+
 
 ## Copyright & License
 

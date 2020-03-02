@@ -285,6 +285,13 @@ module.exports.compose = $compose
  * @prop {(clientID: string) => void} [onConnect] The callback when a client is connected.
  */
 
+/* typal node_modules/@idio/websocket/types/api.xml namespace ignore:_idio.websocket */
+/**
+ * @typedef {import('http').Server} http.Server
+ * @typedef {_idio.sendMessage} sendMessage
+ * @typedef {(event: string, message: *) => void} _idio.sendMessage
+ */
+
 // typework
 /**
  * @typedef {import('../types/goa/vendor/cookies').Cookies} Cookies
