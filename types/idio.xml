@@ -20,7 +20,7 @@
 
   <interface name="Request" extends="_goa.Request" desc="The Goa request with additional properties.">
     <prop type="Object" name="body" initial="null">
-      Parsed body of the request, extract using _Form Data_ middleware.
+      Parsed body of the request, extract using _Form Data_ or _JSON Body_ middleware.
     </prop>
   </interface>
 

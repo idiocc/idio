@@ -7,6 +7,12 @@
     </prop>
   </record>
 
+  <record name="JSONBodyOptions" desc="Options for json body parsing.">
+    <prop boolean name="use" default="false">
+      Use this middleware for every request.
+    </prop>
+  </record>
+
   <record name="NeoLudditeOptions" desc="Options for the neoluddite.dev client.">
     <prop string name="key">
       The API key received from the app.

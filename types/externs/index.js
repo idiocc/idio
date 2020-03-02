@@ -42,7 +42,7 @@ _idio.Application.prototype.use = function(middleware) {}
  */
 _idio.Request = function() {}
 /**
- * Parsed body of the request, extract using _Form Data_ middleware. Default `null`.
+ * Parsed body of the request, extract using _Form Data_ or _JSON Body_ middleware. Default `null`.
  * @type {Object}
  */
 _idio.Request.prototype.body

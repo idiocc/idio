@@ -1,57 +1,16 @@
 import compose from '@goa/compose'
-import session from '@goa/session'
-import Keygrip from '@goa/cookies/src/Keygrip'
 import cors from '@goa/cors'
 import frontend from '@idio/frontend'
-import FormData from '@multipart/form-data'
-import serve from '../modules/koa-static'
-import Mount from '../modules/koa-mount'
+import serve from '../../modules/koa-static'
+import Mount from '../../modules/koa-mount'
 import compress from '@goa/compress'
 import github from '@idio/github'
-import Debug from '@idio/debug'
 import { constants } from 'zlib'
 import cleanStack from '@artdeco/clean-stack'
 import rqt from 'rqt'
-
-/**
- * This class exposes the `file`, `files` and `body` properties
- * assigned to the ctx.req by multer, to ctx.file[s] and ctx.request.body.
- */
-class FD extends FormData {
-  any() {
-    return proxyFD(super.any())
-  }
-  array(...args) {
-    return proxyFD(super.array(...args))
-  }
-  fields(...args) {
-    return proxyFD(super.fields(...args))
-  }
-  none(...args) {
-    return proxyFD(super.none(...args))
-  }
-  single(...args) {
-    return proxyFD(super.single(...args))
-  }
-}
-
-const debug = Debug('idio')
-
-const proxyFD = (original) => {
-  /** @type {!_idio.Middleware} */
-  async function middleware(ctx, next) {
-    if (ctx.req.file) ctx.file = ctx.req.file
-    if (ctx.req.files) ctx.files = ctx.req.files
-    if (ctx.req.body) ctx.request.body = ctx.req.body
-    if (ctx.file || ctx.files) {
-      ctx.neoluddite('@multipart/form-data', 'file')
-    } else if (ctx.request.body) {
-      ctx.neoluddite('@multipart/form-data', 'body')
-    }
-    await next()
-  }
-  return compose([original, middleware])
-}
+import { collect } from 'catchment'
+import session from './session'
+import form from './form'
 
 const map = {
   // multer: setupMulter,
@@ -95,34 +54,7 @@ const map = {
     })
     return fn
   },
-  /**
-   * The session middleware.
-   * @param {!_goa.Application} app
-   * @param {!Object} _
-   * @param {!_idio.SessionOptions} options
-   */
-  'session'(app, _, options) {
-    let { keys, keygrip, algorithm, ...rest } = options
-    if (keys && !Array.isArray(keys)) throw new Error('session: Keys must be an array.')
-    if (algorithm) {
-      if (!keys || !(0 in keys))
-        throw new Error('To create a Keygrip instance with custom algorithm, keys must be provided.')
-      keygrip = new Keygrip(keys, algorithm)
-      debug('Created Keygrip instance with %s algorithm', algorithm)
-    }
-    const config = /** @type {!_idio.SessionConfig} */ (rest)
-    if (config.signed !== false && !keygrip) {
-      if (!keys || !(0 in keys))
-        throw new Error('Session keys are signed by default, unless you set signed=false, you must provide an array with keys.')
-    }
-    if (keygrip) debug('session: Setting a Keygrip instance on the app')
-    else if (keys) debug('session: Setting an array of keys of length %s on the app', keys.length)
-    else debug('session: the cookies won\'t be signed as no keys are provided.')
-
-    app.keys = keygrip || keys
-    const ses = session(config)
-    return ses
-  },
+  'session': session,
   /**
    * The CORS middleware.
    * @param {!_goa.Application} app
@@ -144,38 +76,7 @@ const map = {
     })
     return fn
   },
-  /**
-   * The Form Data middleware.
-   * @param {!_goa.Application} app
-   * @param {!Object} _
-   * @param {!_idio.FormDataOptions} options
-   */
-  'form'(app, _, options) {
-    const { any, array, none, fields, single, ...rest } = options
-    const config = /** @type {!_multipart.FormDataConfig} */ (rest)
-    if (any) {
-      const f = new FD(config)
-      return f.any()
-    }
-    if (array) {
-      const f = new FD(config)
-      return f.array(array.name, array.maxFiles)
-    }
-    if (none) {
-      const f = new FD(config)
-      return f.none()
-    }
-    if (fields) {
-      const f = new FD(config)
-      return f.fields(fields)
-    }
-    if (single) {
-      const f = new FD(config)
-      return f.single(single)
-    }
-    const f = new FD(config)
-    return f
-  },
+  'form': form,
   /**
    * The Front End middleware.
    * @param {!_goa.Application} app
@@ -215,7 +116,7 @@ const map = {
     return csrfCheck
   },
   /**
-   * CSRF check. todo: add header validation
+   * Serve errors as JSON.
    * @param {!_goa.Application} app
    * @param {!Object} _
    * @param {_idio.JSONErrorsOptions} options
@@ -251,6 +152,31 @@ const map = {
       }
     }
     return jsonErrors
+  },
+  /**
+   * Parse JSON body.
+   * @param {!_goa.Application} app
+   * @param {!Object} _
+   * @param {!Object} options
+   */
+  'jsonBody'() {
+    /**
+     * @type {_idio.Middleware}
+     */
+    async function jsonBody(ctx, next) {
+      if (!ctx.is('json')) {
+        return next()
+      }
+      let body = await collect(ctx.req)
+      try {
+        body = JSON.parse(body)
+      } catch (err) {
+        ctx.throw(400, 'Could not parse JSON.')
+      }
+      ctx.request.body = body
+      await next()
+    }
+    return jsonBody
   },
   /**
    * GitHub OAuth.
@@ -373,7 +299,7 @@ export default async function setupMiddleware(middlewareConfig, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').Application} _idio.Application
+ * @typedef {import('../..').Application} _idio.Application
  */
 /**
  * @suppress {nonStandardJsDocs}
@@ -381,74 +307,53 @@ export default async function setupMiddleware(middlewareConfig, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').Middleware} _idio.Middleware
+ * @typedef {import('../..').Middleware} _idio.Middleware
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').StaticOptions} _idio.StaticOptions
+ * @typedef {import('../..').StaticOptions} _idio.StaticOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').CompressOptions} _idio.CompressOptions
- */
-
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').SessionOptions} _idio.SessionOptions
+ * @typedef {import('../../types/options').CompressOptions} _idio.CompressOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').SessionConfig} _idio.SessionConfig
+ * @typedef {import('../../types/options').CorsOptions} _idio.CorsOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').CorsOptions} _idio.CorsOptions
+ * @typedef {import('../..').MiddlewareConfig} _idio.MiddlewareConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').MiddlewareConfig} _idio.MiddlewareConfig
+ * @typedef {import('../..').ConfigItem} _idio.ConfigItem
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').ConfigItem} _idio.ConfigItem
+ * @typedef {import('../..').MiddlewareConstructor} _idio.MiddlewareConstructor
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').MiddlewareConstructor} _idio.MiddlewareConstructor
+ * @typedef {import('../..').ConfiguredMiddleware} _idio.ConfiguredMiddleware
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').FormDataConfig} _multipart.FormDataConfig
+ * @typedef {import('../../types/options').FrontEndOptions} _idio.FrontEndOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').FormDataOptions} _idio.FormDataOptions
+ * @typedef {import('../../types/options').FrontEndConfig} _idio.FrontEndConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').ConfiguredMiddleware} _idio.ConfiguredMiddleware
+ * @typedef {import('../../types/options').CsrfCheckOptions} _idio.CsrfCheckOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').FrontEndOptions} _idio.FrontEndOptions
+ * @typedef {import('../../types/options').GitHubOptions} _idio.GitHubOptions
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').FrontEndConfig} _idio.FrontEndConfig
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('..').FormDataOptions} _idio.FrontEndConfig
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').CsrfCheckOptions} _idio.CsrfCheckOptions
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').GitHubOptions} _idio.GitHubOptions
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../types/options').JSONErrorsOptions} _idio.JSONErrorsOptions
+ * @typedef {import('../../types/options').JSONErrorsOptions} _idio.JSONErrorsOptions
  */

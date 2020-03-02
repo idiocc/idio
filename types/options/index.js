@@ -112,6 +112,9 @@ export {}
  * @typedef {_idio.$FrontEndOptions & _idio.FrontEndConfig} _idio.FrontEndOptions `＠record` Options for the frontend.
  * @typedef {Object} _idio.$FrontEndOptions `＠record` Options for the frontend.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
+ * @typedef {_idio.JSONBodyOptions} JSONBodyOptions `＠record` Options for json body parsing.
+ * @typedef {Object} _idio.JSONBodyOptions `＠record` Options for json body parsing.
+ * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  * @typedef {_idio.NeoLudditeOptions} NeoLudditeOptions `＠record` Options for the neoluddite.dev client.
  * @typedef {Object} _idio.NeoLudditeOptions `＠record` Options for the neoluddite.dev client.
  * @prop {string} key The API key received from the app.
@@ -153,6 +156,7 @@ export {}
  * @prop {boolean|!Function} [log=false] Log to console when source files were patched. Default `false`.
  * @prop {!_alaJsx.Config} [jsxOptions] Options for the transpiler.
  * @prop {boolean} [exportClasses=true] When serving CSS, also export class names. Default `true`.
+ * @prop {!_idio.HotReload} [hotReload] Enable hot reload for modules. Requires at least to implement `getServer` method so that WebSocket listener can be set up on the HTTP server.
  */
 /* typal-embed node_modules/@a-la/jsx/types/index.xml namespace */
 /**

@@ -113,6 +113,16 @@ _idio.FrontEndOptions
  */
 _idio.FrontEndOptions.prototype.use
 /**
+ * Options for json body parsing.
+ * @record
+ */
+_idio.JSONBodyOptions
+/**
+ * Use this middleware for every request. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.JSONBodyOptions.prototype.use
+/**
  * Options for the neoluddite.dev client.
  * @record
  */
