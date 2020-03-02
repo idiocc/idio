@@ -6,11 +6,12 @@ import Mount from '../../modules/koa-mount'
 import compress from '@goa/compress'
 import github from '@idio/github'
 import { constants } from 'zlib'
-import cleanStack from '@artdeco/clean-stack'
 import rqt from 'rqt'
 import { collect } from 'catchment'
 import session from './session'
 import form from './form'
+import jsonErrors from './json-errors'
+import csrfCheck from './csrf-check'
 
 const map = {
   // multer: setupMulter,
@@ -83,76 +84,25 @@ const map = {
    * @param {!Object} _
    * @param {_idio.FrontEndOptions} options
    */
-  'frontend'(app, _, options) {
+  'frontend'(app, _, options, acc, _options) {
     const config = /** @type {_idio.FrontEndConfig} */ (options)
-    const f = frontend(config)
-    return f
-  },
-  /**
-   * CSRF check. todo: add header validation
-   * @param {!_goa.Application} app
-   * @param {!Object} _
-   * @param {_idio.CsrfCheckOptions} options
-   */
-  'csrfCheck'(app, _, options) {
-    /**
-     * @type {_idio.Middleware}
-     */
-    function csrfCheck(ctx, next) {
-      const { body = true, query = true } = options
-      const { session: ses } = ctx
-      if (!ses) ctx.throw(401, 'Session does not exist.')
-
-      const csrf = ses['csrf']
-      if (!csrf) ctx.throw(500, 'CSRF is missing from session.')
-
-      let c1, c2
-      if (body) c1 = (ctx.request.body || {})['csrf']
-      if (query) c2 = ctx.query['csrf']
-      const c = c1 || c2
-      if (csrf != c) ctx.throw(403, 'Invalid CSRF token')
-      return next()
+    if (config.hotReload && !config.hotReload.getServer) {
+      config.hotReload.getServer = _options.getServer
     }
-    return csrfCheck
-  },
-  /**
-   * Serve errors as JSON.
-   * @param {!_goa.Application} app
-   * @param {!Object} _
-   * @param {_idio.JSONErrorsOptions} options
-   */
-  'jsonErrors'(app, _, options) {
-    const { logClientErrors = true, exposeStack = false, clearIdio = true } = options
-    /**
-     * @type {_idio.Middleware}
-     */
-    async function jsonErrors(ctx, next) {
-      try {
-        await next()
-      } catch (err) {
-        if (err.statusCode && err.statusCode >= 400 && err.statusCode < 500) {
-          err.message = err.message.replace(/^([^!])/, '!$1')
-        }
-        err.stack = cleanStack(err.stack, clearIdio ? {
-          ignoredModules: ['@idio/idio'],
-        } : undefined)
-        if (err.message.startsWith('!')) {
-          ctx.body = {
-            error: err.message.replace('!', ''),
-            stack: exposeStack ? err.stack : undefined,
-          }
-          if (logClientErrors) console.log(err.message)
-        } else {
-          ctx.body = {
-            error: 'internal server error',
-            stack: exposeStack ? err.stack : undefined,
-          }
-          app.emit('error', err)
-        }
+    let watchers
+    if (config.hotReload) {
+      if (config.hotReload.watchers) watchers = config.hotReload.watchers
+      else {
+        watchers = {}
+        config.hotReload.watchers = watchers
       }
     }
-    return jsonErrors
+    const f = frontend(config)
+    if (watchers) f.watchers = watchers
+    return f
   },
+  'csrfCheck': csrfCheck,
+  'jsonErrors': jsonErrors,
   /**
    * Parse JSON body.
    */
@@ -206,7 +156,7 @@ const map = {
  * @param {!_goa.Application} app The application instance.
  * @param {!_idio.ConfiguredMiddleware} acc Currently configured middleware.
  */
-async function initMiddleware(name, conf, app, acc) {
+async function initMiddleware(name, conf, app, acc, _options = {}) {
   if (typeof conf == 'function') {
     const c = conf
     app.use(c)
@@ -227,7 +177,7 @@ async function initMiddleware(name, conf, app, acc) {
   } else {
     throw new Error(`Unknown middleware config item "${name}". Either specify one from the idio bundle, or pass the "middlewareConstructor" property.`)
   }
-  const res = await fn(app, config, options, acc)
+  const res = await fn(app, config, options, acc, _options)
 
   if (use) app.use(res)
   return res
@@ -260,7 +210,7 @@ const makeNeoluddite = (app, env, host, key) => {
  * @param {!_idio.MiddlewareConfig} middlewareConfig
  * @param {!_idio.Application} app
  */
-export default async function setupMiddleware(middlewareConfig, app) {
+export default async function setupMiddleware(middlewareConfig, app, _options = {}) {
   const { neoluddite, ...rest } = middlewareConfig
   if (neoluddite) {
     const { app: a, env, key, host = 'https://neoluddite.dev' } = neoluddite
@@ -276,7 +226,7 @@ export default async function setupMiddleware(middlewareConfig, app) {
       let installed
       if (Array.isArray(conf)) {
         const p = conf.map(async (c) => {
-          return await initMiddleware(name, c, app, acc)
+          return await initMiddleware(name, c, app, acc, _options)
         })
         installed = await Promise.all(p)
       } else {
@@ -344,13 +294,5 @@ export default async function setupMiddleware(middlewareConfig, app) {
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types/options').CsrfCheckOptions} _idio.CsrfCheckOptions
- */
-/**
- * @suppress {nonStandardJsDocs}
  * @typedef {import('../../types/options').GitHubOptions} _idio.GitHubOptions
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types/options').JSONErrorsOptions} _idio.JSONErrorsOptions
  */

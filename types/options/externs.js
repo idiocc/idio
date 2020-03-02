@@ -113,6 +113,27 @@ _idio.FrontEndOptions
  */
 _idio.FrontEndOptions.prototype.use
 /**
+ * Options to enable hot reload of exported functions and classes.
+ * @type {_idio.HotReloadOptions|undefined}
+ */
+_idio.FrontEndOptions.prototype.hotReload
+/**
+ * Overridden options for hot reload.
+ * @extends {_idio.HotReload}
+ * @record
+ */
+_idio.HotReloadOptions
+/**
+ * `PRIVATE` do not set this property! _Idio_ will automatically assign this. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.HotReloadOptions.prototype.getServer
+/**
+ * `PRIVATE` do not set this property! Watchers are closed when you call `app.destroy()`. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.HotReloadOptions.prototype.watchers
+/**
  * Options for json body parsing.
  * @record
  */

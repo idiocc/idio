@@ -11,22 +11,24 @@ import idio from '../../../compile'
     frontend: {
       use: true,
       directory: [
-        'example/wiki/frontend',
+        'wiki/Front-End/frontend',
         'example/frontend',
       ],
     },
   })
   /* end example */
   let headers, statusCode
-  let { body } = await aqt(`${url}/example/wiki/frontend/index`)
+  let { body } = await aqt(`${url}/wiki/Front-End/frontend/Example`)
   console.log(body)
   console.log()
+  ;({ body } = await aqt(`${url}/wiki/Front-End/frontend/index`))
+  console.log(body)
 
-  ;({ body, headers, statusCode } = await aqt(`${url}/example/wiki/frontend`))
+  ;({ body, headers, statusCode } = await aqt(`${url}/wiki/Front-End/frontend`))
   console.log('/*\n * status: %s,\n * location: %s \n */', statusCode, headers.location)
   console.log()
 
-  ;({ body } = await aqt(`${url}/example/wiki/frontend/style.css`))
+  ;({ body } = await aqt(`${url}/wiki/Front-End/frontend/style.css`))
   console.log(body)
 
   await app.destroy()

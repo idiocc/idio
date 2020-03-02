@@ -8,17 +8,14 @@ import idio from '../../../compile'
       console.log('//', ctx.method, ctx.path)
       await next()
     },
-    // serves from example/wiki/frontend at /frontend
     frontend: {
       use: true,
-      directory: 'frontend',
-      mount: 'example/wiki',
+      directory: 'wiki/Front-End/frontend',
+      hotReload: {}, // enable reload
     },
-  }, { port: null })
+  })
   /* end example */
-  let { body } = await aqt(`${url}/frontend/index`)
+  const { body } = await aqt(`${url}/wiki/Front-End/frontend/Example`)
   console.log(body)
-  console.log()
-
   await app.destroy()
 })()

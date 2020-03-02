@@ -3363,9 +3363,14 @@ const jf = {["static"](a, b, c) {
 }, form:function(a, b, c) {
   const {any:d, array:e, none:f, fields:g, single:h, ...k} = c;
   return d ? (new gf(k)).any() : e ? (new gf(k)).array(e.name, e.maxFiles) : f ? (new gf(k)).none() : g ? (new gf(k)).fields(g) : h ? (new gf(k)).single(h) : new gf(k);
-}, ["frontend"](a, b, c) {
-  return Bc(c);
-}, ["csrfCheck"](a, b, c) {
+}, ["frontend"](a, b, c, d, e) {
+  c.hotReload && !c.hotReload.getServer && (c.hotReload.getServer = e.getServer);
+  let f;
+  c.hotReload && (c.hotReload.watchers ? f = c.hotReload.watchers : (f = {}, c.hotReload.watchers = f));
+  a = Bc(c);
+  f && (a.watchers = f);
+  return a;
+}, csrfCheck:function(a, b, c) {
   return function(d, e) {
     const {body:f = !0, query:g = !0} = c;
     var h = d.session;
@@ -3377,7 +3382,7 @@ const jf = {["static"](a, b, c) {
     h != (k || l) && d.throw(403, "Invalid CSRF token");
     return e();
   };
-}, ["jsonErrors"](a, b, c) {
+}, jsonErrors:function(a, b, c) {
   const {logClientErrors:d = !0, exposeStack:e = !1, clearIdio:f = !0} = c;
   return async function(g, h) {
     try {
@@ -3413,24 +3418,24 @@ const jf = {["static"](a, b, c) {
     rd(a, {path:l, scope:m, redirectPath:g, ...k, session:d.session});
   });
 }};
-async function kf(a, b, c, d) {
+async function kf(a, b, c, d, e = {}) {
   if ("function" == typeof b) {
     return c.use(b), b;
   }
-  const {use:e, config:f = {}, middlewareConstructor:g, ...h} = b;
+  const {use:f, config:g = {}, middlewareConstructor:h, ...k} = b;
   if (a in jf) {
     b = jf[a];
   } else {
-    if (g) {
-      if (b = g, "function" != typeof b) {
+    if (h) {
+      if (b = h, "function" != typeof b) {
         throw Error(`Expecting a function in the "middlewareConstructor" of the ${a} middleware.`);
       }
     } else {
       throw Error(`Unknown middleware config item "${a}". Either specify one from the idio bundle, or pass the "middlewareConstructor" property.`);
     }
   }
-  a = await b(c, f, h, d);
-  e && c.use(a);
+  a = await b(c, g, k, d, e);
+  f && c.use(a);
   return a;
 }
 const lf = (a, b, c, d) => async(e, f) => {
@@ -3453,20 +3458,20 @@ const lf = (a, b, c, d) => async(e, f) => {
     }
   }
 };
-async function mf(a, b) {
-  const {neoluddite:c, ...d} = a;
-  if (c) {
-    const {app:e, env:f, key:g, host:h = "https://neoluddite.dev"} = c;
-    if (!g) {
+async function mf(a, b, c = {}) {
+  const {neoluddite:d, ...e} = a;
+  if (d) {
+    const {app:f, env:g, key:h, host:k = "https://neoluddite.dev"} = d;
+    if (!h) {
       throw Error("key is expected for neoluddite integration.");
     }
-    b.use(lf(e, f, h, g));
+    b.use(lf(f, g, k, h));
   }
-  return await Object.keys(d).reduce(async(e, f) => {
-    e = await e;
-    var g = a[f];
-    Array.isArray(g) ? (g = g.map(async h => await kf(f, h, b, e)), g = await Promise.all(g)) : g = await kf(f, g, b, e);
-    return {...e, [f]:g};
+  return await Object.keys(e).reduce(async(f, g) => {
+    f = await f;
+    var h = a[g];
+    Array.isArray(h) ? (h = h.map(async k => await kf(g, k, b, f, c)), h = await Promise.all(h)) : h = await kf(g, h, b, f);
+    return {...f, [g]:h};
   }, {});
 }
 ;/*
@@ -5637,11 +5642,11 @@ class Bh extends gh {
     });
   };
 };
-const Dh = async(a = {}, b = {}) => {
-  const c = new lh({Context:Bh});
-  a = await mf(a, c);
-  "production" == c.env && (c.proxy = !0);
-  return {app:c, middleware:a, router:new zh(b)};
+const Dh = async(a = {}, b = {}, c = {}) => {
+  const d = new lh({Context:Bh});
+  a = await mf(a, d, c);
+  "production" == d.env && (d.proxy = !0);
+  return {app:d, middleware:a, router:new zh(b)};
 };
 function Eh(a, b, c = "0.0.0.0") {
   const d = ub(!0);
@@ -5862,23 +5867,26 @@ const Qh = a => {
 */
 module.exports = {_createApp:Dh, _compose:aa, _startApp:async function(a = {}, b = {}) {
   const {port:c = 5000, host:d = "0.0.0.0", router:e} = b, f = () => {
-    g.destroy().then(() => {
+    h.destroy().then(() => {
       process.kill(process.pid, "SIGUSR2");
     });
   };
   process.once("SIGUSR2", f);
-  b = await Dh(a, e);
-  const g = b.app;
-  a = b.middleware;
-  b = b.router;
-  const h = await Eh(g, c, d);
-  Ch(h);
-  g.destroy = async() => {
-    await h.destroy();
+  let g;
+  a = await Dh(a, e, {getServer:() => g});
+  const h = a.app, k = a.middleware;
+  a = a.router;
+  g = await Eh(h, c, d);
+  Ch(g);
+  h.destroy = async() => {
+    k.frontend && k.frontend.watchers && Object.values(k.frontend.watchers).forEach(l => {
+      l.close();
+    });
+    await g.destroy();
     process.removeListener("SIGUSR2", f);
   };
-  const {port:k} = h.address();
-  return {app:g, middleware:a, url:`http://localhost:${k}`, server:h, router:b};
+  ({port:b} = g.address());
+  return {app:h, middleware:k, url:`http://localhost:${b}`, server:g, router:a};
 }, _httpErrors:J, _mount:Ja, _Keygrip:Qa, _Router:zh, _render:(a, b = {}, c = {}) => {
   const d = b.addDoctype, e = b.pretty;
   a = Oh(a, b, c);

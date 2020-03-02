@@ -23,14 +23,21 @@ async function $idio(middlewareConfig = {}, config = {}) {
     })
   }
   process.once('SIGUSR2', sigListener)
+  let server
+  const getServer = () => server
 
-  const appMeta = await createApp(middlewareConfig, routerConfig)
+  const appMeta = await createApp(middlewareConfig, routerConfig, { getServer })
   const { app, middleware, router } = appMeta
 
-  const server = await listen(app, port, host)
+  server = await listen(app, port, host)
 
   enableDestroy(server)
   app.destroy = async () => {
+    if (middleware.frontend && middleware.frontend.watchers) {
+      Object.values(middleware.frontend.watchers).forEach((w) => {
+        w.close()
+      })
+    }
     await server.destroy()
     process.removeListener('SIGUSR2', sigListener)
   }
@@ -47,12 +54,12 @@ export default $idio
  * @param {!_idio.MiddlewareConfig} [middlewareConfig]
  * @param {!_goa.RouterConfig} [routerConfig]
  */
-export const createApp = async (middlewareConfig = {}, routerConfig = {}) => {
+export const createApp = async (middlewareConfig = {}, routerConfig = {}, _options = {}) => {
   const app = new Goa({
     Context: IdioContext,
   })
 
-  const middleware = await setupMiddleware(middlewareConfig, /** @type {!_idio.Application} */ (app))
+  const middleware = await setupMiddleware(middlewareConfig, /** @type {!_idio.Application} */ (app), _options)
 
   if (app.env == 'production') {
     app.proxy = true

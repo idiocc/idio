@@ -212,8 +212,9 @@ module.exports.compose = $compose
  * @typedef {Object} _idio.$ConfiguredMiddleware `＠record` Idio-specific properties of the middleware object.
  * @prop {!_multipart.FormData} [form] An instance of the form data class that can be used to create middleware.
  * @prop {!_idio.Middleware} [session] The session middleware to be installed on individual routes.
+ * @prop {!_idio.Middleware} [frontend] The frontend middleware.
  * @prop {!_idio.Middleware} [csrfCheck] Configured CSRF check middleware.
- * @prop {!_idio.Middleware|!Array<!_idio.Middleware>} [jsonErrors] Configured CSRF check middleware.
+ * @prop {!_idio.Middleware|!Array<!_idio.Middleware>} [jsonErrors] Middleware to server errors as JSON.
  */
 
 /* typal types/middleware.xml namespace */

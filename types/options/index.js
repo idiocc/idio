@@ -112,6 +112,12 @@ export {}
  * @typedef {_idio.$FrontEndOptions & _idio.FrontEndConfig} _idio.FrontEndOptions `＠record` Options for the frontend.
  * @typedef {Object} _idio.$FrontEndOptions `＠record` Options for the frontend.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
+ * @prop {_idio.HotReloadOptions} [hotReload] Options to enable hot reload of exported functions and classes.
+ * @typedef {_idio.HotReloadOptions} HotReloadOptions `＠record` Overridden options for hot reload.
+ * @typedef {_idio.$HotReloadOptions & _idio.HotReload} _idio.HotReloadOptions `＠record` Overridden options for hot reload.
+ * @typedef {Object} _idio.$HotReloadOptions `＠record` Overridden options for hot reload.
+ * @prop {boolean} [getServer=false] `PRIVATE` do not set this property! _Idio_ will automatically assign this. Default `false`.
+ * @prop {boolean} [watchers=false] `PRIVATE` do not set this property! Watchers are closed when you call `app.destroy()`. Default `false`.
  * @typedef {_idio.JSONBodyOptions} JSONBodyOptions `＠record` Options for json body parsing.
  * @typedef {Object} _idio.JSONBodyOptions `＠record` Options for json body parsing.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
@@ -157,6 +163,17 @@ export {}
  * @prop {!_alaJsx.Config} [jsxOptions] Options for the transpiler.
  * @prop {boolean} [exportClasses=true] When serving CSS, also export class names. Default `true`.
  * @prop {!_idio.HotReload} [hotReload] Enable hot reload for modules. Requires at least to implement `getServer` method so that WebSocket listener can be set up on the HTTP server.
+ */
+/* typal-embed node_modules/@idio/frontend/types/hot-reload.xml namespace */
+/**
+ * @typedef {import('http').Server} http.Server
+ * @typedef {import('fs').FSWatcher} fs.FSWatcher
+ * @typedef {_idio.HotReload} HotReload `＠record` Options for hot reload (real-time automatic update of code in browser).
+ * @typedef {Object} _idio.HotReload `＠record` Options for hot reload (real-time automatic update of code in browser).
+ * @prop {string} [path="/hot-reload.js"] The path from which to serve the operational module that provides admin methods. Default `/hot-reload.js`.
+ * @prop {boolean} [ignoreNodeModules=true] Whether to ignore paths from `node_modules`. Default `true`.
+ * @prop {!Object<string, !fs.FSWatcher>} [watchers] Pass an empty object here so that references to _FSWatchers_ can be saved.
+ * @prop {() => !http.Server} getServer The function used to get the server to enable web socket connection.
  */
 /* typal-embed node_modules/@a-la/jsx/types/index.xml namespace */
 /**

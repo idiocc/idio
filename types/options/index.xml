@@ -1,9 +1,23 @@
 <types namespace="_idio">
   <embed path="node_modules/@idio/frontend/types/index.xml" namespace ignore="_alaJsx.Config" />
+  <embed path="node_modules/@idio/frontend/types/hot-reload.xml" namespace />
   <embed path="node_modules/@a-la/jsx/types/index.xml" />
   <record extends="_idio.FrontEndConfig" name="FrontEndOptions" desc="Options for the frontend.">
     <prop boolean name="use" default="false">
       Use this middleware for every request.
+    </prop>
+    <prop type="_idio.HotReloadOptions" name="hotReload" opt>
+      Options to enable hot reload of exported functions and classes.
+    </prop>
+  </record>
+
+  <!-- typal should be able to delete properties -->
+  <record extends="_idio.HotReload" name="HotReloadOptions" desc="Overridden options for hot reload.">
+    <prop boolean name="getServer" default="false">
+      `PRIVATE` do not set this property! _Idio_ will automatically assign this.
+    </prop>
+    <prop boolean name="watchers" default="false">
+      `PRIVATE` do not set this property! Watchers are closed when you call `app.destroy()`.
     </prop>
   </record>
 

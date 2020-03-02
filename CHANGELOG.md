@@ -1,6 +1,13 @@
+## 2 March 2020
+
+### [1.5.0](https://github.com/idiocc/idio/compare/v1.4.1...v1.5.0)
+
+- [feature] Implement `jsonBody` middleware.
+- [feature] Export websocket method.
+
 ## 28 February 2020
 
-### [1.4.1](https://github.com/idiocc/idio/compare/v1.4.0...v1.4.1)
+### [1.4.1](https:/ch/github.com/idiocc/idio/compare/v1.4.0...v1.4.1)
 
 - [deps] Update _FrontEnd_ for JSX.
 

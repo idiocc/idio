@@ -139,8 +139,9 @@ All middleware can be accessed from the `middleware` property, so that it can be
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | form       | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdata" title="An instance to create middleware.">!_multipart.FormData</a></em>                                                                                                                                                                                                                                                                                             | An instance of the form data class that can be used to create middleware. |
 | session    | <em><a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a></em>                                                                                                                                                                                                                             | The session middleware to be installed on individual routes.              |
+| frontend   | <em><a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a></em>                                                                                                                                                                                                                             | The frontend middleware.                                                  |
 | csrfCheck  | <em><a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a></em>                                                                                                                                                                                                                             | Configured CSRF check middleware.                                         |
-| jsonErrors | <em>(<a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a>&gt;)</em> | Configured CSRF check middleware.                                         |
+| jsonErrors | <em>(<a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Home#middlewarectx-contextnext-function-promisevoid" title="The function to handle requests which can be installed with the `.use` method.">!Middleware</a>&gt;)</em> | Middleware to server errors as JSON.                                      |
 </details>
 
 The example below starts a simple server with session and custom middleware, which is installed (used) automatically because it's defined as a function.
@@ -287,7 +288,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Mon, 02 Mar 2020 02:39:25 GMT
+Date: Mon, 02 Mar 2020 04:14:07 GMT
 Connection: close
 ```
 </details>
@@ -342,21 +343,21 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 [
   {
     name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTYyNi4yIiwiX2V4cGlyZSI6MTU4MzIwMzE2Nzc4MiwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTUyMi44IiwiX2V4cGlyZSI6MTU4MzIwODg0OTUyNiwiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Tue, 03 Mar 2020 02:39:27 GMT',
+    expires: 'Tue, 03 Mar 2020 04:14:09 GMT',
     httponly: true
   },
   {
     name: 'koa:sess.sig',
-    value: 'oHLs06aMTeXYjsgNe1RUsp8i4ONS93whdvRExly3zK77T1SU2qrtPmcUWMQGH1B76JwByjtaPJ5LIA-Kmu61wg',
+    value: 'i8BnUnOjoN1gq9fmSlRgtBFhg6Jn5ZMshhNYrsox97spV7brNyYeUdYcN-EM5thb2KPI6MI3xRfM6xxAAEZoHw',
     path: '/',
-    expires: 'Tue, 03 Mar 2020 02:39:27 GMT',
+    expires: 'Tue, 03 Mar 2020 04:14:09 GMT',
     httponly: true
   }
 ]
 // GET /
-"welcome back u626.2"
+"welcome back u522.8"
 ```
 </td>
 </tr>
@@ -403,7 +404,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 02 Mar 2020 02:39:28 GMT',
+  date: 'Mon, 02 Mar 2020 04:14:10 GMT',
   connection: 'close'
 }
 
@@ -411,7 +412,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 02 Mar 2020 02:39:28 GMT',
+  date: 'Mon, 02 Mar 2020 04:14:10 GMT',
   connection: 'close'
 }
 
@@ -420,7 +421,7 @@ const { url, app } = await idio({
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Mon, 02 Mar 2020 02:39:28 GMT',
+  date: 'Mon, 02 Mar 2020 04:14:10 GMT',
   connection: 'close'
 }
 ```
@@ -466,7 +467,7 @@ const { url, app } = await idio({
   'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Mon, 02 Mar 2020 02:39:29 GMT',
+  date: 'Mon, 02 Mar 2020 04:14:11 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked'
 }
@@ -518,8 +519,8 @@ router.post('/example',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'example/upload',
-    filename: 'b7a80',
-    path: 'example/upload/b7a80',
+    filename: 'ff351',
+    path: 'example/upload/ff351',
     size: 29
   },
   body: { hello: 'world' }

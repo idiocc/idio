@@ -62,12 +62,17 @@ _idio.ConfiguredMiddleware.prototype.form
  */
 _idio.ConfiguredMiddleware.prototype.session
 /**
+ * The frontend middleware.
+ * @type {(!_idio.Middleware)|undefined}
+ */
+_idio.ConfiguredMiddleware.prototype.frontend
+/**
  * Configured CSRF check middleware.
  * @type {(!_idio.Middleware)|undefined}
  */
 _idio.ConfiguredMiddleware.prototype.csrfCheck
 /**
- * Configured CSRF check middleware.
+ * Middleware to server errors as JSON.
  * @type {(!_idio.Middleware|!Array<!_idio.Middleware>)|undefined}
  */
 _idio.ConfiguredMiddleware.prototype.jsonErrors
