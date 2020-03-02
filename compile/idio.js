@@ -1384,10 +1384,10 @@ const uc = async(a, b, {mount:c, override:d = {}}) => {
   return `${c}'/${b}${/[/\\]$/.test(a) ? "/" : ""}'`.replace(/\\/g, "/");
 };
 function vc(a = "") {
-  const b = document.head, c = document.createElement("style");
-  c.type = "text/css";
-  c.styleSheet ? c.styleSheet.cssText = a : c.appendChild(document.createTextNode(a));
-  b.appendChild(c);
+  let b;
+  window.FRONTEND_STYLE_ID ? (b = window.FRONTEND_STYLE_ID, b.innerText = "") : (b = document.createElement("style"), b.id = "FRONTEND_STYLE_ID", document.head.appendChild(b));
+  b.type = "text/css";
+  b.styleSheet ? b.styleSheet.cssText = a : b.appendChild(document.createTextNode(a));
 }
 ;const wc = a => mc(/^export\s+(default\s+)?class\s+([^\s{]+)/gm, a, ["def", "name"]).reduce((b, {def:c, name:d}) => {
   b[c ? "default" : d] = d;
@@ -1475,7 +1475,11 @@ function Bc(a = {}) {
               z("update", {filename:v});
             });
           }), p[t] = w);
-          t.endsWith("jsx") && (w = wc(r), E = xc(r), w = yc(t, w, E), r = r.replace(/export(\s+)const(\s+)(\S+)\s+=/, y => y.replace("const", "let")), r += `${P}${P}${w}`);
+          w = wc(r);
+          E = xc(r);
+          w = yc(t, w, E);
+          r = r.replace(/export(\s+)const(\s+)(\S+)\s+=/, y => y.replace("const", "let"));
+          r += `${P}${P}${w}`;
         }
         q.body = r;
       }
@@ -1485,12 +1489,13 @@ function Bc(a = {}) {
 const Cc = async(a, b, c, d) => {
   const e = d.jsxOptions, f = d.exportClasses;
   /\.jsx$/.test(a) && (b = ac(b, e), c && (b = `${c}${P}${b}`));
-  return b = /\.css$/.test(a) ? Dc(b, f) : await uc(a, b, d);
-}, Dc = (a, b = !0) => {
-  let c = [];
-  b && (b = a.split(/\r?\n/).filter(d => /^\S/.test(d)).join(P), c = mc(/\.([\w\d_-]+)/g, b, ["className"]).map(({className:d}) => d).filter((d, e, f) => f.indexOf(d) == e));
-  return `(${vc.toString()})(\`${a}\`)
-${c.map(d => `export const $${d} = '${d}'`).join(P)}`.replace(/\r?\n/g, P).trim();
+  return b = /\.css$/.test(a) ? Dc(b, {exportClasses:f, path:a}) : await uc(a, b, d);
+}, Dc = (a, {exportClasses:b = !0, path:c = ""} = {}) => {
+  var d = [];
+  b && (d = a.split(/\r?\n/).filter(e => /^\S/.test(e)).join(P), d = mc(/\.([\w\d_-]+)/g, d, ["className"]).map(({className:e}) => e).filter((e, f, g) => g.indexOf(e) == f));
+  c = c.replace(/\.css$/, "").replace(/[/\\]/g, "-").replace(/[^\w\d_-]/g, "");
+  return `(${vc.toString().replace(/FRONTEND_STYLE_ID/g, c)})(\`${a}\`)
+${d.map(e => `export const $${e} = '${e}'`).join(P)}`.replace(/\r?\n/g, P).trim();
 };
 /*
  resolve-path

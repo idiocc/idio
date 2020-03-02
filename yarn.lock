@@ -197,10 +197,10 @@
   resolved "https://registry.yarnpkg.com/@idio/dicer/-/dicer-1.1.0.tgz#d58b177983935b22f72263c3e31145ea924c6a7d"
   integrity sha512-GWro5lIxHrQPWkNlUFi1IPBWR/bJT9HuJlhJTN5KA5oyRKgcDJRaB5Js9O1no1SDsAFxEVm6QT/pgOAgR03vRg==
 
-"@idio/frontend@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-2.2.1.tgz#5ec3e8b63c1bb3a04b8495527743f7e0b4f3d3ea"
-  integrity sha512-rJVQ7+HiimEblw6agxNIVPLt/fqi/aKd//HiAKMBB0njCYoIJtgzr/JTUGuRWyEnKFK9AQ/G7Fw0L8uBZN9f2Q==
+"@idio/frontend@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-2.2.2.tgz#35e37de8f645ded061377c8d9d9b0aec9439d97f"
+  integrity sha512-ffAMsN/+Zkv1S8DJdvsLpinZfUpNgMukcLEXxzILCM5xBVGs8anojLcoSyCuIkAOZVRVn6TmumxlmtNIUcaOTA==
   dependencies:
     node-watch "^0.6.3"
 
