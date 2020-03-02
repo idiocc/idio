@@ -209,6 +209,11 @@
   resolved "https://registry.yarnpkg.com/@idio/github/-/github-1.5.1.tgz#0ed953292f3057346f9a433a092bdd9d486bddbe"
   integrity sha512-Rrd7epaTi7WPf7pKyQCAjr1ETQumte4g07WnEshyfBfuZeM5sO4OmQxg+LPfKlGUdqGbfLpDvaQdjdaECqj7HA==
 
+"@idio/websocket@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@idio/websocket/-/websocket-1.1.1.tgz#61198fa435a7e9d9928ce0d83ec9485a877c3ba6"
+  integrity sha512-v4XA6C2pgKIOsgcW8zdjTvoAXOh+RtDRuSvyv0BySwxnEdfBWgN8iBFRUnN1DcJqg0DCFJZleyXrFPjLgJ3aIg==
+
 "@multipart/append-field@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@multipart/append-field/-/append-field-1.0.1.tgz#75e018bb986aaf8dd186c98520d584a0f7d1d4cb"

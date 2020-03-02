@@ -2,7 +2,10 @@ import '../types/modules/externs'
 import '../types/options/externs'
 import '../types/externs'
 import '../types/externs/'
-import startApp, { Router, createApp, compose, httpErrors, mount, Keygrip, render } from './'
+import startApp, {
+  Router, createApp, compose, httpErrors, mount, Keygrip, render,
+  websocket,
+} from './'
 
 
 /**
@@ -34,4 +37,5 @@ module.exports = {
   '_Keygrip': Keygrip,
   '_Router': Router,
   '_render': render,
+  '_websocket': websocket,
 }

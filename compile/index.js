@@ -1,4 +1,4 @@
-const { _createApp, _startApp, _compose, _Keygrip, _render } = require('./idio')
+const { _createApp, _startApp, _compose, _Keygrip, _render, _websocket } = require('./idio')
 const IdioRouter = require('./router')
 
 /**
@@ -14,7 +14,7 @@ const IdioRouter = require('./router')
  * @param {!_idio.CsrfCheckOptions} [middlewareConfig.csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @param {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [middlewareConfig.github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
  * @param {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
- * @param {!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`.
+ * @param {!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
  * @param {!_goa.RouterConfig=} [routerConfig] The optional configuration for the router.
  * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_idio.Router }>}
  */
@@ -35,7 +35,7 @@ async function createApp(middlewareConfig) {
  * @param {!_idio.CsrfCheckOptions} [middlewareConfig.csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @param {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [middlewareConfig.github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
  * @param {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
- * @param {!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`.
+ * @param {!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
  * @param {!_idio.Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
  * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
@@ -66,6 +66,19 @@ async function idio(middlewareConfig = {}, config = {}) {
  */
 function render(vnode, config, context) {
   return _render(vnode, config, context)
+}
+
+/**
+ * Sets up a listener for the `UPGRADE` event on the server, and stores all connected clients in the client list. When clients disconnect, they are removed from this list. The list is a hash object where each key is the _accept key_ sent by the client, and values are the callback functions to send messages to those clients.
+ * @param {!http.Server} server The server on which to setup the listener.
+ * @param {!_idio.WebSocketConfig} [config] Options for the web socket protocol communication.
+ * @param {boolean} [config.log=true] Whether to log on connect and disconnect. Default `true`.
+ * @param {(clientID: string, message: string) => void} [config.onMessage] The callback when a message is received from a client.
+ * @param {(clientID: string) => void} [config.onConnect] The callback when a client is connected.
+ * @return {!Object<string, _idio.sendMessage>}
+ */
+function websocket(server, config) {
+  return _websocket(server, config)
 }
 
 /**
@@ -114,6 +127,7 @@ module.exports.createApp = createApp
 module.exports.Router = IdioRouter
 module.exports.Keygrip = Keygrip
 module.exports.render = render
+module.exports.websocket = websocket
 
 /**
  * Compose a single middleware function for Goa out of many.
@@ -236,7 +250,7 @@ module.exports.compose = $compose
  * @prop {!_idio.CsrfCheckOptions} [csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @prop {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
  * @prop {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
- * @prop {!_idio.JSONBodyOptions} [jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`.
+ * @prop {!_idio.JSONBodyOptions} [jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
  * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>} _idio.FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {_idio.ConfigItem} ConfigItem An item in middleware configuration.
@@ -260,6 +274,15 @@ module.exports.compose = $compose
  * @prop {boolean} [shallowHighOrder=false] When shallow rendering is on, will render root component. Default `false`.
  * @prop {boolean} [sortAttributes=false] Sort attributes' keys using the `.sort` method. Default `false`.
  * @prop {boolean} [allAttributes=false] Render all attributes, including `key` and `ref`. Default `false`.
+ */
+
+/* typal node_modules/@idio/websocket/types/index.xml namespace */
+/**
+ * @typedef {_idio.WebSocketConfig} WebSocketConfig Options for the web socket protocol communication.
+ * @typedef {Object} _idio.WebSocketConfig Options for the web socket protocol communication.
+ * @prop {boolean} [log=true] Whether to log on connect and disconnect. Default `true`.
+ * @prop {(clientID: string, message: string) => void} [onMessage] The callback when a message is received from a client.
+ * @prop {(clientID: string) => void} [onConnect] The callback when a client is connected.
  */
 
 // typework

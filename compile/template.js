@@ -1,4 +1,4 @@
-const { _createApp, _startApp, _compose, _Keygrip, _render } = require('./idio')
+const { _createApp, _startApp, _compose, _Keygrip, _render, _websocket } = require('./idio')
 const IdioRouter = require('./router')
 
 /**
@@ -23,6 +23,13 @@ function render(vnode, config, context) {
 }
 
 /**
+ * @methodType {_idio.websocket}
+ */
+function websocket(server, config) {
+  return _websocket(server, config)
+}
+
+/**
  * @constructor {_goa.Keygrip}
  */
 class Keygrip extends _Keygrip {}
@@ -32,6 +39,7 @@ module.exports.createApp = createApp
 module.exports.Router = IdioRouter
 module.exports.Keygrip = Keygrip
 module.exports.render = render
+module.exports.websocket = websocket
 
 /**
  * Compose a single middleware function for Goa out of many.
@@ -68,6 +76,8 @@ module.exports.compose = $compose
 /* typal types/middleware.xml namespace */
 
 /* typal node_modules/@depack/render/types/index.xml namespace */
+
+/* typal node_modules/@idio/websocket/types/index.xml namespace */
 
 // typework
 /**

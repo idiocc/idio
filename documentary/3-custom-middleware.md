@@ -4,7 +4,8 @@ There are some small bits of middleware that can be used in server as well, but 
 
 - `csrfCheck`: Ensures that the `csrf` token from session matches one in the request.
 - `jsonErrors`: Allows to serve errors as _JSON_, which is useful for APIs.
-- `github`: Sets up GitHub OAuth routes.
+- `jsonBody`: Parses requests with the `application/json` content type into `ctx.request.body`.
+- `github`: Sets up _GitHub_ OAuth routes.
 
 %~%
 

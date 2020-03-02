@@ -155,9 +155,6 @@ const map = {
   },
   /**
    * Parse JSON body.
-   * @param {!_goa.Application} app
-   * @param {!Object} _
-   * @param {!Object} options
    */
   'jsonBody'() {
     /**
@@ -173,8 +170,8 @@ const map = {
       } catch (err) {
         ctx.throw(400, 'Could not parse JSON.')
       }
-      ctx.request.body = body
-      await next()
+      ctx.request.body = /** @type {Object} */ (body)
+      return next()
     }
     return jsonBody
   },

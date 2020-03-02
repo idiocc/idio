@@ -130,7 +130,7 @@ _idio.MiddlewareConfig.prototype.github
  */
 _idio.MiddlewareConfig.prototype.jsonErrors
 /**
- * Allows to parse incoming JSON request and store the result in `ctx.request.body`.
+ * Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
  * @type {(!_idio.JSONBodyOptions)|undefined}
  */
 _idio.MiddlewareConfig.prototype.jsonBody

@@ -6,3 +6,4 @@ export { default, createApp } from './start-app'
 
 export { default as Router } from '@goa/router'
 export { default as render } from '@depack/render'
+export { default as websocket } from '@idio/websocket'

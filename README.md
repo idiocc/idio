@@ -103,6 +103,7 @@ __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareCon
 | csrfCheck  | <em><a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-csrfcheckoptions" title="Options for validating a csrf token.">!CsrfCheckOptions</a></em>                                                                                                                                                                                     | Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.                                                                                                                                                                                                                                                                                    |
 | github     | <em>(<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions" title="Options for GitHub OAuth.">!GitHubOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions" title="Options for GitHub OAuth.">!GitHubOptions</a>&gt;)</em>                                       | Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.                                                                                                                                                                                                                                                                   |
 | jsonErrors | <em>(<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonerrorsoptions" title="Options for serving errors via JSON.">!JSONErrorsOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonerrorsoptions" title="Options for serving errors via JSON.">!JSONErrorsOptions</a>&gt;)</em> | Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged. |
+| jsonBody   | <em><a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonbodyoptions" title="Options for json body parsing.">!JSONBodyOptions</a></em>                                                                                                                                                                                             | Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.                                                                                                                                                                                                                                                                                                        |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -253,7 +254,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:49173/app.css */ 
+/** http://localhost:58335/app.css */ 
 
 body {
   font-size: larger;
@@ -274,7 +275,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Thu, 27 Feb 2020 13:22:58 GMT
+Date: Mon, 02 Mar 2020 02:30:51 GMT
 Connection: close
 ```
 
@@ -285,7 +286,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Thu, 27 Feb 2020 13:32:06 GMT
+Date: Mon, 02 Mar 2020 02:30:52 GMT
 Connection: close
 ```
 </details>
@@ -340,21 +341,21 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 [
   {
     name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTExNC44IiwiX2V4cGlyZSI6MTU4Mjg5NjcyNzA3MywiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTYzMi4yIiwiX2V4cGlyZSI6MTU4MzIwMjY1MzgyNywiX21heEFnZSI6ODY0MDAwMDB9',
     path: '/',
-    expires: 'Fri, 28 Feb 2020 13:32:07 GMT',
+    expires: 'Tue, 03 Mar 2020 02:30:53 GMT',
     httponly: true
   },
   {
     name: 'koa:sess.sig',
-    value: 'ZUy8xyDgmf6JnJ-MZg6PpbyvIsgyWDHouJW2WPp7Nk4KKjWyugh_1b_Hb5kcvOrffcppmSBTPZWmKl1Qt0LUQQ',
+    value: '9N6gl4s1rFtp9tBzbcG6oToDPxS6zeHvWCJSx4r0oiIcgTOWXm9kuriliwAim3QdhxuvE1sw0zzCeZFzvIfOIA',
     path: '/',
-    expires: 'Fri, 28 Feb 2020 13:32:07 GMT',
+    expires: 'Tue, 03 Mar 2020 02:30:53 GMT',
     httponly: true
   }
 ]
 // GET /
-"welcome back u114.8"
+"welcome back u632.2"
 ```
 </td>
 </tr>
@@ -401,7 +402,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 27 Feb 2020 13:32:08 GMT',
+  date: 'Mon, 02 Mar 2020 02:30:55 GMT',
   connection: 'close'
 }
 
@@ -409,7 +410,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Thu, 27 Feb 2020 13:32:08 GMT',
+  date: 'Mon, 02 Mar 2020 02:30:55 GMT',
   connection: 'close'
 }
 
@@ -418,7 +419,7 @@ const { url, app } = await idio({
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Thu, 27 Feb 2020 13:32:08 GMT',
+  date: 'Mon, 02 Mar 2020 02:30:55 GMT',
   connection: 'close'
 }
 ```
@@ -464,7 +465,7 @@ const { url, app } = await idio({
   'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Thu, 27 Feb 2020 13:32:09 GMT',
+  date: 'Mon, 02 Mar 2020 02:30:57 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked'
 }
@@ -516,8 +517,8 @@ router.post('/example',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'example/upload',
-    filename: 'be734',
-    path: 'example/upload/be734',
+    filename: '01e2a',
+    path: 'example/upload/01e2a',
     size: 29
   },
   body: { hello: 'world' }
@@ -615,7 +616,8 @@ There are some small bits of middleware that can be used in server as well, but 
 
 - `csrfCheck`: Ensures that the `csrf` token from session matches one in the request.
 - `jsonErrors`: Allows to serve errors as _JSON_, which is useful for APIs.
-- `github`: Sets up GitHub OAuth routes.
+- `jsonBody`: Parses requests with the `application/json` content type into `ctx.request.body`.
+- `github`: Sets up _GitHub_ OAuth routes.
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/12.svg?sanitize=true">

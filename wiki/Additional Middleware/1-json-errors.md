@@ -4,8 +4,8 @@ This middleware will catch errors that happen during processing of requests, and
 
 There are 2 ways to throw client errors: either with `ctx.throw(4xx, 'client error')`, or by simply adding a `!` before an error message. The response is always served with status code 200, but the error is contained in the response object.
 
-%EXAMPLE: example/json-errors%
+%EXAMPLE: ./example/json-errors%
 
-<fork lang="js">example/json-errors</fork>
+<fork lang="js">./example/json-errors</fork>
 
 %~%

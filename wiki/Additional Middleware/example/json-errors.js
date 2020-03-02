@@ -1,5 +1,5 @@
 import aqt from '@rqt/aqt'
-import idio, { Router } from '../../compile'
+import idio, { Router } from '../../../compile'
 
 (async () => {
   let a

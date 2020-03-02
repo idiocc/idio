@@ -122,5 +122,9 @@
   "_idio.JSONErrorsOptions": {
     "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonerrorsoptions",
     "description": "Options for serving errors via JSON."
+  },
+  "_idio.JSONBodyOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonbodyoptions",
+    "description": "Options for json body parsing."
   }
 }
