@@ -1,3 +1,9 @@
+## 4 March 2020
+
+### [1.5.1](https://github.com/idiocc/idio/compare/v1.5.0...v1.5.1)
+
+- [fix] Pass hot reload options to frontend.
+
 ## 2 March 2020
 
 ### [1.5.0](https://github.com/idiocc/idio/compare/v1.4.1...v1.5.0)
