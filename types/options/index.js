@@ -112,7 +112,7 @@ export {}
  * @typedef {_idio.$FrontEndOptions & _idio.FrontEndConfig} _idio.FrontEndOptions `＠record` Options for the frontend.
  * @typedef {Object} _idio.$FrontEndOptions `＠record` Options for the frontend.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
- * @prop {_idio.HotReloadOptions} [hotReload] Options to enable hot reload of exported functions and classes.
+ * @prop {boolean|_idio.HotReloadOptions} [hotReload] Options to enable hot reload of exported functions and classes. Can simply pass `true` to activate.
  * @typedef {_idio.HotReloadOptions} HotReloadOptions `＠record` Overridden options for hot reload.
  * @typedef {_idio.$HotReloadOptions & _idio.HotReload} _idio.HotReloadOptions `＠record` Overridden options for hot reload.
  * @typedef {Object} _idio.$HotReloadOptions `＠record` Overridden options for hot reload.

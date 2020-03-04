@@ -1,17 +1,17 @@
 import compose from '@goa/compose'
 import cors from '@goa/cors'
-import frontend from '@idio/frontend'
 import serve from '../../modules/koa-static'
 import Mount from '../../modules/koa-mount'
 import compress from '@goa/compress'
 import github from '@idio/github'
 import { constants } from 'zlib'
-import rqt from 'rqt'
 import { collect } from 'catchment'
 import session from './session'
 import form from './form'
 import jsonErrors from './json-errors'
 import csrfCheck from './csrf-check'
+import makeNeoluddite from './neoluddite'
+import frontend from './front-end'
 
 const map = {
   // multer: setupMulter,
@@ -78,29 +78,7 @@ const map = {
     return fn
   },
   'form': form,
-  /**
-   * The Front End middleware.
-   * @param {!_goa.Application} app
-   * @param {!Object} _
-   * @param {_idio.FrontEndOptions} options
-   */
-  'frontend'(app, _, options, acc, _options) {
-    const config = /** @type {_idio.FrontEndConfig} */ (options)
-    if (config.hotReload && !config.hotReload.getServer) {
-      config.hotReload.getServer = _options.getServer
-    }
-    let watchers
-    if (config.hotReload) {
-      if (config.hotReload.watchers) watchers = config.hotReload.watchers
-      else {
-        watchers = {}
-        config.hotReload.watchers = watchers
-      }
-    }
-    const f = frontend(config)
-    if (watchers) f.watchers = watchers
-    return f
-  },
+  'frontend': frontend,
   'csrfCheck': csrfCheck,
   'jsonErrors': jsonErrors,
   /**
@@ -183,29 +161,6 @@ async function initMiddleware(name, conf, app, acc, _options = {}) {
   return res
 }
 
-const makeNeoluddite = (app, env, host, key) => {
-  return async (ctx, next) => {
-    ctx._usage = []
-    try {
-      await next()
-    } finally {
-      if (!ctx._usage.length) return
-      const usage = ctx._usage.map((u) => {
-        if (app) u['app'] = app
-        if (env) u['env'] = env
-        return u
-      })
-      try {
-        const res = await rqt(`${host}/use?key=${key}`, {
-          data: usage,
-        })
-      } catch (err) {
-        app.emit('error', err)
-      }
-    }
-  }
-}
-
 /**
  * @param {!_idio.MiddlewareConfig} middlewareConfig
  * @param {!_idio.Application} app
@@ -230,7 +185,7 @@ export default async function setupMiddleware(middlewareConfig, app, _options = 
         })
         installed = await Promise.all(p)
       } else {
-        installed = await initMiddleware(name, conf, app, acc)
+        installed = await initMiddleware(name, conf, app, acc, _options)
       }
       return {
         ...acc,
@@ -283,14 +238,6 @@ export default async function setupMiddleware(middlewareConfig, app, _options = 
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../..').ConfiguredMiddleware} _idio.ConfiguredMiddleware
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types/options').FrontEndOptions} _idio.FrontEndOptions
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types/options').FrontEndConfig} _idio.FrontEndConfig
  */
 /**
  * @suppress {nonStandardJsDocs}

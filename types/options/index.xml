@@ -6,8 +6,8 @@
     <prop boolean name="use" default="false">
       Use this middleware for every request.
     </prop>
-    <prop type="_idio.HotReloadOptions" name="hotReload" opt>
-      Options to enable hot reload of exported functions and classes.
+    <prop type="boolean|_idio.HotReloadOptions" name="hotReload" opt>
+      Options to enable hot reload of exported functions and classes. Can simply pass `true` to activate.
     </prop>
   </record>
 

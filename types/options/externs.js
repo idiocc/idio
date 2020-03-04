@@ -113,8 +113,8 @@ _idio.FrontEndOptions
  */
 _idio.FrontEndOptions.prototype.use
 /**
- * Options to enable hot reload of exported functions and classes.
- * @type {_idio.HotReloadOptions|undefined}
+ * Options to enable hot reload of exported functions and classes. Can simply pass `true` to activate.
+ * @type {(boolean|_idio.HotReloadOptions)|undefined}
  */
 _idio.FrontEndOptions.prototype.hotReload
 /**
