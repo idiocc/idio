@@ -1,3 +1,10 @@
+## 5 March 2020
+
+### [1.6.0](https://github.com/idiocc/idio/compare/v1.5.1...v1.6.0)
+
+- [feature] Add _Logarithm_ support.
+- [feature] Can pass `true` to certain middleware as config.
+
 ## 4 March 2020
 
 ### [1.5.1](https://github.com/idiocc/idio/compare/v1.5.0...v1.5.1)

@@ -92,19 +92,20 @@ There are multiple items for middleware configuration:
 __<a name="type-middlewareconfig">`MiddlewareConfig`</a> extends FnMiddlewareConfig__: Middleware configuration for the `idio` server.
 
 
-|    Name    |                                                                                                                                                                           Type                                                                                                                                                                            |                                                                                                                                                                                                              Description                                                                                                                                                                                                               |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| static     | <em>(<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a>&gt;)</em>               | _Static_ middleware options.                                                                                                                                                                                                                                                                                                                                                                                                           |
-| compress   | <em>[!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions)</em>                                                                                                                                                                                                                                                         | _Compression_ middleware options.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| session    | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>                                                                                                                                                                                    | _Session_ middleware options.                                                                                                                                                                                                                                                                                                                                                                                                          |
-| cors       | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                                                                                                                                                                                                        | _CORS_ middleware options.                                                                                                                                                                                                                                                                                                                                                                                                             |
-| form       | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em>                                                                                                                                                                             | _Form Data_ middleware options for receiving file uploads and form submissions.                                                                                                                                                                                                                                                                                                                                                        |
-| frontend   | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                                                                                                                                                                                              | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.                                                                                                                                                                                                                                                                                                                                              |
-| neoluddite | <em><a href="https://github.com/idiocc/idio#type-neoludditeoptions" title="Options for the neoluddite.dev client.">!NeoLudditeOptions</a></em>                                                                                                                                                                                                            | Records the usage of middleware to compensate their developers' intellectual work.                                                                                                                                                                                                                                                                                                                                                     |
-| csrfCheck  | <em><a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-csrfcheckoptions" title="Options for validating a csrf token.">!CsrfCheckOptions</a></em>                                                                                                                                                                                     | Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.                                                                                                                                                                                                                                                                                    |
-| github     | <em>(<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions" title="Options for GitHub OAuth.">!GitHubOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions" title="Options for GitHub OAuth.">!GitHubOptions</a>&gt;)</em>                                       | Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.                                                                                                                                                                                                                                                                   |
-| jsonErrors | <em>(<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonerrorsoptions" title="Options for serving errors via JSON.">!JSONErrorsOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonerrorsoptions" title="Options for serving errors via JSON.">!JSONErrorsOptions</a>&gt;)</em> | Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged. |
-| jsonBody   | <em><a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonbodyoptions" title="Options for json body parsing.">!JSONBodyOptions</a></em>                                                                                                                                                                                             | Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.                                                                                                                                                                                                                                                                                                        |
+|    Name    |                                                                                                                                                                                 Type                                                                                                                                                                                 |                                                                                                                                                                                                              Description                                                                                                                                                                                                               |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| static     | <em>(<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Static#type-staticoptions" title="Top-level options when setting up static middleware.">!StaticOptions</a>&gt;)</em>                          | _Static_ middleware options.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| compress   | <em>(boolean \| [!CompressOptions](https://github.com/idiocc/idio/wiki/Compression#type-compressoptions))</em>                                                                                                                                                                                                                                                       | _Compression_ middleware options.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| session    | <em><a href="https://github.com/idiocc/idio/wiki/Session#type-sessionoptions" title="Options for the session that extend the session config.">!SessionOptions</a></em>                                                                                                                                                                                               | _Session_ middleware options.                                                                                                                                                                                                                                                                                                                                                                                                          |
+| cors       | <em>[!CorsOptions](https://github.com/idiocc/idio/wiki/Cors#type-corsoptions)</em>                                                                                                                                                                                                                                                                                   | _CORS_ middleware options.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| form       | <em><a href="https://github.com/idiocc/idio/wiki/Form-Data#type-formdataoptions" title="Options for Form Data (and file uploads) streams handling.">!FormDataOptions</a></em>                                                                                                                                                                                        | _Form Data_ middleware options for receiving file uploads and form submissions.                                                                                                                                                                                                                                                                                                                                                        |
+| frontend   | <em><a href="https://github.com/idiocc/idio/wiki/Front-End#type-frontendoptions" title="Options for the frontend.">!FrontEndOptions</a></em>                                                                                                                                                                                                                         | _Front End_ middleware allows to serve source code from `node_modules` and transpile JSX.                                                                                                                                                                                                                                                                                                                                              |
+| neoluddite | <em><a href="https://github.com/idiocc/idio#type-neoludditeoptions" title="Options for the neoluddite.dev client.">!NeoLudditeOptions</a></em>                                                                                                                                                                                                                       | Records the usage of middleware to compensate their developers' intellectual work.                                                                                                                                                                                                                                                                                                                                                     |
+| csrfCheck  | <em><a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-csrfcheckoptions" title="Options for validating a csrf token.">!CsrfCheckOptions</a></em>                                                                                                                                                                                                | Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.                                                                                                                                                                                                                                                                                    |
+| github     | <em>(<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions" title="Options for GitHub OAuth.">!GitHubOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-githuboptions" title="Options for GitHub OAuth.">!GitHubOptions</a>&gt;)</em>                                                  | Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.                                                                                                                                                                                                                                                                   |
+| jsonErrors | <em>(boolean \| <a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonerrorsoptions" title="Options for serving errors via JSON.">!JSONErrorsOptions</a> \| !Array&lt;<a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonerrorsoptions" title="Options for serving errors via JSON.">!JSONErrorsOptions</a>&gt;)</em> | Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged. |
+| jsonBody   | <em>(boolean \| <a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonbodyoptions" title="Options for json body parsing.">!JSONBodyOptions</a>)</em>                                                                                                                                                                                           | Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.                                                                                                                                                                                                                                                                                                        |
+| logarithm  | <em><a href="https://github.com/idiocc/idio/wiki/Additional Middleware#type-logarithmoptions" title="Options for logarithm.">!LogarithmOptions</a></em>                                                                                                                                                                                                              | Options to record hits in _ElasticSearch_.                                                                                                                                                                                                                                                                                                                                                                                             |
 
 The types for starting the server include the address, port and router configuration.
 
@@ -256,7 +257,7 @@ const { url, app } = await idio({
 <td>
 
 ```css
-/** http://localhost:58335/app.css */ 
+/** http://localhost:57537/app.css */ 
 
 body {
   font-size: larger;
@@ -277,7 +278,7 @@ Content-Length: 29
 Last-Modified: Thu, 18 Jul 2019 14:34:31 GMT
 Cache-Control: max-age=0
 Content-Type: text/css; charset=utf-8
-Date: Mon, 02 Mar 2020 02:30:51 GMT
+Date: Thu, 05 Mar 2020 13:30:57 GMT
 Connection: close
 ```
 
@@ -288,7 +289,7 @@ Content-Length: 114
 Last-Modified: Sat, 28 Dec 2019 18:07:31 GMT
 Cache-Control: max-age=0
 Content-Type: image/svg+xml
-Date: Mon, 02 Mar 2020 04:14:07 GMT
+Date: Thu, 05 Mar 2020 13:30:59 GMT
 Connection: close
 ```
 </details>
@@ -343,21 +344,21 @@ The session data is encrypted with <code>base64</code> and signed by default, un
 [
   {
     name: 'koa:sess',
-    value: 'eyJ1c2VyIjoidTUyMi44IiwiX2V4cGlyZSI6MTU4MzIwODg0OTUyNiwiX21heEFnZSI6ODY0MDAwMDB9',
+    value: 'eyJ1c2VyIjoidTg2LjciLCJfZXhwaXJlIjoxNTgzNTAxNDU5ODQzLCJfbWF4QWdlIjo4NjQwMDAwMH0=',
     path: '/',
-    expires: 'Tue, 03 Mar 2020 04:14:09 GMT',
+    expires: 'Fri, 06 Mar 2020 13:30:59 GMT',
     httponly: true
   },
   {
     name: 'koa:sess.sig',
-    value: 'i8BnUnOjoN1gq9fmSlRgtBFhg6Jn5ZMshhNYrsox97spV7brNyYeUdYcN-EM5thb2KPI6MI3xRfM6xxAAEZoHw',
+    value: '5hRueSOyLuhp6nZvOi4TcziXNiADlaIhE6fJHruR-I8cGtEVDYCgNe9t3LS0SyV-SEN1kPa8ZwIz-a91GWPw-A',
     path: '/',
-    expires: 'Tue, 03 Mar 2020 04:14:09 GMT',
+    expires: 'Fri, 06 Mar 2020 13:30:59 GMT',
     httponly: true
   }
 ]
 // GET /
-"welcome back u522.8"
+"welcome back u86.7"
 ```
 </td>
 </tr>
@@ -404,7 +405,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 02 Mar 2020 04:14:10 GMT',
+  date: 'Thu, 05 Mar 2020 13:31:01 GMT',
   connection: 'close'
 }
 
@@ -412,7 +413,7 @@ const { url, app } = await idio({
 {
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
-  date: 'Mon, 02 Mar 2020 04:14:10 GMT',
+  date: 'Thu, 05 Mar 2020 13:31:01 GMT',
   connection: 'close'
 }
 
@@ -421,7 +422,7 @@ const { url, app } = await idio({
   vary: 'Origin',
   'access-control-allow-origin': 'http://prod.com',
   'access-control-allow-methods': 'GET,POST',
-  date: 'Mon, 02 Mar 2020 04:14:10 GMT',
+  date: 'Thu, 05 Mar 2020 13:31:01 GMT',
   connection: 'close'
 }
 ```
@@ -467,7 +468,7 @@ const { url, app } = await idio({
   'content-type': 'application/json; charset=utf-8',
   vary: 'Accept-Encoding',
   'content-encoding': 'gzip',
-  date: 'Mon, 02 Mar 2020 04:14:11 GMT',
+  date: 'Thu, 05 Mar 2020 13:31:01 GMT',
   connection: 'close',
   'transfer-encoding': 'chunked'
 }
@@ -519,8 +520,8 @@ router.post('/example',
     encoding: '7bit',
     mimetype: 'application/octet-stream',
     destination: 'example/upload',
-    filename: 'ff351',
-    path: 'example/upload/ff351',
+    filename: '106e5',
+    path: 'example/upload/106e5',
     size: 29
   },
   body: { hello: 'world' }
@@ -619,6 +620,7 @@ There are some small bits of middleware that can be used in server as well, but 
 - `csrfCheck`: Ensures that the `csrf` token from session matches one in the request.
 - `jsonErrors`: Allows to serve errors as _JSON_, which is useful for APIs.
 - `jsonBody`: Parses requests with the `application/json` content type into `ctx.request.body`.
+- `logarithm`: Record hits in _ElasticSearch_.
 - `github`: Sets up _GitHub_ OAuth routes.
 
 <p align="center"><a href="#table-of-contents">
