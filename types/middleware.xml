@@ -23,6 +23,7 @@
   <import from="../types/options" ns="_idio" name="NeoLudditeOptions" />
   <import from="../types/options" ns="_idio" name="CsrfCheckOptions" />
   <import from="../types/options" ns="_idio" name="JSONErrorsOptions" />
+  <import from="../types/options" ns="_idio" name="LogarithmOptions" />
   <import from="../types/options" ns="_idio" name="GitHubOptions" />
 
   <record name="MiddlewareConfig"
@@ -60,6 +61,9 @@
     </prop>
     <prop opt type="!_idio.JSONBodyOptions" name="jsonBody">
       Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
+    </prop>
+    <prop opt type="!_idio.LogarithmOptions" name="logarithm">
+      Options to record hits in _ElasticSearch_.
     </prop>
   </record>
 

@@ -12,6 +12,7 @@ import jsonErrors from './json-errors'
 import csrfCheck from './csrf-check'
 import makeNeoluddite from './neoluddite'
 import frontend from './front-end'
+import logarithm from 'logarithm'
 
 const map = {
   // multer: setupMulter,
@@ -81,6 +82,16 @@ const map = {
   'frontend': frontend,
   'csrfCheck': csrfCheck,
   'jsonErrors': jsonErrors,
+  /**
+   * Logarithm middleware.
+   * @param {!_goa.Application} app
+   * @param {!Object} _
+   * @param {!_idio.LogarithmOptions} options
+   */
+  'logarithm'(app, _, options) {
+    const l = logarithm(options)
+    return l
+  },
   /**
    * Parse JSON body.
    */
@@ -242,4 +253,8 @@ export default async function setupMiddleware(middlewareConfig, app, _options = 
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../../types/options').GitHubOptions} _idio.GitHubOptions
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../types/options').LogarithmOptions} _idio.LogarithmOptions
  */

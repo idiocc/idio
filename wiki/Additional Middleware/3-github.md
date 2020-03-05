@@ -11,3 +11,5 @@ A number of GitHub middleware can be installed, if an array is passed. This is u
 %EXAMPLE: example/github%
 
 <fork lang="js">example/github</fork>
+
+%~%

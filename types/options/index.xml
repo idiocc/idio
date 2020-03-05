@@ -2,6 +2,8 @@
   <embed path="node_modules/@idio/frontend/types/index.xml" namespace ignore="_alaJsx.Config" />
   <embed path="node_modules/@idio/frontend/types/hot-reload.xml" namespace />
   <embed path="node_modules/@a-la/jsx/types/index.xml" />
+  <embed path="node_modules/logarithm/types/index.xml" ignore="_logarithm.Hit" />
+
   <record extends="_idio.FrontEndConfig" name="FrontEndOptions" desc="Options for the frontend.">
     <prop boolean name="use" default="false">
       Use this middleware for every request.
@@ -18,6 +20,12 @@
     </prop>
     <prop boolean name="watchers" default="false">
       `PRIVATE` do not set this property! Watchers are closed when you call `app.destroy()`.
+    </prop>
+  </record>
+
+  <record extends="_logarithm.Config" name="LogarithmOptions" desc="Options for logarithm.">
+    <prop boolean name="use" default="false">
+      Use this middleware for every request.
     </prop>
   </record>
 

@@ -15,6 +15,7 @@ const IdioRouter = require('./router')
  * @param {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [middlewareConfig.github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
  * @param {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
  * @param {!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
+ * @param {!_idio.LogarithmOptions} [middlewareConfig.logarithm] Options to record hits in _ElasticSearch_.
  * @param {!_goa.RouterConfig=} [routerConfig] The optional configuration for the router.
  * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_idio.Router }>}
  */
@@ -36,6 +37,7 @@ async function createApp(middlewareConfig) {
  * @param {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [middlewareConfig.github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
  * @param {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
  * @param {!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
+ * @param {!_idio.LogarithmOptions} [middlewareConfig.logarithm] Options to record hits in _ElasticSearch_.
  * @param {!_idio.Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
  * @param {string} [config.host="0.0.0.0"] The host on which to listen. Default `0.0.0.0`.
@@ -237,6 +239,7 @@ module.exports.compose = $compose
  * @typedef {import('../types/options').NeoLudditeOptions} _idio.NeoLudditeOptions
  * @typedef {import('../types/options').CsrfCheckOptions} _idio.CsrfCheckOptions
  * @typedef {import('../types/options').JSONErrorsOptions} _idio.JSONErrorsOptions
+ * @typedef {import('../types/options').LogarithmOptions} _idio.LogarithmOptions
  * @typedef {import('../types/options').GitHubOptions} _idio.GitHubOptions
  * @typedef {_idio.MiddlewareConfig} MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {_idio.$MiddlewareConfig & _idio.FnMiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
@@ -252,6 +255,7 @@ module.exports.compose = $compose
  * @prop {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
  * @prop {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
  * @prop {!_idio.JSONBodyOptions} [jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
+ * @prop {!_idio.LogarithmOptions} [logarithm] Options to record hits in _ElasticSearch_.
  * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>} _idio.FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {_idio.ConfigItem} ConfigItem An item in middleware configuration.

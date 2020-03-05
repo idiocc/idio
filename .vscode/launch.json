@@ -35,7 +35,8 @@
         "NODE_ENV": "prod",
       },
       "args": [
-        "example/github"
+        // "example/github"
+        "wiki/Additional Middleware/example/logarithm.js"
       ],
       "skipFiles": [
         "<node_internals>/**/*.js"

@@ -371,6 +371,11 @@ fpj@^1.3.1:
     "@wrote/read" "^1.0.4"
     resolve-dependency "^1.0.3"
 
+logarithm@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/logarithm/-/logarithm-2.3.1.tgz#4603a9f538eb7bb43f724bf152450171e3a128d8"
+  integrity sha512-U3YwVDmsbT7yXgsH1isiAyMIzuFo8Q3tKuB/QJlRW3rjyor7DGIguHDPyUkSgsBJ+k+sv/u4TsiPP6U5/jZvIw==
+
 makepromise@^3.0.3, makepromise@^3.1.0, makepromise@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/makepromise/-/makepromise-3.2.0.tgz#5967d982e01cdc5d044c544489c9e2a7abebc3b0"

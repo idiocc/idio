@@ -126,5 +126,13 @@
   "_idio.JSONBodyOptions": {
     "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-jsonbodyoptions",
     "description": "Options for json body parsing."
+  },
+  "_idio.LogarithmOptions": {
+    "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-logarithmoptions",
+    "description": "Options for logarithm."
+  },
+  "_logarithm.Config": {
+    "link": "https://github.com/idiocc/idio/wiki/Additional Middleware#type-config",
+    "description": "Options for the program."
   }
 }

@@ -140,6 +140,11 @@ _idio.MiddlewareConfig.prototype.jsonErrors
  */
 _idio.MiddlewareConfig.prototype.jsonBody
 /**
+ * Options to record hits in _ElasticSearch_.
+ * @type {(!_idio.LogarithmOptions)|undefined}
+ */
+_idio.MiddlewareConfig.prototype.logarithm
+/**
  * Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>}
  */

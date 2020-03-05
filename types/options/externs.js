@@ -134,6 +134,17 @@ _idio.HotReloadOptions.prototype.getServer
  */
 _idio.HotReloadOptions.prototype.watchers
 /**
+ * Options for logarithm.
+ * @extends {_logarithm.Config}
+ * @record
+ */
+_idio.LogarithmOptions
+/**
+ * Use this middleware for every request. Default `false`.
+ * @type {boolean|undefined}
+ */
+_idio.LogarithmOptions.prototype.use
+/**
  * Options for json body parsing.
  * @record
  */

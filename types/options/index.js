@@ -118,6 +118,10 @@ export {}
  * @typedef {Object} _idio.$HotReloadOptions `＠record` Overridden options for hot reload.
  * @prop {boolean} [getServer=false] `PRIVATE` do not set this property! _Idio_ will automatically assign this. Default `false`.
  * @prop {boolean} [watchers=false] `PRIVATE` do not set this property! Watchers are closed when you call `app.destroy()`. Default `false`.
+ * @typedef {_idio.LogarithmOptions} LogarithmOptions `＠record` Options for logarithm.
+ * @typedef {_idio.$LogarithmOptions & _logarithm.Config} _idio.LogarithmOptions `＠record` Options for logarithm.
+ * @typedef {Object} _idio.$LogarithmOptions `＠record` Options for logarithm.
+ * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
  * @typedef {_idio.JSONBodyOptions} JSONBodyOptions `＠record` Options for json body parsing.
  * @typedef {Object} _idio.JSONBodyOptions `＠record` Options for json body parsing.
  * @prop {boolean} [use=false] Use this middleware for every request. Default `false`.
@@ -184,6 +188,17 @@ export {}
  * @prop {boolean} [prop2class=false] If a property name starts with a capital letter, the `className` of the _VNode_ will be updated. Default `false`.
  * @prop {!Array<string>|!Object} [classNames] The list of properties to put into the `className` property.
  * @prop {!Object<string, string>} [renameMap] How to rename classes (only applies to `prop2class` and `classNames`).
+ */
+/* typal-embed node_modules/logarithm/types/index.xml ignore:_logarithm.Hit namespace */
+/**
+ * @typedef {_logarithm.Config} Config `＠record` Options for the program.
+ * @typedef {Object} _logarithm.Config `＠record` Options for the program.
+ * @prop {string} app The name of the website application.
+ * @prop {string} url ElasticSearch endpoint URL, e.g., `http://192.168.0.1:9200`.
+ * @prop {number} [timeout=5000] Timeout for the connection after which an error is shown. Default `5000`.
+ * @prop {string} [pipeline="info"] The pipeline in ElasticSearch, for example to parse GeoIP info and User-Agent. Default `info`.
+ * @prop {string} [index] The name of the index. Defaults to the app name if not specified.
+ * @prop {(index: string, date: !Date) => string} [strategy] How to construct the index name. By default, monthly strategy is used: `${index}-${yyyy}.${mm}`.
  */
 /* typal-embed node_modules/@idio/github/types/index.xml ignore:_goa.Middleware,_idio.Context namespace */
 /**
