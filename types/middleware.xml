@@ -32,7 +32,7 @@
     <prop opt type="!_idio.StaticOptions|!Array<!_idio.StaticOptions>" name="static">
       _Static_ middleware options.
     </prop>
-    <prop opt type="!_idio.CompressOptions" name="compress">
+    <prop opt type="boolean|!_idio.CompressOptions" name="compress">
       _Compression_ middleware options.
     </prop>
     <prop opt type="!_idio.SessionOptions" name="session">
@@ -56,10 +56,10 @@
     <prop opt type="!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>" name="github">
       Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
     </prop>
-    <prop opt type="!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>" name="jsonErrors">
+    <prop opt type="boolean|!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>" name="jsonErrors">
       Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
     </prop>
-    <prop opt type="!_idio.JSONBodyOptions" name="jsonBody">
+    <prop opt type="boolean|!_idio.JSONBodyOptions" name="jsonBody">
       Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
     </prop>
     <prop opt type="!_idio.LogarithmOptions" name="logarithm">
@@ -70,7 +70,7 @@
   <!-- Plain config on top of which the idio middleware is installed. -->
   <type type="!Object<string, !_idio.ConfigItem>" name="FnMiddlewareConfig" desc="Middleware Config With Functions."/>
 
-  <type type="!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }" name="ConfigItem" desc="An item in middleware configuration."/>
+  <type type="!_goa.Middleware|{ use: boolean, middlewareConstructor: (!_idio.MiddlewareConstructor|undefined), config: (!Object|undefined) }|boolean" name="ConfigItem" desc="An item in middleware configuration."/>
 
   <method name="MiddlewareConstructor" async return="!_goa.Middleware|!_multipart.FormData">
     <arg type="!_goa.Application" name="app">The application instance.</arg>

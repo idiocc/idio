@@ -3,15 +3,15 @@ import cors from '@goa/cors'
 import serve from '../../modules/koa-static'
 import Mount from '../../modules/koa-mount'
 import compress from '@goa/compress'
-import github from '@idio/github'
 import { constants } from 'zlib'
-import { collect } from 'catchment'
 import session from './session'
 import form from './form'
 import jsonErrors from './json-errors'
 import csrfCheck from './csrf-check'
 import makeNeoluddite from './neoluddite'
 import frontend from './front-end'
+import github from './oauth/github'
+import jsonBody from './json-body'
 import logarithm from 'logarithm'
 
 const map = {
@@ -95,47 +95,8 @@ const map = {
   /**
    * Parse JSON body.
    */
-  'jsonBody'() {
-    /**
-     * @type {_idio.Middleware}
-     */
-    async function jsonBody(ctx, next) {
-      if (!ctx.is('json')) {
-        return next()
-      }
-      let body = await collect(ctx.req)
-      try {
-        body = JSON.parse(body)
-      } catch (err) {
-        ctx.throw(400, 'Could not parse JSON.')
-      }
-      ctx.request.body = /** @type {Object} */ (body)
-      return next()
-    }
-    return jsonBody
-  },
-  /**
-   * GitHub OAuth.
-   * @param {!_goa.Application} app
-   * @param {!Object} _
-   * @param {_idio.GitHubOptions} options
-   * @param {!_idio.ConfiguredMiddleware} acc
-   */
-  'github'(app, _, options, acc) {
-    if (!acc.session) throw new Error('You need to configure session before GitHub middleware.')
-    let { path, paths, redirectPath, scope, ...rest } = options
-    if (paths && !redirectPath) throw new Error('When giving multiple paths, the redirect path is also required.')
-    if (!paths) paths = { [path]: scope }
-    Object.entries(paths).forEach(([p, s]) => {
-      github(app, {
-        path: p,
-        scope: s,
-        redirectPath,
-        ...rest,
-        session: acc.session,
-      })
-    })
-  },
+  'jsonBody': jsonBody,
+  'github': github,
 }
 
 /**
@@ -151,6 +112,8 @@ async function initMiddleware(name, conf, app, acc, _options = {}) {
     app.use(c)
     return c
   }
+  if (conf === true) conf = { use: true }
+
   const { use, config = {}, middlewareConstructor,
     ...options } = conf
 
@@ -249,10 +212,6 @@ export default async function setupMiddleware(middlewareConfig, app, _options = 
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../..').ConfiguredMiddleware} _idio.ConfiguredMiddleware
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types/options').GitHubOptions} _idio.GitHubOptions
  */
 /**
  * @suppress {nonStandardJsDocs}

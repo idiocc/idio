@@ -27,3 +27,5 @@ Compression options extend the compression configuration from the <link external
 <typedef level="2" narrow>types/options/compress.xml</typedef>
 
 <typedef level="2" name="CompressConfig" narrow>node_modules/@goa/compress/types/index.xml</typedef>
+
+Passing `true` is equivalent to `{ use: true }` minimal options set.

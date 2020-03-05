@@ -17,6 +17,20 @@ const T = {
       .post('/', body)
       .assert(200, body)
   },
+  async'can setup with true'({ createApp, startApp }) {
+    await createApp({
+      jsonBody: true,
+      serve(ctx) {
+        ctx.body = ctx.request.body
+      },
+    })
+    const body = {
+      hello: 'world',
+    }
+    await startApp()
+      .post('/', body)
+      .assert(200, body)
+  },
   async'throws error when cannot parse'({ createApp, startApp }) {
     await createApp({
       jsonBody: { use: true },

@@ -9,12 +9,12 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const stream = require('stream');
-const querystring = require('querystring');
+const events = require('events');
 const https = require('https');
 const http = require('http');
 const url = require('url');
-const events = require('events');
 const vm = require('vm');
+const querystring = require('querystring');
 const net = require('net');             
 /*
  MIT
@@ -63,7 +63,7 @@ function aa(a) {
 */
 const ea = da(), fa = {[300]:!0, [301]:!0, [302]:!0, [303]:!0, [305]:!0, [307]:!0, [308]:!0}, ha = {[204]:!0, [205]:!0, [304]:!0};
 function da() {
-  var a = I;
+  var a = H;
   const b = [];
   Object.keys(ba).forEach(c => {
     const d = ba[c];
@@ -75,9 +75,9 @@ function da() {
   });
   return b;
 }
-function I(a) {
+function H(a) {
   if ("number" == typeof a) {
-    if (!I[a]) {
+    if (!H[a]) {
       throw Error("invalid status code: " + a);
     }
     return a;
@@ -87,12 +87,12 @@ function I(a) {
   }
   var b = parseInt(a, 10);
   if (!isNaN(b)) {
-    if (!I[b]) {
+    if (!H[b]) {
       throw Error("invalid status code: " + b);
     }
     return b;
   }
-  b = I[a.toLowerCase()];
+  b = H[a.toLowerCase()];
   if (!b) {
     throw Error('invalid status message: "' + a + '"');
   }
@@ -128,11 +128,11 @@ function J(...a) {
     }
   }
   "number" == typeof d && (400 > d || 600 <= d) && process.emitWarning("non-error status code; use only 4xx or 5xx status codes", "DeprecationWarning");
-  if ("number" != typeof d || !I[d] && (400 > d || 600 <= d)) {
+  if ("number" != typeof d || !H[d] && (400 > d || 600 <= d)) {
     d = 500;
   }
   a = J[d] || J[Number(String(d).charAt(0) + "00")];
-  b || (b = a ? new a(c) : Error(c || I[d]), Error.captureStackTrace(b, J));
+  b || (b = a ? new a(c) : Error(c || H[d]), Error.captureStackTrace(b, J));
   a && b instanceof a && b.status === d || (b.expose = 500 > d, b.status = b.statusCode = d);
   for (let f in e) {
     "status" != f && "statusCode" != f && (b[f] = e[f]);
@@ -149,12 +149,12 @@ class ia extends Error {
   }
   set code(a) {
     this.statusCode = this.status = a;
-    this.message || (this.message = I[a]);
+    this.message || (this.message = H[a]);
   }
 }
 ea.forEach(a => {
   let b;
-  const c = ja(I[a]), d = c.match(/Error$/) ? c : c + "Error";
+  const c = ja(H[a]), d = c.match(/Error$/) ? c : c + "Error";
   switch(Number(String(a).charAt(0) + "00")) {
     case 400:
       b = class extends ia {
@@ -939,229 +939,16 @@ function Wb(a = {}) {
     }
   };
 }
-;const Xb = https.request;
-const Yb = http.METHODS, Zb = http.OutgoingMessage, $b = http.createServer, ac = http.request;
-const bc = url.URL, cc = url.Url, dc = url.format, ec = url.parse;
-const fc = (a, b) => {
-  b.once("error", c => {
-    a.emit("error", c);
-  });
-  return b;
-};
-class gc extends Pb {
-  constructor(a) {
-    const {binary:b = !1, rs:c = null, ...d} = a || {}, {R:e = R(!0), proxyError:f} = a || {}, g = (h, k) => e(k);
-    super(d);
-    this.a = [];
-    this.xa = new Promise((h, k) => {
-      this.on("finish", () => {
-        let l;
-        b ? l = Buffer.concat(this.a) : l = this.a.join("");
-        h(l);
-        this.a = [];
-      });
-      this.once("error", l => {
-        if (-1 == l.stack.indexOf("\n")) {
-          g`${l}`;
-        } else {
-          const m = xb(l.stack);
-          l.stack = m;
-          f && g`${l}`;
-        }
-        k(l);
-      });
-      c && fc(this, c).pipe(this);
-    });
-  }
-  _write(a, b, c) {
-    this.a.push(a);
-    c();
-  }
-  get fa() {
-    return this.xa;
-  }
-}
-const hc = async(a, b = {}) => {
-  ({fa:a} = new gc({rs:a, ...b, R:R(!0)}));
-  return await a;
-};
-const ic = (a, b, c = {}) => {
-  const {justHeaders:d, binary:e, R:f = R(!0)} = c;
-  let g, h, k, l, m = 0, p = 0;
-  c = (new Promise((n, q) => {
-    g = a(b, async r => {
-      ({headers:h} = r);
-      k = {statusMessage:r.statusMessage, statusCode:r.statusCode};
-      if (d) {
-        r.destroy();
-      } else {
-        var u = "gzip" == r.headers["content-encoding"];
-        r.on("data", t => m += t.byteLength);
-        r = u ? r.pipe(Rb()) : r;
-        l = await hc(r, {binary:e});
-        p = l.length;
-      }
-      n();
-    }).on("error", r => {
-      r = f(r);
-      q(r);
-    }).on("timeout", () => {
-      g.abort();
-    });
-  })).then(() => ({body:l, headers:h, ...k, Xa:m, byteLength:p, ra:null}));
-  return {req:g, fa:c};
-};
-const jc = (a = {}) => Object.keys(a).reduce((b, c) => {
-  const d = a[c];
-  c = `${encodeURIComponent(c)}=${encodeURIComponent(d)}`;
-  return [...b, c];
-}, []).join("&").replace(/%20/g, "+"), kc = async(a, b, {data:c, justHeaders:d, binary:e, R:f = R(!0)}) => {
-  const {req:g, fa:h} = ic(a, b, {justHeaders:d, binary:e, R:f});
-  g.end(c);
-  a = await h;
-  if ((a.headers["content-type"] || "").startsWith("application/json") && a.body) {
-    try {
-      a.ra = JSON.parse(a.body);
-    } catch (k) {
-      throw f = f(k), f.response = a.body, f;
-    }
-  }
-  return a;
-};
-let lc;
-try {
-  const {version:a, name:b} = require("../package.json");
-  lc = "@rqt/aqt" == b ? `@rqt/aqt/${a}` : `@rqt/aqt via ${b}/${a}`;
-} catch (a) {
-  lc = "@aqt/rqt";
-}
-const mc = ma("aqt"), nc = async(a, b = {}) => {
-  const {data:c, type:d = "json", headers:e = {"User-Agent":`Mozilla/5.0 (Node.JS) ${lc}`}, compress:f = !0, binary:g = !1, justHeaders:h = !1, method:k, timeout:l} = b;
-  b = R(!0);
-  const {hostname:m, protocol:p, port:n, path:q} = ec(a), r = "https:" === p ? Xb : ac, u = {hostname:m, port:n, path:q, headers:{...e}, timeout:l, method:k};
-  if (c) {
-    var t = d;
-    var x = c;
-    switch(t) {
-      case "json":
-        x = JSON.stringify(x);
-        t = "application/json";
-        break;
-      case "form":
-        x = jc(x), t = "application/x-www-form-urlencoded";
-    }
-    x = {data:x, contentType:t};
-    ({data:t} = x);
-    x = x.contentType;
-    u.method = k || "POST";
-    "Content-Type" in u.headers || (u.headers["Content-Type"] = x);
-    "Content-Length" in u.headers || (u.headers["Content-Length"] = Buffer.byteLength(t));
-  }
-  !f || "Accept-Encoding" in u.headers || (u.headers["Accept-Encoding"] = "gzip, deflate");
-  const {body:w, headers:E, byteLength:y, statusCode:v, statusMessage:z, Xa:H, ra:D} = await kc(r, u, {data:t, justHeaders:h, binary:g, R:b});
-  mc("%s %s B%s", a, y, `${y != H ? ` (raw ${H} B)` : ""}`);
-  return {body:D ? D : w, headers:E, statusCode:v, statusMessage:z};
-};
-const oc = async(a, b = {}) => {
-  ({body:a} = await nc(a, b));
-  return a;
-}, pc = async(a, b = {}) => {
-  ({body:a} = await nc(a, b));
-  return a;
-};
-const qc = querystring.parse, rc = querystring.stringify;
-const sc = async(a, b, c, d) => {
-  a.session.token = b;
-  a.session.scope = c;
-  a.session.user = d;
-  await a.session.manuallyCommit();
-  a.redirect("/");
-};
-function tc(a, b) {
-  if (!b) {
-    throw Error("Config with at least client_id and client_secret is required.");
-  }
-  const {client_id:c = "", client_secret:d = "", path:e = "/auth/github", redirectPath:f = `${e}/redirect`, scope:g = "", error:h = (n, q, r) => {
-    throw Error(r);
-  }, finish:k = sc, session:l} = b;
-  c || console.warn("[github] No client id - the dialog won't work.");
-  d || console.warn("[github] No client secret - the redirect won't work.");
-  const m = async n => {
-    if (!n.session) {
-      throw Error("Cannot start github middleware because session was not started.");
-    }
-    var q = Math.floor(10000 * Math.random());
-    n.session["githib-state"] = q;
-    await n.session.manuallyCommit();
-    const r = uc(n, f);
-    q = vc({ga:r, client_id:c, scope:g, state:q});
-    n.redirect(q);
-  }, p = async(n, q) => {
-    var r = uc(n, f);
-    let u;
-    if (!n.session) {
-      throw Error("Cannot finish github middleware because session was not started.");
-    }
-    u = n.query.state;
-    if (u != n.session["githib-state"]) {
-      throw Error("The state is incorrect.");
-    }
-    n.session["githib-state"] = null;
-    await n.session.manuallyCommit();
-    if (n.query.error) {
-      await h(n, n.query.error, n.query.error_description, q);
-    } else {
-      var t = n.query.code;
-      if (!t) {
-        throw Error("Code Not Found.");
-      }
-      var {access_token:x, scope:w} = await wc({client_id:c, client_secret:d, ga:r, code:t, state:u});
-      r = [xc(x), .../user:email/.test(w) ? [yc(x)] : []];
-      var [E, y] = await Promise.all(r);
-      y && (E.emails = y);
-      await k(n, x, w, E, q);
-    }
-  };
-  a.use(async(n, q) => {
-    if (n.path == e) {
-      l && await l(n, () => {
-      }), await m(n);
-    } else {
-      if (n.path == f) {
-        l && await l(n, () => {
-        }), await p(n, q);
-      } else {
-        return q();
-      }
-    }
-  });
-}
-const xc = async a => await zc({ua:a, path:"user"}), yc = async a => await zc({ua:a, path:"user/emails"}), zc = async a => {
-  var b = a.ua;
-  const c = `https://api.github.com/${a.path}`;
-  a = rc(a.data);
-  b = await pc(`${c}?${a}`, {headers:{Authorization:`token ${b}`, Accept:"application/json", "User-Agent":"@idio/github http://github.com/idiocc/github"}});
-  if (b.message) {
-    throw Error(b.message);
-  }
-  return b;
-}, wc = async({code:a, client_id:b, client_secret:c, ga:d, state:e}) => {
-  const {access_token:f, scope:g, token_type:h, error:k, error_description:l} = await pc("https://github.com/login/oauth/access_token", {data:{code:a, redirect_uri:d, client_id:b, client_secret:c, ...e ? {state:e} : {}}, headers:{Accept:"application/json"}});
-  if (k) {
-    throw a = Error(l), a.type = k, a;
-  }
-  return {access_token:f, scope:g, token_type:h};
-}, vc = ({ga:a, client_id:b, scope:c, state:d}) => `https://www.github.com/login/oauth/authorize?${rc({client_id:b, redirect_uri:a, ...d ? {state:d} : {}, ...c ? {scope:c} : {}})}`, uc = ({protocol:a, host:b}, c) => [/\.ngrok\.io$/.test(b) ? "https" : a, "://", b, c].join("");
-function Ac() {
+;function Xb() {
   return Oa(16);
 }
-;for (var V = [], Bc = 0; 256 > Bc; ++Bc) {
-  V[Bc] = (Bc + 256).toString(16).substr(1);
+;for (var V = [], Yb = 0; 256 > Yb; ++Yb) {
+  V[Yb] = (Yb + 256).toString(16).substr(1);
 }
-;function Cc(a = {}, b = null, c = 0) {
+;function Zb(a = {}, b = null, c = 0) {
   c = b && c;
   "string" == typeof a && (b = "binary" == a ? Array(16) : null, a = null);
-  const {random:d, rng:e = Ac} = a;
+  const {random:d, rng:e = Xb} = a;
   a = d || e();
   a[6] = a[6] & 15 | 64;
   a[8] = a[8] & 63 | 128;
@@ -1173,7 +960,7 @@ function Ac() {
   b || (b = 0, b = [V[a[b++]], V[a[b++]], V[a[b++]], V[a[b++]], "-", V[a[b++]], V[a[b++]], "-", V[a[b++]], V[a[b++]], "-", V[a[b++]], V[a[b++]], "-", V[a[b++]], V[a[b++]], V[a[b++]], V[a[b++]], V[a[b++]], V[a[b++]]].join(""));
   return b;
 }
-;class Dc {
+;class $b {
   constructor(a, b) {
     this._expire = 0;
     this._requireSave = !1;
@@ -1217,22 +1004,22 @@ function Ac() {
     await this._sessCtx.commit();
   }
 }
-;function Ec(a) {
+;function ac(a) {
   a = Buffer.from(a, "base64").toString("utf8");
   return JSON.parse(a);
 }
-function Fc(a) {
+function bc(a) {
   a = JSON.stringify(a);
   return Buffer.from(a).toString("base64");
 }
 ;const W = M("koa-session:context");
-async function Gc(a) {
+async function cc(a) {
   W("init from external");
   var b = a.ctx, c = a.opts;
   c.externalKey ? (b = c.externalKey.get(b), W("get external key from custom %s", b)) : (b = b.cookies.get(c.key, c), W("get external key from cookie %s", b));
   b ? (c = await a.store.get(b, c.maxAge, {rolling:c.rolling || !1}), a.valid(c, b) ? (a.create(c, b), a.a = JSON.stringify(a.session.toJSON())) : a.create()) : a.create();
 }
-function Hc(a) {
+function dc(a) {
   const b = a.a;
   var c = a.session;
   if (c._requireSave) {
@@ -1241,7 +1028,7 @@ function Hc(a) {
   const d = c.toJSON();
   return b || Object.keys(d).length ? b !== JSON.stringify(d) ? "changed" : a.opts.rolling ? "rolling" : a.opts.renew && (a = c._expire, c = c.maxAge, a && c && a - Date.now() < c / 2) ? "renew" : "" : "";
 }
-class Ic {
+class ec {
   constructor(a, b = {}) {
     this.ctx = a;
     this.app = a.app;
@@ -1313,7 +1100,7 @@ class Ic {
   create(a, b) {
     W("create session with val: %j externalKey: %s", a, b);
     this.store && (this.externalKey = b || this.opts.genid && this.opts.genid(this.ctx));
-    this.session = new Dc(this, a);
+    this.session = new $b(this, a);
   }
   async commit() {
     const {session:a, opts:{beforeSave:b}, ctx:c} = this;
@@ -1321,7 +1108,7 @@ class Ic {
       if (null === a) {
         await this.remove();
       } else {
-        var d = Hc(this);
+        var d = dc(this);
         W("should save session: %s", d);
         d && ("function" == typeof b && (W("before save"), b(c, a)), await this.save("changed" == d));
       }
@@ -1346,13 +1133,13 @@ class Ic {
 
  MIT https://github.com/miguelmota/is-class
 */
-const Jc = M("koa-session"), Kc = Symbol("context#contextSession");
+const fc = M("koa-session"), gc = Symbol("context#contextSession");
 Symbol("context#_contextSession");
-function Lc(a = {}) {
-  Mc(a);
+function hc(a = {}) {
+  ic(a);
   return async function(b, c) {
-    b = Nc(b, a);
-    b.store && await Gc(b);
+    b = jc(b, a);
+    b.store && await cc(b);
     try {
       await c();
     } finally {
@@ -1360,16 +1147,16 @@ function Lc(a = {}) {
     }
   };
 }
-function Mc(a = {}) {
+function ic(a = {}) {
   a.key = a.key || "koa:sess";
   a.maxAge = a.maxAge || 864E5;
   null == a.overwrite && (a.overwrite = !0);
   null == a.httpOnly && (a.httpOnly = !0);
   null == a.signed && (a.signed = !0);
   null == a.autoCommit && (a.autoCommit = !0);
-  Jc("session options %j", a);
-  "function" != typeof a.encode && (a.encode = Fc);
-  "function" != typeof a.decode && (a.decode = Ec);
+  fc("session options %j", a);
+  "function" != typeof a.encode && (a.encode = bc);
+  "function" != typeof a.decode && (a.decode = ac);
   var b = a.store;
   b && (K("function" == typeof b.get, "store.get must be function"), K("function" == typeof b.set, "store.set must be function"), K("function" == typeof b.destroy, "store.destroy must be function"));
   if (b = a.externalKey) {
@@ -1378,10 +1165,10 @@ function Mc(a = {}) {
   if (b = a.ContextStore) {
     K("function" == typeof b && (/^class[\s{]/.test(b.toString()) || /classCallCheck\(/.test(b.toString().replace(/^[^{]*{\s*/, "").replace(/\s*}[^}]*$/, ""))), "ContextStore must be a class"), K("function" == typeof b.prototype.get, "ContextStore.prototype.get must be function"), K("function" == typeof b.prototype.set, "ContextStore.prototype.set must be function"), K("function" == typeof b.prototype.destroy, "ContextStore.prototype.destroy must be function");
   }
-  a.genid || (a.prefix ? a.genid = () => `${a.prefix}${Cc()}` : a.genid = Cc);
+  a.genid || (a.prefix ? a.genid = () => `${a.prefix}${Zb()}` : a.genid = Zb);
 }
-function Nc(a, b) {
-  if (!a.hasOwnProperty(Kc)) {
+function jc(a, b) {
+  if (!a.hasOwnProperty(gc)) {
     Object.defineProperties(a, {session:{get() {
       return c.get();
     }, set(d) {
@@ -1389,18 +1176,18 @@ function Nc(a, b) {
     }, configurable:!0}, sessionOptions:{get() {
       return c.opts;
     }}});
-    var c = new Ic(a, b);
+    var c = new ec(a, b);
     return c;
   }
 }
-;const Oc = M("idio");
-var Pc = events;
-const Qc = events.EventEmitter;
+;const kc = M("idio");
+var lc = events;
+const mc = events.EventEmitter;
 /*
  MIT streamsearch by Brian White
  https://github.com/mscdex/streamsearch
 */
-function Rc(a, b, c, d, e) {
+function nc(a, b, c, d, e) {
   for (var f = 0; f < e; ++f, ++b, ++d) {
     if (a[b] !== c[d]) {
       return !1;
@@ -1408,19 +1195,19 @@ function Rc(a, b, c, d, e) {
   }
   return !0;
 }
-function Sc(a, b) {
+function oc(a, b) {
   var c = b.length, d = a.l, e = d.length, f = -a.a, g = d[e - 1], h = a.i, k = a.h;
   if (0 > f) {
     for (; 0 > f && f <= c - e;) {
       var l = f + e - 1;
       l = 0 > l ? a.h[a.a + l] : b[l];
-      if (l === g && Tc(a, b, f, e - 1)) {
+      if (l === g && pc(a, b, f, e - 1)) {
         return a.a = 0, ++a.g, f > -a.a ? a.emit("info", !0, k, 0, a.a + f) : a.emit("info", !0), a.c = f + e;
       }
       f += h[l];
     }
     if (0 > f) {
-      for (; 0 > f && !Tc(a, b, f, c - f);) {
+      for (; 0 > f && !pc(a, b, f, c - f);) {
         f++;
       }
     }
@@ -1432,13 +1219,13 @@ function Sc(a, b) {
   }
   for (0 <= f && (f += a.c); f <= c - e;) {
     l = b[f + e - 1];
-    if (l === g && b[f] === d[0] && Rc(d, 0, b, f, e - 1)) {
+    if (l === g && b[f] === d[0] && nc(d, 0, b, f, e - 1)) {
       return ++a.g, 0 < f ? a.emit("info", !0, b, a.c, f) : a.emit("info", !0), a.c = f + e;
     }
     f += h[l];
   }
   if (f < c) {
-    for (; f < c && (b[f] !== d[0] || !Rc(b, f, d, 0, c - f));) {
+    for (; f < c && (b[f] !== d[0] || !nc(b, f, d, 0, c - f));) {
       ++f;
     }
     f < c && (b.copy(k, 0, f, f + (c - f)), a.a = c - f);
@@ -1446,7 +1233,7 @@ function Sc(a, b) {
   0 < f && a.emit("info", !1, b, a.c, f < c ? f : c);
   return a.c = c;
 }
-function Tc(a, b, c, d) {
+function pc(a, b, c, d) {
   for (var e = 0; e < d;) {
     var f = c + e;
     if ((0 > f ? a.h[a.a + f] : b[f]) === a.l[e]) {
@@ -1457,7 +1244,7 @@ function Tc(a, b, c, d) {
   }
   return !0;
 }
-class Uc extends Qc {
+class qc extends mc {
   constructor(a) {
     super();
     "string" === typeof a && (a = new Buffer(a));
@@ -1485,20 +1272,20 @@ class Uc extends Qc {
     Buffer.isBuffer(a) || (a = new Buffer(a, "binary"));
     var c = a.length;
     for (this.c = b; d !== c && this.g < this.u;) {
-      var d = Sc(this, a);
+      var d = oc(this, a);
     }
     return d;
   }
 }
-;class Vc extends Nb {
+;class rc extends Nb {
   constructor(a) {
     super(a);
   }
   _read() {
   }
 }
-;const Wc = Buffer.from("\r\n\r\n"), Xc = /\r\n/g, Yc = /^([^:]+):[ \t]?([\x00-\xFF]+)?$/;
-class Zc extends Qc {
+;const sc = Buffer.from("\r\n\r\n"), tc = /\r\n/g, uc = /^([^:]+):[ \t]?([\x00-\xFF]+)?$/;
+class vc extends mc {
   constructor(a = {}) {
     super();
     ({maxHeaderPairs:a = 2000} = a);
@@ -1509,12 +1296,12 @@ class Zc extends Qc {
     this.buffer = "";
     this.header = {};
     this.g = !1;
-    this.c = new Uc(Wc);
+    this.c = new qc(sc);
     this.c.on("info", (b, c, d, e) => {
       c && !this.h && (81920 < this.a + (e - d) ? (e = 81920 - this.a, this.a = 81920) : this.a += e - d, 81920 === this.a && (this.h = !0), this.buffer += c.toString("binary", d, e));
       if (b) {
         if (this.buffer && this.i !== this.maxHeaderPairs) {
-          b = this.buffer.split(Xc);
+          b = this.buffer.split(tc);
           c = b.length;
           e = !1;
           for (let g = 0; g < c; ++g) {
@@ -1522,7 +1309,7 @@ class Zc extends Qc {
               if ("\t" == b[g][0] || " " == b[g][0]) {
                 this.header[f][this.header[f].length - 1] += b[g];
               } else {
-                if (d = Yc.exec(b[g])) {
+                if (d = uc.exec(b[g])) {
                   var f = d[1].toLowerCase();
                   d[2] ? void 0 === this.header[f] ? this.header[f] = [d[2]] : this.header[f].push(d[2]) : this.header[f] = [""];
                   if (++this.i === this.maxHeaderPairs) {
@@ -1566,16 +1353,16 @@ class Zc extends Qc {
  MIT dicer by Brian White
  https://github.com/mscdex/dicer
 */
-const $c = Buffer.from("-"), ad = Buffer.from("\r\n"), bd = () => {
+const wc = Buffer.from("-"), xc = Buffer.from("\r\n"), yc = () => {
 };
-function cd(a, b, c, d, e) {
+function zc(a, b, c, d, e) {
   var f, g = 0, h = !0;
   if (!a.a && a.F && c) {
     for (; 2 > a.h && d + g < e;) {
       if (45 === c[d + g]) {
         ++g, ++a.h;
       } else {
-        a.h && (f = $c);
+        a.h && (f = wc);
         a.h = 0;
         break;
       }
@@ -1586,22 +1373,22 @@ function cd(a, b, c, d, e) {
     }
   }
   a.F && (a.F = !1);
-  a.a || (a.a = new Vc(a.ka), a.a._read = () => {
-    dd(a);
+  a.a || (a.a = new rc(a.ka), a.a._read = () => {
+    Ac(a);
   }, g = a.g ? "preamble" : "part", a._events[g] ? a.emit(g, a.a) : a._ignore(), a.g || (a.u = !0));
-  c && d < e && !a.A && (a.g || !a.u ? (f && (h = a.a.push(f)), h = a.a.push(c.slice(d, e)), h || (a.D = !0)) : !a.g && a.u && (f && a.i.push(f), f = a.i.push(c.slice(d, e)), !a.u && void 0 !== f && f < e && cd(a, !1, c, d + f, e)));
+  c && d < e && !a.A && (a.g || !a.u ? (f && (h = a.a.push(f)), h = a.a.push(c.slice(d, e)), h || (a.D = !0)) : !a.g && a.u && (f && a.i.push(f), f = a.i.push(c.slice(d, e)), !a.u && void 0 !== f && f < e && zc(a, !1, c, d + f, e)));
   b && (a.i.reset(), a.g ? a.g = !1 : (++a.X, a.a.on("end", () => {
-    0 === --a.X && (a.H ? (a.c = !0, a.emit("finish"), a.c = !1) : dd(a));
+    0 === --a.X && (a.H ? (a.c = !0, a.emit("finish"), a.c = !1) : Ac(a));
   })), a.a.push(null), a.a = void 0, a.A = !1, a.F = !0, a.h = 0);
 }
-function dd(a) {
+function Ac(a) {
   if (a.D && (a.D = !1, a.B)) {
     const b = a.B;
     a.B = void 0;
     b();
   }
 }
-class ed extends Pb {
+class Bc extends Pb {
   constructor(a) {
     super(a);
     if (!a || !a.headerFirst && "string" != typeof a.boundary) {
@@ -1618,7 +1405,7 @@ class ed extends Pb {
     this.A = !1;
     this.ka = "number" == typeof a.partHwm ? {highWaterMark:a.partHwm} : {};
     this.D = !1;
-    this.i = new Zc(a);
+    this.i = new vc(a);
     this.i.on("header", b => {
       this.u = !1;
       this.a.emit("header", b);
@@ -1640,13 +1427,13 @@ class ed extends Pb {
       return c();
     }
     if (this.wa && this.g) {
-      if (this.a || (this.a = new Vc(this.ka), this._events.preamble ? this.emit("preamble", this.a) : this._ignore()), b = this.i.push(a), !this.u && void 0 !== b && b < a.length) {
+      if (this.a || (this.a = new rc(this.ka), this._events.preamble ? this.emit("preamble", this.a) : this._ignore()), b = this.i.push(a), !this.u && void 0 !== b && b < a.length) {
         a = a.slice(b);
       } else {
         return c();
       }
     }
-    this.ja && (this.l.push(ad), this.ja = !1);
+    this.ja && (this.l.push(xc), this.ja = !1);
     this.l.push(a);
     this.D ? this.B = c : c();
   }
@@ -1654,20 +1441,20 @@ class ed extends Pb {
     this.i = this.l = this.a = void 0;
   }
   setBoundary(a) {
-    this.l = new Uc("\r\n--" + a);
+    this.l = new qc("\r\n--" + a);
     this.l.on("info", (b, c, d, e) => {
-      cd(this, b, c, d, e);
+      zc(this, b, c, d, e);
     });
   }
   _ignore() {
-    this.a && !this.A && (this.A = !0, this.a.on("error", bd), this.a.resume());
+    this.a && !this.A && (this.A = !0, this.a.on("error", yc), this.a.resume());
   }
 }
-;const {TextDecoder:fd} = require("text-decoding"), gd = /%([a-fA-F0-9]{2})/g;
-function hd(a, b) {
+;const {TextDecoder:Cc} = require("text-decoding"), Dc = /%([a-fA-F0-9]{2})/g;
+function Ec(a, b) {
   return String.fromCharCode(parseInt(b, 16));
 }
-function id(a) {
+function Fc(a) {
   let b = [], c = "key", d = "", e = !1, f = !1, g = 0, h = "";
   for (var k = 0, l = a.length; k < l; ++k) {
     if ("\\" === a[k] && e) {
@@ -1699,7 +1486,7 @@ function id(a) {
           } else {
             if (!e && ";" == a[k]) {
               c = "key";
-              d ? (h.length && (h = X(h.replace(gd, hd), d)), d = "") : h.length && (h = X(h, "utf8"));
+              d ? (h.length && (h = X(h.replace(Dc, Ec), d)), d = "") : h.length && (h = X(h, "utf8"));
               void 0 === b[g] ? b[g] = h : b[g][1] = h;
               h = "";
               ++g;
@@ -1715,7 +1502,7 @@ function id(a) {
     }
     h += a[k];
   }
-  d && h.length ? h = X(h.replace(gd, hd), d) : h && (h = X(h, "utf8"));
+  d && h.length ? h = X(h.replace(Dc, Ec), d) : h && (h = X(h, "utf8"));
   void 0 === b[g] ? h && (b[g] = h) : b[g][1] = h;
   return b;
 }
@@ -1723,21 +1510,21 @@ function X(a, b) {
   let c;
   if (a) {
     try {
-      c = (new fd(b)).decode(Buffer.from(a, "binary"));
+      c = (new Cc(b)).decode(Buffer.from(a, "binary"));
     } catch (d) {
     }
   }
   return "string" == typeof c ? c : a;
 }
-const jd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], kd = /\+/g;
-class ld {
+const Gc = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], Hc = /\+/g;
+class Ic {
   constructor() {
     this.buffer = void 0;
   }
   write(a) {
-    a = a.replace(kd, " ");
+    a = a.replace(Hc, " ");
     for (var b = "", c = 0, d = 0, e = a.length; c < e; ++c) {
-      void 0 !== this.buffer ? jd[a.charCodeAt(c)] ? (this.buffer += a[c], ++d, 2 === this.buffer.length && (b += String.fromCharCode(parseInt(this.buffer, 16)), this.buffer = void 0)) : (b += "%" + this.buffer, this.buffer = void 0, --c) : "%" == a[c] && (c > d && (b += a.substring(d, c), d = c), this.buffer = "", ++d);
+      void 0 !== this.buffer ? Gc[a.charCodeAt(c)] ? (this.buffer += a[c], ++d, 2 === this.buffer.length && (b += String.fromCharCode(parseInt(this.buffer, 16)), this.buffer = void 0)) : (b += "%" + this.buffer, this.buffer = void 0, --c) : "%" == a[c] && (c > d && (b += a.substring(d, c), d = c), this.buffer = "", ++d);
     }
     d < e && void 0 === this.buffer && (b += a.substring(d));
     return b;
@@ -1746,7 +1533,7 @@ class ld {
     this.buffer = void 0;
   }
 }
-function md(a) {
+function Jc(a) {
   if ("string" != typeof a) {
     return "";
   }
@@ -1759,11 +1546,11 @@ function md(a) {
   }
   return ".." == a || "." == a ? "" : a;
 }
-const nd = a => {
+const Kc = a => {
   const {fieldSize:b = 1048576, fieldNameSize:c = 100, fileSize:d = Infinity, files:e = Infinity, fields:f = Infinity, parts:g = Infinity} = a;
   return {J:b, Ga:d, Ha:e, K:f, Ua:g, U:c};
 };
-class od extends Pb {
+class Lc extends Pb {
   constructor(a = {}) {
     super({...a.highWaterMark ? {highWaterMark:a.highWaterMark} : {}});
     this.a = !1;
@@ -1775,7 +1562,7 @@ class od extends Pb {
         a = a.headers;
         this.c = void 0;
         if (a["content-type"]) {
-          const b = id(a["content-type"]);
+          const b = Fc(a["content-type"]);
           let c, d;
           for (let e = 0; e < this.h.length && (d = this.h[e], "function" == typeof d.detect ? c = d.detect(b) : c = d.detect.test(b[0]), !c); ++e) {
           }
@@ -1812,8 +1599,8 @@ class od extends Pb {
     this.c.write(a, c);
   }
 }
-;const pd = /^boundary$/i, qd = /^form-data$/i, rd = /^charset$/i, sd = /^filename$/i, td = /^name$/i;
-class ud {
+;const Mc = /^boundary$/i, Nc = /^form-data$/i, Oc = /^charset$/i, Pc = /^filename$/i, Qc = /^name$/i;
+class Rc {
   static get detect() {
     return /^multipart\/form-data/i;
   }
@@ -1825,17 +1612,17 @@ class ud {
       }));
     }
     let h, k;
-    [, e] = e.find(v => Array.isArray(v) && pd.test(v[0])) || [];
+    [, e] = e.find(v => Array.isArray(v) && Mc.test(v[0])) || [];
     if ("string" != typeof e) {
       throw Error("Multipart: Boundary not found");
     }
-    const {Ua:l, Ha:m, Ga:p, K:n, J:q} = nd(b);
+    const {Ua:l, Ha:m, Ga:p, K:n, J:q} = Kc(b);
     let r, u = 0, t = 0, x = 0, w, E = !1;
     this.g = this.h = !1;
     this.a = void 0;
     this.l = 0;
     this.i = a;
-    this.c = new ed({boundary:e, maxHeaderPairs:b.headerPairs, highWaterMark:f, fileHwm:d});
+    this.c = new Bc({boundary:e, maxHeaderPairs:b.headerPairs, highWaterMark:f, fileHwm:d});
     this.c.on("drain", () => {
       this.h = !1;
       if (this.a && !this.g) {
@@ -1851,7 +1638,7 @@ class ud {
     });
     const y = v => {
       if (++this.l > l) {
-        return this.c.removeListener("part", y), this.c.on("part", vd), a.u = !0, a.emit("partsLimit"), vd(v);
+        return this.c.removeListener("part", y), this.c.on("part", Sc), a.u = !0, a.emit("partsLimit"), Sc(v);
       }
       if (w) {
         const z = w;
@@ -1859,38 +1646,38 @@ class ud {
         z.removeAllListeners("end");
       }
       v.on("header", z => {
-        let H = "text/plain", D = "7bit", T;
+        let I = "text/plain", D = "7bit", T;
         let C = 0;
         if (z["content-type"]) {
-          var B = id(z["content-type"][0]);
+          var B = Fc(z["content-type"][0]);
           if (B[0]) {
-            for (H = B[0].toLowerCase(), h = 0, k = B.length; h < k && !rd.test(B[h][0]); ++h) {
+            for (I = B[0].toLowerCase(), h = 0, k = B.length; h < k && !Oc.test(B[h][0]); ++h) {
             }
           }
         }
         if (z["content-disposition"]) {
-          B = id(z["content-disposition"][0]);
-          if (!qd.test(B[0])) {
-            return vd(v);
+          B = Fc(z["content-disposition"][0]);
+          if (!Nc.test(B[0])) {
+            return Sc(v);
           }
           h = 0;
           for (k = B.length; h < k; ++h) {
-            if (td.test(B[h][0])) {
+            if (Qc.test(B[h][0])) {
               T = B[h][1];
             } else {
-              if (sd.test(B[h][0])) {
+              if (Pc.test(B[h][0])) {
                 var F = B[h][1];
-                c || (F = md(F));
+                c || (F = Jc(F));
               }
             }
           }
         } else {
-          return vd(v);
+          return Sc(v);
         }
         z["content-transfer-encoding"] && (D = z["content-transfer-encoding"][0].toLowerCase());
-        if ("application/octet-stream" == H || void 0 !== F) {
+        if ("application/octet-stream" == I || void 0 !== F) {
           if (u == m) {
-            return a.l || (a.l = !0, a.emit("filesLimit")), vd(v);
+            return a.l || (a.l = !0, a.emit("filesLimit")), Sc(v);
           }
           ++u;
           if (!a._events.file) {
@@ -1898,7 +1685,7 @@ class ud {
             return;
           }
           ++x;
-          const A = new wd({highWaterMark:d});
+          const A = new Tc({highWaterMark:d});
           r = A;
           A.on("end", () => {
             --x;
@@ -1917,7 +1704,7 @@ class ud {
               G();
             }
           };
-          a.emit("file", T, A, F, D, H, v);
+          a.emit("file", T, A, F, D, I, v);
           z = G => {
             if ((C += G.length) > p) {
               const O = p - (C - G.length);
@@ -1935,7 +1722,7 @@ class ud {
           };
         } else {
           if (t == n) {
-            return a.g || (a.g = !0, a.emit("fieldsLimit")), vd(v);
+            return a.g || (a.g = !0, a.emit("fieldsLimit")), Sc(v);
           }
           ++t;
           ++x;
@@ -1952,10 +1739,10 @@ class ud {
             w = void 0;
             var O = Buffer.concat(A);
             try {
-              O = (new fd(void 0)).decode(O);
+              O = (new Cc(void 0)).decode(O);
             } catch (ca) {
             }
-            a.emit("field", T, O, !1, G, D, H);
+            a.emit("field", T, O, !1, G, D, I);
             --x;
             g();
           };
@@ -1979,10 +1766,10 @@ class ud {
     (a = this.c.write(a)) && !this.g ? b() : (this.h = !a, this.a = b);
   }
 }
-function vd(a) {
+function Sc(a) {
   a.resume();
 }
-class wd extends Nb {
+class Tc extends Nb {
   constructor(a) {
     super(a);
     this.truncated = !1;
@@ -1990,26 +1777,26 @@ class wd extends Nb {
   _read() {
   }
 }
-;const xd = /^charset$/i;
-class yd {
+;const Uc = /^charset$/i;
+class Vc {
   static get detect() {
     return /^application\/x-www-form-urlencoded/i;
   }
   constructor(a, {limits:b = {}, parsedConType:c, defCharset:d = "utf8"}) {
     this.h = a;
     this.l = void 0;
-    const {J:e, U:f, K:g} = nd(b);
+    const {J:e, U:f, K:g} = Kc(b);
     this.J = e;
     this.U = f;
     this.K = g;
     a = d;
     for (let h = 0, k = c.length; h < k; ++h) {
-      if (Array.isArray(c[h]) && xd.test(c[h][0])) {
+      if (Array.isArray(c[h]) && Uc.test(c[h][0])) {
         a = c[h][1].toLowerCase();
         break;
       }
     }
-    this.i = new ld;
+    this.i = new Ic;
     this.charset = a;
     this.B = 0;
     this.D = "key";
@@ -2090,20 +1877,20 @@ class yd {
     this.h.a || ("key" == this.D && 0 < this.a.length ? this.h.emit("field", X(this.a, this.charset), "", this.u, !1) : "val" == this.D && this.h.emit("field", X(this.a, this.charset), X(this.g, this.charset), this.u, this.H), this.h.a = !0, this.h.emit("finish"));
   }
 }
-;class zd extends od {
+;class Wc extends Lc {
   constructor(a) {
     super(a);
   }
   get h() {
-    return [ud, yd];
+    return [Rc, Vc];
   }
 }
-;const Ad = /^[^[]*/, Bd = /^\[(\d+)\]/, Cd = /^\[([^\]]+)\]/;
-function Dd(a) {
+;const Xc = /^[^[]*/, Yc = /^\[(\d+)\]/, Zc = /^\[([^\]]+)\]/;
+function $c(a) {
   function b() {
     return [{type:"object", key:a, aa:!0}];
   }
-  var c = Ad.exec(a)[0];
+  var c = Xc.exec(a)[0];
   if (!c) {
     return b();
   }
@@ -2118,10 +1905,10 @@ function Dd(a) {
         return b();
       }
     } else {
-      if (g = Bd.exec(a.substring(e)), null !== g) {
+      if (g = Yc.exec(a.substring(e)), null !== g) {
         e += g[0].length, c.ba = "array", c = {type:"array", key:parseInt(g[1], 10)}, f.push(c);
       } else {
-        if (g = Cd.exec(a.substring(e)), null !== g) {
+        if (g = Zc.exec(a.substring(e)), null !== g) {
           e += g[0].length, c.ba = "object", c = {type:"object", key:g[1]}, f.push(c);
         } else {
           return b();
@@ -2132,11 +1919,11 @@ function Dd(a) {
   c.aa = !0;
   return f;
 }
-;function Ed(a) {
+;function ad(a) {
   return void 0 === a ? "undefined" : Array.isArray(a) ? "array" : "object" == typeof a ? "object" : "scalar";
 }
-function Fd(a, b, c, d) {
-  switch(Ed(c)) {
+function bd(a, b, c, d) {
+  switch(ad(c)) {
     case "undefined":
       a[b.key] = b.append ? [d] : d;
       break;
@@ -2144,18 +1931,18 @@ function Fd(a, b, c, d) {
       a[b.key].push(d);
       break;
     case "object":
-      return Fd(c, {type:"object", key:"", aa:!0}, c[""], d);
+      return bd(c, {type:"object", key:"", aa:!0}, c[""], d);
     case "scalar":
       a[b.key] = [a[b.key], d];
   }
   return a;
 }
-function Gd(a, b, c, d) {
+function cd(a, b, c, d) {
   if (b.aa) {
-    return Fd(a, b, c, d);
+    return bd(a, b, c, d);
   }
   let e;
-  switch(Ed(c)) {
+  switch(ad(c)) {
     case "undefined":
       return a[b.key] = "array" == b.ba ? [] : {}, a[b.key];
     case "object":
@@ -2174,12 +1961,12 @@ function Gd(a, b, c, d) {
       return e = {}, e[""] = c, a[b.key] = e;
   }
 }
-;function Hd(a, b, c) {
-  Dd(b).reduce(function(d, e) {
-    return Gd(d, e, d[e.key], c);
+;function dd(a, b, c) {
+  $c(b).reduce(function(d, e) {
+    return cd(d, e, d[e.key], c);
   }, a);
 }
-;function Id(a, {fieldname:b}) {
+;function ed(a, {fieldname:b}) {
   const c = {fieldname:b};
   switch(a.strategy) {
     case "ARRAY":
@@ -2190,7 +1977,7 @@ function Gd(a, b, c, d) {
   }
   return c;
 }
-function Jd(a, b) {
+function fd(a, b) {
   switch(a.strategy) {
     case "ARRAY":
       a = a.req.files;
@@ -2201,10 +1988,10 @@ function Jd(a, b) {
       1 == a.req.files[b.fieldname].length ? delete a.req.files[b.fieldname] : (a = a.req.files[b.fieldname], b = a.indexOf(b), ~b && a.splice(b, 1));
   }
 }
-function Kd(a, b, c) {
+function gd(a, b, c) {
   "VALUE" == a.strategy ? a.req.file = c : (delete b.fieldname, Object.assign(b, c));
 }
-class Ld {
+class hd {
   constructor(a, b) {
     this.strategy = a;
     this.req = b;
@@ -2224,24 +2011,24 @@ class Ld {
     }
   }
 }
-;const Md = {LIMIT_PART_COUNT:"Too many parts", LIMIT_FILE_SIZE:"File too large", LIMIT_FILE_COUNT:"Too many files", LIMIT_FIELD_KEY:"Field name too long", LIMIT_FIELD_VALUE:"Field value too long", LIMIT_FIELD_COUNT:"Too many fields", LIMIT_UNEXPECTED_FILE:"Unexpected field"};
+;const id = {LIMIT_PART_COUNT:"Too many parts", LIMIT_FILE_SIZE:"File too large", LIMIT_FILE_COUNT:"Too many files", LIMIT_FIELD_KEY:"Field name too long", LIMIT_FIELD_VALUE:"Field value too long", LIMIT_FIELD_COUNT:"Too many fields", LIMIT_UNEXPECTED_FILE:"Unexpected field"};
 function Y(a, b) {
-  const c = new Nd(Md[a]);
+  const c = new jd(id[a]);
   c.code = a;
   b && (c.field = b);
   return c;
 }
-class Nd extends Error {
+class jd extends Error {
   constructor(a) {
     super(a);
     this.code = "";
     this.field = void 0;
   }
 }
-;function Od(a) {
+;function kd(a) {
   0 === --a.value && a.emit("zero");
 }
-async function Pd(a) {
+async function ld(a) {
   await new Promise((b, c) => {
     if (0 === a.value) {
       b();
@@ -2251,22 +2038,22 @@ async function Pd(a) {
     a.once("error", c);
   });
 }
-class Qd extends Qc {
+class md extends mc {
   constructor() {
     super();
     this.value = 0;
   }
 }
-;const Rd = a => (a = a["content-type"]) ? a.toLowerCase().startsWith("multipart/form-data") : !1;
-function Sd(a) {
+;const nd = a => (a = a["content-type"]) ? a.toLowerCase().startsWith("multipart/form-data") : !1;
+function od(a) {
   return async function(b, c) {
     const d = b.req;
-    if (!Rd(d.headers)) {
+    if (!nd(d.headers)) {
       return c();
     }
     const {limits:e = {}, storage:f, fileFilter:g, pa:h, preservePath:k} = a, l = {};
     d.body = l;
-    const m = new zd({limits:e, preservePath:k, headers:d.headers}), p = new Ld(h, d), n = new Qd, q = [];
+    const m = new Wc({limits:e, preservePath:k, headers:d.headers}), p = new hd(h, d), n = new md, q = [];
     let r = !1;
     m.on("field", (u, t, x, w) => {
       if (w) {
@@ -2275,7 +2062,7 @@ function Sd(a) {
       if (e.fieldNameSize && u.length > e.fieldNameSize) {
         return m.emit("error", Y("LIMIT_FIELD_KEY"));
       }
-      Hd(l, u, t);
+      dd(l, u, t);
     });
     m.on("file", async(u, t, x, w, E) => {
       if (!x) {
@@ -2285,15 +2072,15 @@ function Sd(a) {
         return m.emit("error", Y("LIMIT_FIELD_KEY"));
       }
       w = {fieldname:u, originalname:x, encoding:w, mimetype:E, stream:t};
-      const y = Id(p, w);
+      const y = ed(p, w);
       let v = !1;
       x = () => {
         if (v) {
-          return Jd(p, y), v;
+          return fd(p, y), v;
         }
       };
       t.on("error", D => {
-        Od(n);
+        kd(n);
         m.emit("error", D);
       }).on("limit", () => {
         v = !0;
@@ -2303,7 +2090,7 @@ function Sd(a) {
       try {
         z = await g(d, w);
       } catch (D) {
-        Jd(p, y);
+        fd(p, y);
         m.emit("error", D);
         return;
       }
@@ -2311,21 +2098,21 @@ function Sd(a) {
         n.value++;
         try {
           if (!x()) {
-            var H = await f._handleFile(d, w);
-            t = {...w, ...H};
+            var I = await f._handleFile(d, w);
+            t = {...w, ...I};
             if (x()) {
               return q.push(t);
             }
-            Kd(p, y, t);
+            gd(p, y, t);
             q.push(t);
           }
         } catch (D) {
-          Jd(p, y), r ? n.emit("error", D) : m.emit("error", D);
+          fd(p, y), r ? n.emit("error", D) : m.emit("error", D);
         } finally {
-          Od(n);
+          kd(n);
         }
       } else {
-        Jd(p, y), t.resume();
+        fd(p, y), t.resume();
       }
     });
     d.pipe(m);
@@ -2341,18 +2128,18 @@ function Sd(a) {
         }).on("finish", u);
       });
     } catch (u) {
-      await Pd(n);
-      const t = await Td(q, b);
+      await ld(n);
+      const t = await pd(q, b);
       u.storageErrors = t;
       throw u;
     } finally {
       r = !0, d.unpipe(m), m.removeAllListeners();
     }
-    await Pd(n);
+    await ld(n);
     await c();
   };
 }
-async function Td(a, b) {
+async function pd(a, b) {
   return await a.reduce(async(c, d) => {
     c = await c;
     try {
@@ -2363,15 +2150,15 @@ async function Td(a, b) {
     return c;
   }, []);
 }
-;async function Ud(a, b) {
+;async function qd(a, b) {
   b = b.map(async c => {
     const d = N(a, c);
     return {lstat:await S(ib, d), path:d, relativePath:c};
   });
   return await Promise.all(b);
 }
-const Vd = a => a.lstat.isDirectory(), Wd = a => !a.lstat.isDirectory();
-async function Xd(a) {
+const rd = a => a.lstat.isDirectory(), sd = a => !a.lstat.isDirectory();
+async function td(a) {
   if (!a) {
     throw Error("Please specify a path to the directory");
   }
@@ -2382,9 +2169,9 @@ async function Xd(a) {
     throw c;
   }
   c = await S(lb, a);
-  var d = await Ud(a, c);
-  c = d.filter(Vd);
-  d = d.filter(Wd).reduce((e, f) => {
+  var d = await qd(a, c);
+  c = d.filter(rd);
+  d = d.filter(sd).reduce((e, f) => {
     var g = f.lstat.isDirectory() ? "Directory" : f.lstat.isFile() ? "File" : f.lstat.isSymbolicLink() ? "SymbolicLink" : void 0;
     return {...e, [f.relativePath]:{type:g}};
   }, {});
@@ -2394,15 +2181,15 @@ async function Xd(a) {
       return e;
     }
     e = await e;
-    f = await Xd(f);
+    f = await td(f);
     return {...e, [g]:f};
   }, {});
   return {content:{...d, ...c}, type:"Directory"};
 }
-;const Yd = async a => {
+;const ud = async a => {
   await S(ob, a);
-}, Zd = async a => {
-  const {content:b} = await Xd(a);
+}, vd = async a => {
+  const {content:b} = await td(a);
   var c = Object.keys(b).filter(e => {
     ({type:e} = b[e]);
     if ("File" == e || "SymbolicLink" == e) {
@@ -2415,31 +2202,31 @@ async function Xd(a) {
     }
   });
   c = c.map(e => N(a, e));
-  await Promise.all(c.map(Yd));
+  await Promise.all(c.map(ud));
   d = d.map(e => N(a, e));
-  await Promise.all(d.map(Zd));
+  await Promise.all(d.map(vd));
   await S(mb, a);
-}, $d = async a => {
-  (await S(ib, a)).isDirectory() ? await Zd(a) : await Yd(a);
+}, wd = async a => {
+  (await S(ib, a)).isDirectory() ? await vd(a) : await ud(a);
 };
-function ae(a) {
+function xd(a) {
   a = Xa(a);
   try {
-    be(a);
+    yd(a);
   } catch (b) {
     if (!/EEXIST/.test(b.message) || -1 == b.message.indexOf(a)) {
       throw b;
     }
   }
 }
-function be(a) {
+function yd(a) {
   try {
     jb(a);
   } catch (b) {
     if ("ENOENT" == b.code) {
       const c = Xa(a);
-      be(c);
-      be(a);
+      yd(c);
+      yd(a);
     } else {
       if ("EEXIST" != b.code) {
         throw b;
@@ -2447,7 +2234,7 @@ function be(a) {
     }
   }
 }
-;async function ce() {
+;async function zd() {
   return await new Promise((a, b) => {
     Na(16, (c, d) => {
       if (c) {
@@ -2457,11 +2244,11 @@ function be(a) {
     });
   });
 }
-class de {
+class Ad {
   constructor(a = {}) {
-    const {filename:b = ce, destination:c = tb} = a;
+    const {filename:b = zd, destination:c = tb} = a;
     this.c = b;
-    "string" == typeof c ? (ae(N(c, "file.dat")), this.a = () => c) : this.a = c;
+    "string" == typeof c ? (xd(N(c, "file.dat")), this.a = () => c) : this.a = c;
   }
   async _handleFile(a, b) {
     const c = await this.a(a, b);
@@ -2480,12 +2267,55 @@ class de {
     delete b.destination;
     delete b.filename;
     delete b.path;
-    await $d(a);
+    await wd(a);
   }
 }
-;class ee {
+;const Bd = (a, b) => {
+  b.once("error", c => {
+    a.emit("error", c);
+  });
+  return b;
+};
+class Cd extends Pb {
+  constructor(a) {
+    const {binary:b = !1, rs:c = null, ...d} = a || {}, {R:e = R(!0), proxyError:f} = a || {}, g = (h, k) => e(k);
+    super(d);
+    this.a = [];
+    this.xa = new Promise((h, k) => {
+      this.on("finish", () => {
+        let l;
+        b ? l = Buffer.concat(this.a) : l = this.a.join("");
+        h(l);
+        this.a = [];
+      });
+      this.once("error", l => {
+        if (-1 == l.stack.indexOf("\n")) {
+          g`${l}`;
+        } else {
+          const m = xb(l.stack);
+          l.stack = m;
+          f && g`${l}`;
+        }
+        k(l);
+      });
+      c && Bd(this, c).pipe(this);
+    });
+  }
+  _write(a, b, c) {
+    this.a.push(a);
+    c();
+  }
+  get fa() {
+    return this.xa;
+  }
+}
+const Dd = async(a, b = {}) => {
+  ({fa:a} = new Cd({rs:a, ...b, R:R(!0)}));
+  return await a;
+};
+class Ed {
   async _handleFile(a, b) {
-    a = await hc(b.stream, {binary:!0});
+    a = await Dd(b.stream, {binary:!0});
     return {buffer:a, size:a.length};
   }
   async _removeFile(a, b) {
@@ -2493,10 +2323,10 @@ class de {
     return null;
   }
 }
-;function fe() {
+;function Fd() {
   return !0;
 }
-function ge(a, b, c) {
+function Gd(a, b, c) {
   const d = a.fileFilter, e = {};
   b.forEach(({maxCount:f = Infinity, name:g}) => {
     e[g] = f;
@@ -2509,59 +2339,146 @@ function ge(a, b, c) {
     return d(f, g);
   }, pa:c};
 }
-class he {
+class Hd {
   constructor(a = {}) {
-    const {storage:b, dest:c, limits:d = {}, preservePath:e = !1, fileFilter:f = fe} = a;
-    b ? this.storage = b : c ? this.storage = new de({destination:c}) : this.storage = new ee;
+    const {storage:b, dest:c, limits:d = {}, preservePath:e = !1, fileFilter:f = Fd} = a;
+    b ? this.storage = b : c ? this.storage = new Ad({destination:c}) : this.storage = new Ed;
     this.limits = d;
     this.preservePath = e;
     this.fileFilter = f;
   }
   single(a) {
-    a = ge(this, [{name:a, maxCount:1}], "VALUE");
-    return Sd(a);
+    a = Gd(this, [{name:a, maxCount:1}], "VALUE");
+    return od(a);
   }
   array(a, b) {
-    a = ge(this, [{name:a, maxCount:b}], "ARRAY");
-    return Sd(a);
+    a = Gd(this, [{name:a, maxCount:b}], "ARRAY");
+    return od(a);
   }
   fields(a) {
-    a = ge(this, a, "OBJECT");
-    return Sd(a);
+    a = Gd(this, a, "OBJECT");
+    return od(a);
   }
   none() {
-    const a = ge(this, [], "NONE");
-    return Sd(a);
+    const a = Gd(this, [], "NONE");
+    return od(a);
   }
   any() {
-    return Sd({limits:this.limits, preservePath:this.preservePath, storage:this.storage, fileFilter:this.fileFilter, pa:"ARRAY"});
+    return od({limits:this.limits, preservePath:this.preservePath, storage:this.storage, fileFilter:this.fileFilter, pa:"ARRAY"});
   }
 }
-;class ie extends he {
+;class Id extends Hd {
   any() {
-    return je(super.any());
+    return Jd(super.any());
   }
   array(...a) {
-    return je(super.array(...a));
+    return Jd(super.array(...a));
   }
   fields(...a) {
-    return je(super.fields(...a));
+    return Jd(super.fields(...a));
   }
   none(...a) {
-    return je(super.none(...a));
+    return Jd(super.none(...a));
   }
   single(...a) {
-    return je(super.single(...a));
+    return Jd(super.single(...a));
   }
 }
-const je = a => aa([a, async function(b, c) {
+const Jd = a => aa([a, async function(b, c) {
   b.req.file && (b.file = b.req.file);
   b.req.files && (b.files = b.req.files);
   b.req.body && (b.request.body = b.req.body);
   b.file || b.files ? b.neoluddite("@multipart/form-data", "file") : b.request.body && b.neoluddite("@multipart/form-data", "body");
   await c();
 }]);
-function ke(a, b, c, d) {
+const Kd = https.request;
+const Ld = http.METHODS, Md = http.OutgoingMessage, Nd = http.createServer, Od = http.request;
+const Pd = url.URL, Qd = url.Url, Rd = url.format, Sd = url.parse;
+const Td = (a, b, c = {}) => {
+  const {justHeaders:d, binary:e, R:f = R(!0)} = c;
+  let g, h, k, l, m = 0, p = 0;
+  c = (new Promise((n, q) => {
+    g = a(b, async r => {
+      ({headers:h} = r);
+      k = {statusMessage:r.statusMessage, statusCode:r.statusCode};
+      if (d) {
+        r.destroy();
+      } else {
+        var u = "gzip" == r.headers["content-encoding"];
+        r.on("data", t => m += t.byteLength);
+        r = u ? r.pipe(Rb()) : r;
+        l = await Dd(r, {binary:e});
+        p = l.length;
+      }
+      n();
+    }).on("error", r => {
+      r = f(r);
+      q(r);
+    }).on("timeout", () => {
+      g.abort();
+    });
+  })).then(() => ({body:l, headers:h, ...k, Xa:m, byteLength:p, ra:null}));
+  return {req:g, fa:c};
+};
+const Ud = (a = {}) => Object.keys(a).reduce((b, c) => {
+  const d = a[c];
+  c = `${encodeURIComponent(c)}=${encodeURIComponent(d)}`;
+  return [...b, c];
+}, []).join("&").replace(/%20/g, "+"), Vd = async(a, b, {data:c, justHeaders:d, binary:e, R:f = R(!0)}) => {
+  const {req:g, fa:h} = Td(a, b, {justHeaders:d, binary:e, R:f});
+  g.end(c);
+  a = await h;
+  if ((a.headers["content-type"] || "").startsWith("application/json") && a.body) {
+    try {
+      a.ra = JSON.parse(a.body);
+    } catch (k) {
+      throw f = f(k), f.response = a.body, f;
+    }
+  }
+  return a;
+};
+let Wd;
+try {
+  const {version:a, name:b} = require("../package.json");
+  Wd = "@rqt/aqt" == b ? `@rqt/aqt/${a}` : `@rqt/aqt via ${b}/${a}`;
+} catch (a) {
+  Wd = "@aqt/rqt";
+}
+const Xd = ma("aqt"), Yd = async(a, b = {}) => {
+  const {data:c, type:d = "json", headers:e = {"User-Agent":`Mozilla/5.0 (Node.JS) ${Wd}`}, compress:f = !0, binary:g = !1, justHeaders:h = !1, method:k, timeout:l} = b;
+  b = R(!0);
+  const {hostname:m, protocol:p, port:n, path:q} = Sd(a), r = "https:" === p ? Kd : Od, u = {hostname:m, port:n, path:q, headers:{...e}, timeout:l, method:k};
+  if (c) {
+    var t = d;
+    var x = c;
+    switch(t) {
+      case "json":
+        x = JSON.stringify(x);
+        t = "application/json";
+        break;
+      case "form":
+        x = Ud(x), t = "application/x-www-form-urlencoded";
+    }
+    x = {data:x, contentType:t};
+    ({data:t} = x);
+    x = x.contentType;
+    u.method = k || "POST";
+    "Content-Type" in u.headers || (u.headers["Content-Type"] = x);
+    "Content-Length" in u.headers || (u.headers["Content-Length"] = Buffer.byteLength(t));
+  }
+  !f || "Accept-Encoding" in u.headers || (u.headers["Accept-Encoding"] = "gzip, deflate");
+  const {body:w, headers:E, byteLength:y, statusCode:v, statusMessage:z, Xa:I, ra:D} = await Vd(r, u, {data:t, justHeaders:h, binary:g, R:b});
+  Xd("%s %s B%s", a, y, `${y != I ? ` (raw ${I} B)` : ""}`);
+  return {body:D ? D : w, headers:E, statusCode:v, statusMessage:z};
+};
+const Zd = async(a, b = {}) => {
+  ({body:a} = await Yd(a, b));
+  return a;
+}, $d = async(a, b = {}) => {
+  ({body:a} = await Yd(a, b));
+  return a;
+};
+function ae(a, b, c, d) {
   return async(e, f) => {
     e._usage = [];
     try {
@@ -2576,38 +2493,38 @@ function ke(a, b, c, d) {
         return g;
       });
       try {
-        await oc(`${c}/use?key=${d}`, {data:e});
+        await Zd(`${c}/use?key=${d}`, {data:e});
       } catch (g) {
         a.emit("error", g);
       }
     }
   };
 }
-;async function le(a) {
+;async function be(a) {
   a = eb(a);
-  return await hc(a);
+  return await Dd(a);
 }
-;const me = vm.Script;
-const ne = (a, b) => {
+;const ce = vm.Script;
+const de = (a, b) => {
   const [c, , d] = a.split("\n");
   a = parseInt(c.replace(/.+?(\d+)$/, (f, g) => g)) - 1;
   const e = d.indexOf("^");
   ({length:b} = b.split("\n").slice(0, a).join("\n"));
   return b + e + (a ? 1 : 0);
 };
-const oe = a => {
+const ee = a => {
   try {
-    new me(a);
+    new ce(a);
   } catch (b) {
     const c = b.stack;
     if (!/Unexpected token '?</.test(b.message)) {
       throw b;
     }
-    return ne(c, a);
+    return de(c, a);
   }
   return null;
 };
-function pe(a) {
+function fe(a) {
   if ("object" != typeof a) {
     return !1;
   }
@@ -2615,7 +2532,7 @@ function pe(a) {
   a = -1 != ["string", "function"].indexOf(typeof a.replacement);
   return b && a;
 }
-const qe = (a, b) => {
+const ge = (a, b) => {
   if (!(b instanceof Error)) {
     throw b;
   }
@@ -2629,9 +2546,9 @@ const qe = (a, b) => {
   b.stack = a.substr(0, c);
   throw b;
 };
-function re(a, b) {
+function he(a, b) {
   function c() {
-    return b.filter(pe).reduce((d, {re:e, replacement:f}) => {
+    return b.filter(fe).reduce((d, {re:e, replacement:f}) => {
       if (this.I) {
         return d;
       }
@@ -2645,7 +2562,7 @@ function re(a, b) {
           try {
             return this.I ? h : f.call(this, h, ...k);
           } catch (l) {
-            qe(g, l);
+            ge(g, l);
           }
         });
       }
@@ -2656,23 +2573,23 @@ function re(a, b) {
   };
   return c.call(c);
 }
-;const se = a => new RegExp(`%%_RESTREAM_${a.toUpperCase()}_REPLACEMENT_(\\d+)_%%`, "g"), te = (a, b) => `%%_RESTREAM_${a.toUpperCase()}_REPLACEMENT_${b}_%%`, ue = (a, b) => Object.keys(a).reduce((c, d) => {
+;const ie = a => new RegExp(`%%_RESTREAM_${a.toUpperCase()}_REPLACEMENT_(\\d+)_%%`, "g"), je = (a, b) => `%%_RESTREAM_${a.toUpperCase()}_REPLACEMENT_${b}_%%`, ke = (a, b) => Object.keys(a).reduce((c, d) => {
   {
     var e = a[d];
-    const {getReplacement:f = te, getRegex:g = se} = b || {}, h = g(d);
+    const {getReplacement:f = je, getRegex:g = ie} = b || {}, h = g(d);
     e = {name:d, re:e, regExp:h, getReplacement:f, map:{}, lastIndex:0};
   }
   return {...c, [d]:e};
-}, {}), ve = a => {
+}, {}), le = a => {
   var b = [];
   const c = a.map;
   return {re:a.regExp, replacement(d, e) {
     d = c[e];
     delete c[e];
     e = Array.isArray(b) ? b : [b];
-    return re(d, e);
+    return he(d, e);
   }};
-}, we = a => {
+}, me = a => {
   const b = a.map, c = a.getReplacement, d = a.name;
   return {re:a.re, replacement(e) {
     const f = a.lastIndex;
@@ -2681,20 +2598,20 @@ function re(a, b) {
     return c(d, f);
   }};
 };
-async function xe(a, b) {
-  return ye(a, b);
+async function ne(a, b) {
+  return oe(a, b);
 }
-class ze extends Ob {
+class pe extends Ob {
   constructor(a, b) {
     super(b);
-    this.a = (Array.isArray(a) ? a : [a]).filter(pe);
+    this.a = (Array.isArray(a) ? a : [a]).filter(fe);
     this.I = !1;
     this.c = b;
   }
   async replace(a, b) {
-    const c = new ze(this.a, this.c);
+    const c = new pe(this.a, this.c);
     b && Object.assign(c, b);
-    a = await xe(c, a);
+    a = await ne(c, a);
     c.I && (this.I = !0);
     b && Object.keys(b).forEach(d => {
       b[d] = c[d];
@@ -2722,7 +2639,7 @@ class ze extends Ob {
             l instanceof Promise && e.push(l);
             return l;
           } catch (l) {
-            qe(f, l);
+            ge(f, l);
           }
         });
         if (e.length) {
@@ -2730,7 +2647,7 @@ class ze extends Ob {
             const h = await Promise.all(e);
             b = b.replace(c, () => h.shift());
           } catch (h) {
-            qe(f, h);
+            ge(f, h);
           }
         } else {
           b = g;
@@ -2749,18 +2666,18 @@ class ze extends Ob {
     }
   }
 }
-async function ye(a, b) {
+async function oe(a, b) {
   b instanceof Mb ? b.pipe(a) : a.end(b);
-  return await hc(a);
+  return await Dd(a);
 }
-;const Ae = a => {
+;const qe = a => {
   [, a] = /<\s*(.+?)(?:\s+[\s\S]+)?\s*\/?\s*>/.exec(a) || [];
   return a;
-}, Ce = (a, {ia:b = !1, classNames:c = [], renameMap:d = {}} = {}) => {
+}, se = (a, {ia:b = !1, classNames:c = [], renameMap:d = {}} = {}) => {
   let e = 0;
   const f = [];
   let g;
-  re(a, [{re:/[{}]/g, replacement(n, q) {
+  he(a, [{re:/[{}]/g, replacement(n, q) {
     n = "}" == n;
     const r = !n;
     if (!e && n) {
@@ -2784,18 +2701,18 @@ async function ye(a, b) {
     l[t] = {before:u, na:x, ma:w};
     q = n || "";
     q = q.slice(0, q.length - (t || "").length - 1);
-    const {ea:E, T:y} = Be(q);
+    const {ea:E, T:y} = re(q);
     Object.assign(h, E);
     Object.assign(l, y);
     return r + 1;
   }, 0);
   if (f.length) {
     m = a.slice(m);
-    const {ea:n, T:q} = Be(m);
+    const {ea:n, T:q} = re(m);
     Object.assign(h, n);
     Object.assign(l, q);
   } else {
-    const {ea:n, T:q} = Be(a);
+    const {ea:n, T:q} = re(a);
     Object.assign(h, n);
     Object.assign(l, q);
   }
@@ -2824,7 +2741,7 @@ async function ye(a, b) {
     n.length && (m = n.map(q => q in d ? d[q] : q).join(" "), p.className ? /[`"']$/.test(p.className) ? p.className = p.className.replace(/([`"'])$/, ` ${m}$1`) : p.className += `+' ${m}'` : p.class ? /[`"']$/.test(p.class) ? p.class = p.class.replace(/([`"'])$/, ` ${m}$1`) : p.class += `+' ${m}'` : p.className = `'${m}'`);
   }
   return {da:p, $:k, T:l};
-}, Be = a => {
+}, re = a => {
   const b = [], c = {};
   a.replace(/(\s*)(\S+)(\s*)=(\s*)(["'])([\s\S]*?)\5/g, (d, e, f, g, h, k, l, m) => {
     c[f] = {before:e, na:g, ma:h};
@@ -2841,26 +2758,26 @@ async function ye(a, b) {
     d[e] = f;
     return d;
   }, {}), T:c};
-}, De = (a, b = [], c = !1, d = {}, e = "") => {
+}, te = (a, b = [], c = !1, d = {}, e = "") => {
   const f = Object.keys(a);
   return f.length || b.length ? `{${f.reduce((g, h) => {
     const k = a[h], l = c || -1 != h.indexOf("-") ? `'${h}'` : h, {before:m = "", na:p = "", ma:n = ""} = d[h] || {};
     return [...g, `${m}${l}${p}:${n}${k}`];
   }, b).join(",")}${e}}` : "{}";
-}, Ee = (a = "") => {
+}, ue = (a = "") => {
   [a] = a;
   if (!a) {
     throw Error("No tag name is given");
   }
   return a.toUpperCase() == a;
-}, Fe = (a, b = {}, c = [], d = [], e = !1, f = null, g = {}, h = "") => {
-  const k = Ee(a), l = k ? a : `'${a}'`;
+}, ve = (a, b = {}, c = [], d = [], e = !1, f = null, g = {}, h = "") => {
+  const k = ue(a), l = k ? a : `'${a}'`;
   if (!Object.keys(b).length && !c.length && !d.length) {
     return `h(${l})`;
   }
   const m = k && "dom" == e ? !1 : e;
   k || !d.length || e && "dom" != e || f && f(`JSX: destructuring ${d.join(" ")} is used without quoted props on HTML ${a}.`);
-  a = De(b, d, m, g, h);
+  a = te(b, d, m, g, h);
   b = c.reduce((p, n, q) => {
     q = c[q - 1];
     let r = "";
@@ -2869,9 +2786,9 @@ async function ye(a, b) {
   }, "");
   return `h(${l},${a}${b ? `,${b}` : ""})`;
 };
-const Ge = (a, b = []) => {
+const we = (a, b = []) => {
   let c = 0, d;
-  a = re(a, [...b, {re:/[<>]/g, replacement(e, f) {
+  a = he(a, [...b, {re:/[<>]/g, replacement(e, f) {
     if (d) {
       return e;
     }
@@ -2884,12 +2801,12 @@ const Ge = (a, b = []) => {
     throw Error(1);
   }
   return {Wa:a, oa:d};
-}, Ie = a => {
-  const b = Ae(a);
+}, ye = a => {
+  const b = qe(a);
   let c;
-  const {ya:d} = ue({ya:/=>/g});
+  const {ya:d} = ke({ya:/=>/g});
   try {
-    ({Wa:k, oa:c} = Ge(a, [we(d)]));
+    ({Wa:k, oa:c} = we(a, [me(d)]));
   } catch (l) {
     if (1 === l) {
       throw Error(`Could not find the matching closing > for ${b}.`);
@@ -2898,13 +2815,13 @@ const Ge = (a, b = []) => {
   const e = k.slice(0, c + 1);
   var f = e.replace(/<\s*[^\s/>]+/, "");
   if (/\/\s*>$/.test(f)) {
-    return a = f.replace(/\/\s*>$/, ""), f = "", new He({N:e.replace(d.regExp, "=>"), G:a.replace(d.regExp, "=>"), content:"", tagName:b});
+    return a = f.replace(/\/\s*>$/, ""), f = "", new xe({N:e.replace(d.regExp, "=>"), G:a.replace(d.regExp, "=>"), content:"", tagName:b});
   }
   a = f.replace(/>$/, "");
   f = c + 1;
   c = !1;
   let g = 1, h;
-  re(k, [{re:new RegExp(`[\\s\\S](?:<\\s*${b}(\\s+|>)|/\\s*${b}\\s*>)`, "g"), replacement(l, m, p, n) {
+  he(k, [{re:new RegExp(`[\\s\\S](?:<\\s*${b}(\\s+|>)|/\\s*${b}\\s*>)`, "g"), replacement(l, m, p, n) {
     if (c) {
       return l;
     }
@@ -2912,7 +2829,7 @@ const Ge = (a, b = []) => {
     const q = !m;
     if (q) {
       n = n.slice(p);
-      const {oa:r} = Ge(n.replace(/^[\s\S]/, " "));
+      const {oa:r} = we(n.replace(/^[\s\S]/, " "));
       n = n.slice(0, r + 1);
       if (/\/\s*>$/.test(n)) {
         return l;
@@ -2927,9 +2844,9 @@ const Ge = (a, b = []) => {
   }
   f = k.slice(f, c);
   var k = k.slice(0, h).replace(d.regExp, "=>");
-  return new He({N:k, G:a.replace(d.regExp, "=>"), content:f.replace(d.regExp, "=>"), tagName:b});
+  return new xe({N:k, G:a.replace(d.regExp, "=>"), content:f.replace(d.regExp, "=>"), tagName:b});
 };
-class He {
+class xe {
   constructor(a) {
     this.N = a.N;
     this.G = a.G;
@@ -2937,7 +2854,7 @@ class He {
     this.tagName = a.tagName;
   }
 }
-;const Je = a => {
+;const ze = a => {
   let b = "", c = "";
   a = a.replace(/^(\r?\n\s*)([\s\S]+)?/, (d, e, f = "") => {
     b = e;
@@ -2947,10 +2864,10 @@ class He {
     return e;
   });
   return `${b}${a ? `\`${a}\`` : ""}${c}`;
-}, Le = a => {
+}, Be = a => {
   const b = [];
   let c = {}, d = 0, e = 0;
-  re(a, [{re:/[<{}]/g, replacement(f, g) {
+  he(a, [{re:/[<{}]/g, replacement(f, g) {
     if (!(g < e)) {
       if (/[{}]/.test(f)) {
         d += "{" == f ? 1 : -1, 1 == d && void 0 == c.from ? c.from = g : 0 == d && (c.ta = g + 1, c.Ea = a.slice(c.from + 1, g), b.push(c), c = {});
@@ -2958,7 +2875,7 @@ class He {
         if (d) {
           return f;
         }
-        f = Ie(a.slice(g));
+        f = ye(a.slice(g));
         e = g + f.N.length;
         c.Fa = f;
         c.ta = e;
@@ -2968,89 +2885,89 @@ class He {
       }
     }
   }}, {}]);
-  return b.length ? Ke(a, b) : [Je(a)];
-}, Ke = (a, b) => {
+  return b.length ? Ae(a, b) : [ze(a)];
+}, Ae = (a, b) => {
   let c = 0;
   b = b.reduce((d, {from:e, ta:f, Ea:g, Fa:h}) => {
-    (e = a.slice(c, e)) && d.push(Je(e));
+    (e = a.slice(c, e)) && d.push(ze(e));
     c = f;
     g ? d.push(g) : h && d.push(h);
     return d;
   }, []);
   if (c < a.length) {
     const d = a.slice(c, a.length);
-    d && b.push(Je(d));
+    d && b.push(ze(d));
   }
   return b;
 };
-const Ne = (a, b = {}) => {
+const De = (a, b = {}) => {
   var c = b.quoteProps, d = b.warn;
   const e = b.prop2class, f = b.classNames, g = b.renameMap;
-  var h = oe(a);
+  var h = ee(a);
   if (null === h) {
     return a;
   }
   var k = a.slice(h);
-  const {G:l = "", content:m, tagName:p, N:{length:n}} = Ie(k);
-  k = Me(m, c, d, b);
-  const {da:q, $:r, T:u} = Ce(l.replace(/^ */, ""), {ia:e, classNames:f, renameMap:g});
-  d = Fe(p, q, k, r, c, d, u, /\s*$/.exec(l) || [""]);
+  const {G:l = "", content:m, tagName:p, N:{length:n}} = ye(k);
+  k = Ce(m, c, d, b);
+  const {da:q, $:r, T:u} = se(l.replace(/^ */, ""), {ia:e, classNames:f, renameMap:g});
+  d = ve(p, q, k, r, c, d, u, /\s*$/.exec(l) || [""]);
   c = a.slice(0, h);
   a = a.slice(h + n);
   h = n - d.length;
   0 < h && (d = `${" ".repeat(h)}${d}`);
   a = `${c}${d}${a}`;
-  return Ne(a, b);
-}, Me = (a, b = !1, c = null, d = {}) => a ? Le(a).reduce((e, f) => {
-  if (f instanceof He) {
-    const {G:k = "", content:l, tagName:m} = f, {da:p, $:n} = Ce(k, {ia:d.prop2class, classNames:d.classNames, renameMap:d.renameMap});
-    f = Me(l, b, c, d);
-    f = Fe(m, p, f, n, b, c);
+  return De(a, b);
+}, Ce = (a, b = !1, c = null, d = {}) => a ? Be(a).reduce((e, f) => {
+  if (f instanceof xe) {
+    const {G:k = "", content:l, tagName:m} = f, {da:p, $:n} = se(k, {ia:d.prop2class, classNames:d.classNames, renameMap:d.renameMap});
+    f = Ce(l, b, c, d);
+    f = ve(m, p, f, n, b, c);
     return [...e, f];
   }
-  const g = oe(f);
+  const g = ee(f);
   if (g) {
     var h = f.slice(g);
-    const {N:{length:k}, G:l = "", content:m, tagName:p} = Ie(h), {da:n, $:q} = Ce(l, {ia:d.prop2class, classNames:d.classNames, renameMap:d.renameMap});
-    h = Me(m, b, c, d);
-    h = Fe(p, n, h, q, b, c);
+    const {N:{length:k}, G:l = "", content:m, tagName:p} = ye(h), {da:n, $:q} = se(l, {ia:d.prop2class, classNames:d.classNames, renameMap:d.renameMap});
+    h = Ce(m, b, c, d);
+    h = ve(p, n, h, q, b, c);
     const r = f.slice(0, g);
     f = f.slice(g + k);
     return [...e, `${r}${h}${f}`];
   }
   return [...e, f];
 }, []) : [];
-const Oe = (a, b = {}) => {
-  const {e:c, Ba:d, Da:e, j:f, Na:g, Oa:h} = ue({Ba:/^ *export\s+default\s+{[\s\S]+?}/mg, e:/^ *export\s+(?:default\s+)?/mg, Da:/^ *export\s+{[^}]+}\s+from\s+(['"])(?:.+?)\1/mg, j:/^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm, Na:/^ *import\s+(?:(.+?)\s*,\s*)?\*\s+as\s+.+?\s+from\s+['"].+['"]/gm, Oa:/^ *import\s+['"].+['"]/gm}, {getReplacement(k, l) {
+const Ee = (a, b = {}) => {
+  const {e:c, Ba:d, Da:e, j:f, Na:g, Oa:h} = ke({Ba:/^ *export\s+default\s+{[\s\S]+?}/mg, e:/^ *export\s+(?:default\s+)?/mg, Da:/^ *export\s+{[^}]+}\s+from\s+(['"])(?:.+?)\1/mg, j:/^ *import(\s+([^\s,]+)\s*,?)?(\s*{(?:[^}]+)})?\s+from\s+['"].+['"]/gm, Na:/^ *import\s+(?:(.+?)\s*,\s*)?\*\s+as\s+.+?\s+from\s+['"].+['"]/gm, Oa:/^ *import\s+['"].+['"]/gm}, {getReplacement(k, l) {
     return `/*%%_RESTREAM_${k.toUpperCase()}_REPLACEMENT_${l}_%%*/`;
   }, getRegex(k) {
     return new RegExp(`/\\*%%_RESTREAM_${k.toUpperCase()}_REPLACEMENT_(\\d+)_%%\\*/`, "g");
   }});
-  a = re(a, [we(e), we(d), we(c), we(f), we(g), we(h)]);
-  b = Ne(a, b);
-  return re(b, [ve(e), ve(d), ve(c), ve(f), ve(g), ve(h)]);
+  a = he(a, [me(e), me(d), me(c), me(f), me(g), me(h)]);
+  b = De(a, b);
+  return he(b, [le(e), le(d), le(c), le(f), le(g), le(h)]);
 };
-const Pe = async a => {
+const Fe = async a => {
   try {
     return await S(ib, a);
   } catch (b) {
     return null;
   }
 };
-const Re = async a => {
-  var b = await Pe(a);
+const He = async a => {
+  var b = await Fe(a);
   let c = a, d = !1;
   if (!b) {
-    if (c = await Qe(a), !c) {
+    if (c = await Ge(a), !c) {
       throw Error(`${a}.js or ${a}.jsx is not found.`);
     }
   } else {
     if (b.isDirectory()) {
       b = !1;
       let e;
-      a.endsWith("/") || (e = c = await Qe(a), b = !0);
+      a.endsWith("/") || (e = c = await Ge(a), b = !0);
       if (!e) {
-        c = await Qe(N(a, "index"));
+        c = await Ge(N(a, "index"));
         if (!c) {
           throw Error(`${b ? `${a}.jsx? does not exist, and ` : ""}index.jsx? file is not found in ${a}`);
         }
@@ -3059,15 +2976,15 @@ const Re = async a => {
     }
   }
   return {path:a.startsWith(".") ? P("", c) : c, Pa:d};
-}, Qe = async a => {
+}, Ge = async a => {
   a = `${a}.js`;
-  let b = await Pe(a);
+  let b = await Fe(a);
   b || (a = `${a}x`);
-  if (b = await Pe(a)) {
+  if (b = await Fe(a)) {
     return a;
   }
 };
-function Se(a, b, c) {
+function Ie(a, b, c) {
   const d = [];
   b.replace(a, (e, ...f) => {
     e = f.slice(0, f.length - 2).reduce((g, h, k) => {
@@ -3082,7 +2999,7 @@ function Se(a, b, c) {
   });
   return d;
 }
-;function Te(a) {
+;function Je(a) {
   a = JSON.stringify(a);
   const b = Buffer.byteLength(a), c = 126 > b ? 0 : 2;
   var d = 0 === c ? b : 126;
@@ -3094,10 +3011,10 @@ function Se(a, b, c) {
   e.write(a, d);
   return e;
 }
-function Ue(a) {
+function Ke(a) {
   return La("sha1").update(`${a}258EAFA5-E914-47DA-95CA-C5AB0DC85B11`, "binary").digest("base64");
 }
-;function Ve(a, b = {}) {
+;function Le(a, b = {}) {
   const {onMessage:c = () => {
   }, onConnect:d = () => {
   }, log:e = !0} = b, f = {};
@@ -3106,7 +3023,7 @@ function Ue(a) {
       h.end("HTTP/1.1 400 Bad Request");
     } else {
       var k = g.headers["sec-websocket-protocol"], l = g.headers["sec-websocket-key"];
-      g = ["HTTP/1.1 101 Web Socket Protocol Handshake", "Upgrade: WebSocket", "Connection: Upgrade", `Sec-WebSocket-Accept: ${Ue(l)}`];
+      g = ["HTTP/1.1 101 Web Socket Protocol Handshake", "Upgrade: WebSocket", "Connection: Upgrade", `Sec-WebSocket-Accept: ${Ke(l)}`];
       (k ? k.split(",").map(m => m.trim()) : []).includes("json") && g.push("Sec-WebSocket-Protocol: json");
       h.write(g.join("\r\n") + "\r\n\r\n");
       e && console.log(ya("Client connected.", "green"));
@@ -3149,22 +3066,22 @@ function Ue(a) {
         m ? c(l, m) : null === m && (delete f[l], e && console.log(ya("Client disconnected.", "red")));
       });
       f[l] = (m, p) => {
-        h.write(Te({event:m, message:p}));
+        h.write(Je({event:m, message:p}));
       };
       d(l);
     }
   });
   return f;
 }
-;let We;
-const Ye = async(a, b, c = {}) => {
-  We || ({root:We} = ab(process.cwd()));
+;let Me;
+const Oe = async(a, b, c = {}) => {
+  Me || ({root:Me} = ab(process.cwd()));
   const {fields:d, soft:e = !1} = c;
   var f = N(a, "node_modules", b);
   f = N(f, "package.json");
-  const g = await Pe(f);
+  const g = await Fe(f);
   if (g) {
-    a = await Xe(f, d);
+    a = await Ne(f, d);
     if (void 0 === a) {
       throw Error(`The package ${P("", f)} does export the module.`);
     }
@@ -3174,12 +3091,12 @@ const Ye = async(a, b, c = {}) => {
     const {entry:h, version:k, packageName:l, main:m, entryExists:p, ...n} = a;
     return {entry:P("", h), packageJson:P("", f), ...k ? {version:k} : {}, packageName:l, ...m ? {hasMain:!0} : {}, ...p ? {} : {entryExists:!1}, ...n};
   }
-  if (a == We && !g) {
+  if (a == Me && !g) {
     throw Error(`Package.json for module ${b} not found.`);
   }
-  return Ye(N(bb(a), ".."), b, c);
-}, Xe = async(a, b = []) => {
-  const c = await le(a);
+  return Oe(N(bb(a), ".."), b, c);
+}, Ne = async(a, b = []) => {
+  const c = await be(a);
   let d, e, f, g, h;
   try {
     ({module:d, version:e, name:f, main:g, ...h} = JSON.parse(c)), h = b.reduce((l, m) => {
@@ -3192,7 +3109,7 @@ const Ye = async(a, b, c = {}) => {
   a = Xa(a);
   b = d || g;
   if (!b) {
-    if (!await Pe(N(a, "index.js"))) {
+    if (!await Fe(N(a, "index.js"))) {
       return;
     }
     b = g = "index.js";
@@ -3200,12 +3117,12 @@ const Ye = async(a, b, c = {}) => {
   a = N(a, b);
   let k;
   try {
-    ({path:k} = await Re(a)), a = k;
+    ({path:k} = await He(a)), a = k;
   } catch (l) {
   }
   return {entry:a, version:e, packageName:f, main:!d && g, entryExists:!!k, ...h};
 };
-const $e = async(a, b, {mount:c, override:d = {}}) => {
+const Qe = async(a, b, {mount:c, override:d = {}}) => {
   var e = async(f, g, h) => {
     var k = Xa(a);
     if (/^[/.]/.test(h)) {
@@ -3220,37 +3137,37 @@ const $e = async(a, b, {mount:c, override:d = {}}) => {
     if (d[l]) {
       return `${g}'${d[l]}'`;
     }
-    ({packageJson:k} = await Ye(k, l));
+    ({packageJson:k} = await Oe(k, l));
     f = bb(k);
     k = Xa(f);
     if (m) {
-      return Ze(k, m, g, c);
+      return Pe(k, m, g, c);
     }
     ({module:f} = require(f));
-    return f ? Ze(k, f, g, c) : (console.warn("[\u219b] Package %s does not specify module in package.json, trying src", k), Ze(k, "src", g));
+    return f ? Pe(k, f, g, c) : (console.warn("[\u219b] Package %s does not specify module in package.json, trying src", k), Pe(k, "src", g));
   };
-  e = new ze([{re:/^( *import(?:\s+[^\s,]+\s*,?)?(?:\s*{(?:[^}]+)})?\s+from\s+)['"](.+)['"]/gm, replacement:e}, {re:/^( *import\s+)['"](.+)['"]/gm, replacement:e}]);
+  e = new pe([{re:/^( *import(?:\s+[^\s,]+\s*,?)?(?:\s*{(?:[^}]+)})?\s+from\s+)['"](.+)['"]/gm, replacement:e}, {re:/^( *import\s+)['"](.+)['"]/gm, replacement:e}]);
   e.end(b);
-  return await hc(e);
-}, Ze = (a, b, c, d) => {
+  return await Dd(e);
+}, Pe = (a, b, c, d) => {
   a = N(a, b);
   b = P("", a);
   d && (b = P(d, b));
   return `${c}'/${b}${/[/\\]$/.test(a) ? "/" : ""}'`.replace(/\\/g, "/");
 };
-function af(a = "") {
+function Re(a = "") {
   let b;
   window["FRONTEND-STYLE-ID"] ? (b = window["FRONTEND-STYLE-ID"], b.innerText = "") : (b = document.createElement("style"), b.id = "FRONTEND-STYLE-ID", document.head.appendChild(b));
   b.type = "text/css";
   b.styleSheet ? b.styleSheet.cssText = a : b.appendChild(document.createTextNode(a));
 }
-;const bf = a => Se(/^export\s+(default\s+)?class\s+([^\s{]+)/gm, a, ["def", "name"]).reduce((b, {def:c, name:d}) => {
+;const Se = a => Ie(/^export\s+(default\s+)?class\s+([^\s{]+)/gm, a, ["def", "name"]).reduce((b, {def:c, name:d}) => {
   b[c ? "default" : d] = d;
   return b;
-}, {}), cf = a => Se(/^export\s+(const|let)\s+(\S+)\s+=/gm, a, ["type", "name"]).reduce((b, {name:c}) => {
+}, {}), Te = a => Ie(/^export\s+(const|let)\s+(\S+)\s+=/gm, a, ["type", "name"]).reduce((b, {name:c}) => {
   b[c] = c;
   return b;
-}, {}), df = (a, b, c) => {
+}, {}), Ue = (a, b, c) => {
   b = Object.entries(b).map(([d, e]) => `'${d}': ${e},`);
   return `/* IDIO HOT RELOAD */
 if (window.idioHotReload) {
@@ -3271,9 +3188,9 @@ ${b.map(d => `        ${d}`).join(Q)}
   })
 }`.replace(/\r?\n/g, Q);
 };
-let ef;
-const ff = kb(N(__dirname, "listener.js"));
-function gf(a = {}) {
+let Ve;
+const We = kb(N(__dirname, "listener.js"));
+function Xe(a = {}) {
   const {directory:b = "frontend", pragma:c = "import { h } from 'preact'", mount:d = ".", override:e = {}, jsxOptions:f, exportClasses:g = !0, hotReload:h} = a;
   let {log:k} = a;
   !0 === k && (k = console.log);
@@ -3290,14 +3207,14 @@ function gf(a = {}) {
   let n = !1;
   return async(q, r) => {
     if (h && q.path == (h.path || "/hot-reload.js")) {
-      q.type = "js", q.body = ff, n || (q = h.getServer(), m = Ve(q), n = !0);
+      q.type = "js", q.body = We, n || (q = h.getServer(), m = Le(q), n = !0);
     } else {
       var u = q.path.replace("/", "");
       if (!(l.includes(u) || l.some(y => u.startsWith(`${y}/`)) || q.path.startsWith("/node_modules/"))) {
         return r();
       }
       u = N(d, u).replace(/\\/g, "/");
-      var {path:t, Pa:x} = await Re(u);
+      var {path:t, Pa:x} = await He(u);
       if (x && !u.endsWith("/")) {
         r = d ? P(d, t).replace(/\\/g, "/") : t, q.redirect(`/${r}`);
       } else {
@@ -3312,27 +3229,27 @@ function gf(a = {}) {
         if (q.fresh) {
           return q.status = 304, await r();
         }
-        r = await le(t);
+        r = await be(t);
         w = (new Date).getTime();
-        r = await hf(t, r, c, {mount:d, override:e, jsxOptions:f, exportClasses:g});
+        r = await Ye(t, r, c, {mount:d, override:e, jsxOptions:f, exportClasses:g});
         var E = (new Date).getTime();
         k && k("%s patched in %sms", t, E - w);
         q.type = "application/javascript";
         if (h && !q.query.jb && ({ignoreNodeModules:w = !0} = h, !t.startsWith("node_modules") || !w)) {
           try {
-            ef || (ef = require("node-watch"));
+            Ve || (Ve = require("node-watch"));
           } catch (y) {
             return console.log("Could not require node-watch for front-end hot reload."), console.log("Did you install node-watch?"), q.body = r;
           }
-          t in p || (w = ef(t, (y, v) => {
+          t in p || (w = Ve(t, (y, v) => {
             console.log("%s File %s changed", L("[frontend]", "grey"), L(v, "yellow"));
             Object.values(m).forEach(z => {
               z("update", {filename:v});
             });
           }), p[t] = w);
-          w = bf(r);
-          E = cf(r);
-          w = df(t, w, E);
+          w = Se(r);
+          E = Te(r);
+          w = Ue(t, w, E);
           r = r.replace(/export(\s+)const(\s+)(\S+)\s+=/, y => y.replace("const", "let"));
           r += `${Q}${Q}${w}`;
         }
@@ -3341,21 +3258,104 @@ function gf(a = {}) {
     }
   };
 }
-const hf = async(a, b, c, d) => {
+const Ye = async(a, b, c, d) => {
   const e = d.jsxOptions, f = d.exportClasses;
-  /\.jsx$/.test(a) && (b = Oe(b, e), c && (b = `${c}${Q}${b}`));
-  return b = /\.css$/.test(a) ? jf(b, {exportClasses:f, path:a}) : await $e(a, b, d);
-}, jf = (a, {exportClasses:b = !0, path:c = ""} = {}) => {
+  /\.jsx$/.test(a) && (b = Ee(b, e), c && (b = `${c}${Q}${b}`));
+  return b = /\.css$/.test(a) ? Ze(b, {exportClasses:f, path:a}) : await Qe(a, b, d);
+}, Ze = (a, {exportClasses:b = !0, path:c = ""} = {}) => {
   var d = [];
-  b && (d = a.split(/\r?\n/).filter(e => /^\S/.test(e)).join(Q), d = Se(/\.([\w\d_-]+)/g, d, ["className"]).map(({className:e}) => e).filter((e, f, g) => g.indexOf(e) == f));
+  b && (d = a.split(/\r?\n/).filter(e => /^\S/.test(e)).join(Q), d = Ie(/\.([\w\d_-]+)/g, d, ["className"]).map(({className:e}) => e).filter((e, f, g) => g.indexOf(e) == f));
   c = c.replace(/\.css$/, "").replace(/[/\\]/g, "-").replace(/[^\w\d_-]/g, "");
-  return `(${af.toString().replace(/FRONTEND-STYLE-ID/g, c)})(\`${a}\`)
+  return `(${Re.toString().replace(/FRONTEND-STYLE-ID/g, c)})(\`${a}\`)
 ${d.map(e => `export const $${e} = '${e}'`).join(Q)}`.replace(/\r?\n/g, Q).trim();
 };
+const $e = querystring.parse, af = querystring.stringify;
+const bf = async(a, b, c, d) => {
+  a.session.token = b;
+  a.session.scope = c;
+  a.session.user = d;
+  await a.session.manuallyCommit();
+  a.redirect("/");
+};
+function cf(a, b) {
+  if (!b) {
+    throw Error("Config with at least client_id and client_secret is required.");
+  }
+  const {client_id:c = "", client_secret:d = "", path:e = "/auth/github", redirectPath:f = `${e}/redirect`, scope:g = "", error:h = (n, q, r) => {
+    throw Error(r);
+  }, finish:k = bf, session:l} = b;
+  c || console.warn("[github] No client id - the dialog won't work.");
+  d || console.warn("[github] No client secret - the redirect won't work.");
+  const m = async n => {
+    if (!n.session) {
+      throw Error("Cannot start github middleware because session was not started.");
+    }
+    var q = Math.floor(10000 * Math.random());
+    n.session["githib-state"] = q;
+    await n.session.manuallyCommit();
+    const r = df(n, f);
+    q = ef({ga:r, client_id:c, scope:g, state:q});
+    n.redirect(q);
+  }, p = async(n, q) => {
+    var r = df(n, f);
+    let u;
+    if (!n.session) {
+      throw Error("Cannot finish github middleware because session was not started.");
+    }
+    u = n.query.state;
+    if (u != n.session["githib-state"]) {
+      throw Error("The state is incorrect.");
+    }
+    n.session["githib-state"] = null;
+    await n.session.manuallyCommit();
+    if (n.query.error) {
+      await h(n, n.query.error, n.query.error_description, q);
+    } else {
+      var t = n.query.code;
+      if (!t) {
+        throw Error("Code Not Found.");
+      }
+      var {access_token:x, scope:w} = await ff({client_id:c, client_secret:d, ga:r, code:t, state:u});
+      r = [gf(x), .../user:email/.test(w) ? [hf(x)] : []];
+      var [E, y] = await Promise.all(r);
+      y && (E.emails = y);
+      await k(n, x, w, E, q);
+    }
+  };
+  a.use(async(n, q) => {
+    if (n.path == e) {
+      l && await l(n, () => {
+      }), await m(n);
+    } else {
+      if (n.path == f) {
+        l && await l(n, () => {
+        }), await p(n, q);
+      } else {
+        return q();
+      }
+    }
+  });
+}
+const gf = async a => await jf({ua:a, path:"user"}), hf = async a => await jf({ua:a, path:"user/emails"}), jf = async a => {
+  var b = a.ua;
+  const c = `https://api.github.com/${a.path}`;
+  a = af(a.data);
+  b = await $d(`${c}?${a}`, {headers:{Authorization:`token ${b}`, Accept:"application/json", "User-Agent":"@idio/github http://github.com/idiocc/github"}});
+  if (b.message) {
+    throw Error(b.message);
+  }
+  return b;
+}, ff = async({code:a, client_id:b, client_secret:c, ga:d, state:e}) => {
+  const {access_token:f, scope:g, token_type:h, error:k, error_description:l} = await $d("https://github.com/login/oauth/access_token", {data:{code:a, redirect_uri:d, client_id:b, client_secret:c, ...e ? {state:e} : {}}, headers:{Accept:"application/json"}});
+  if (k) {
+    throw a = Error(l), a.type = k, a;
+  }
+  return {access_token:f, scope:g, token_type:h};
+}, ef = ({ga:a, client_id:b, scope:c, state:d}) => `https://www.github.com/login/oauth/authorize?${af({client_id:b, redirect_uri:a, ...d ? {state:d} : {}, ...c ? {scope:c} : {}})}`, df = ({protocol:a, host:b}, c) => [/\.ngrok\.io$/.test(b) ? "https" : a, "://", b, c].join("");
 const kf = async(a, {Za:b, query:c = {}} = {}, d) => {
   const e = R();
-  c = rc(c);
-  const {error:f, ...g} = await oc(`${/^https?:\/\//.test(a) ? a : `http://${a}`}${c ? `?${c}` : ""}`, {...b, data:d});
+  c = af(c);
+  const {error:f, ...g} = await Zd(`${/^https?:\/\//.test(a) ? a : `http://${a}`}${c ? `?${c}` : ""}`, {...b, data:d});
   if (f) {
     throw a = Error("string" == typeof f ? f : f.reason), f.type && (a.type = f.type), e(a);
   }
@@ -3408,14 +3408,14 @@ const of = {["static"](a, b, c) {
       throw Error("To create a Keygrip instance with custom algorithm, keys must be provided.");
     }
     e = new Ra(d, f);
-    Oc("Created Keygrip instance with %s algorithm", f);
+    kc("Created Keygrip instance with %s algorithm", f);
   }
   if (!(!1 === g.signed || e || d && 0 in d)) {
     throw Error("Session keys are signed by default, unless you set signed=false, you must provide an array with keys.");
   }
-  e ? Oc("session: Setting a Keygrip instance on the app") : d ? Oc("session: Setting an array of keys of length %s on the app", d.length) : Oc("session: the cookies won't be signed as no keys are provided.");
+  e ? kc("session: Setting a Keygrip instance on the app") : d ? kc("session: Setting an array of keys of length %s on the app", d.length) : kc("session: the cookies won't be signed as no keys are provided.");
   a.keys = e || d;
-  return Lc(g);
+  return hc(g);
 }, ["cors"](a, b, c) {
   const {origin:d, ...e} = c;
   a = Array.isArray(d) ? f => {
@@ -3425,13 +3425,13 @@ const of = {["static"](a, b, c) {
   return Va({origin:a, ...e});
 }, form:function(a, b, c) {
   const {any:d, array:e, none:f, fields:g, single:h, ...k} = c;
-  return d ? (new ie(k)).any() : e ? (new ie(k)).array(e.name, e.maxFiles) : f ? (new ie(k)).none() : g ? (new ie(k)).fields(g) : h ? (new ie(k)).single(h) : new ie(k);
+  return d ? (new Id(k)).any() : e ? (new Id(k)).array(e.name, e.maxFiles) : f ? (new Id(k)).none() : g ? (new Id(k)).fields(g) : h ? (new Id(k)).single(h) : new Id(k);
 }, frontend:function(a, b, c, d, e) {
   !0 === c.hotReload && (c.hotReload = {});
   a = c.hotReload;
   let f;
   a && (a.getServer || (a.getServer = e.getServer), a.watchers ? f = a.watchers : (f = {}, a.watchers = f));
-  c = gf(c);
+  c = Xe(c);
   f && (c.watchers = f);
   return c;
 }, csrfCheck:function(a, b, c) {
@@ -3457,12 +3457,12 @@ const of = {["static"](a, b, c) {
   };
 }, ["logarithm"](a, b, c) {
   return nf(c);
-}, ["jsonBody"]() {
+}, jsonBody:function() {
   return async function(a, b) {
     if (!a.is("json")) {
       return b();
     }
-    let c = await hc(a.req);
+    let c = await Dd(a.req);
     try {
       c = JSON.parse(c);
     } catch (d) {
@@ -3471,7 +3471,7 @@ const of = {["static"](a, b, c) {
     a.request.body = c;
     return b();
   };
-}, ["github"](a, b, c, d) {
+}, github:function(a, b, c, d) {
   if (!d.session) {
     throw Error("You need to configure session before GitHub middleware.");
   }
@@ -3481,13 +3481,14 @@ const of = {["static"](a, b, c) {
   }
   f || (f = {[e]:h});
   Object.entries(f).forEach(([l, m]) => {
-    tc(a, {path:l, scope:m, redirectPath:g, ...k, session:d.session});
+    cf(a, {path:l, scope:m, redirectPath:g, ...k, session:d.session});
   });
 }};
 async function pf(a, b, c, d, e = {}) {
   if ("function" == typeof b) {
-    return c.use(b), b;
+    return a = b, c.use(a), a;
   }
+  !0 === b && (b = {use:!0});
   const {use:f, config:g = {}, middlewareConstructor:h, ...k} = b;
   if (a in of) {
     b = of[a];
@@ -3511,7 +3512,7 @@ async function qf(a, b, c = {}) {
     if (!h) {
       throw Error("key is expected for neoluddite integration.");
     }
-    b.use(ke(f, g, k, h));
+    b.use(ae(f, g, k, h));
   }
   return await Object.keys(e).reduce(async(f, g) => {
     f = await f;
@@ -4039,7 +4040,7 @@ class qg {
       a.name += ".sig";
       rg(f, a);
     }
-    (d.set ? Zb.prototype.setHeader : d.setHeader).call(d, "Set-Cookie", f);
+    (d.set ? Md.prototype.setHeader : d.setHeader).call(d, "Set-Cookie", f);
     return this;
   }
 }
@@ -4532,12 +4533,12 @@ function dh(a) {
   var b = a.url;
   if (void 0 !== b) {
     var c = a._parsedUrl;
-    if ("object" === typeof c && null !== c && (void 0 === cc || c instanceof cc) && c._raw === b) {
+    if ("object" === typeof c && null !== c && (void 0 === Qd || c instanceof Qd) && c._raw === b) {
       return c;
     }
     a: {
       if ("string" !== typeof b || 47 !== b.charCodeAt(0)) {
-        c = ec(b);
+        c = Sd(b);
       } else {
         c = b;
         for (var d = null, e = null, f = 1; f < b.length; f++) {
@@ -4553,11 +4554,11 @@ function dh(a) {
             case 35:
             case 160:
             case 65279:
-              c = ec(b);
+              c = Sd(b);
               break a;
           }
         }
-        f = void 0 !== cc ? new cc : {};
+        f = void 0 !== Qd ? new Qd : {};
         f.path = b;
         f.href = b;
         f.pathname = c;
@@ -4659,21 +4660,21 @@ class ih {
   }
   set path(a) {
     const b = dh(this.req);
-    b.pathname !== a && (b.pathname = a, b.path = null, this.url = dc(b));
+    b.pathname !== a && (b.pathname = a, b.path = null, this.url = Rd(b));
   }
   get query() {
     const a = this.querystring, b = this.la = this.la || {};
-    return b[a] || (b[a] = qc(a));
+    return b[a] || (b[a] = $e(a));
   }
   set query(a) {
-    this.querystring = rc(a);
+    this.querystring = af(a);
   }
   get querystring() {
     return this.req ? dh(this.req).query || "" : "";
   }
   set querystring(a) {
     const b = dh(this.req);
-    b.search !== `?${a}` && (b.search = a, b.path = null, this.url = dc(b));
+    b.search !== `?${a}` && (b.search = a, b.path = null, this.url = Rd(b));
   }
   get search() {
     return this.querystring ? `?${this.querystring}` : "";
@@ -4694,7 +4695,7 @@ class ih {
     if (!this.V) {
       const a = this.originalUrl || "";
       try {
-        this.V = new bc(`${this.origin}${a}`);
+        this.V = new Pd(`${this.origin}${a}`);
       } catch (b) {
         this.V = Object.create(null);
       }
@@ -4842,8 +4843,8 @@ class kh {
         this.set(a.headers);
         this.type = "text";
         "ENOENT" == a.code && (a.status = 404);
-        "number" == typeof a.status && I[a.status] || (a.status = 500);
-        b = I[a.status];
+        "number" == typeof a.status && H[a.status] || (a.status = 500);
+        b = H[a.status];
         b = a.expose ? a.message : b;
         this.status = a.status;
         this.length = Buffer.byteLength(b);
@@ -4882,10 +4883,10 @@ class lh {
     return this.res.statusCode;
   }
   set status(a) {
-    this.headerSent || (K(Number.isInteger(a), "status code must be a number"), K(100 <= a && 999 >= a, `invalid status code: ${a}`), this.c = !0, this.res.statusCode = a, 2 > this.req.httpVersionMajor && (this.res.statusMessage = I[a]), this.body && ha[a] && (this.body = null));
+    this.headerSent || (K(Number.isInteger(a), "status code must be a number"), K(100 <= a && 999 >= a, `invalid status code: ${a}`), this.c = !0, this.res.statusCode = a, 2 > this.req.httpVersionMajor && (this.res.statusMessage = H[a]), this.body && ha[a] && (this.body = null));
   }
   get message() {
-    return this.res.statusMessage || I[this.status];
+    return this.res.statusMessage || H[this.status];
   }
   set message(a) {
     this.res.statusMessage = a;
@@ -5081,7 +5082,7 @@ async function nh(a, b) {
     a.onerror(d);
   }
 }
-class ph extends Pc {
+class ph extends lc {
   constructor(a = {}) {
     const {proxy:b = !1, subdomainOffset:c = 2, env:d = process.env.NODE_ENV || "development", keys:e, Context:f = kh} = a;
     super();
@@ -5100,7 +5101,7 @@ class ph extends Pc {
   }
   listen(...a) {
     mh("listen");
-    return $b(this.callback()).listen(...a);
+    return Nd(this.callback()).listen(...a);
   }
   toJSON() {
     return {subdomainOffset:this.subdomainOffset, proxy:this.proxy, env:this.env};
@@ -5455,7 +5456,7 @@ class Bh {
       d.some(g => g.name) ? f = a : b = a;
     }
     c = e(f);
-    return b && b.query ? (e = b.query, e = "string" == typeof e ? e : rc(e), `${c}?${e}`) : c;
+    return b && b.query ? (e = b.query, e = "string" == typeof e ? e : af(e), `${c}?${e}`) : c;
   }
   param(a, b) {
     function c(f, g) {
@@ -5650,7 +5651,7 @@ class Dh {
 Dh.url = function(a, ...b) {
   return Bh.prototype.url.apply({path:a}, b);
 };
-const Eh = Yb.map(a => a.toLowerCase());
+const Eh = Ld.map(a => a.toLowerCase());
 [...Eh, "all"].forEach(a => {
   function b(c, d, ...e) {
     "string" == typeof d || d instanceof RegExp || (e = [d, ...e], d = c, c = null);
@@ -5821,14 +5822,14 @@ function Sh(a, b = {}, c = {}, d = !1, e = !1, f) {
   }
   var z = `${t}`.match(Qh);
   r && z && (v = v.replace(/>$/, " />"));
-  let H = [];
+  let I = [];
   if (d) {
     !w && g && (Lh(d) || d.length + Uh(v) > u) && (d = "\n" + y + `${d}`.replace(/(\n+)/g, "$1" + (y || "\t"))), v += d;
   } else {
     if (a.children) {
       let D = g && v.includes("\n");
       const T = [];
-      H = a.children.map((C, B) => {
+      I = a.children.map((C, B) => {
         if (null != C && !1 !== C) {
           var F = Sh(C, b, c, !0, "svg" == t ? !0 : "foreignObject" == t ? !1 : e, f);
           if (F) {
@@ -5841,7 +5842,7 @@ function Sh(a, b = {}, c = {}, d = !1, e = !1, f) {
           }
         }
       }).filter(Boolean);
-      g && D && !w && (H = H.reduce((C, B, F) => {
+      g && D && !w && (I = I.reduce((C, B, F) => {
         var A = (F = T[F - 1]) && /^<([\s\S]+?)>/.exec(B);
         A && ([, A] = A, A = !Rh.test(A));
         if (F && !A) {
@@ -5862,14 +5863,14 @@ function Sh(a, b = {}, c = {}, d = !1, e = !1, f) {
       }, []));
     }
   }
-  if (H.length) {
-    v += H.join("");
+  if (I.length) {
+    v += I.join("");
   } else {
     if (n) {
       return v.substring(0, v.length - 1) + " />";
     }
   }
-  z || (!Vh(t, H[H.length - 1]) && !w && g && v.includes("\n") && (v += `\n${E}`), v += `</${t}>`);
+  z || (!Vh(t, I[I.length - 1]) && !w && g && v.includes("\n") && (v += `\n${E}`), v += `</${t}>`);
   return v;
 }
 const Vh = (a, b) => `${a}`.match(Rh) && (b ? !/>$/.test(b) : !0);
@@ -5937,7 +5938,7 @@ module.exports = {_createApp:Hh, _compose:aa, _startApp:async function(a = {}, b
   const d = b.addDoctype, e = b.pretty;
   a = Sh(a, b, c);
   return d ? `<!doctype html>${e ? "\n" : ""}${a}` : a;
-}, _websocket:Ve};
+}, _websocket:Le};
 
 
 //# sourceMappingURL=idio.js.map

@@ -5,7 +5,7 @@ const IdioRouter = require('./router')
  * Just create a _Goa_ app without starting it.
  * @param {!_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` server.
  * @param {!_idio.StaticOptions|!Array<!_idio.StaticOptions>} [middlewareConfig.static] _Static_ middleware options.
- * @param {!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
+ * @param {boolean|!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
  * @param {!_idio.SessionOptions} [middlewareConfig.session] _Session_ middleware options.
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
  * @param {!_idio.FormDataOptions} [middlewareConfig.form] _Form Data_ middleware options for receiving file uploads and form submissions.
@@ -13,8 +13,8 @@ const IdioRouter = require('./router')
  * @param {!_idio.NeoLudditeOptions} [middlewareConfig.neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @param {!_idio.CsrfCheckOptions} [middlewareConfig.csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @param {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [middlewareConfig.github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
- * @param {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
- * @param {!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
+ * @param {boolean|!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
+ * @param {boolean|!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
  * @param {!_idio.LogarithmOptions} [middlewareConfig.logarithm] Options to record hits in _ElasticSearch_.
  * @param {!_goa.RouterConfig=} [routerConfig] The optional configuration for the router.
  * @return {Promise<{ app: !_idio.Application, middleware: !Object<string, !_idio.Middleware>, router: !_idio.Router }>}
@@ -27,7 +27,7 @@ async function createApp(middlewareConfig) {
  * Start the server. Sets the `proxy` property to `true` when the NODE_ENV is equal to _production_.
  * @param {!_idio.MiddlewareConfig} [middlewareConfig] Middleware configuration for the `idio` server.
  * @param {!_idio.StaticOptions|!Array<!_idio.StaticOptions>} [middlewareConfig.static] _Static_ middleware options.
- * @param {!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
+ * @param {boolean|!_idio.CompressOptions} [middlewareConfig.compress] _Compression_ middleware options.
  * @param {!_idio.SessionOptions} [middlewareConfig.session] _Session_ middleware options.
  * @param {!_idio.CorsOptions} [middlewareConfig.cors] _CORS_ middleware options.
  * @param {!_idio.FormDataOptions} [middlewareConfig.form] _Form Data_ middleware options for receiving file uploads and form submissions.
@@ -35,8 +35,8 @@ async function createApp(middlewareConfig) {
  * @param {!_idio.NeoLudditeOptions} [middlewareConfig.neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @param {!_idio.CsrfCheckOptions} [middlewareConfig.csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @param {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [middlewareConfig.github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
- * @param {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
- * @param {!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
+ * @param {boolean|!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [middlewareConfig.jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
+ * @param {boolean|!_idio.JSONBodyOptions} [middlewareConfig.jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
  * @param {!_idio.LogarithmOptions} [middlewareConfig.logarithm] Options to record hits in _ElasticSearch_.
  * @param {!_idio.Config} [config] Server configuration object.
  * @param {number} [config.port=5000] The port on which to start the server. Default `5000`.
@@ -245,7 +245,7 @@ module.exports.compose = $compose
  * @typedef {_idio.$MiddlewareConfig & _idio.FnMiddlewareConfig} _idio.MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @typedef {Object} _idio.$MiddlewareConfig `＠record` Middleware configuration for the `idio` server.
  * @prop {!_idio.StaticOptions|!Array<!_idio.StaticOptions>} [static] _Static_ middleware options.
- * @prop {!_idio.CompressOptions} [compress] _Compression_ middleware options.
+ * @prop {boolean|!_idio.CompressOptions} [compress] _Compression_ middleware options.
  * @prop {!_idio.SessionOptions} [session] _Session_ middleware options.
  * @prop {!_idio.CorsOptions} [cors] _CORS_ middleware options.
  * @prop {!_idio.FormDataOptions} [form] _Form Data_ middleware options for receiving file uploads and form submissions.
@@ -253,13 +253,13 @@ module.exports.compose = $compose
  * @prop {!_idio.NeoLudditeOptions} [neoluddite] Records the usage of middleware to compensate their developers' intellectual work.
  * @prop {!_idio.CsrfCheckOptions} [csrfCheck] Enables the check for the presence of session with `csrf` property, and whether it matches the token from either `ctx.request.body` or `ctx.query`.
  * @prop {!_idio.GitHubOptions|!Array<!_idio.GitHubOptions>} [github] Sets up a route for GitHub OAuth authentication. The returned middleware will be installed on the `app` automatically so it doesn't need to be passed to the router.
- * @prop {!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
- * @prop {!_idio.JSONBodyOptions} [jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
+ * @prop {boolean|!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>} [jsonErrors] Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
+ * @prop {boolean|!_idio.JSONBodyOptions} [jsonBody] Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
  * @prop {!_idio.LogarithmOptions} [logarithm] Options to record hits in _ElasticSearch_.
  * @typedef {_idio.FnMiddlewareConfig} FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {!Object<string, !_idio.ConfigItem>} _idio.FnMiddlewareConfig Middleware Config With Functions.
  * @typedef {_idio.ConfigItem} ConfigItem An item in middleware configuration.
- * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }} _idio.ConfigItem An item in middleware configuration.
+ * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: (!_idio.MiddlewareConstructor|undefined), config: (!Object|undefined) }|boolean} _idio.ConfigItem An item in middleware configuration.
  * @typedef {_idio.MiddlewareConstructor} MiddlewareConstructor A function used to create middleware. It will generate a middleware function using the options and config.
  * @typedef {(app: !_goa.Application, config: !Object, options: !Object) => !_goa.Middleware|!_multipart.FormData} _idio.MiddlewareConstructor A function used to create middleware. It will generate a middleware function using the options and config.
  */

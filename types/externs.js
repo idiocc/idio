@@ -91,7 +91,7 @@ _idio.MiddlewareConfig
 _idio.MiddlewareConfig.prototype.static
 /**
  * _Compression_ middleware options.
- * @type {(!_idio.CompressOptions)|undefined}
+ * @type {(boolean|!_idio.CompressOptions)|undefined}
  */
 _idio.MiddlewareConfig.prototype.compress
 /**
@@ -131,12 +131,12 @@ _idio.MiddlewareConfig.prototype.csrfCheck
 _idio.MiddlewareConfig.prototype.github
 /**
  * Tries all downstream middleware, and if an error was caught, serves a JSON response with `error` and `stack` properties (only if `exposeStack` is set to true). Client errors with status code _4xx_ (or that start with `!`) will have full message, but server errors with status code _5xx_ will only be served as `{ error: 'internal server error '}` and the app will emit an error via `app.emit('error')` so that it's logged.
- * @type {(!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>)|undefined}
+ * @type {(boolean|!_idio.JSONErrorsOptions|!Array<!_idio.JSONErrorsOptions>)|undefined}
  */
 _idio.MiddlewareConfig.prototype.jsonErrors
 /**
  * Allows to parse incoming JSON request and store the result in `ctx.request.body`. Throws 400 when the request cannot be parsed.
- * @type {(!_idio.JSONBodyOptions)|undefined}
+ * @type {(boolean|!_idio.JSONBodyOptions)|undefined}
  */
 _idio.MiddlewareConfig.prototype.jsonBody
 /**
@@ -151,7 +151,7 @@ _idio.MiddlewareConfig.prototype.logarithm
 _idio.FnMiddlewareConfig
 /**
  * An item in middleware configuration.
- * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: !_idio.MiddlewareConstructor, config: !Object }}
+ * @typedef {!_goa.Middleware|{ use: boolean, middlewareConstructor: (!_idio.MiddlewareConstructor|undefined), config: (!Object|undefined) }|boolean}
  */
 _idio.ConfigItem
 /**
