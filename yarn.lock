@@ -63,6 +63,11 @@
   resolved "https://registry.yarnpkg.com/@externs/nodejs/-/nodejs-1.5.0.tgz#88ff9e7a03c53d19101ee49768e598ff0f39c9ad"
   integrity sha512-2J+FRDjGfKKldTQ5YqLmhQ04/sA9swTQ6OTtPzo4xhg41u1+eiufciXiqW6u3UXEcmm413a27NakgnLbzfp0wQ==
 
+"@externs/preact@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@externs/preact/-/preact-1.3.1.tgz#d97745283c30834b569399be0d85286ab7f02d80"
+  integrity sha512-B6QUjtgqPCzKWpLdZ8YCCPQv2/iECNJ/JBHVy76cWWN/JPOP+HhOGxWRiEo5f1xg0A1ouf0Ca4cLfqX34W+rbQ==
+
 "@goa/accepts@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@goa/accepts/-/accepts-2.0.1.tgz#f1a1bdff577084343a08877caf247bd6c6f22984"
@@ -371,10 +376,10 @@ fpj@^1.3.1:
     "@wrote/read" "^1.0.4"
     resolve-dependency "^1.0.3"
 
-logarithm@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/logarithm/-/logarithm-2.3.1.tgz#4603a9f538eb7bb43f724bf152450171e3a128d8"
-  integrity sha512-U3YwVDmsbT7yXgsH1isiAyMIzuFo8Q3tKuB/QJlRW3rjyor7DGIguHDPyUkSgsBJ+k+sv/u4TsiPP6U5/jZvIw==
+logarithm@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/logarithm/-/logarithm-2.4.0.tgz#a8f011039c71f944a25fe06797061ac0de4c0aba"
+  integrity sha512-nTaxkKDwy4NTlfOPs5HNuDzEyAHt0nHlJBPxLbk3HWQHc/NUrzxzC4dfESbwFBZAvzde+3DYWYWH1QSmligQGQ==
 
 makepromise@^3.0.3, makepromise@^3.1.0, makepromise@^3.2.0:
   version "3.2.0"

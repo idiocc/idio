@@ -1,3 +1,4 @@
+import '@externs/preact/types/externs'
 import '../types/modules/externs'
 import '../types/options/externs'
 import '../types/externs'
