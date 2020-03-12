@@ -11,7 +11,7 @@ import idio from '../../../compile'
     frontend: {
       use: true,
       directory: 'wiki/Front-End/frontend',
-      hotReload: {}, // enable reload
+      hotReload: true, // enable reload
     },
   })
   /* end example */

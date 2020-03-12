@@ -1,3 +1,9 @@
+## 12 March 2020
+
+### [1.6.2](https://github.com/idiocc/idio/compare/v1.6.1...v1.6.2)
+
+- [fix] Upgrade `front-end` to fix hot-reload.
+
 ## 10 March 2020
 
 ### [1.6.1](https://github.com/idiocc/idio/compare/v1.6.0...v1.6.1)
