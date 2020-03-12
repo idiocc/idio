@@ -85,7 +85,7 @@
     "@goa/uuid": "^1.0.2",
     "@idio/debug": "^1.2.3",
     "@idio/dicer": "^1.1.0",
-    "@idio/frontend": "^2.2.3",
+    "@idio/frontend": "^2.3.1",
     "@idio/github": "^1.5.1",
     "@idio/websocket": "^1.1.1",
     "@multipart/append-field": "^1.0.1",

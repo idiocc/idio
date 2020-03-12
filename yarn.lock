@@ -202,12 +202,10 @@
   resolved "https://registry.yarnpkg.com/@idio/dicer/-/dicer-1.1.0.tgz#d58b177983935b22f72263c3e31145ea924c6a7d"
   integrity sha512-GWro5lIxHrQPWkNlUFi1IPBWR/bJT9HuJlhJTN5KA5oyRKgcDJRaB5Js9O1no1SDsAFxEVm6QT/pgOAgR03vRg==
 
-"@idio/frontend@^2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-2.2.3.tgz#f570f9ab57510687ceac3a97fc7dc8c1f92d47f9"
-  integrity sha512-uZ16qHgNNW+s8qNH06xx6xWlBHtqEHZQrP5rGArsLDBAMGKBaEUKB/xrKypa2v4JF5MAu4NksYqpaRsggovNug==
-  dependencies:
-    node-watch "^0.6.3"
+"@idio/frontend@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@idio/frontend/-/frontend-2.3.1.tgz#cf08a25472e4340c96b1ae5467206a4ff9a3e3f5"
+  integrity sha512-GgpvRZyiVPA37kTXaR/H/UhA6zlAFWpLWqmRhkIX1Y+7Aa0ETkL0wPc1ZZRyHf6kdK69Kox4XjKE+TFd0fgwrg==
 
 "@idio/github@^1.5.1":
   version "1.5.1"
@@ -397,11 +395,6 @@ mismatch@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.2.0.tgz#3f5021861e8084e36a14c2c1f9489941cd18f790"
   integrity sha512-kuw1k8ZHS+12fBVAVOBXMBJBXcNGnByFTJIDzH4W4v84OocejZ/qzxmT4ll9CLX5OD23NXr+NvrQDus0BsQ8xw==
-
-node-watch@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/node-watch/-/node-watch-0.6.3.tgz#9abf739ae0638435be6c0d1c99d4dc2e53df7317"
-  integrity sha512-InVPsg51EemnMVH3fvrrSVgqVBMlksZ/mK7ZDWx/NuWdNQi28wcVJX1/BP38alraPFXbRi9jZ35OfK4Ra7l8Bg==
 
 pedantry@^2.3.1:
   version "2.5.2"
